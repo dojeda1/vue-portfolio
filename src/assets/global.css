@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:700|Montserrat+Alternates');
+
+body {
+    background-color: whitesmoke;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.dom-green1 {
+    background-color: #8dc63f
+}
+
+.dom-green1-dark {
+    background-color: #5d832b;
+}
+
+.dom-green2 {
+    background-color: #2bb673
+}
+
+.dom-blue {
+    background-color: #27aae1
+}
+
+.dom-green1-text {
+    color: #8dc63f
+}
+
+.dom-green2-text {
+    color: #2bb673
+}
+
+.dom-blue-text {
+    color: #27aae1
+}
+
+.font1 {
+}
+
+/* .font2 {
+    font-family: 'Alegreya Sans SC', sans-serif;
+} */
+
+/* HERE */
+
+#nav {
+    background-color: #212121;
+    color: white;
+}
+#nav a {
+    color: white;
+}
