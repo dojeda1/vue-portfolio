@@ -1,17 +1,34 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <Nav msg="Welcome to Your Vue.js App"/>
+  <div id="main-content">
+    <Hero/>
+    <Portfolio/>
+    <About/>
+    <Contact/>
+    <Footer/>
+  </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import Nav from './components/Nav.vue'
+import Hero from './components/Hero.vue'
+import Portfolio from './components/Portfolio.vue'
+import About from './components/About.vue'
+// import Contact from './components/Contact.vue'
+// import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
     // HelloWorld
-    Nav
+    Nav,
+    Hero,
+    Portfolio,
+    About,
+    // Contact,
+    // Footer
   }
 }
 </script>
@@ -37,6 +54,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+  box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
