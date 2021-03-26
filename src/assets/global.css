@@ -34,8 +34,20 @@ p {
     width: 90%;
     max-width: 1200px;
     margin: auto;
-    margin-bottom: 300px;
+    margin-bottom: 2rem;
     /* background-color: pink; */
+}
+.preview-img {
+    width: 100%;
+    transition: all .2s ease-in-out;
+    box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 30%);
+    cursor: zoom-in;
+}
+.preview-img.zoomed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    cursor: zoom-out;
 }
 
 .dom-green-1 {
@@ -197,13 +209,13 @@ p {
     width: 200px;
     text-align: center;
     padding: 10px;
-    transition: all .2s ease-in-out;
     cursor: pointer;
 }
 .paint-pic {
     width: 100%;
+    transition: all .2s ease-in-out;
 }
-.paint-pic-container:hover {
+.paint-pic-container:hover .paint-pic{
     transform: translateY(-5px);
     transform: scale(1.1);
 }

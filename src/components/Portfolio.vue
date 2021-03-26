@@ -9,8 +9,8 @@
         </div>
         <div class="paint-pics">
             <div class="paint-pic-container"
-            v-bind:class="{ active: project.isActive, 'text-danger': hasError }"
-            @click.prevent="swapProject(index)"
+            :class="{ active: project.isActive, 'text-danger': hasError }"
+            @click="swapProject(index)"
             v-for="(project, index) in projects"
             :key="index">
                 <img class="paint-pic" :src="project.paint" alt="Painted Preview">
@@ -38,13 +38,22 @@
                 <p>{{ currentProject.list.join(', ') }}</p>
             </div>
             <div class="col-1">
-                <img class="portfolio-devices" :src="currentProject.img1" alt="Screenshot 1">
+                <img class="preview-img" alt="Screenshot 1"
+                :class="{zoomed: isZoomed[0]}"
+                :src="currentProject.img1"
+                @click="zoomImage(0)">
             </div>
             <div class="col-2 row-2">
-                <img class="portfolio-devices" :src="currentProject.img2" alt="Screenshot 2">
+                <img class="preview-img" alt="Screenshot 2"
+                :class="{zoomed: isZoomed[1]}"
+                :src="currentProject.img2"
+                @click="zoomImage(1)">
             </div>
             <div class="col-1">
-                <img class="portfolio-devices" :src="currentProject.img3" alt="Screenshot 2">
+                <img class="preview-img" alt="Screenshot 3"
+                :class="{zoomed: isZoomed[2]}"
+                :src="currentProject.img3"
+                @click="zoomImage(2)">
             </div>
         </div>
     </div>
@@ -56,19 +65,12 @@ export default {
     name: 'Portfolio',
     data() {
         return {
-        currentProject: {
-            title: "Meal Planner",
-            mockup: "/images/meal-planner/meal-planner-mockup.png",
-            paint: "/images/meal-planner/meal-planner-paint.png",
-            img1: "/images/meal-planner/meal-planner-search.jpg",
-            img2: "/images/meal-planner/meal-planner-fav.jpg",
-            img3: "/images/meal-planner/meal-planner-cal.jpg",
-            visit: "https://stephanfalcon.github.io/PlusUltraProject/",
-            code: "https://github.com/stephanfalcon/PlusUltraProject",
-            sum: "Using the Spoonacular API, Meal Planner allows you to look up recipes with optional dietary restrictions and save them to your favorites. You can view recipe cards to see a meal's ingredients and instructions. From the Calendar page, you can choose any recipe from your favorites, add it to a meal period on your weekly calendar, and save the plan for later. Both the favorites and the weekly meal plan are stored using Firebase's realtime database.",
-            list: ["HTML", "CSS", "JavaScript", "jQuery", "Materialize", "Firebase", "Spoonacular API", "Heal Thru Words API"],
-            isActive: true
-        },
+        currentProject: {},
+        isZoomed: [
+            false,
+            false,
+            false
+        ],
         projects: [
             {
                 title: "Meal Planner",
@@ -189,7 +191,14 @@ export default {
             this.currentProject = this.projects[ind];
             this.projects.forEach(project => project.isActive = false)
             this.projects[ind].isActive = true;
+        },
+        zoomImage(ind) {
+            console.log('hey');
+            this.isZoomed[ind] = !this.isZoomed[ind];
         }
+    },
+    created: function() {
+        this.swapProject(0);
     }
 }
 </script>
