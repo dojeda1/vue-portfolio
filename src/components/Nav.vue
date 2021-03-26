@@ -28,5 +28,40 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+  #nav {
+      background-color: #212121;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100%;
+      text-align: center;
+  }
+  #nav .nav-link {
+      color: white;
+      display: block;
+      padding: 15px 5px;
+      text-decoration: none;
+      cursor: pointer;
+  }
 
+  #nav .nav-link.game-link {
+      /* color: #4d4d4d; */
+      color: slategrey;
+  }
+
+  #nav .nav-link:hover {
+      color: #27aae1;
+      border-right: #27aae1 5px solid;
+  }
+
+  #nav .nav-logo {
+      /* width: 100%; */
+  }
+
+  #nav .nav-logo img {
+      padding: 20px;
+      width: 100%;
+  }
 </style>

@@ -9,7 +9,7 @@
         </div>
         <div class="paint-pics">
             <div class="paint-pic-container"
-            :class="{ active: project.isActive, 'text-danger': hasError }"
+            :class="{ 'active': project.isActive}"
             @click="swapProject(index)"
             v-for="(project, index) in projects"
             :key="index">
@@ -21,7 +21,7 @@
             <h5 class=" dom-green-1-text">Project Summary</h5>
         </div>
         <div class="grid">
-            <div class="col-2">
+            <div class="col-8">
                 <h5>{{ currentProject.title }}</h5>
                 <img class="portfolio-devices" :src="currentProject.mockup" alt="Mockup">
                 <a :href="currentProject.visit">
@@ -31,27 +31,27 @@
                     <button>CODE 0</button>
                 </a>
             </div>
-            <div class="col-1">
+            <div class="col-4">
                 <h6 class=" dom-green-1-text">- About the Project -</h6>
                 <p>{{ currentProject.sum }}</p>
                 <h6 class=" dom-green-1-text">- Made Using -</h6>
                 <p>{{ currentProject.list.join(', ') }}</p>
             </div>
-            <div class="col-1">
+            <div class="col-4">
                 <img class="preview-img" alt="Screenshot 1"
-                :class="{zoomed: isZoomed[0]}"
+                :class="{'zoomed': isZoomed[0]}"
                 :src="currentProject.img1"
                 @click="zoomImage(0)">
             </div>
-            <div class="col-2 row-2">
+            <div class="col-8 row-2">
                 <img class="preview-img" alt="Screenshot 2"
-                :class="{zoomed: isZoomed[1]}"
+                :class="{'zoomed': isZoomed[1]}"
                 :src="currentProject.img2"
                 @click="zoomImage(1)">
             </div>
-            <div class="col-1">
+            <div class="col-4">
                 <img class="preview-img" alt="Screenshot 3"
-                :class="{zoomed: isZoomed[2]}"
+                :class="{'zoomed': isZoomed[2]}"
                 :src="currentProject.img3"
                 @click="zoomImage(2)">
             </div>
@@ -180,10 +180,8 @@ export default {
         }
     },
     methods: {
-        log() {
-            var ind = event.target.getAttribute('data-project-index');
-            console.log('Hey you',ind);
-            
+        log(msg) {
+            console.log('Log:',msg);
         },
         swapProject(ind) {
             console.log(ind)
@@ -205,5 +203,48 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
+    .preview-img {
+        width: 100%;
+        transition: all .2s ease-in-out;
+        box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 30%);
+        cursor: zoom-in;
+    }
+    .preview-img:hover {
+        opacity: .8;
+    }
+    .preview-img.zoomed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        cursor: zoom-out;
+    }
+    .preview-img.zoomed:hover {
+        opacity: 1;
+    }
+    .portfolio-devices {
+    width: 100%;
+    }
+    .paint-pics {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .paint-pic-container {
+        width: 200px;
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+    }
+    .paint-pic {
+        width: 100%;
+        transition: all .2s ease-in-out;
+    }
+    .paint-pic-container:hover .paint-pic{
+        transform: translateY(-5px);
+        transform: scale(1.1);
+    }
+    .paint-pic-container.active {
+        color: #8dc63f;
+    }
 </style>

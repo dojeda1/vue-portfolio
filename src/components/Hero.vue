@@ -25,5 +25,36 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+    #hero {
+        height: 100%;
+        min-height: 500px;
+        padding: 20px;
+        background-color: #2bb673;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        background-position: center;
+        background-size: cover;
+    }
 
+    .hero-logo {
+        width: 200px;
+        margin: 0 25px 1rem 0;
+    }
+
+    .hero-icons {
+        margin-top: 1rem;
+    }
+
+    .hero-icon {
+        width: 60px;
+        margin: 0 25px;
+        transition: all .2s ease-in-out;
+    }
+    .hero-icon:hover {
+        transform: translateY(-5px) scale(1.2);
+    }
 </style>
