@@ -169,6 +169,11 @@ button:hover {
     color: #8dc63f;
 }
 
+button i {
+    margin-left: 10px;
+    float: right;
+}
+
 .rotate {
     animation: rotate .8s !important;
     animation-iteration-count: 1;
@@ -181,5 +186,52 @@ button:hover {
 
     to {
         transform: rotate(359deg) scale(1.1)
+    }
+}
+
+/* Media Queries */
+@media screen and (max-width: 600px) {
+    #main-content{
+        width: 100%;
+        margin: 60px 0 0;
+    }
+    .grid {
+        grid-gap: 5px;
+    }
+    .s_col-1 {
+        grid-column: span 1;
+    }
+    .s_col-2 {
+        grid-column: span 2;
+    }
+    .s_col-3 {
+        grid-column: span 3;
+    }
+    .s_col-4 {
+        grid-column: span 4;
+    }
+    .s_col-5 {
+        grid-column: span 5;
+    }
+    .s_col-6 {
+        grid-column: span 6;
+    }
+    .s_col-7 {
+        grid-column: span 7;
+    }
+    .s_col-8 {
+        grid-column: span 8;
+    }
+    .s_col-9 {
+        grid-column: span 9;
+    }
+    .s_col-10 {
+        grid-column: span 10;
+    }
+    .s_col-11 {
+        grid-column: span 11;
+    }
+    .s_col-12 {
+        grid-column: span 12;
     }
 }

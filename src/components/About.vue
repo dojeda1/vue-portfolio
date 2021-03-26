@@ -5,7 +5,7 @@
     </div>
     <div class="container">
         <div class="grid">
-            <div class="col-8">
+            <div class="col-8 s_col-12">
                 <div class="section-header">
                     <h5 class=" dom-green-2-text">Summary</h5>
                 </div>
@@ -13,7 +13,7 @@
                     I am a web developer who enjoys coding on both front-end and back-end. Experience producing web applications with HTML, CSS, and JavaScript and creating visual elements with Photoshop and Illustrator. I have a passion for making programs that are visually appealing and fun to interact with. I enjoy solving problems creatively and I am always determined to try again and again until the vision becomes reality. I believe clear communication is key to completing any project, and I work well in a team or going at it alone. I know that the right code can solve any problem.
                 </p>
             </div>
-            <div class="col-4">
+            <div class="col-4 s_col-12">
                 <div class="section-header">
                     <h5 class=" dom-green-2-text">My Tool Belt</h5>
                 </div>
@@ -61,7 +61,7 @@
             <h5 class=" dom-green-2-text">My Interests</h5>
         </div>
         <div class="interests grid">
-            <div class="col-3">
+            <div class="col-3 s_col-12">
                 <img class="interest-icon" src="/images/web-portfolio/tree-logo.png" alt="CSS Logo"
                 :class="{'rotate': isRotated[12]}"
                 @click="rotate(12)">
@@ -69,7 +69,7 @@
                     Nature is incredible. The trees, rocks, and rivers give us everything we need for life. Being outdoors, taking in the fresh air and looking at all the wonder this world has to offer can always give me sense of peace and purpose.
                 </p>
             </div>
-            <div class="col-3">
+            <div class="col-3 s_col-12">
                 <img class="interest-icon" src="/images/web-portfolio/space-logo.png" alt="CSS Logo"
                 :class="{'rotate': isRotated[13]}"
                 @click="rotate(13)">
@@ -77,7 +77,7 @@
                     The vastness of the universe forever leaves me in awe. I love learning about the planets and stars, and how they all mesh together to form the cosmos. There is so much we don't yet know, and that's part of what makes it so exciting.
                 </p>
             </div>
-            <div class="col-3">
+            <div class="col-3 s_col-12">
                 <img class="interest-icon" src="/images/web-portfolio/art-logo.png" alt="CSS Logo"
                 :class="{'rotate': isRotated[14]}"
                 @click="rotate(14)">
@@ -85,7 +85,7 @@
                     Art has always been one of my great loves. I enjoy creating characters, concept art, and logo designs using both traditional and digital medium. Many hours have been spent huddled over my desk working on my next piece.
                 </p>
             </div>
-            <div class="col-3">
+            <div class="col-3 s_col-12">
                 <img class="interest-icon" src="/images/web-portfolio/game-logo.png" alt="CSS Logo"
                 :class="{'rotate': isRotated[15]}"
                 @click="rotate(15)">
@@ -170,4 +170,17 @@ export default {
         transform: scale(1.1);
         transition: all .1s ease-in-out;
     }
+
+    @media only screen and (max-width: 600px) {
+        .interests {
+            text-align: left;
+        }
+        .interest-icon {
+            float: left;
+            margin-top: 5px;
+            margin-bottom: 0px;
+            margin-right: 5px
+        }
+    }
+
 </style>

@@ -69,4 +69,32 @@ name: 'Nav',
       padding: 20px;
       width: 100%;
   }
+
+  @media screen and (max-width: 600px) {
+    #nav {
+      background-color: gray;
+      width: 100%;
+      height: 60px;
+      text-align: left;
+      /* display: flex; */
+      /* flex-direction: row; */
+      /* justify-content: flex-start; */
+    }
+
+    #nav .nav-logo img {
+      padding: 10px;
+      height: 100%;
+      width: auto;
+    }
+
+    #nav .nav-link {
+      display: inline-block;
+    }
+    #nav .nav-link:hover {
+        color: #27aae1;
+        border-bottom: #27aae1 5px solid;
+        border-right: none;
+    }
+  }
+
 </style>

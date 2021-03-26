@@ -21,35 +21,35 @@
             <h5 class=" dom-green-1-text">Project Summary</h5>
         </div>
         <div class="grid">
-            <div class="col-8">
+            <div class="col-8 s_col-12">
                 <h5>{{ currentProject.title }}</h5>
                 <img class="portfolio-devices" :src="currentProject.mockup" alt="Mockup">
                 <a target="_blank" :href="currentProject.visit">
-                    <button>VISIT 0</button>
+                    <button>VISIT<i className="material-icons">public</i></button>
                 </a>
                 <a target="_blank" :href="currentProject.code">
-                    <button>CODE 0</button>
+                    <button>CODE<i className="material-icons">code</i></button>
                 </a>
             </div>
-            <div class="col-4">
+            <div class="col-4 s_col-12">
                 <h6 class=" dom-green-1-text">- About the Project -</h6>
                 <p>{{ currentProject.sum }}</p>
                 <h6 class=" dom-green-1-text">- Made Using -</h6>
                 <p>{{ currentProject.list.join(', ') }}</p>
             </div>
-            <div class="col-4">
+            <div class="col-4 s_col-12">
                 <img class="preview-img" alt="Screenshot 1"
                 :class="{'zoomed': isZoomed[0]}"
                 :src="currentProject.img1"
                 @click="zoomImage(0)">
             </div>
-            <div class="col-8 row-2">
+            <div class="col-8 row-2 s_col-12">
                 <img class="preview-img" alt="Screenshot 2"
                 :class="{'zoomed': isZoomed[1]}"
                 :src="currentProject.img2"
                 @click="zoomImage(1)">
             </div>
-            <div class="col-4">
+            <div class="col-4 s_col-12">
                 <img class="preview-img" alt="Screenshot 3"
                 :class="{'zoomed': isZoomed[2]}"
                 :src="currentProject.img3"
