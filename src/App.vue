@@ -16,7 +16,7 @@ import Nav from './components/Nav.vue'
 import Hero from './components/Hero.vue'
 import Portfolio from './components/Portfolio.vue'
 import About from './components/About.vue'
-// import Contact from './components/Contact.vue'
+import Contact from './components/Contact.vue'
 // import Footer from './components/Footer.vue'
 
 export default {
@@ -27,7 +27,7 @@ export default {
     Hero,
     Portfolio,
     About,
-    // Contact,
+    Contact,
     // Footer
   }
 }

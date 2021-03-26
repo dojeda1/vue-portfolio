@@ -24,10 +24,10 @@
             <div class="col-8">
                 <h5>{{ currentProject.title }}</h5>
                 <img class="portfolio-devices" :src="currentProject.mockup" alt="Mockup">
-                <a :href="currentProject.visit">
+                <a target="_blank" :href="currentProject.visit">
                     <button>VISIT 0</button>
                 </a>
-                <a :href="currentProject.code">
+                <a target="_blank" :href="currentProject.code">
                     <button>CODE 0</button>
                 </a>
             </div>

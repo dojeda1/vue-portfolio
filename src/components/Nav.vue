@@ -8,19 +8,24 @@
       <a href="#about" class="nav-link">About</a>
       <a href="#contact" class="nav-link">Contact</a>
       <a href="/files/dro_resume.pdf" target="blank" class="nav-link">Resume</a>
-      <div class="nav-link game-link" onClick="CLICK">{{code}}</div>
+      <div class="nav-link game-link" @click="log('Start Game')">{{code}}</div>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'Nav',
+name: 'Nav',
   props: {
     msg: String
   },
   data() {
     return {
       code: '< / >'
+    }
+  },
+  methods: {
+    log(msg) {
+        console.log('Log:',msg);
     }
   }
 }
