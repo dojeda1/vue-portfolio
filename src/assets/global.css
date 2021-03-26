@@ -187,6 +187,29 @@ p {
 .portfolio-devices {
     width: 100%;
 }
+.paint-pics {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.paint-pic-container {
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+.paint-pic {
+    width: 100%;
+}
+.paint-pic-container:hover {
+    transform: translateY(-5px);
+    transform: scale(1.1);
+}
+.paint-pic-container.active {
+    color: #8dc63f;
+}
 
 button {
     font-family: 'Montserrat Alternates', sans-serif;
