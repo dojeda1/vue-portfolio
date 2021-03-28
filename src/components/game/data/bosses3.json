@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Rigor",
+        "title": "the Grand Dire Wolf",
+        "type": "boss",
+        "maxHp": 85,
+        "maxMp": 10,
+        "strength": 25,
+        "defense": 9,
+        "speed": 15,
+        "luck": 5,
+        "xp": 100,
+        "inventory": [],
+        "gold": 120
+    },
+    {
+        "name": "Lilith",
+        "title": "Demon of the Black Lake",
+        "type": "boss",
+        "maxHp": 90,
+        "maxMp": 20,
+        "strength": 25,
+        "defense": 9,
+        "speed": 25,
+        "luck": 8,
+        "xp": 100,
+        "inventory": [],
+        "gold": 150
+    },
+    {
+        "name": "Valdora",
+        "title": "Elder Dragon of the Skies",
+        "type": "boss",
+        "maxHp": 100,
+        "maxMp": 20,
+        "strength": 30,
+        "defense": 12,
+        "speed": 30,
+        "luck": 8,
+        "xp": 100,
+        "inventory": [],
+        "gold": 150
+    }
+]

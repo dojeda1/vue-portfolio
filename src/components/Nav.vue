@@ -8,13 +8,13 @@
       <a href="#about" class="nav-link">About</a>
       <a href="#contact" class="nav-link">Contact</a>
       <a href="/files/dro_resume.pdf" target="blank" class="nav-link">Resume</a>
-      <div class="nav-link game-link" @click="log('Start Game')">{{code}}</div>
+      <div class="nav-link game-link" @click="gameToggled">{{code}}</div>
     </div>
 </template>
 
 <script>
 export default {
-name: 'Nav',
+  name: 'Nav',
   props: {
     msg: String
   },
@@ -25,7 +25,11 @@ name: 'Nav',
   },
   methods: {
     log(msg) {
-        console.log('Log:',msg);
+      console.log('Log:',msg);
+    },
+    gameToggled() {
+      console.log('gameTogged!');
+      this.$emit('gameToggled');
     }
   }
 }
@@ -42,6 +46,7 @@ name: 'Nav',
       width: 100px;
       height: 100%;
       text-align: center;
+      z-index: 1;
   }
   #nav .nav-link {
       color: white;
@@ -72,13 +77,18 @@ name: 'Nav',
 
   @media screen and (max-width: 600px) {
     #nav {
-      background-color: gray;
+      /* background-color: gray; */
       width: 100%;
       height: 60px;
       text-align: left;
-      /* display: flex; */
-      /* flex-direction: row; */
-      /* justify-content: flex-start; */
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #nav .nav-logo {
+      display: none;
     }
 
     #nav .nav-logo img {

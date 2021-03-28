@@ -1,12 +1,17 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <Nav msg="Welcome to Your Vue.js App"/>
+  <Nav @gameToggled="handleGameToggled"/>
   <div id="main-content">
+  <template v-if="!playingGame">
     <Hero/>
     <Portfolio/>
     <About/>
     <Contact/>
     <Footer/>
+  </template>
+  <template v-else>
+    <Game/>
+  </template>
   </div>
 </template>
 
@@ -18,6 +23,7 @@ import Portfolio from './components/Portfolio.vue'
 import About from './components/About.vue'
 import Contact from './components/Contact.vue'
 import Footer from './components/Footer.vue'
+import Game from './components/game/Game.vue'
 
 export default {
   name: 'App',
@@ -28,7 +34,22 @@ export default {
     Portfolio,
     About,
     Contact,
-    Footer
+    Footer,
+    Game
+  },
+  data() {
+    return {
+      code: '< / >',
+      playingGame: false
+    }
+  },
+  methods: {
+    log(msg) {
+        console.log('Log:',msg);
+    },
+    handleGameToggled() {
+      this.playingGame = !this.playingGame;
+    }
   }
 }
 </script>

@@ -150,7 +150,9 @@ export default {
         align-content: center;
     }
     .tool-logo {
-        width: 50px;
+        /* width: 50px; */
+        width: 25%;
+        padding: 10px;
         transition: all 1s ease-in-out;
     }
     .tool-logo:hover {

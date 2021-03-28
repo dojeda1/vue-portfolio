@@ -57,4 +57,13 @@ export default {
     .hero-icon:hover {
         transform: translateY(-5px) scale(1.2);
     }
+
+    @media only screen and (max-width: 600px) {
+        #hero {
+            min-height: unset;
+        }
+        .hero-logo {
+            display: none;
+        }
+    }
 </style>

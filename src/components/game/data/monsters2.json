@@ -1,0 +1,41 @@
+[
+    {
+        "name": "Orc",
+        "type": "common",
+        "maxHp": 40,
+        "maxMp": 0,
+        "strength": 10,
+        "defense": 4,
+        "speed": 16,
+        "luck": 4,
+        "xp": 20,
+        "inventory": [],
+        "gold": 20
+    },
+    {
+        "name": "Harpy",
+        "type": "common",
+        "maxHp": 45,
+        "maxMp": 0,
+        "strength": 15,
+        "speed": 20,
+        "defense": 6,
+        "luck": 6,
+        "xp": 25,
+        "inventory": [],
+        "gold": 25
+    },
+    {
+        "name": "Ogre",
+        "type": "common",
+        "maxHp": 50,
+        "maxMp": 0,
+        "strength": 17,
+        "speed": 12,
+        "defense": 9,
+        "luck": 7,
+        "xp": 25,
+        "inventory": [],
+        "gold": 25
+    }
+]

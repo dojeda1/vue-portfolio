@@ -1,0 +1,54 @@
+[
+    {
+        "name": "Dire Wolf",
+        "type": "common",
+        "maxHp": 50,
+        "maxMp": 10,
+        "strength": 20,
+        "defense": 6,
+        "speed": 15,
+        "luck": 8,
+        "xp": 30,
+        "inventory": [],
+        "gold": 30
+    },
+    {
+        "name": "Giant",
+        "type": "common",
+        "maxHp": 55,
+        "maxMp": 10,
+        "strength": 22,
+        "defense": 10,
+        "speed": 12,
+        "luck": 5,
+        "xp": 35,
+        "inventory": [],
+        "gold": 35
+    },
+    {
+        "name": "Demon",
+        "type": "common",
+        "maxHp": 60,
+        "maxMp": 25,
+        "strength": 25,
+        "defense": 9,
+        "speed": 25,
+        "luck": 10,
+        "xp": 40,
+        "inventory": [],
+        "gold": 40
+    },
+    {
+        "name": "Dragon",
+        "type": "common",
+        "maxHp": 70,
+        "maxMp": 30,
+        "strength": 30,
+        "defense": 12,
+        "speed": 20,
+        "luck": 15,
+        "xp": 50,
+        "inventory": [],
+        "gold": 50
+    }
+]

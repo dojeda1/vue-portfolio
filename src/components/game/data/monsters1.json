@@ -1,0 +1,41 @@
+[
+    {
+        "name": "Slime",
+        "type": "common",
+        "maxHp": 20,
+        "maxMp": 0,
+        "strength": 5,
+        "defense": 0,
+        "speed": 12,
+        "luck": 3,
+        "xp": 10,
+        "inventory": [],
+        "gold": 13
+    },
+    {
+        "name": "Wolf",
+        "type": "common",
+        "maxHp": 32,
+        "maxMp": 0,
+        "strength": 7,
+        "defense": 2,
+        "speed": 15,
+        "luck": 3,
+        "xp": 12,
+        "inventory": [],
+        "gold": 14
+    },
+    {
+        "name": "Goblin",
+        "type": "common",
+        "maxHp": 35,
+        "maxMp": 0,
+        "strength": 9,
+        "defense": 3,
+        "speed": 16,
+        "luck": 3,
+        "xp": 15,
+        "inventory": [],
+        "gold": 15
+    }
+]

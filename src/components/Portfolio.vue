@@ -25,10 +25,10 @@
                 <h5>{{ currentProject.title }}</h5>
                 <img class="portfolio-devices" :src="currentProject.mockup" alt="Mockup">
                 <a target="_blank" :href="currentProject.visit">
-                    <button>VISIT<i className="material-icons">public</i></button>
+                    <button>Visit<i className="material-icons">public</i></button>
                 </a>
                 <a target="_blank" :href="currentProject.code">
-                    <button>CODE<i className="material-icons">code</i></button>
+                    <button>Code<i className="material-icons">code</i></button>
                 </a>
             </div>
             <div class="col-4 s_col-12">
@@ -231,7 +231,8 @@ export default {
         justify-content: center;
     }
     .paint-pic-container {
-        width: 200px;
+        /* width: 200px; */
+        width: 25%;
         text-align: center;
         padding: 10px;
         cursor: pointer;
