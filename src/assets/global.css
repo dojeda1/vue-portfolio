@@ -177,6 +177,12 @@ button:hover {
     ;
 }
 
+button.disabled {
+    background-color: gray;
+    pointer-events: none;
+    color: #212121;
+}
+
 button i {
     margin-left: 10px;
     float: right;

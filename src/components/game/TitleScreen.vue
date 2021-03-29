@@ -2,7 +2,7 @@
     <h5>Choose an Option</h5>
     <p>
         <button @click="changeScene('CharacterCreation')">New Game</button>
-        <button>Continue</button>
+        <button class="disabled">Continue</button>
     </p>
 </template>
 

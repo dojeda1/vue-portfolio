@@ -29,7 +29,7 @@ export default {
     name: 'CharacterCreation',
     data() {
         return {
-            name: '',
+            name: 'Thomas',
             race: '',
             class: '',
             task: 'name'

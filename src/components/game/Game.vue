@@ -7,7 +7,7 @@
         <TitleScreen v-if="scene == 'TitleScreen'"/>
         <CharacterCreation v-if="scene == 'CharacterCreation'"/>
         <Wild v-if="scene == 'Wild'"/>
-        <Battle/>
+        <Battle v-if="scene == 'Battle'"/>
     </div>
 </div>
 </template>
@@ -16,7 +16,7 @@
 import TitleScreen from './TitleScreen.vue'
 import CharacterCreation from './CharacterCreation.vue'
 import Wild from './Wild.vue'
-// import Battle from './Battle.vue'
+import Battle from './Battle.vue'
 // import Town from './Town.vue'
 // import Shop from './Shop.vue'
 // import Tavern from './Tavern.vue'
@@ -24,20 +24,20 @@ import Wild from './Wild.vue'
 //JSON Files
 import playerDefault from './data/playerDefault.json';
 
-// import regions from "./data/regions.json";
+import regions from "./data/regions.json";
 
-// import monsters1 from "./data/monsters1.json";
-// import monsters2 from "./data/monsters2.json";
-// import monsters3 from "./data/monsters3.json";
+import monsters1 from "./data/monsters1.json";
+import monsters2 from "./data/monsters2.json";
+import monsters3 from "./data/monsters3.json";
 
-// import bosses1 from "./data/bosses1.json";
-// import bosses2 from "./data/bosses2.json";
-// import bosses3 from "./data/bosses3.json";
-// import endBosses from "./data/endBosses.json";
+import bosses1 from "./data/bosses1.json";
+import bosses2 from "./data/bosses2.json";
+import bosses3 from "./data/bosses3.json";
+import endBosses from "./data/endBosses.json";
 
-// import items1 from "./data/items1.json";
-// import items2 from "./data/items2.json";
-// import items3 from "./data/items3.json";
+import items1 from "./data/items1.json";
+import items2 from "./data/items2.json";
+import items3 from "./data/items3.json";
 
 // import quests1 from "./data/quests1.json";
 // import quests2 from "./data/quests2.json";
@@ -49,7 +49,7 @@ export default {
         TitleScreen,
         CharacterCreation,
         Wild,
-        // Battle,
+        Battle,
         // Town,
         // Shop,
         // Tavern
@@ -58,8 +58,8 @@ export default {
         return {
             // message: "",
             // messageSub: "",
-            // infoText: [],
-            // region: regions[0],
+            infoText: [],
+            region: regions[0],
             scene: "TitleScreen",
             location: "Title Screen",
             // task: "new or load",
@@ -67,17 +67,23 @@ export default {
             // inputName: "",
             // movingForward: false,
             player: JSON.parse(JSON.stringify(playerDefault)),
-            // currentEnemy: {},
+            currentEnemy: {},
             // quests: [],
             // tavernQuests: [],
             // merchant: [],
-            // dungeonCount: 0,
+            dungeonCount: 0,
             // castleCount: 0,
             // meadCount: 0,
-            // bosses1: bosses1,
-            // bosses2: bosses2,
-            // bosses3: bosses3,
-            // endBosses: endBosses,
+            items1: items1,
+            items2: items2,
+            items3: items3,
+            monsters1: monsters1,
+            monsters2: monsters2,
+            monsters3: monsters3,
+            bosses1: bosses1,
+            bosses2: bosses2,
+            bosses3: bosses3,
+            endBosses: endBosses,
             // showSave: false,
             // showStats: false,
             // showQuests: false,
@@ -104,6 +110,61 @@ export default {
                 anA = "a";
                 return anA;
             }
+        },
+        addItem(array, item) {
+            const newItem = JSON.parse(JSON.stringify(item));
+            let inInventory = false;
+            array.forEach(element => {
+                if (newItem.name === element.name) {
+                    inInventory = true;
+                    element.qty++
+                }
+            });
+            if (inInventory === false) {
+                array.push(newItem);
+            }
+            function compare(a, b) {
+                const orderA = a.order;
+                const orderB = b.order;
+
+                let comparison = 0;
+                if (orderA > orderB) {
+                    comparison = 1;
+                } else if (orderA < orderB) {
+                    comparison = -1;
+                }
+                return comparison;
+            }
+
+            array.sort(compare);
+            // this.setState({
+            //     player: this.state.player,
+            //     currentEnemy: this.state.currentEnemy,
+            //     merchant: this.state.merchant
+            // }, this.fetchQuestCheck(item.name));
+            // this.fetchQuestCheck(item.name));
+        },
+        removeItem(array, itemName) {
+            array.forEach((element, i) => {
+                if (itemName === element.name) {
+                    element.qty--
+                }
+                if (element.qty <= 0) {
+                    console.log("item zeroed out.")
+                    array.splice(i, 1);
+                }
+            });
+            // this.setState({
+            //     player: this.state.player,
+            //     currentEnemy: this.state.currentEnemy,
+            //     merchant: this.state.merchant
+            // }, this.fetchQuestCheck(itemName));
+            // this.fetchQuestCheck(itemName));
+        },
+        transferItem(fromArr, toArr, item) {
+            var transferItem = JSON.parse(JSON.stringify(item));
+            this.addItem(toArr, transferItem);
+            this.removeItem(fromArr, transferItem.name);
         }
     }
 }
