@@ -10,7 +10,11 @@
         <h5>What is your race?</h5>
         <p>
             <button @click="editRace('Human')">Human</button>
+        </p>
+        <p>
             <button @click="editRace('Elf')">Elf</button>
+        </p>
+        <p>
             <button @click="editRace('Dwarf')">Dwarf</button>
         </p>
     </template>
@@ -18,7 +22,11 @@
         <h5>What is your class?</h5>
         <p>
             <button @click="editClass('Warrior')">Warrior</button>
+        </p>
+        <p>
             <button @click="editClass('Mage')">Mage</button>
+        </p>
+        <p>
             <button @click="editClass('Rogue')">Rogue</button>
         </p>
     </template>
@@ -170,6 +178,7 @@ export default {
             this.$parent.player.special2Cost = special2Cost;
 
             this.$parent.changeScene('Wild');
+            this.$parent.message = 'Your adventure begins...';
             console.log('player:',this.$parent.player);
         }
     }

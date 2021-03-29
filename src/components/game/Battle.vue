@@ -1,5 +1,5 @@
 <template>
-<h5>You encountered a {{ $parent.currentEnemy.name }}...</h5>
+<h5>{{ $parent.message }}</h5>
     <p class="dom-green-2-text">
         <i class="material-icons left">adb</i>
         {{ $parent.currentEnemy.name }}
@@ -25,16 +25,23 @@
             {{ msg }}
         </p>
     </div>
-    <p>What next?</p>
-    <p>
-        <button @click="handleAttack">Attack</button>
-    </p>
-    <p>
-        <button class="disabled">Use Item</button>
-    </p>
-    <p>
-        <button class="disabled"><i className="material-icons left">arrow_back</i>Run</button>
-    </p>
+    <template v-if="!battleComplete">
+        <p>What next?</p>
+        <p>
+            <button @click="handleAttack">Attack</button>
+        </p>
+        <p>
+            <button class="disabled">Use Item</button>
+        </p>
+        <p>
+            <button @click="handleRun"><i className="material-icons left">arrow_back</i>Run</button>
+        </p>
+    </template>
+    <template v-else>
+        <p>
+            <button @click="handleNext">Next</button>
+        </p>
+    </template>
 </template>
 
 <script>
@@ -42,14 +49,14 @@ export default {
     name: 'Battle',
     data() {
         return {
-            x: true,
+            battleComplete: false,
         }
     },
     methods: {
         log(msg) {
             console.log('Log:',msg);
         },
-            // Combat Functions
+        // Combat Functions
         handleAttack() {
             let player = this.$parent.player;
             let enemy = this.$parent.currentEnemy;
@@ -64,6 +71,9 @@ export default {
             this.attack(player, enemy);
             this.enemyTurn(player, enemy);
         },
+        handleNext() {
+            this.$parent.changeScene('Wild');
+        },
         enemyTurn(player, enemy) {
             if (enemy.hp <= 0) {
                 let regionIndex = this.$parent.region.index;
@@ -71,23 +81,16 @@ export default {
                 let text = this.$parent.infoText;
                 text.push("You killed " + enemy.name + "!")
                 text.push("--- RESULTS ---")
-                // this.setState({
-                //     task: "fight",
-                //     step: "results",
-                //     message: enemy.name + " defeated.",
-                //     infoText: text
-                // });
                 this.dropGold();
                 this.dropLoot(enemy)
                 this.gainXp(enemy.xp, player);
                 // this.killQuestCheck(enemy.name);
+                this.$parent.message = this.$parent.currentEnemy.name + ' defeated.';
+                this.battleComplete = true;
                 console.log("total kills: " + player.totalKills);
                 if (enemy.type === "endBoss") {
                     const endBosses = this.$parent.endBosses;
                     endBosses[enemy.index].isDead = true;
-                    // this.setState({
-                    //     endBosses: endBosses
-                    // });
                 } else if (enemy.type === "boss") {
                     let bossArray = [];
                     switch (regionIndex) {
@@ -107,16 +110,10 @@ export default {
                     bossArray.splice(enemy.index, 1);
                 }
                 if (this.$parent.location === "Dungeon") {
-                    // this.setState({
-                        this.$parent.dungeonCount++
-                    // }, () => {
-                        if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal) {
-                            player.totalDungeons++
-                            // this.setState({
-                            //     player: player
-                            // })
-                        }
-                    // })
+                    this.$parent.dungeonCount++
+                    if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal) {
+                        player.totalDungeons++
+                    }
                 }
                 // if (this.$parent.location === "Castle") {
                 //     this.setState({
@@ -145,11 +142,9 @@ export default {
                 //     }, () => this.activateItem(enemy, player, "Health Potion", thisIndex));
 
             } else {
-                // this.setState({
-                //     step: "select move"
-                // }, () => this.attack(enemy, player));
                 this.attack(enemy, player);
             }
+            this.gameOverCheck();
         },
         // selectSpecial(event) {
         //     const specialCost = event.target.getAttribute("data-cost");
@@ -378,12 +373,9 @@ export default {
                 text.push("Gold Collected: " + this.$parent.player.totalGold);
                 text.push("Quests Completed: " + this.$parent.player.totalQuests);
                 text.push("Dungeons Completed: " + this.$parent.player.totalDungeons);
-                this.setState({
-                    message: "Game over.",
-                    step: "game over",
-                    infoText: text
-                });
+                this.$parent.scene="GameOver";
             }
+            console.log('player:',this.$parent.player);
         },
         selectReset() {
             alert('RESET');
@@ -425,27 +417,24 @@ export default {
                 } else if (player.level === 6) {
                     text.push("You learned " + player.special2 + "!!!!!");
                 }
-
-                // this.setState({
-                //     player: player,
-                //     infoText: text
-                // });
                 this.levelUpCheck(player)
             }
         },
-        selectRun() {
+        handleRun() {
             const player = this.$parent.player
             const lostGold = this.$parent.randNum(0, Math.floor(player.gold / 2));
             player.gold -= lostGold;
             const lostHp = this.$parent.randNum(0, 3);
             player.hp -= lostHp;
+            this.$parent.changeScene('Wild');
             this.gameOverCheck();
-            this.setState({
-                task: "select where",
-                step: null,
-                movingForward: false,
-                message: "You lost " + lostGold + " gold and " + lostHp + " HP.",
-            });
+            this.$parent.message = "You lost " + lostGold + " gold and " + lostHp + " HP.";
+            // this.setState({
+            //     task: "select where",
+            //     step: null,
+            //     movingForward: false,
+            //     message: "You lost " + lostGold + " gold and " + lostHp + " HP.",
+            // });
 
         },
         dropGold() {
@@ -455,11 +444,6 @@ export default {
             let player = this.$parent.player;
             player.gold += amount;
             player.totalGold += amount;
-            // this.setState({
-            //     player: player,
-            //     infoText: text,
-            //     goldResult: amount
-            // });
         },
         dropLoot(enemy) {
             if (enemy.name === "Mimic") {
@@ -468,9 +452,6 @@ export default {
                     this.transferItem(enemy.inventory, this.$parent.player.inventory, item)
                     text.push(enemy.name + " dropped " + this.$parent.anA(item.name) + " " + item.name + ".");
                 });
-                // this.setState({
-                //     infoText: text
-                // })
             } else {
                 const lootCheck = this.$parent.randNum(1, 5);
                 if (lootCheck === 1) {
@@ -480,15 +461,15 @@ export default {
                         this.$parent.transferItem(enemy.inventory, this.$parent.player.inventory, item)
                         let text = this.$parent.infoText;
                         text.push(enemy.name + " dropped " + this.$parent.anA(item.name) + " " + item.name + ".");
-                        // this.setState({
-                        //     infoText: text
-                        // })
                     } else {
                         console.log("enemy has no items")
                     }
                 }
             }
         }
+    },
+    created: function() {
+        this.$parent.infoText = [];
     }
 }
 </script>

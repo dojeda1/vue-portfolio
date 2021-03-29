@@ -3,7 +3,7 @@
     <div class="container">
         <p>{{player.name}} | {{player.race}} | {{player.class}}</p>
         <h1>Fantasy RPG</h1>
-        <p>- {{location}} -</p>
+        <p>- {{ this.region.name}} | {{location}} -</p>
         <TitleScreen v-if="scene == 'TitleScreen'"/>
         <CharacterCreation v-if="scene == 'CharacterCreation'"/>
         <Wild v-if="scene == 'Wild'"/>
@@ -56,7 +56,7 @@ export default {
     },
     data() {
         return {
-            // message: "",
+            message: "",
             // messageSub: "",
             infoText: [],
             region: regions[0],

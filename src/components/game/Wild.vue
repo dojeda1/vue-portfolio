@@ -1,5 +1,5 @@
 <template>
-<h5>Your adventure Begins...</h5>
+<h5>{{ $parent.message }}</h5>
     <p class="dom-blue-text">
         <i class="material-icons left">person</i>
         {{ $parent.player.name }}
@@ -87,6 +87,7 @@ export default {
             }
             let monNum = this.$parent.randNum(0, rangeNum);
             const message = alternateMessage || "You encountered " + this.$parent.anA(monsterArray[monNum].name) + " " + monsterArray[monNum].name + ".";
+            this.$parent.message = message;
             console.log("message: " + message);
             this.$parent.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
             this.$parent.currentEnemy.hp = monsterArray[monNum].maxHp;
@@ -94,8 +95,7 @@ export default {
             this.$parent.currentEnemy.isDead = false
 
             this.addEnemyItems(this.$parent.currentEnemy);
-            let text = [];
-            console.log(text);
+
             // console.log(this.state.currentEnemy);
             this.$parent.scene = 'Battle'
 
