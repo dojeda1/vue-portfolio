@@ -6,7 +6,7 @@
         <p>- {{location}} -</p>
         <TitleScreen v-if="scene == 'TitleScreen'"/>
         <CharacterCreation v-if="scene == 'CharacterCreation'"/>
-        <Wild/>
+        <Wild v-if="scene == 'Wild'"/>
         <Battle/>
     </div>
 </div>
@@ -15,7 +15,7 @@
 <script>
 import TitleScreen from './TitleScreen.vue'
 import CharacterCreation from './CharacterCreation.vue'
-// import Wild from './Wild.vue'
+import Wild from './Wild.vue'
 // import Battle from './Battle.vue'
 // import Town from './Town.vue'
 // import Shop from './Shop.vue'
@@ -48,7 +48,7 @@ export default {
     components: {
         TitleScreen,
         CharacterCreation,
-        // Wild,
+        Wild,
         // Battle,
         // Town,
         // Shop,
@@ -66,7 +66,7 @@ export default {
             // step: null,
             // inputName: "",
             // movingForward: false,
-            player: playerDefault,
+            player: JSON.parse(JSON.stringify(playerDefault)),
             // currentEnemy: {},
             // quests: [],
             // tavernQuests: [],
@@ -90,6 +90,20 @@ export default {
         },
         changeScene(nextScene) {
             this.scene = nextScene;
+        },
+        randNum(x, y) {
+            return Math.floor(Math.random() * y) + x;
+        },
+        anA(word) {
+            var first = word.charAt(0);
+            var anA = "";
+            if (first == "A" || first == "E" || first == "I" || first == "O" || first == "U") {
+                anA = "an";
+                return anA;
+            } else {
+                anA = "a";
+                return anA;
+            }
         }
     }
 }

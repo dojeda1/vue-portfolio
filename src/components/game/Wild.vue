@@ -2,17 +2,15 @@
 <h5>Your adventure Begins...</h5>
     <p class="dom-blue-text">
         <i class="material-icons left">person</i>
-        Tom
+        {{ $parent.player.name }}
         <span class="white-text"> | </span>
-        <span class="dom-blue-text">HP: 28/28</span>
+        <span class="dom-blue-text">HP: {{ $parent.player.hp }}/{{ $parent.player.maxHp }}</span>
         <span class="white-text"> | </span>
-        <span class="dom-blue-text">MP: 8/8</span>
-    </p>
-    <p class="dom-blue-text">
-        <span class="grey-text">XP: 0/50</span>
+        <span class="dom-blue-text">MP: {{ $parent.player.mp }}/{{ $parent.player.maxMp }}</span>
         <span class="white-text"> | </span>
-        <span class="red-text">$10</span>
-
+        <span class="grey-text">XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span>
+        <span class="white-text"> | </span>
+        <span class="red-text">{{ $parent.player.gold }}g</span>
     </p>
     <p>Where to next?</p>
     <p>
