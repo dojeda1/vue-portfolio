@@ -1,9 +1,11 @@
 <template>
 <div id="game">
     <div class="container">
-        <p>{{player.name}} | {{player.race}} | {{player.class}}</p>
-        <h1>Fantasy RPG</h1>
-        <p>- {{ this.region.name}} | {{location}} -</p>
+        <div class="game-header">
+            <!-- <p>{{player.name}} | {{player.race}} | {{player.class}}</p> -->
+            <h1>Fantasy RPG</h1>
+            <p>- {{ this.region.name}} | {{location}} -</p>
+        </div>
         <TitleScreen v-if="scene == 'TitleScreen'"/>
         <CharacterCreation v-if="scene == 'CharacterCreation'"/>
         <Wild v-if="scene == 'Wild'"/>
@@ -183,5 +185,9 @@ export default {
         position: fixed;
         z-index: 1;
         overflow: scroll;
+    }
+
+    .game-header {
+        text-align: center;
     }
 </style>

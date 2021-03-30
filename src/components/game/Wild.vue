@@ -1,7 +1,8 @@
 <template>
 <h5>{{ $parent.message }}</h5>
     <p class="dom-blue-text">
-        <i class="material-icons left">person</i>
+        <!-- <i class="material-icons left">person</i> -->
+        <img class="game-sprite" src="/images/game/human-warrior.png" :alt="$parent.player.name">
         {{ $parent.player.name }}
         <span class="white-text"> | </span>
         <span class="dom-blue-text">HP: {{ $parent.player.hp }}/{{ $parent.player.maxHp }}</span>

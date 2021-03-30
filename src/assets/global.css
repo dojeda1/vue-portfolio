@@ -193,6 +193,87 @@ button i {
     animation-iteration-count: 1;
     transform: scale(1.1);
 }
+.event-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+.game-sprite {
+    width: 64px;
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+.idle {
+    animation-name: idle;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.walk {
+    animation-name: bounce;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: infinite;
+}
+
+.attack-right {
+    animation-name: attack-right;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+    /* animation-iteration-count: infinite; */
+}
+
+.attack-left {
+    animation-name: attack-left;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+    /* animation-iteration-count: infinite; */
+}
+
+.dead {
+    /* transform-origin: bottom; */
+    -webkit-transform : rotate(90deg) scaleY(1.2) scaleX(.8) translateX(16px);
+    -ms-transform     : rotate(90deg) scaleY(1.2) scaleX(.8) translateX(16px);
+    transform         : rotate(90deg) scaleY(1.2) scaleX(.8) translateX(16px);
+}
+
+@keyframes idle {
+    0%   { transform: scaleY(1); }
+    50%  { transform: scaleY(1.1); }
+    100% { transform: scaleY(1); }
+}
+
+@keyframes bounce {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes attack-right {
+    0%   { transform: translateX(0); }
+    50%  { transform: translateX(64px) scaleY(.8) scalex(1.1); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes attack-left {
+    0%   { transform: translateX(0); }
+    50%  { transform: translateX(-64px) scaleY(.8) scalex(1.1); }
+    100% { transform: translateX(0); }
+}
+
 @keyframes rotate {
     from {
         transform: rotate(0deg) scale(1.1)

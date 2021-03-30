@@ -1,25 +1,33 @@
 <template>
 <h5>{{ $parent.message }}</h5>
-    <p class="dom-green-2-text">
-        <i class="material-icons left">adb</i>
-        {{ $parent.currentEnemy.name }}
-        <span class="white-text"> | </span>
-        <span class="">HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.maxHp }}</span>
-        <span class="white-text"> | </span>
-        <span class="">MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.maxMp }}</span>
-    </p>
-    <p class="dom-blue-text">
-        <i class="material-icons left">person</i>
-        {{ $parent.player.name }}
-        <span class="white-text"> | </span>
-        <span class="dom-blue-text">HP: {{ $parent.player.hp }}/{{ $parent.player.maxHp }}</span>
-        <span class="white-text"> | </span>
-        <span class="dom-blue-text">MP: {{ $parent.player.mp }}/{{ $parent.player.maxMp }}</span>
-        <span class="white-text"> | </span>
-        <span class="grey-text">XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span>
-        <span class="white-text"> | </span>
-        <span class="red-text">{{ $parent.player.gold }}g</span>
-    </p>
+<div class="event-display">
+    <div>
+        <img class="game-sprite idle" src="/images/game/human-warrior-b.png" :alt="$parent.player.name">
+        <p class="dom-blue-text">
+            <!-- <i class="material-icons left">person</i> -->
+            {{ $parent.player.name }}
+            <span class="white-text"> | </span>
+            <span class="dom-blue-text">HP: {{ $parent.player.hp }}/{{ $parent.player.maxHp }}</span>
+            <span class="white-text"> | </span>
+            <span class="dom-blue-text">MP: {{ $parent.player.mp }}/{{ $parent.player.maxMp }}</span>
+            <span class="white-text"> | </span>
+            <span class="grey-text">XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span>
+            <span class="white-text"> | </span>
+            <span class="red-text">{{ $parent.player.gold }}g</span>
+        </p>
+    </div>
+    <div>
+        <img class="game-sprite idle" src="/images/game/harpy.png" :alt="$parent.currentEnemy.name">
+        <p class="dom-green-1-text">
+            <!-- <i class="material-icons left">adb</i> -->
+            {{ $parent.currentEnemy.name }}
+            <span class="white-text"> | </span>
+            <span class="">HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.maxHp }}</span>
+            <span class="white-text"> | </span>
+            <span class="">MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.maxMp }}</span>
+        </p>
+    </div>
+</div>
     <div class="message-box">
         <p v-for="(msg, index) in $parent.infoText" :key="index">
             {{ msg }}
