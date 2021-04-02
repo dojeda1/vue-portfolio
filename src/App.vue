@@ -2,14 +2,12 @@
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <Nav @gameToggled="handleGameToggled"/>
   <div id="main-content">
-  <template v-if="!playingGame">
     <Hero/>
     <Portfolio/>
     <About/>
     <Contact/>
     <Footer/>
-  </template>
-  <template v-else>
+  <template v-if="playingGame == true">
     <Game/>
   </template>
   </div>
@@ -49,6 +47,7 @@ export default {
     },
     handleGameToggled() {
       this.playingGame = !this.playingGame;
+      console.log(this.playingGame)
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
 <div id="footer">
-    <h5 class="dom-blue-text">Live, Learn, Create</h5>
+    <h5 class="text-blue">Live, Learn, Create</h5>
     <div>
         <a href="https://www.linkedin.com/in/dominic-ojeda/" target="blank">
             <img class="footer-icon" src="/images/web-portfolio/linkedin-logo.png" alt="Linkedin Logo" />
@@ -12,7 +12,7 @@
             <img class="footer-icon" src="/images/web-portfolio/resume-logo.png" alt="Resume Logo" />
         </a>
     </div>
-    <p class="dom-blue-text">Copyright © 2021 - Dominic Ojeda</p>
+    <p class="text-blue">Copyright © 2021 - Dominic Ojeda</p>
 </div>
 </template>
 

@@ -55,16 +55,19 @@ p {
     background-color: #27aae1
 }
 
-.dom-green-1-text {
+.text-green {
     color: #8dc63f;
 }
 
-.dom-green-2-text {
+.text-jade {
     color: #2bb673;
 }
 
-.dom-blue-text {
-    color: #27aae1
+.text-blue {
+    color: #27aae1;
+}
+.text-red {
+    color: #F44336;
 }
 
 .font1 {
@@ -177,6 +180,17 @@ button:hover {
     ;
 }
 
+button.btn-blue {
+    background-color: #27aae1;
+
+}
+
+button.btn-blue:hover {
+    color: #27aae1;
+    background-color: #212121;
+    box-shadow: 0 0 0 2px #27aae1, 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+}
+
 button.disabled {
     background-color: gray;
     pointer-events: none;
@@ -243,11 +257,56 @@ button i {
     /* animation-iteration-count: infinite; */
 }
 
-.dead {
-    /* transform-origin: bottom; */
-    -webkit-transform : rotate(90deg) scaleY(1.2) scaleX(.8) translateX(16px);
-    -ms-transform     : rotate(90deg) scaleY(1.2) scaleX(.8) translateX(16px);
-    transform         : rotate(90deg) scaleY(1.2) scaleX(.8) translateX(16px);
+.damage{
+    animation-name: damage;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+    /* animation-iteration-count: infinite; */
+}
+
+.dodge{
+    animation-name: dodge;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+    /* animation-iteration-count: infinite; */
+}
+
+.die-left {
+    animation-name: die-left;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+    /* animation-iteration-count: infinite; */
+    -webkit-transform : rotate(-90deg) scaleY(1.2) scaleX(.8) translateX(10px);
+    -ms-transform     : rotate(-90deg) scaleY(1.2) scaleX(.8) translateX(10px);
+    transform         : rotate(-90deg) scaleY(1.2) scaleX(.8) translateX(10px);
+}
+
+.die-right {
+    animation-name: die-right;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+    /* animation-iteration-count: infinite; */
+    -webkit-transform : rotate(90deg) scaleY(1.2) scaleX(.8) translateX(-10px);
+    -ms-transform     : rotate(90deg) scaleY(1.2) scaleX(.8) translateX(-10px);
+    transform         : rotate(90deg) scaleY(1.2) scaleX(.8) translateX(-10px);
+}
+
+
+@keyframes die-left {
+    0%   { transform: scaleY(1); }
+    100% { transform: rotate(-90deg) scaleY(1.2) scaleX(.8) translateX(10px); }
+}
+@keyframes die-right {
+    0%   { transform: scaleY(1); }
+    100% { transform: rotate(90deg) scaleY(1.2) scaleX(.8) translateX(-10px); }
 }
 
 @keyframes idle {
@@ -274,6 +333,21 @@ button i {
     100% { transform: translateX(0); }
 }
 
+@keyframes damage {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@keyframes dodge {
+    0%   { transform: scale(1); }
+    50%  { transform: scaleY(.6); }
+    100% { transform: scale(1); }
+}
+
 @keyframes rotate {
     from {
         transform: rotate(0deg) scale(1.1)
@@ -284,8 +358,12 @@ button i {
     }
 }
 
+
 /* Media Queries */
 @media screen and (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
     #main-content{
         width: 100%;
         margin: 60px 0 0;

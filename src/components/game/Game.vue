@@ -68,7 +68,7 @@ export default {
             // step: null,
             // inputName: "",
             // movingForward: false,
-            player: JSON.parse(JSON.stringify(playerDefault)),
+            player: {},
             currentEnemy: {},
             // quests: [],
             // tavernQuests: [],
@@ -76,6 +76,7 @@ export default {
             dungeonCount: 0,
             // castleCount: 0,
             // meadCount: 0,
+            playerDefault: playerDefault,
             items1: items1,
             items2: items2,
             items3: items3,
@@ -95,6 +96,9 @@ export default {
     methods: {
         log(msg) {
             console.log('Log:',msg);
+        },
+        resetPlayer() {
+            this.player = JSON.parse(JSON.stringify(playerDefault));
         },
         changeScene(nextScene) {
             this.scene = nextScene;
@@ -167,6 +171,80 @@ export default {
             var transferItem = JSON.parse(JSON.stringify(item));
             this.addItem(toArr, transferItem);
             this.removeItem(fromArr, transferItem.name);
+        },
+        handleAttemptItem(item,index,cb) {
+            console.log('chosen item: ' + item.name + ' ' + index)
+            if (item.name == 'Old Hat') {
+                this.message = 'It looks good on you...'
+            } else if (item.name.includes('Health Potion') && this.player.hp >= this.player.hpMax) {
+                this.message = 'You are already at full Health.'
+            } else if (item.name.includes('Mana Potion') && this.player.mp >= this.player.mpMax) {
+                this.message = 'You are already at full Mana.'
+            } else {
+                this.message = 'ACTIVATE ' + item.name + '!!!'
+                console.log('PLAYER',this.player)
+                this.activateItem(this.player, this.currentEnemy, item, index);
+                if (cb) {
+                    cb();
+                }
+            }
+        },
+        activateItem(user, opponent, item, index) {
+            user.animation = 'walk';
+            console.log('opponent',opponent)
+            console.log("item: " + item.name + " " + index)
+            if (item.name.includes('Health Potion')) {
+                let amount = Math.floor(user.hpMax * item.recover);
+                user.hp += amount;
+                if (user.hp > user.hpMax) {
+                    user.hp = user.hpMax
+                }
+                this.removeItem(user.inventory, user.inventory[index].name);
+                this.message = user.name + " recovered " + amount + " HP."
+            } else if (item.name.includes('Mana Potion')) {
+                let amount = Math.floor(user.mpMax * item.recover);
+                user.mp += amount;
+                if (user.mp > user.mpMax) {
+                    user.mp = user.mpMax
+                }
+                this.removeItem(user.inventory, user.inventory[index].name);
+                this.message = user.name + " recovered " + amount + " MP."
+            }
+                // case "Old Hat":
+                //     this.setState({
+                //         message: "It looks good on you..."
+                //     })
+                //     break;
+
+                // case "Death Scroll":
+                //     if (this.state.task === "fight") {
+                //         if (opponent.type === "boss" || opponent.type === "endBoss") {
+                //             let power = Math.ceil(opponent.hp / 2);
+                //             opponent.hp -= power;
+                //             this.removeItem(user.inventory, user.inventory[index].name);
+                //             this.atkText(user, "Death Scroll only did " + power + " damage")
+                //             this.setState({
+                //                 user: user,
+                //             }, () => this.enemyTurn(this.state.player, this.state.currentEnemy));
+                //         } else {
+                //             opponent.hp = 0;
+                //             this.removeItem(user.inventory, user.inventory[index].name);
+                //             this.atkText(user, user.name + " read from the Death Scroll.")
+                //             this.setState({
+                //                 user: user,
+                //             }, () => this.enemyTurn(this.state.player, this.state.currentEnemy));
+                //         }
+                //     } else {
+                //         this.setState({
+                //             user: user,
+                //             message: "Death Scroll can only be used in battle."
+                //         });
+                //     }
+                // break;
+
+            else {
+                this.message = "SOMETHING WENT WRONG"
+            }
         }
     }
 }
@@ -183,11 +261,46 @@ export default {
         background-size: cover;
         background-position: center; 
         position: fixed;
+        top: 0;
         z-index: 1;
-        overflow: scroll;
+        overflow: auto;
+
+        animation-timing-function: ease;
+        animation: slide-in-left 3s;
+        animation-iteration-count: 1;
     }
 
+    @keyframes slide-in-left {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(0); }
+    }
+    /* @keyframes slide-in-top {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(0); }
+    } */
+
+    @keyframes fade-in {
+        0% { opacity: 0; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    #game .container {
+        animation-timing-function: ease;
+        animation: fade-in 3s;
+        animation-iteration-count: 1;
+    }
     .game-header {
         text-align: center;
+    }
+
+    @media screen and (max-width: 600px) {
+        #game {
+            width: 100%;
+            height: calc(100% - 60px);
+            top: 60px;
+
+            /* animation: slide-in-top 3s; */
+        }
     }
 </style>

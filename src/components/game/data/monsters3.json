@@ -2,8 +2,8 @@
     {
         "name": "Dire Wolf",
         "type": "common",
-        "maxHp": 50,
-        "maxMp": 10,
+        "hpMax": 50,
+        "mpMax": 10,
         "strength": 20,
         "defense": 6,
         "speed": 15,
@@ -15,8 +15,8 @@
     {
         "name": "Giant",
         "type": "common",
-        "maxHp": 55,
-        "maxMp": 10,
+        "hpMax": 55,
+        "mpMax": 10,
         "strength": 22,
         "defense": 10,
         "speed": 12,
@@ -28,8 +28,8 @@
     {
         "name": "Demon",
         "type": "common",
-        "maxHp": 60,
-        "maxMp": 25,
+        "hpMax": 60,
+        "mpMax": 25,
         "strength": 25,
         "defense": 9,
         "speed": 25,
@@ -41,8 +41,8 @@
     {
         "name": "Dragon",
         "type": "common",
-        "maxHp": 70,
-        "maxMp": 30,
+        "hpMax": 70,
+        "mpMax": 30,
         "strength": 30,
         "defense": 12,
         "speed": 20,

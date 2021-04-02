@@ -1,53 +1,81 @@
 <template>
 <h5>{{ $parent.message }}</h5>
-<div class="event-display">
-    <div>
-        <img class="game-sprite idle" src="/images/game/human-warrior-b.png" :alt="$parent.player.name">
-        <p class="dom-blue-text">
-            <!-- <i class="material-icons left">person</i> -->
-            {{ $parent.player.name }}
-            <span class="white-text"> | </span>
-            <span class="dom-blue-text">HP: {{ $parent.player.hp }}/{{ $parent.player.maxHp }}</span>
-            <span class="white-text"> | </span>
-            <span class="dom-blue-text">MP: {{ $parent.player.mp }}/{{ $parent.player.maxMp }}</span>
-            <span class="white-text"> | </span>
-            <span class="grey-text">XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span>
-            <span class="white-text"> | </span>
-            <span class="red-text">{{ $parent.player.gold }}g</span>
-        </p>
+    <div class="event-display">
+        <div class="text-blue">
+            <img class="game-sprite"
+            :class="{ 'idle': $parent.player.animation == 'idle',
+            'walk': $parent.player.animation == 'walk' ,
+            'dodge': $parent.player.animation == 'dodge' ,
+            'die-left': $parent.player.animation == 'die' ,
+            'damage': $parent.player.animation == 'damage' ,
+            'attack-right': $parent.player.animation == 'attack' }"
+            :src="$parent.player.sprite"
+            :alt="$parent.player.name">
+            <p>
+                {{ $parent.player.name }} | 
+                <span class="text-blue">HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> |  
+                <span class="text-blue">MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span>
+            </p>
+            <p>
+                <span class="grey-text">XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> | 
+                <span class="red-text">{{ $parent.player.gold }}g</span>
+            </p>
+        </div>
+        <div class="text-green">
+            <img class="game-sprite"
+            :class="{ 'idle': $parent.currentEnemy.animation == 'idle',
+            'walk': $parent.currentEnemy.animation == 'walk' ,
+            'dodge': $parent.currentEnemy.animation == 'dodge' ,
+            'die-right': $parent.currentEnemy.animation == 'die' ,
+            'damage': $parent.currentEnemy.animation == 'damage' ,
+            'attack-left': $parent.currentEnemy.animation == 'attack' }"
+            :src="$parent.currentEnemy.sprite"
+            :alt="$parent.currentEnemy.name">
+            <p>
+                {{ $parent.currentEnemy.name }} | 
+                <span class="">HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.hpMax }}</span> | 
+                <span class="">MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.mpMax }}</span>
+            </p>
+        </div>
     </div>
-    <div>
-        <img class="game-sprite idle" src="/images/game/harpy.png" :alt="$parent.currentEnemy.name">
-        <p class="dom-green-1-text">
-            <!-- <i class="material-icons left">adb</i> -->
-            {{ $parent.currentEnemy.name }}
-            <span class="white-text"> | </span>
-            <span class="">HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.maxHp }}</span>
-            <span class="white-text"> | </span>
-            <span class="">MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.maxMp }}</span>
-        </p>
-    </div>
-</div>
     <div class="message-box">
         <p v-for="(msg, index) in $parent.infoText" :key="index">
             {{ msg }}
         </p>
     </div>
-    <template v-if="!battleComplete">
+    <template v-if="task == 'battle'">
         <p>What next?</p>
         <p>
-            <button @click="handleAttack">Attack</button>
+            <button class="btn-blue" @click="handleAttack" :class="{ 'disabled' : !playerTurn}">Attack</button>
         </p>
         <p>
-            <button class="disabled">Use Item</button>
+            <button class="btn-blue" @click="handleUseItem" :class="{ 'disabled' : !playerTurn}">Use Item</button>
         </p>
         <p>
-            <button @click="handleRun"><i className="material-icons left">arrow_back</i>Run</button>
+            <button class="btn-blue" @click="handleRun" :class="{ 'disabled' : !playerTurn}"><i className="material-icons left">arrow_back</i>Run</button>
         </p>
     </template>
-    <template v-else>
+    <template v-else-if="task == 'use item'">
+        <p>Select an Item</p>
+        <p class="btn-blue"
+        v-for="(item, index) in $parent.player.inventory"
+        :key="index">
+            <button class="btn-blue"
+            :class="{ 'disabled' : !playerTurn}"
+            @click="handleAttemptItem(item,index)">{{ item.name }} x {{item.qty}}</button>
+        </p>
         <p>
-            <button @click="handleNext">Next</button>
+            <button class="btn-blue" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+        </p>
+    </template>
+    <template v-else-if="task == 'next'">
+        <p>
+            <button class="btn-blue" @click="handleNext">Next</button>
+        </p>
+    </template>
+    <template v-else-if="task == 'end'">
+        <p>
+            <button class="btn-blue" @click="handleEnd">End</button>
         </p>
     </template>
 </template>
@@ -57,7 +85,8 @@ export default {
     name: 'Battle',
     data() {
         return {
-            battleComplete: false,
+            playerTurn: true,
+            task: 'battle'
         }
     },
     methods: {
@@ -66,23 +95,43 @@ export default {
         },
         // Combat Functions
         handleAttack() {
+            this.playerTurn = false;
             let player = this.$parent.player;
             let enemy = this.$parent.currentEnemy;
             this.$parent.infoText = [];
-            // let $this = this;
-            // setTimeout(function() {
-            //     $this.attack(player, enemy)
-            // }, 500);
-            // setTimeout(function() {
-                //     $this.enemyTurn(player, enemy)
-            // }, 1000);
-            this.attack(player, enemy);
-            this.enemyTurn(player, enemy);
+            let $this = this;
+            $this.attack(player, enemy)
+            setTimeout(function() {
+                $this.enemyTurn(player, enemy);
+            }, 1200);
+            // this.attack(player, enemy);
+            // this.enemyTurn(player, enemy);
         },
         handleNext() {
             this.$parent.changeScene('Wild');
         },
+        handleBack() {
+            this.task = 'battle';
+        },
+        handleUseItem() {
+            this.task = 'use item';
+        },
+        handleAttemptItem(item,index) {
+            let $this = this;
+            let player = this.$parent.player;
+            let enemy = this.$parent.currentEnemy;
+            this.$parent.handleAttemptItem(item,index,
+                function() {
+                    $this.handleBack();
+                    $this.playerTurn = false;
+                    setTimeout(function() {
+                        $this.enemyTurn(player, enemy);
+                    }, 1200)
+                }
+            );
+        },
         enemyTurn(player, enemy) {
+            console.log('BIOTCH')
             if (enemy.hp <= 0) {
                 let regionIndex = this.$parent.region.index;
                 player.totalKills++;
@@ -94,7 +143,7 @@ export default {
                 this.gainXp(enemy.xp, player);
                 // this.killQuestCheck(enemy.name);
                 this.$parent.message = this.$parent.currentEnemy.name + ' defeated.';
-                this.battleComplete = true;
+                this.task = 'next';
                 console.log("total kills: " + player.totalKills);
                 if (enemy.type === "endBoss") {
                     const endBosses = this.$parent.endBosses;
@@ -138,7 +187,7 @@ export default {
 
                 // enemy can use health potion
 
-                // } else if (this.hasItem(enemy.inventory, "Health Potion") && enemy.hp < enemy.maxHp * 0.25) {
+                // } else if (this.hasItem(enemy.inventory, "Health Potion") && enemy.hp < enemy.hpMax * 0.25) {
                 //     let thisIndex;
                 //     enemy.inventory.forEach((element, index) => {
                 //         if ("Health Potion" === element.name) {
@@ -152,13 +201,27 @@ export default {
             } else {
                 this.attack(enemy, player);
             }
+            var $this = this;
+            setTimeout(function() {
+                if (player.hp > 0) {
+                    player.animation = 'idle'
+                } else {
+                    player.animation = 'die';
+                }
+                if (enemy.hp > 0) {
+                    enemy.animation = 'idle'
+                } else {
+                    enemy.animation = 'die';
+                }
+                $this.playerTurn = true;
+            },600)
             this.gameOverCheck();
         },
         // selectSpecial(event) {
         //     const specialCost = event.target.getAttribute("data-cost");
         //     const specialName = event.target.value;
         //     console.log("Special: " + specialName + " " + specialCost);
-        //     if (specialName === "Heal" && this.$parent.player.hp >= this.$parent.player.maxHp) {
+        //     if (specialName === "Heal" && this.$parent.player.hp >= this.$parent.player.hpMax) {
         //         this.setState({
         //             message: "You are already at full health."
         //         });
@@ -172,6 +235,7 @@ export default {
         //     }
         // },
         attack(attacker, defender) {
+            attacker.animation = 'attack'
             let berserkNum = 0;
             if (attacker.isBerserk) {
                 attacker.berserkCount++
@@ -211,13 +275,22 @@ export default {
             console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
             if (missCheck < speedCheck) {
                 attackMessage = attacker.name + " missed...";
+                setTimeout(function() {
+                    defender.animation = 'dodge'
+                },300);
             } else if (criticalCheck >= luckCheck) {
+                setTimeout(function() {
+                    defender.animation = 'damage'
+                },300);
                 damage = attacker.strength + berserkNum - defense;
                 if (damage < 1) {
                     damage = 1;
                 }
                 attackMessage = attacker.name + " did " + damage + " damage.";
             } else {
+                setTimeout(function() {
+                    defender.animation = 'damage'
+                },300);
                 damage = attacker.strength + Math.floor(attacker.strength * 0.25) + berserkNum;
                 attackMessage = "Critical hit! " + attacker.name + " did " + damage + " damage.";
             }
@@ -308,15 +381,15 @@ export default {
         //             }
         //             console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
         //             if (criticalCheck >= luckCheck) {
-        //                 damage = Math.floor(attacker.maxHp * 0.75);
+        //                 damage = Math.floor(attacker.hpMax * 0.75);
         //                 attackMessage = attacker.name + " recovered " + damage + " HP.";
         //             } else {
-        //                 damage = attacker.maxHp;
+        //                 damage = attacker.hpMax;
         //                 attackMessage = "Wow! " + attacker.name + " recovered max HP.";
         //             }
         //             attacker.hp += damage;
-        //             if (attacker.hp > attacker.maxHp) {
-        //                 attacker.hp = attacker.maxHp;
+        //             if (attacker.hp > attacker.hpMax) {
+        //                 attacker.hp = attacker.hpMax;
         //             }
         //             attacker.mp -= cost;
         //             this.atkText(attacker, attackMessage);
@@ -381,12 +454,14 @@ export default {
                 text.push("Gold Collected: " + this.$parent.player.totalGold);
                 text.push("Quests Completed: " + this.$parent.player.totalQuests);
                 text.push("Dungeons Completed: " + this.$parent.player.totalDungeons);
-                this.$parent.scene="GameOver";
+                // this.$parent.scene="GameOver";
+                this.$parent.message = 'Game Over.';
+                this.task = 'end';
             }
             console.log('player:',this.$parent.player);
         },
-        selectReset() {
-            alert('RESET');
+        handleEnd() {
+            this.$parent.changeScene('TitleScreen');
             // this.changePlayStates("Title Screen", "new or load");
             // this.setState({
             //     player: playerDefault,
@@ -413,10 +488,10 @@ export default {
                 player.speed += 1;
                 player.mana += 2;
                 player.luck += 1;
-                player.maxHp += 5;
-                player.hp = player.maxHp;
-                player.maxMp += 2;
-                player.mp = player.maxMp;
+                player.hpMax += 5;
+                player.hp = player.hpMax;
+                player.mpMax += 2;
+                player.mp = player.mpMax;
 
                 let text = this.$parent.infoText;
                 text.push("You are now lv. " + player.level + "!!!");
@@ -478,6 +553,7 @@ export default {
     },
     created: function() {
         this.$parent.infoText = [];
+        this.$parent.player.animation = 'idle'
     }
 }
 </script>

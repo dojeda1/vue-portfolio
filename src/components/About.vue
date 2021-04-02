@@ -1,13 +1,13 @@
 <template>
 <div id="about">
     <div class="section-title">
-        <h4 class=" dom-green-2-text">About</h4>
+        <h4 class=" text-jade">About</h4>
     </div>
     <div class="container">
         <div class="grid">
             <div class="col-8 s_col-12">
                 <div class="section-header">
-                    <h5 class=" dom-green-2-text">Summary</h5>
+                    <h5 class=" text-jade">Summary</h5>
                 </div>
                 <p>
                     I am a web developer who enjoys coding on both front-end and back-end. Experience producing web applications with HTML, CSS, and JavaScript and creating visual elements with Photoshop and Illustrator. I have a passion for making programs that are visually appealing and fun to interact with. I enjoy solving problems creatively and I am always determined to try again and again until the vision becomes reality. I believe clear communication is key to completing any project, and I work well in a team or going at it alone. I know that the right code can solve any problem.
@@ -15,7 +15,7 @@
             </div>
             <div class="col-4 s_col-12">
                 <div class="section-header">
-                    <h5 class=" dom-green-2-text">My Tool Belt</h5>
+                    <h5 class=" text-jade">My Tool Belt</h5>
                 </div>
                 <div class="tool-logos">
                     <img class="tool-logo" src="/images/web-portfolio/tool-logos/html-logo.png" alt="HTML Logo"
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="section-header">
-            <h5 class=" dom-green-2-text">My Interests</h5>
+            <h5 class=" text-jade">My Interests</h5>
         </div>
         <div class="interests grid">
             <div class="col-3 s_col-12">

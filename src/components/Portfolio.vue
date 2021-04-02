@@ -1,11 +1,11 @@
 <template>
 <div id="portfolio">
     <div class="section-title">
-        <h4 class=" dom-green-1-text">Portfolio</h4>
+        <h4 class=" text-green">Portfolio</h4>
     </div>
     <div class="container">
         <div class="section-header">
-            <h5 class=" dom-green-1-text">Select a Project</h5>
+            <h5 class=" text-green">Select a Project</h5>
         </div>
         <div class="paint-pics">
             <div class="paint-pic-container"
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="section-header">
-            <h5 class=" dom-green-1-text">Project Summary</h5>
+            <h5 class=" text-green">Project Summary</h5>
         </div>
         <div class="grid">
             <div class="col-8 s_col-12">
@@ -32,9 +32,9 @@
                 </a>
             </div>
             <div class="col-4 s_col-12">
-                <h6 class=" dom-green-1-text">- About the Project -</h6>
+                <h6 class=" text-green">- About the Project -</h6>
                 <p>{{ currentProject.sum }}</p>
-                <h6 class=" dom-green-1-text">- Made Using -</h6>
+                <h6 class=" text-green">- Made Using -</h6>
                 <p>{{ currentProject.list.join(', ') }}</p>
             </div>
             <div class="col-4 s_col-12">

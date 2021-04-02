@@ -57,8 +57,10 @@ export default {
             }
         },
         editRace(race) {
-            let maxHp;
-            let maxMp;
+            const player = this.$parent.player;
+
+            let hpMax;
+            let mpMax;
             let strength;
             let defense;
             let mana;
@@ -66,8 +68,8 @@ export default {
             let luck;
             switch (race) {
                 case "Human":
-                    maxHp = 4;
-                    maxMp = 4;
+                    hpMax = 4;
+                    mpMax = 4;
                     strength = 1;
                     defense = 1;
                     mana = 1;
@@ -75,8 +77,8 @@ export default {
                     luck = 0;
                     break;
                 case "Elf":
-                    maxHp = 4;
-                    maxMp = 6;
+                    hpMax = 4;
+                    mpMax = 6;
                     strength = 0;
                     defense = 0;
                     mana = 2;
@@ -84,8 +86,8 @@ export default {
                     luck = 1;
                     break;
                 case "Dwarf":
-                    maxHp = 6;
-                    maxMp = 2;
+                    hpMax = 6;
+                    mpMax = 2;
                     strength = 2;
                     defense = 1;
                     mana = 0;
@@ -94,23 +96,25 @@ export default {
                     break;
                 default: console.log("error");
             }
-            this.$parent.player.race = race;
-            this.$parent.player.maxHp += maxHp;
-            this.$parent.player.hp += maxHp;
-            this.$parent.player.maxMp += maxMp;
-            this.$parent.player.mp += maxMp;
-            this.$parent.player.strength += strength;
-            this.$parent.player.defense += defense;
-            this.$parent.player.mana += mana;
-            this.$parent.player.speed += speed;
-            this.$parent.player.luck += luck;
+            player.race = race;
+            player.hpMax += hpMax;
+            player.hp += hpMax;
+            player.mpMax += mpMax;
+            player.mp += mpMax;
+            player.strength += strength;
+            player.defense += defense;
+            player.mana += mana;
+            player.speed += speed;
+            player.luck += luck;
 
             this.task = 'class'
-            console.log('player:',this.$parent.player);
+            console.log('player:',player);
         },
         editClass(cls) {
-            let maxHp;
-            let maxMp;
+            const player = this.$parent.player;
+
+            let hpMax;
+            let mpMax;
             let strength;
             let defense;
             let mana;
@@ -122,8 +126,8 @@ export default {
             let special2Cost
             switch (cls) {
                 case "Warrior":
-                    maxHp = 4
-                    maxMp = 0
+                    hpMax = 4
+                    mpMax = 0
                     strength = 2
                     defense = 2
                     mana = 0
@@ -135,8 +139,8 @@ export default {
                     special2Cost = 8
                     break;
                 case "Mage":
-                    maxHp = 2
-                    maxMp = 6
+                    hpMax = 2
+                    mpMax = 6
                     strength = 0
                     defense = 0
                     mana = 7
@@ -148,8 +152,8 @@ export default {
                     special2Cost = 10
                     break;
                 case "Rogue":
-                    maxHp = 2
-                    maxMp = 2
+                    hpMax = 2
+                    mpMax = 2
                     strength = 1
                     defense = 0
                     mana = 1
@@ -162,25 +166,91 @@ export default {
                     break;
                 default: console.log("error");
             }
-            this.$parent.player.class = cls;
-            this.$parent.player.maxHp += maxHp;
-            this.$parent.player.hp += maxHp;
-            this.$parent.player.maxMp += maxMp;
-            this.$parent.player.mp += maxMp;
-            this.$parent.player.strength += strength;
-            this.$parent.player.defense += defense;
-            this.$parent.player.mana += mana;
-            this.$parent.player.speed += speed;
-            this.$parent.player.luck += luck;
-            this.$parent.player.special1 = special1;
-            this.$parent.player.special2 = special2;
-            this.$parent.player.special1Cost = special1Cost;
-            this.$parent.player.special2Cost = special2Cost;
+
+            player.class = cls;
+            player.hpMax += hpMax;
+            player.hp += hpMax;
+            player.mpMax += mpMax;
+            player.mp += mpMax;
+            player.strength += strength;
+            player.defense += defense;
+            player.mana += mana;
+            player.speed += speed;
+            player.luck += luck;
+            player.special1 = special1;
+            player.special2 = special2;
+            player.special1Cost = special1Cost;
+            player.special2Cost = special2Cost;
+
+            this.editSprite(player.race,player.class);
+            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[1]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[1]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[1]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[1]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[1]);
+            this.$parent.addItem(player.inventory,this.$parent.items3[2]);
+            this.$parent.addItem(player.inventory,this.$parent.items3[2]);
+            this.$parent.addItem(player.inventory,this.$parent.items3[2]);
+            this.$parent.addItem(player.inventory,this.$parent.items3[2]);
+            player.animation = 'idle';
 
             this.$parent.changeScene('Wild');
             this.$parent.message = 'Your adventure begins...';
-            console.log('player:',this.$parent.player);
+            console.log('player:',player);
+        },
+        editSprite(race,cls) {
+            // this.$parent.sprite = $this.playerSprites[race + cls];
+            if (race == 'Human') {
+                switch (cls) {
+                    case "Warrior":
+                        this.$parent.player.sprite = '/images/game/human-warrior.png'
+                        break;
+                    case "Mage":
+                        this.$parent.player.sprite = '/images/game/human-mage.png'
+                        break;
+                    case "Rogue":
+                        this.$parent.player.sprite = '/images/game/human-rogue.png'
+                        break;
+                    default: console.log("error");
+                }
+            } else if (race == 'Elf') {
+                switch (cls) {
+                    case "Warrior":
+                        this.$parent.player.sprite = '/images/game/elf-warrior.png'
+                        break;
+                    case "Mage":
+                        this.$parent.player.sprite = '/images/game/elf-mage.png'
+                        break;
+                    case "Rogue":
+                        this.$parent.player.sprite = '/images/game/elf-rogue.png'
+                        break;
+                    default: console.log("error");
+                }
+            } else if (race == 'Dwarf') {
+                switch (cls) {
+                    case "Warrior":
+                        this.$parent.player.sprite = '/images/game/dwarf-warrior.png'
+                        break;
+                    case "Mage":
+                        this.$parent.player.sprite = '/images/game/dwarf-mage.png'
+                        break;
+                    case "Rogue":
+                        this.$parent.player.sprite = '/images/game/dwarf-rogue.png'
+                        break;
+                    default: console.log("error");
+                }
+            }
         }
+    },
+    created: function() {
+        this.$parent.resetPlayer();
     }
 }
 </script>

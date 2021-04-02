@@ -46,7 +46,7 @@ export default {
       width: 100px;
       height: 100%;
       text-align: center;
-      z-index: 1;
+      z-index: 2;
   }
   #nav .nav-link {
       color: white;

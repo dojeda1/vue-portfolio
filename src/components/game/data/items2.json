@@ -5,6 +5,7 @@
         "qty": 1,
         "buy": 18,
         "sell": 9,
+        "recover": 0.75,
         "info": "Recovers 75% of max HP."
     },
     {
@@ -13,6 +14,7 @@
         "qty": 1,
         "buy": 18,
         "sell": 9,
+        "recover": 0.75,
         "info": "Recovers 75% of max MP."
     }
 ]

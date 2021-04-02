@@ -1,20 +1,20 @@
 <template>
 <div id="contact">
     <div class="section-title">
-        <h4 class="dom-blue-text">Contact</h4>
+        <h4 class="text-blue">Contact</h4>
     </div>
     <div class="container">
         <div class="section-header">
-            <h5 class="dom-blue-text">Send Me a Message</h5>
+            <h5 class="text-blue">Send Me a Message</h5>
         </div>
         <div class="grid">
             <div class="col-8 s_col-12">
                 <a target="_blank" href="mailto:dominicojeda.coding@gmail.com">
-                    <button>Email<i className="material-icons">send</i></button>
+                    <button class="btn-blue">Email<i className="material-icons">send</i></button>
                 </a>
             </div>
             <div class="col-4 s_col-12">
-                <h6 class="dom-blue-text">- Contact Info -</h6>
+                <h6 class="text-blue">- Contact Info -</h6>
                 <p>dominicojeda.coding@gmail.com</p>
                 <p>
                     <a href="https://www.linkedin.com/in/dominic-ojeda/" target="_blank"
@@ -80,16 +80,5 @@ export default {
     }
     .contact-link:hover {
         color: #27aae1;
-    }
-
-    #contact button {
-        background-color: #27aae1;
-
-    }
-
-    #contact button:hover {
-        color: #27aae1;
-        background-color: #212121;
-        box-shadow: 0 0 0 2px #27aae1, 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
     }
 </style>
