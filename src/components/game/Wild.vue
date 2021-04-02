@@ -1,7 +1,7 @@
 <template>
 <h5>{{ $parent.message }}</h5>
     <div class="event-display">
-        <div class="text-blue">
+        <div class="text-blue" :class="{'text-gray': $parent.player.hp <= 0}">
             <img class="game-sprite"
             :class="{ 'idle': $parent.player.animation == 'idle',
             'walk': $parent.player.animation == 'walk' ,
@@ -13,12 +13,12 @@
             :alt="$parent.player.name">
             <p>
                 {{ $parent.player.name }} | 
-                <span class="text-blue">HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> |  
-                <span class="text-blue">MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span>
+                <span :class="{'text-red': $parent.player.hp < $parent.player.hpMax/2}">HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> |  
+                <span :class="{'text-red': $parent.player.mp < $parent.player.mpMax/2}">MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span>
             </p>
             <p>
-                <span class="grey-text">XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> | 
-                <span class="red-text">{{ $parent.player.gold }}g</span>
+                <span >XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> | 
+                <span :class="{'text-red': $parent.player.gold < 10}">{{ $parent.player.gold }}g</span>
             </p>
         </div>
         <div>
