@@ -176,6 +176,8 @@ export default {
             console.log('chosen item: ' + item.name + ' ' + index)
             if (item.name == 'Old Hat') {
                 this.message = 'It looks good on you...'
+            } else if (item.name == 'Death Scroll' && this.scene != 'Battle') {
+                this.message = 'Death Scroll can only be used in battle.'
             } else if (item.name.includes('Health Potion') && this.player.hp >= this.player.hpMax) {
                 this.message = 'You are already at full Health.'
             } else if (item.name.includes('Mana Potion') && this.player.mp >= this.player.mpMax) {
@@ -208,41 +210,19 @@ export default {
                     user.mp = user.mpMax
                 }
                 this.removeItem(user.inventory, user.inventory[index].name);
-                this.message = user.name + " recovered " + amount + " MP."
-            }
-                // case "Old Hat":
-                //     this.setState({
-                //         message: "It looks good on you..."
-                //     })
-                //     break;
-
-                // case "Death Scroll":
-                //     if (this.state.task === "fight") {
-                //         if (opponent.type === "boss" || opponent.type === "endBoss") {
-                //             let power = Math.ceil(opponent.hp / 2);
-                //             opponent.hp -= power;
-                //             this.removeItem(user.inventory, user.inventory[index].name);
-                //             this.atkText(user, "Death Scroll only did " + power + " damage")
-                //             this.setState({
-                //                 user: user,
-                //             }, () => this.enemyTurn(this.state.player, this.state.currentEnemy));
-                //         } else {
-                //             opponent.hp = 0;
-                //             this.removeItem(user.inventory, user.inventory[index].name);
-                //             this.atkText(user, user.name + " read from the Death Scroll.")
-                //             this.setState({
-                //                 user: user,
-                //             }, () => this.enemyTurn(this.state.player, this.state.currentEnemy));
-                //         }
-                //     } else {
-                //         this.setState({
-                //             user: user,
-                //             message: "Death Scroll can only be used in battle."
-                //         });
-                //     }
-                // break;
-
-            else {
+                this.message = user.name + ' recovered ' + amount + ' MP.'
+            } else if (item.name == 'Death Scroll') {
+                if (opponent.type === 'boss' || opponent.type === 'endBoss') {
+                    let power = Math.ceil(opponent.hp / 2);
+                    opponent.hp -= power;
+                    this.removeItem(user.inventory, user.inventory[index].name);
+                    this.message = 'Death Scroll only did ' + power + ' damage'
+                } else {
+                    opponent.hp = 0;
+                    this.removeItem(user.inventory, user.inventory[index].name);
+                    this.message = user.name + ' read from the Death Scroll.'
+                }
+            } else {
                 this.message = "SOMETHING WENT WRONG"
             }
         }

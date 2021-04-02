@@ -198,7 +198,11 @@ export default {
             this.$parent.addItem(player.inventory,this.$parent.items3[2]);
             this.$parent.addItem(player.inventory,this.$parent.items3[2]);
             this.$parent.addItem(player.inventory,this.$parent.items3[2]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[2]);
+            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
             player.animation = 'idle';
 
             this.$parent.changeScene('Wild');
