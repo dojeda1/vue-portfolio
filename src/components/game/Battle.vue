@@ -1,6 +1,6 @@
 <template>
     <div class="event-display">
-        <div class="text-blue" :class="{'text-gray': $parent.player.hp <= 0}">
+        <div class="left-display">
             <img class="game-sprite"
             :class="{ 'idle': $parent.player.animation == 'idle',
             'walk': $parent.player.animation == 'walk' ,
@@ -10,23 +10,25 @@
             'attack-right': $parent.player.animation == 'attack' }"
             :src="$parent.player.sprite"
             :alt="$parent.player.name">
-            <p>
-                {{ $parent.player.name }} | 
-                <span 
-                :class="{'text-red': $parent.player.hp < $parent.player.hpMax/2,
-                'text-gray': $parent.player.hp <= 0}">
-                HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> |  
-                <span 
-                :class="{'text-red': $parent.player.mp < $parent.player.mpMax/2,
-                'text-gray': $parent.player.hp <= 0}">
-                MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span>
-            </p>
-            <p>
-                <span >XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> | 
-                <span :class="{'text-red': $parent.player.gold < 10}">{{ $parent.player.gold }}g</span>
-            </p>
+            <div class="display-text text-blue" :class="{'text-gray': $parent.player.hp <= 0}">
+                <p>
+                    {{ $parent.player.name }} | 
+                    <span 
+                    :class="{'text-red': $parent.player.hp < $parent.player.hpMax/2,
+                    'text-gray': $parent.player.hp <= 0}">
+                    HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> |  
+                    <span 
+                    :class="{'text-red': $parent.player.mp < $parent.player.mpMax/2,
+                    'text-gray': $parent.player.hp <= 0}">
+                    MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span>
+                </p>
+                <p>
+                    <span >XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> | 
+                    <span :class="{'text-red': $parent.player.gold < 10}">{{ $parent.player.gold }}g</span>
+                </p>
+            </div>
         </div>
-        <div class="text-green" :class="{'text-gray': $parent.currentEnemy.hp <= 0}">
+        <div class="right-display">
             <img class="game-sprite"
             :class="{ 'idle': $parent.currentEnemy.animation == 'idle',
             'walk': $parent.currentEnemy.animation == 'walk' ,
@@ -36,16 +38,18 @@
             'attack-left': $parent.currentEnemy.animation == 'attack' }"
             :src="$parent.currentEnemy.sprite"
             :alt="$parent.currentEnemy.name">
-            <p>
-                {{ $parent.currentEnemy.name }} | 
-                <span 
-                :class="{'text-red': $parent.currentEnemy.hp < $parent.currentEnemy.hpMax/2,
-                'text-gray': $parent.currentEnemy.hp <= 0}">
-                HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.hpMax }}</span> | 
-                <span 
-                :class="{'text-red': $parent.currentEnemy.mp < $parent.currentEnemy.mpMax/2,
-                'text-gray': $parent.currentEnemy.hp <= 0}">MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.mpMax }}</span>
-            </p>
+            <div class="display-text text-green" :class="{'text-gray': $parent.currentEnemy.hp <= 0}">
+                <p>
+                    {{ $parent.currentEnemy.name }} | 
+                    <span 
+                    :class="{'text-red': $parent.currentEnemy.hp < $parent.currentEnemy.hpMax/2,
+                    'text-gray': $parent.currentEnemy.hp <= 0}">
+                    HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.hpMax }}</span> | 
+                    <span 
+                    :class="{'text-red': $parent.currentEnemy.mp < $parent.currentEnemy.mpMax/2,
+                    'text-gray': $parent.currentEnemy.hp <= 0}">MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.mpMax }}</span>
+                </p>
+            </div>
         </div>
     </div>
     <div class="message-box">
@@ -77,29 +81,31 @@
             <button class="btn-blue" @click="handleUseItem" :class="{ 'disabled' : !playerTurn}">Use Item</button>
         </p>
         <p>
-            <button class="btn-blue" @click="handleRun" :class="{ 'disabled' : !playerTurn}"><i className="material-icons left">arrow_back</i>Run</button>
+            <button class="btn-inv" @click="handleRun" :class="{ 'disabled' : !playerTurn}"><i className="material-icons left">arrow_back</i>Run</button>
         </p>
     </template>
     <template v-else-if="task == 'use item'">
         <p>{{this.$parent.infoText}}</p>
-        <button class="btn-blue"
-        v-for="(item, index) in $parent.player.inventory"
-        :key="index"
-            :class="{ 'disabled' : !playerTurn}"
-            @mouseover="$parent.infoText = item.info"
-            @click="handleAttemptItem(item,index)">{{ item.name }} x {{item.qty}}</button>
+        <div class="items" @mouseleave="$parent.infoText = 'Select an Item'">
+            <button class="btn-blue"
+            v-for="(item, index) in $parent.player.inventory"
+            :key="index"
+                :class="{ 'disabled' : !playerTurn}"
+                @mouseover="$parent.infoText = item.info"
+                @click="handleAttemptItem(item,index)">{{ item.name }} x {{item.qty}}</button>
+        </div>
         <p>
-            <button class="btn-blue" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
     <template v-else-if="task == 'next'">
         <p>
-            <button class="btn-blue" @click="handleNext">Next</button>
+            <button class="btn-inv" @click="handleNext">Next</button>
         </p>
     </template>
     <template v-else-if="task == 'end'">
         <p>
-            <button class="btn-blue" @click="handleEnd">End</button>
+            <button class="btn-inv" @click="handleEnd">End</button>
         </p>
     </template>
 </template>

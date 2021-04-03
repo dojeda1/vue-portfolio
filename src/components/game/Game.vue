@@ -2,8 +2,13 @@
 <div id="game">
     <div class="container">
         <div class="game-header">
-            <!-- <p>{{player.name}} | {{player.race}} | {{player.class}}</p> -->
-            <h1>Fantasy RPG</h1>
+            <h1>
+                <img class="game-sprite"
+                src="/images/game/dragon.png" style="width: 32px">
+                Fantasy RPG
+                <img class="game-sprite"
+                src="/images/game/dragon.png" style="width: 32px">
+            </h1>
             <p>- {{ this.region.name}} | {{location}} -</p>
         </div>
         <TitleScreen v-if="scene == 'TitleScreen'"/>

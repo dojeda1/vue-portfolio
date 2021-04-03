@@ -216,6 +216,7 @@ export default {
 
             this.$parent.changeScene('Wild');
             this.$parent.message = 'Your adventure begins...';
+            this.$parent.messageBox = [];
             console.log('player:',player);
         },
         editSprite(race,cls) {
@@ -264,6 +265,7 @@ export default {
     },
     created: function() {
         this.$parent.resetPlayer();
+        this.$parent.location = 'Character Creation';
     }
 }
 </script>
