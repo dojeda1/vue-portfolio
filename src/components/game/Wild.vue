@@ -1,5 +1,4 @@
 <template>
-<h5>{{ $parent.message }}</h5>
     <div class="event-display">
         <div class="text-blue" :class="{'text-gray': $parent.player.hp <= 0}">
             <img class="game-sprite"
@@ -39,6 +38,12 @@
             </p> -->
         </div>
     </div>
+    <div class="message-box">
+        <h5>{{ $parent.message }}</h5>
+        <p v-for="(msg, index) in $parent.messageBox" :key="index">
+            {{ msg }}
+        </p>
+    </div>
     <template v-if="task == 'wild'">
         <p>Where to next?</p>
         <p>
@@ -55,14 +60,13 @@
         </p>
     </template>
     <template v-else-if="task == 'use item'">
-        <p>Select an Item</p>
-        <p class="btn-blue"
-        v-for="(item, index) in $parent.player.inventory"
-        :key="index">
+        <p>{{$parent.infoText}}</p>
             <button class="btn-blue"
+            v-for="(item, index) in $parent.player.inventory"
+            :key="index"
             :class="{ 'disabled' : !playerTurn}"
+            @mouseover="$parent.infoText = item.info"
             @click="handleAttemptItem(item,index)">{{ item.name }} x {{item.qty}}</button>
-        </p>
         <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
@@ -99,6 +103,7 @@ export default {
         },
         handleUseItem() {
             this.task = 'use item';
+            this.infoText = 'Select an item'
         },
         handleAttemptItem(item,index) {
             let $this = this;

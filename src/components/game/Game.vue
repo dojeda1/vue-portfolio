@@ -59,8 +59,8 @@ export default {
     data() {
         return {
             message: "",
-            // messageSub: "",
-            infoText: [],
+            messageBox: [],
+            infoText: "",
             region: regions[0],
             scene: "TitleScreen",
             location: "Title Screen",
@@ -183,7 +183,7 @@ export default {
             } else if (item.name.includes('Mana Potion') && this.player.mp >= this.player.mpMax) {
                 this.message = 'You are already at full Mana.'
             } else {
-                this.message = 'ACTIVATE ' + item.name + '!!!'
+                this.messageBox = [];
                 console.log('PLAYER',this.player)
                 this.activateItem(this.player, this.currentEnemy, item, index);
                 if (cb) {
@@ -202,7 +202,7 @@ export default {
                     user.hp = user.hpMax
                 }
                 this.removeItem(user.inventory, user.inventory[index].name);
-                this.message = user.name + " recovered " + amount + " HP."
+                this.messageBox.push(user.name + ' recovered ' + amount + ' HP.')
             } else if (item.name.includes('Mana Potion')) {
                 let amount = Math.floor(user.mpMax * item.recover);
                 user.mp += amount;
@@ -210,17 +210,17 @@ export default {
                     user.mp = user.mpMax
                 }
                 this.removeItem(user.inventory, user.inventory[index].name);
-                this.message = user.name + ' recovered ' + amount + ' MP.'
+                this.messageBox.push(user.name + ' recovered ' + amount + ' MP.')
             } else if (item.name == 'Death Scroll') {
                 if (opponent.type === 'boss' || opponent.type === 'endBoss') {
                     let power = Math.ceil(opponent.hp / 2);
                     opponent.hp -= power;
                     this.removeItem(user.inventory, user.inventory[index].name);
-                    this.message = 'Death Scroll only did ' + power + ' damage'
+                    this.messageBox.push('Death Scroll only did ' + power + ' damage')
                 } else {
                     opponent.hp = 0;
                     this.removeItem(user.inventory, user.inventory[index].name);
-                    this.message = user.name + ' read from the Death Scroll.'
+                    this.messageBox.push(user.name + ' read from the Death Scroll.')
                 }
             } else {
                 this.message = "SOMETHING WENT WRONG"
