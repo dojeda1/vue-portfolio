@@ -12,6 +12,8 @@
         "luck": 10,
         "xp": 45,
         "inventory": [],
+        "specials": [],
+        "status": [],
         "gold": 100,
         "isDead": false
     },
@@ -28,6 +30,8 @@
         "luck": 8,
         "xp": 75,
         "inventory": [],
+        "specials": [],
+        "status": [],
         "gold": 100,
         "isDead": false
     },
@@ -44,6 +48,8 @@
         "luck": 15,
         "xp": 200,
         "inventory": [],
+        "specials": [],
+        "status": [],
         "gold": 1000,
         "isDead": false
     }

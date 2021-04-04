@@ -5,6 +5,7 @@
             :class="{ 'idle': $parent.player.animation == 'idle',
             'walk': $parent.player.animation == 'walk' ,
             'dodge': $parent.player.animation == 'dodge' ,
+            'buffer': $parent.player.animation == 'buffer' ,
             'die-left': $parent.player.animation == 'die' ,
             'damage': $parent.player.animation == 'damage' ,
             'attack-right': $parent.player.animation == 'attack' }"
@@ -26,6 +27,7 @@
                     <span >XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> | 
                     <span :class="{'text-red': $parent.player.gold < 10}">{{ $parent.player.gold }}g</span>
                 </p>
+                <p>{{$parent.player.status.join()}}</p>
             </div>
         </div>
         <div class="right-display">
@@ -33,6 +35,7 @@
             :class="{ 'idle': $parent.currentEnemy.animation == 'idle',
             'walk': $parent.currentEnemy.animation == 'walk' ,
             'dodge': $parent.currentEnemy.animation == 'dodge' ,
+            'buffer': $parent.currentEnemy.animation == 'buffer' ,
             'die-right': $parent.currentEnemy.animation == 'die' ,
             'damage': $parent.currentEnemy.animation == 'damage' ,
             'attack-left': $parent.currentEnemy.animation == 'attack' }"
@@ -63,7 +66,7 @@
         <p>
             <button class="btn-blue" @click="handleAttack" :class="{ 'disabled' : !playerTurn}">Attack</button>
         </p>
-        <template v-if="$parent.player.special1.active">
+        <!-- <template v-if="$parent.player.special1.active">
             <p>
                 <button class="btn-blue" @click="handleSpecial($parent.player.special1)"
                 :class="{ 'disabled' : !playerTurn || $parent.player.special1.cost > $parent.player.mp}">
@@ -76,6 +79,15 @@
                 :class="{ 'disabled' : !playerTurn || $parent.player.special2.cost > $parent.player.mp}">
                 {{$parent.player.special2.name}} - {{$parent.player.special1.cost}} mp</button>
             </p>
+        </template> -->
+        <template v-for="(special, index) in $parent.player.specials" :key="index">
+            <template v-if="special.active">
+                <p>
+                    <button class="btn-blue" @click="handleSpecial(special)"
+                    :class="{ 'disabled' : !playerTurn || special.cost > $parent.player.mp}">
+                    {{special.name}} - {{special.cost}} mp</button>
+                </p>
+            </template>
         </template>
         <p>
             <button class="btn-blue" @click="handleUseItem" :class="{ 'disabled' : !playerTurn}">Use Item</button>
@@ -143,7 +155,11 @@ export default {
             this.task = 'battle';
         },
         handleUseItem() {
-            this.infoText = 'Select an item'
+            if (this.$parent.player.inventory.length) {
+                this.$parent.infoText = 'Select an item'
+            } else {
+                this.$parent.infoText = 'Inventory empty'
+            }
             this.task = 'use item';
         },
         handleAttemptItem(item,index) {
@@ -161,7 +177,6 @@ export default {
             );
         },
         enemyTurn(player, enemy) {
-            console.log('BIOTCH')
             if (enemy.hp <= 0) {
                 let regionIndex = this.$parent.region.index;
                 player.totalKills++;
@@ -247,14 +262,16 @@ export default {
             },600)
             this.gameOverCheck();
         },
-        handleSpecial(special) {
-            const cost = special.cost
-            const name = special.name;
+        handleSpecial($special) {
+            const cost = $special.cost
+            const name = $special.name;
             console.log("Special: " + name + " " + cost);
             if (name === "Heal" && this.$parent.player.hp >= this.$parent.player.hpMax) {
                 this.$parent.message = "You are already at full health."
             } else if (name === "Steal" && !this.$parent.currentEnemy.inventory.length) {
                 this.$parent.message = "There is nothing to steal."
+            } else if (name === "Berserk" && this.$parent.player.status.includes('Berserk')) {
+                this.$parent.message = "You are already Berserk."
             } else {
                 this.playerTurn = false;
                 let player = this.$parent.player;
@@ -262,7 +279,7 @@ export default {
                 this.$parent.messageBox = [];
                 let $this = this;
                 // $this.attack(player, enemy)
-                $this.special(player, enemy, name, cost);
+                $this.special(player, enemy, $special);
                 setTimeout(function() {
                     $this.enemyTurn(player, enemy);
                 }, 1200);
@@ -272,22 +289,17 @@ export default {
         attack(attacker, defender) {
             attacker.animation = 'attack'
             let berserkNum = 0;
-            if (attacker.isBerserk) {
-                attacker.berserkCount++
-                berserkNum = Math.floor(attacker.strength / 2)
-            }
-
-            if (attacker.isBerserk) {
-                attacker.berserkCount++;
-                // console.log(attacker.berserkCount);
-                if (attacker.berserkCount > 2) {
-                    attacker.berserkCount = 0;
-                    attacker.isBerserk = false;
-                    attacker.strength = attacker.berserkAtkHold
-                    console.log(" - Berserk has run out. - \n")
+            let berserkMessage;
+            if (attacker.status.includes('Berserk')) {
+                const berserk = this.$parent.returnSpecial(attacker.specials,'Berserk')
+                berserk.count--
+                berserkNum = Math.ceil(attacker.strength / 2);
+                if (berserk.count <= 0) {
+                    attacker.status.splice(attacker.status.indexOf('Berserk'), 1);
+                    console.log(" - Berserk has run out. - \n");
+                    berserkMessage = '- Berserk has run out. -'
                 }
             }
-
             console.log(attacker.name + " attacked " + defender.name)
             let attackMessage;
             let damage = 0;
@@ -318,6 +330,7 @@ export default {
                     defender.animation = 'damage'
                 },300);
                 damage = attacker.strength + berserkNum - defense;
+                console.log('S:',attacker.strength,'B:',berserkNum,'-D:',defense,"=",damage)
                 if (damage < 1) {
                     damage = 1;
                 }
@@ -326,22 +339,29 @@ export default {
                 setTimeout(function() {
                     defender.animation = 'damage'
                 },300);
-                damage = attacker.strength + Math.floor(attacker.strength * 0.25) + berserkNum;
+                damage = attacker.strength + Math.ceil(attacker.strength * 0.25) + berserkNum;
+                console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.25),'B:',berserkNum,"=",damage)
                 attackMessage = "Critical hit! " + attacker.name + " did " + damage + " damage.";
             }
             defender.hp -= damage;
             this.$parent.messageBox.push(attackMessage);
+            berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
             console.log(attackMessage);
             // this.atkText(attacker, attackMessage);
             // attacker.berserkCheck();
         },
-        special (attacker, defender, name, cost) {
+        special (attacker, defender, $special) {
+            const cost = $special.cost
+            const name = $special.name;
             let attackMessage;
             let damage = 0;
             let defense = defender.defense;
             let criticalCheck = this.$parent.randNum(1, 100);
             let missCheck = this.$parent.randNum(1, 100);
             let luckCheck = (attacker.luck - defender.luck) + 10;
+            let special;
+            let berserkNum = 0;
+            let berserkMessage;
             if (luckCheck > 95) {
                 luckCheck = 95;
             } else if (luckCheck < 5) {
@@ -359,18 +379,28 @@ export default {
                     attacker.animation = 'attack'
                     console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
                     console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
+                    if (attacker.status.includes('Berserk')) {
+                        const berserk = this.$parent.returnSpecial(attacker.specials,'Berserk')
+                        berserk.count--
+                        berserkNum = Math.ceil(attacker.strength / 2);
+                        if (berserk.count <= 0) {
+                            attacker.status.splice(attacker.status.indexOf('Berserk'), 1);
+                            console.log(" - Berserk has run out. - \n");
+                            berserkMessage = '- Berserk has run out. -'
+                        }
+                    }
                     if (missCheck < speedCheck) {
-                        attackMessage = attacker.name + "'s Axe missed...";
                         setTimeout(function() {
                             defender.animation = 'dodge'
                         },300);
+                        attackMessage = attacker.name + "'s Axe missed...";
                     } else if (criticalCheck >= luckCheck) {
                         setTimeout(function() {
                             defender.animation = 'damage'
                         },300);
                         defense = Math.floor(defense / 4);
-                        // damage = attacker.strength + berserkNum - defense;
-                        damage = attacker.strength + Math.floor(attacker.strength * 0.25) - defense;
+                        damage = attacker.strength + Math.ceil(attacker.strength * 0.25) + berserkNum - defense;
+                        console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
                         if (damage < 1) {
                             damage = 1;
                         }
@@ -379,38 +409,54 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'damage'
                         },300);
-                        damage = attacker.strength + Math.floor(attacker.strength * 0.5);
+                        damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
+                        console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.5),'B:',berserkNum,"=",damage)
                         attackMessage = "Critical hit! " + attacker.name + "'s Axe did " + damage + " damage.";
                     }
                     defender.hp -= damage;
                     attacker.mp -= cost;
+                    console.log('message in a bottle:',berserkMessage)
                     this.$parent.messageBox.push(attackMessage);
+                    berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
                     console.log(attackMessage);
                     break;
 
                 case "Berserk":
+                    attacker.animation = 'buffer'
                     attacker.mp -= cost;
-                    attacker.isBerserk = true;
-                    attacker.berserkCount = 0;
-                    // this.atkText(attacker, attacker.name + " is now Berserk!");
-                    // attacker.berserkCheck();
+                    special = this.$parent.returnSpecial(attacker.specials,'Berserk')
+                    console.log('special:',special);
+                    special.count = 3;
+                    attacker.status.push('Berserk')
+                    this.$parent.messageBox.push(attacker.name + " is now Berserk!");
                     break;
 
                 case "Fireball":
                     attacker.animation = 'attack'
                     console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
                     console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
+                    if (attacker.status.includes('Berserk')) {
+                        const berserk = this.$parent.returnSpecial(attacker.specials,'Berserk')
+                        berserk.count--
+                        berserkNum = Math.ceil(attacker.strength / 2);
+                        if (berserk.count <= 0) {
+                            attacker.status.splice(attacker.status.indexOf('Berserk'), 1);
+                            console.log(" - Berserk has run out. - \n");
+                            berserkMessage = '- Berserk has run out. -'
+                        }
+                    }
                     if (missCheck < speedCheck) {
-                        attackMessage = attacker.name + "'s Fire missed...";
                         setTimeout(function() {
                             defender.animation = 'dodge'
                         },300);
+                        attackMessage = attacker.name + "'s Fire missed...";
                     } else if (criticalCheck >= luckCheck) {
                         setTimeout(function() {
                             defender.animation = 'damage'
                         },300);
                         defense = Math.floor(defense / 4);
-                        damage = attacker.mana + Math.floor(attacker.mana * 0.25) - defense;
+                        damage = attacker.mana + Math.ceil(attacker.mana * 0.25) + berserkNum - defense;
+                        console.log('S:',attacker.mana,'X:',Math.ceil(attacker.mana * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
                         if (damage < 1) {
                             damage = 1;
                         }
@@ -419,17 +465,19 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'damage'
                         },300);
-                        damage = attacker.mana + Math.floor(attacker.mana * 0.5);
+                        damage = attacker.mana + Math.ceil(attacker.mana * 0.5) + berserkNum;
+                        console.log('S:',attacker.mana,'X:',Math.ceil(attacker.mana * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
                         attackMessage = "Critical hit! " + attacker.name + "'s Fire did " + damage + " damage.";
                     }
                     defender.hp -= damage;
                     attacker.mp -= cost;
                     this.$parent.messageBox.push(attackMessage);
+                    berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
                     console.log(attackMessage);
-                    // attacker.berserkCheck();
                     break;
 
                 case "Heal":
+                    attacker.animation = 'buffer'
                     luckCheck = attacker.luck + 8;
                     if (luckCheck > 95) {
                         luckCheck = 95;
@@ -438,7 +486,7 @@ export default {
                     }
                     console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
                     if (criticalCheck >= luckCheck) {
-                        damage = Math.floor(attacker.hpMax * 0.75);
+                        damage = Math.ceil(attacker.hpMax * 0.75);
                         attackMessage = attacker.name + " recovered " + damage + " HP.";
                     } else {
                         damage = attacker.hpMax;
@@ -449,29 +497,36 @@ export default {
                         attacker.hp = attacker.hpMax;
                     }
                     attacker.mp -= cost;
-                    // this.atkText(attacker, attackMessage);
-
-                    // attacker.berserkCheck();
+                    this.$parent.messageBox.push(attackMessage);
+                    console.log(attackMessage);
                     break;
 
                 case "Dagger Slash":
-                    console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
-                    console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
                     attacker.animation = 'attack'
                     console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
                     console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
+                    if (attacker.status.includes('Berserk')) {
+                        const berserk = this.$parent.returnSpecial(attacker.specials,'Berserk')
+                        berserk.count--
+                        berserkNum = Math.ceil(attacker.strength / 2);
+                        if (berserk.count <= 0) {
+                            attacker.status.splice(attacker.status.indexOf('Berserk'), 1);
+                            console.log(" - Berserk has run out. - \n");
+                            berserkMessage = '- Berserk has run out. -'
+                        }
+                    }
                     if (missCheck < speedCheck) {
-                        attackMessage = attacker.name + "'s Dagger missed...";
                         setTimeout(function() {
                             defender.animation = 'dodge'
                         },300);
+                        attackMessage = attacker.name + "'s Dagger missed...";
                     } else if (criticalCheck >= luckCheck) {
                         setTimeout(function() {
                             defender.animation = 'damage'
                         },300);
                         defense = Math.floor(defense / 4);
-                        // damage = attacker.strength + berserkNum - defense;
-                        damage = attacker.strength + Math.floor(attacker.strength * 0.25) - defense;
+                        damage = attacker.strength + Math.ceil(attacker.strength * 0.25) + berserkNum - defense;
+                        console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
                         if (damage < 1) {
                             damage = 1;
                         }
@@ -480,18 +535,18 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'damage'
                         },300);
-                        damage = attacker.strength + Math.floor(attacker.strength * 0.5);
+                        damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
                         attackMessage = "Critical hit! " + attacker.name + "'s Dagger did " + damage + " damage.";
                     }
                     defender.hp -= damage;
                     attacker.mp -= cost;
                     this.$parent.messageBox.push(attackMessage);
+                    berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
                     console.log(attackMessage);
-
-                    // attacker.berserkCheck();
                     break;
 
                 case "Steal":
+                    attacker.animation = 'attack'
                     speedCheck = (attacker.speed - defender.speed) + 60;
                     if (speedCheck > 95) {
                         speedCheck = 95;
@@ -500,16 +555,25 @@ export default {
                     }
                     console.log("rand/CritCheck: " + criticalCheck + "/" + speedCheck);
                     if (criticalCheck <= speedCheck) {
+                        setTimeout(function() {
+                            defender.animation = 'damage'
+                        },300);
                         const itemNum = this.$parent.randNum(0, defender.inventory.length);
                         const item = defender.inventory[itemNum];
-                        this.transferItem(defender.inventory, attacker.inventory, item);
-                        // this.atkText(attacker, attacker.name + " stole " + this.$parent.anA(item.name) + " " + item.name + ".");
+                        this.$parent.transferItem(defender.inventory, attacker.inventory, item);
+                        attackMessage = attacker.name + " stole " + this.$parent.anA(item.name) + " " + item.name + "."
+                        this.$parent.messageBox.push(attackMessage);
+                        console.log(attackMessage);
                     } else {
-                        // this.atkText(attacker, attacker.name + " failed to steal anything.");
+                        setTimeout(function() {
+                            defender.animation = 'dodge'
+                        },300);
+                        attackMessage = attacker.name + " failed to steal anything."
+                        this.$parent.messageBox.push(attackMessage);
+                        console.log(attackMessage);
                     }
 
                     attacker.mp -= cost;
-                    // attacker.berserkCheck();
                     break;
 
                 default:
@@ -526,7 +590,6 @@ export default {
                 text.push("Gold Collected: " + this.$parent.player.totalGold);
                 text.push("Quests Completed: " + this.$parent.player.totalQuests);
                 text.push("Dungeons Completed: " + this.$parent.player.totalDungeons);
-                // this.$parent.scene="GameOver";
                 this.$parent.message = 'Game Over.';
                 this.task = 'end';
             }
@@ -534,27 +597,17 @@ export default {
         },
         handleEnd() {
             this.$parent.changeScene('TitleScreen');
-            // this.changePlayStates("Title Screen", "new or load");
-            // this.setState({
-            //     player: playerDefault,
-            //     message: "Start again?"
-            // });
         },
         gainXp(xpNum, player) {
             player.xp += xpNum;
             let text = this.$parent.messageBox;
             text.push("You gained " + xpNum + " XP.");
-            // this.setState({
-            //     player: player,
-            //     xpResult: xpNum,
-            //     messageBox: text
-            // }, () => this.levelUpCheck(this.$parent.player))
             this.levelUpCheck(this.$parent.player);
         },
         levelUpCheck(player) {
             if (player.xp >= player.nextLevel) {
                 player.level++;
-                player.nextLevel += player.level * 50;
+                player.nextLevel += player.level * 30;
                 player.strength += 2;
                 player.defense += 1;
                 player.speed += 1;
@@ -566,13 +619,13 @@ export default {
                 player.mp = player.mpMax;
 
                 let text = this.$parent.messageBox;
-                text.push("You are now lv. " + player.level + "!!!");
-                if (player.level === 2) {
-                    player.special1.active = true;
-                    text.push("You learned " + player.special1.name + "!!!!!");
-                } else if (player.level === 4) {
-                    player.special2.active = true;
-                    text.push("You learned " + player.special2.name + "!!!!!");
+                text.push("You are now lv. " + player.level + "!");
+                if (player.level == 2) {
+                    player.specials[0].active = true;
+                    text.push("You learned " + player.specials[0].name + "!!!");
+                } else if (player.level == 3) {
+                    player.specials[1].active = true;
+                    text.push("You learned " + player.specials[1].name + "!!!");
                 }
                 this.levelUpCheck(player)
             }
@@ -586,6 +639,7 @@ export default {
             this.$parent.changeScene('Wild');
             this.gameOverCheck();
             this.$parent.message = "You lost " + lostGold + " gold and " + lostHp + " HP.";
+            this.$parent.messageBox = []
             // this.setState({
             //     task: "select where",
             //     step: null,
@@ -634,9 +688,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-    .message-box {
-        border: 2px solid gray;
-        padding: 10px;
-        min-height: 100px;
-    }
+
 </style>

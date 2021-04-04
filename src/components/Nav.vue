@@ -8,7 +8,7 @@
       <a href="#about" class="nav-link">About</a>
       <a href="#contact" class="nav-link">Contact</a>
       <a href="/files/dro_resume.pdf" target="blank" class="nav-link">Resume</a>
-      <div class="nav-link game-link" @click="gameToggled">{{code}}</div>
+      <div class="nav-link text-gray" @click="gameToggled">{{code}}</div>
     </div>
 </template>
 
@@ -48,17 +48,12 @@ export default {
       text-align: center;
       z-index: 2;
   }
-  #nav .nav-link {
+  .nav-link {
       color: white;
       display: block;
       padding: 15px 5px;
       text-decoration: none;
       cursor: pointer;
-  }
-
-  #nav .nav-link.game-link {
-      /* color: #4d4d4d; */
-      color: slategrey;
   }
 
   #nav .nav-link:hover {

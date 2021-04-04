@@ -120,10 +120,6 @@ export default {
             let mana;
             let speed;
             let luck;
-            let specialName1
-            let specialName2
-            let specialCost1
-            let specialCost2
             switch (cls) {
                 case "Warrior":
                     hpMax = 4
@@ -133,10 +129,17 @@ export default {
                     mana = 0
                     speed = 0
                     luck = 0
-                    specialName1 = "Axe Strike"
-                    specialName2 = "Berserk"
-                    specialCost1 = 6
-                    specialCost2 = 8
+                    player.specials.push({
+                        name: "Axe Strike",
+                        cost: 2,
+                        active: false
+                    })
+                    player.specials.push({
+                        name: "Berserk",
+                        cost: 8,
+                        active: false,
+                        count: 0
+                    })
                     break;
                 case "Mage":
                     hpMax = 2
@@ -146,10 +149,16 @@ export default {
                     mana = 7
                     speed = 0
                     luck = 1
-                    specialName1 = "Fireball"
-                    specialName2 = "Heal"
-                    specialCost1 = 6
-                    specialCost2 = 10
+                    player.specials.push({
+                        name: "Fireball",
+                        cost: 6,
+                        active: false,
+                    })
+                    player.specials.push({
+                        name: "Heal",
+                        cost: 10,
+                        active: false,
+                    })
                     break;
                 case "Rogue":
                     hpMax = 2
@@ -159,10 +168,16 @@ export default {
                     mana = 1
                     speed = 2
                     luck = 2
-                    specialName1 = "Dagger Slash"
-                    specialName2 = "Steal"
-                    specialCost1 = 6
-                    specialCost2 = 5
+                    player.specials.push({
+                        name: "Dagger Slash",
+                        cost: 6,
+                        active: false,
+                    })
+                    player.specials.push({
+                        name: "Steal",
+                        cost: 5,
+                        active: false
+                    })
                     break;
                 default: console.log("error");
             }
@@ -177,40 +192,27 @@ export default {
             player.mana += mana;
             player.speed += speed;
             player.luck += luck;
-            player.special1 = {
-                name: specialName1,
-                cost: specialCost1,
-                active: false
-            }
-            player.special2 = {
-                name: specialName2,
-                cost: specialCost2,
-                active: false
-            }
-            // player.specialName2 = specialName2;
-            // player.specialCost1 = specialCost1;
-            // player.specialCost2 = specialCost2;
 
             this.editSprite(player.race,player.class);
-            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
-            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
-            this.$parent.addItem(player.inventory,this.$parent.items1[1]);
-            this.$parent.addItem(player.inventory,this.$parent.items1[1]);
-            this.$parent.addItem(player.inventory,this.$parent.items2[0]);
-            this.$parent.addItem(player.inventory,this.$parent.items2[0]);
-            this.$parent.addItem(player.inventory,this.$parent.items2[1]);
-            this.$parent.addItem(player.inventory,this.$parent.items2[1]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[0]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[0]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[1]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[1]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[2]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[2]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            // this.$parent.addItem(player.inventory,this.$parent.items1[0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items1[0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items1[1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items1[1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items2[0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items2[0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items2[1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items2[1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[2]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[2]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
             this.$parent.addItem(player.inventory,this.$parent.items3[3]);
             player.animation = 'idle';
 

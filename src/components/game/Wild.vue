@@ -106,8 +106,12 @@ export default {
             this.task = 'wild';
         },
         handleUseItem() {
+            if (this.$parent.player.inventory.length) {
+                this.$parent.infoText = 'Select an item'
+            } else {
+                this.$parent.infoText = 'Inventory empty'
+            }
             this.task = 'use item';
-            this.infoText = 'Select an item'
         },
         handleAttemptItem(item,index) {
             let $this = this;

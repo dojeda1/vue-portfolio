@@ -11,6 +11,8 @@
         "luck": 5,
         "xp": 100,
         "inventory": [],
+        "specials": [],
+        "status": [],
         "gold": 120
     },
     {
@@ -25,6 +27,8 @@
         "luck": 8,
         "xp": 100,
         "inventory": [],
+        "specials": [],
+        "status": [],
         "gold": 150
     },
     {
@@ -39,6 +43,8 @@
         "luck": 8,
         "xp": 100,
         "inventory": [],
+        "specials": [],
+        "status": [],
         "gold": 150
     }
 ]

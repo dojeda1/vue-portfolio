@@ -7,7 +7,7 @@
                 src="/images/game/dragon.png" style="width: 32px">
                 Fantasy RPG
                 <img class="game-sprite"
-                src="/images/game/dragon.png" style="width: 32px">
+                src="/images/game/dragon.png" style="width: 32px;transform: scaleX(-1);">
             </h1>
             <p>- {{ this.region.name}} | {{location}} -</p>
         </div>
@@ -121,6 +121,25 @@ export default {
                 anA = "a";
                 return anA;
             }
+        },
+        hasSpecial(arr,name) {
+            let hasSpecial = false;
+            arr.forEach(function(special) {
+                if (special.name == name) {
+                    hasSpecial = true;
+                }
+            })
+            return hasSpecial;
+        },
+        returnSpecial(arr,name) {
+            var $special;
+            arr.forEach(function(special) {
+                console.log('check...')
+                if (special.name == name) {
+                    $special = special
+                }
+            })
+            return $special
         },
         addItem(array, item) {
             const newItem = JSON.parse(JSON.stringify(item));
@@ -253,6 +272,12 @@ export default {
         animation-timing-function: ease;
         animation: slide-in-left 3s;
         animation-iteration-count: 1;
+    }
+
+    .message-box {
+        border: 2px solid gray;
+        padding: 10px;
+        /* min-height: 162px; */
     }
 
     @keyframes slide-in-left {
