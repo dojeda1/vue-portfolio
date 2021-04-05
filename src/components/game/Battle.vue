@@ -1,66 +1,4 @@
 <template>
-    <div class="event-display">
-        <div class="left-display">
-            <img class="game-sprite"
-            :class="{ 'idle': $parent.player.animation == 'idle',
-            'walk': $parent.player.animation == 'walk' ,
-            'dodge': $parent.player.animation == 'dodge' ,
-            'buffer': $parent.player.animation == 'buffer' ,
-            'die-left': $parent.player.animation == 'die' ,
-            'damage': $parent.player.animation == 'damage' ,
-            'attack-right': $parent.player.animation == 'attack' }"
-            :src="$parent.player.sprite"
-            :alt="$parent.player.name">
-            <div class="display-text text-blue" :class="{'text-gray': $parent.player.hp <= 0}">
-                <p>
-                    {{ $parent.player.name }} | 
-                    <span 
-                    :class="{'text-red': $parent.player.hp < $parent.player.hpMax/2,
-                    'text-gray': $parent.player.hp <= 0}">
-                    HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> |  
-                    <span 
-                    :class="{'text-red': $parent.player.mp < $parent.player.mpMax/2,
-                    'text-gray': $parent.player.hp <= 0}">
-                    MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span>
-                </p>
-                <p>
-                    <span >XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> | 
-                    <span :class="{'text-red': $parent.player.gold < 10}">{{ $parent.player.gold }}g</span>
-                </p>
-                <p>{{$parent.player.status.join()}}</p>
-            </div>
-        </div>
-        <div class="right-display">
-            <img class="game-sprite"
-            :class="{ 'idle': $parent.currentEnemy.animation == 'idle',
-            'walk': $parent.currentEnemy.animation == 'walk' ,
-            'dodge': $parent.currentEnemy.animation == 'dodge' ,
-            'buffer': $parent.currentEnemy.animation == 'buffer' ,
-            'die-right': $parent.currentEnemy.animation == 'die' ,
-            'damage': $parent.currentEnemy.animation == 'damage' ,
-            'attack-left': $parent.currentEnemy.animation == 'attack' }"
-            :src="$parent.currentEnemy.sprite"
-            :alt="$parent.currentEnemy.name">
-            <div class="display-text text-green" :class="{'text-gray': $parent.currentEnemy.hp <= 0}">
-                <p>
-                    {{ $parent.currentEnemy.name }} | 
-                    <span 
-                    :class="{'text-red': $parent.currentEnemy.hp < $parent.currentEnemy.hpMax/2,
-                    'text-gray': $parent.currentEnemy.hp <= 0}">
-                    HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.hpMax }}</span> | 
-                    <span 
-                    :class="{'text-red': $parent.currentEnemy.mp < $parent.currentEnemy.mpMax/2,
-                    'text-gray': $parent.currentEnemy.hp <= 0}">MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.mpMax }}</span>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="message-box">
-        <h5>{{ $parent.message }}</h5>
-        <p v-for="(msg, index) in $parent.messageBox" :key="index">
-            {{ msg }}
-        </p>
-    </div>
     <template v-if="task == 'battle'">
         <p>What next?</p>
         <p>
@@ -149,7 +87,16 @@ export default {
         },
         handleNext() {
             this.$parent.messageBox = [];
-            this.$parent.changeScene('Wild');
+            if (this.$parent.location == 'Wild') {
+                this.$parent.changeScene('Wild');
+            } else if (this.$parent.location == 'Dungeon') {
+                if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
+                    this.$parent.message = 'Dungeon Completed.'
+                    this.$parent.changeScene('Wild');
+                } else {
+                    this.$parent.changeScene('Dungeon');
+                }
+            }
         },
         handleBack() {
             this.task = 'battle';
@@ -213,7 +160,7 @@ export default {
                 }
                 if (this.$parent.location === "Dungeon") {
                     this.$parent.dungeonCount++
-                    if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal) {
+                    if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
                         player.totalDungeons++
                     }
                 }
@@ -636,17 +583,14 @@ export default {
             player.gold -= lostGold;
             const lostHp = this.$parent.randNum(0, 3);
             player.hp -= lostHp;
-            this.$parent.changeScene('Wild');
+            if (this.$parent.location == 'Wild') {
+                this.$parent.changeScene('Wild');
+            } else if (this.$parent.location == 'Dungeon') {
+                this.$parent.changeScene('Dungeon');
+            }
             this.gameOverCheck();
             this.$parent.message = "You lost " + lostGold + " gold and " + lostHp + " HP.";
             this.$parent.messageBox = []
-            // this.setState({
-            //     task: "select where",
-            //     step: null,
-            //     movingForward: false,
-            //     message: "You lost " + lostGold + " gold and " + lostHp + " HP.",
-            // });
-
         },
         dropGold() {
             const amount = this.$parent.randNum(2, this.$parent.currentEnemy.gold);
@@ -657,12 +601,16 @@ export default {
             player.totalGold += amount;
         },
         dropLoot(enemy) {
+            let text = this.$parent.messageBox;
             if (enemy.name === "Mimic") {
-                let text = this.$parent.messageBox;
-                enemy.inventory.forEach(item => {
-                    this.transferItem(enemy.inventory, this.$parent.player.inventory, item)
-                    text.push(enemy.name + " dropped " + this.$parent.anA(item.name) + " " + item.name + ".");
-                });
+                if (enemy.inventory.length) {
+                    enemy.inventory.forEach(item => {
+                        this.$parent.transferItem(enemy.inventory, this.$parent.player.inventory, item)
+                        text.push(enemy.name + " dropped " + this.$parent.anA(item.name) + " " + item.name + ".");
+                    });
+                } else {
+                    console.log("enemy has no items")
+                }
             } else {
                 const lootCheck = this.$parent.randNum(1, 5);
                 if (lootCheck === 1) {
@@ -670,7 +618,6 @@ export default {
                         const itemNum = this.$parent.randNum(0, enemy.inventory.length);
                         const item = enemy.inventory[itemNum];
                         this.$parent.transferItem(enemy.inventory, this.$parent.player.inventory, item)
-                        let text = this.$parent.messageBox;
                         text.push(enemy.name + " dropped " + this.$parent.anA(item.name) + " " + item.name + ".");
                     } else {
                         console.log("enemy has no items")

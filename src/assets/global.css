@@ -327,8 +327,8 @@ button i {
     animation-timing-function: ease;
     transform-origin: bottom;
     animation-duration: .3s;
-    /* animation-iteration-count: 1; */
-    animation-iteration-count: infinite;
+    animation-iteration-count: 2;
+    /* animation-iteration-count: infinite; */
 }
 
 .die-left {

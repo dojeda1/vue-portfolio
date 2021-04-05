@@ -194,9 +194,9 @@ export default {
             player.luck += luck;
 
             this.editSprite(player.race,player.class);
+            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
             // this.$parent.addItem(player.inventory,this.$parent.items1[0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items1[0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items1[1]);
+            this.$parent.addItem(player.inventory,this.$parent.items1[1]);
             // this.$parent.addItem(player.inventory,this.$parent.items1[1]);
             // this.$parent.addItem(player.inventory,this.$parent.items2[0]);
             // this.$parent.addItem(player.inventory,this.$parent.items2[0]);
@@ -213,7 +213,7 @@ export default {
             // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
             // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
             // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
             player.animation = 'idle';
 
             this.$parent.changeScene('Wild');

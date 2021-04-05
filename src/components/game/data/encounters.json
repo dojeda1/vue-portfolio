@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Chest",
+        "type": "common",
+        "sprite": "/images/game/chest.png",
+        "inventory": [],
+        "gold": 10
+    },
+    {
+        "name": "Mimic",
+        "type": "common",
+        "sprite": "/images/game/mimic.png",
+        "hpMax": 20,
+        "mpMax": 10,
+        "strength": 2,
+        "defense": 0,
+        "speed": 2,
+        "luck": 2,
+        "xp": 5,
+        "inventory": [],
+        "specials": [],
+        "status": [],
+        "gold": 13
+    },
+    {
+        "name": "Dungeon",
+        "type": "common",
+        "sprite": "/images/game/dungeon.png"
+    }
+]

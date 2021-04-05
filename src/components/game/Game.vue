@@ -1,5 +1,6 @@
 <template>
 <div id="game">
+    <p>SCENE: {{scene}} DungComp: {{player.totalDungeons}}</p>
     <div class="container">
         <div class="game-header">
             <h1>
@@ -13,8 +14,16 @@
         </div>
         <TitleScreen v-if="scene == 'TitleScreen'"/>
         <CharacterCreation v-if="scene == 'CharacterCreation'"/>
+        <EventDisplay v-if="scene == 'Wild'
+        || scene == 'Dungeon'
+        || scene == 'Battle'
+        || scene == 'ChestEncounter'
+        || scene == 'DungeonEncounter'"/>
         <Wild v-if="scene == 'Wild'"/>
+        <Dungeon v-if="scene == 'Dungeon'"/>
         <Battle v-if="scene == 'Battle'"/>
+        <ChestEncounter v-if="scene == 'ChestEncounter'"/>
+        <DungeonEncounter v-if="scene == 'DungeonEncounter'"/>
     </div>
 </div>
 </template>
@@ -22,8 +31,12 @@
 <script>
 import TitleScreen from './TitleScreen.vue'
 import CharacterCreation from './CharacterCreation.vue'
+import EventDisplay from './EventDisplay.vue'
 import Wild from './Wild.vue'
+import Dungeon from './Dungeon.vue'
 import Battle from './Battle.vue'
+import ChestEncounter from './ChestEncounter.vue'
+import DungeonEncounter from './DungeonEncounter.vue'
 // import Town from './Town.vue'
 // import Shop from './Shop.vue'
 // import Tavern from './Tavern.vue'
@@ -32,6 +45,8 @@ import Battle from './Battle.vue'
 import playerDefault from './data/playerDefault.json';
 
 import regions from "./data/regions.json";
+
+import encounters from "./data/encounters.json";
 
 import monsters1 from "./data/monsters1.json";
 import monsters2 from "./data/monsters2.json";
@@ -55,8 +70,12 @@ export default {
     components: {
         TitleScreen,
         CharacterCreation,
+        EventDisplay,
         Wild,
+        Dungeon,
         Battle,
+        ChestEncounter,
+        DungeonEncounter
         // Town,
         // Shop,
         // Tavern
@@ -75,6 +94,7 @@ export default {
             // movingForward: false,
             player: {},
             currentEnemy: {},
+            currentEncounter: {},
             // quests: [],
             // tavernQuests: [],
             // merchant: [],
@@ -82,6 +102,7 @@ export default {
             // castleCount: 0,
             // meadCount: 0,
             playerDefault: playerDefault,
+            encounters: encounters,
             items1: items1,
             items2: items2,
             items3: items3,

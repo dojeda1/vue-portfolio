@@ -1,17 +1,20 @@
 <template>
-    <template v-if="task == 'wild'">
+    <p>
+        DC: {{$parent.dungeonCount}}/{{this.$parent.region.dungeonGoal}}
+    </p>
+    <template v-if="task == 'dungeon'">
         <p>Where to next?</p>
-        <p>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleExplore">Explore</button>
+        <p v-if="$parent.dungeonCount >= this.$parent.region.dungeonGoal">
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleFightBoss">Fight Boss</button>
         </p>
-        <p>
-            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}">Go to Town</button>
+        <p v-else>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleExplore">Venture Deeper</button>
         </p>
         <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
         </p>
         <p>
-            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}">To Forest<i className="material-icons">arrow_forward</i></button>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleExit"><i className="material-icons left">arrow_back</i>Exit Dungeon</button>
         </p>
     </template>
     <template v-else-if="task == 'use item'">
@@ -32,10 +35,10 @@
 
 <script>
 export default {
-    name: 'Wild',
+    name: 'Dungeon',
     data() {
         return {
-            task: 'wild',
+            task: 'dungeon',
             playerTurn: true
         }
     },
@@ -44,11 +47,9 @@ export default {
             console.log('Log:',msg);
         },
         handleExplore() {
-            const exploreCheck = this.$parent.randNum(1, 10)
+            const exploreCheck = this.$parent.randNum(1, 5)
             if (exploreCheck == 1) {
                 this.chestEncounter();
-            } else if (exploreCheck == 2) {
-                this.dungeonEncounter();
             // } else if (exploreCheck === 300) {
             //     this.viciousEncounter();
             } else {
@@ -56,7 +57,11 @@ export default {
             }
         },
         handleBack() {
-            this.task = 'wild';
+            this.task = 'dungeon';
+        },
+        handleExit() {
+            this.$parent.message = 'You exited the dungeon...';
+            this.$parent.changeScene('Wild');
         },
         handleUseItem() {
             if (this.$parent.player.inventory.length) {
@@ -69,7 +74,6 @@ export default {
         handleAttemptItem(item,index) {
             let $this = this;
             let player = this.$parent.player;
-            // let enemy = this.$parent.currentEnemy;
             this.$parent.handleAttemptItem(item,index,
                 function() {
                     $this.playerTurn = false;
@@ -80,15 +84,35 @@ export default {
                 }
             );
         },
+        handleFightBoss() {
+            const regionIndex = this.$parent.region.index;
+            let bossArray = [];
+
+            switch (regionIndex) {
+                case 1:
+                    bossArray = this.$parent.bosses1;
+                    break;
+                case 2:
+                    bossArray = this.$parent.bosses2;
+                    break;
+                case 3:
+                    bossArray = this.$parent.bosses3;
+                    break;
+
+                default:
+                // code block
+            }
+            if (bossArray.length) {
+                this.bossEncounter();
+            } else {
+                this.monsterEncounter();
+                // this.darkEncounter();
+            }
+        },
         chestEncounter() {
             this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[0]));
             this.$parent.message = "You found a chest!"
             this.$parent.changeScene('ChestEncounter');
-        },
-        dungeonEncounter() {
-            this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[2]));
-            this.$parent.message = "You discovered a dungeon!"
-            this.$parent.changeScene('DungeonEncounter');
         },
         monsterEncounter(alternateMessage) {
 
@@ -105,13 +129,13 @@ export default {
             switch (regionIndex) {
                 case 1:
                     monsterArray = this.$parent.monsters1;
-                        break;
-                    case 2:
-                        monsterArray = this.$parent.monsters2;
-                        break;
-                    case 3:
-                        monsterArray = this.$parent.monsters3;
                     break;
+                case 2:
+                    monsterArray = this.$parent.monsters2;
+                    break;
+                case 3:
+                    monsterArray = this.$parent.monsters3;
+                break;
 
                 default:
                 // code block
@@ -141,6 +165,59 @@ export default {
 
             console.log('Enemy:',this.$parent.currentEnemy);
         },
+        bossEncounter(alternateMessage) {
+
+            let rangeNum = 0;
+            let playerLevel = this.$parent.player.level;
+
+            const regionIndex = this.$parent.region.index;
+            console.log("RI:" + regionIndex)
+            const regionLevel = this.$parent.region.level;
+            const regionTarget = this.$parent.region.targetLevel;
+
+            let monsterArray;
+
+            switch (regionIndex) {
+                case 1:
+                    monsterArray = this.$parent.bosses1;
+                        break;
+                    case 2:
+                        monsterArray = this.$parent.bosses2;
+                        break;
+                    case 3:
+                        monsterArray = this.$parent.bosses3;
+                    break;
+
+                default:
+                // code block
+            }
+            if (playerLevel <= regionLevel) {
+                rangeNum = 1;
+
+            } else if (playerLevel > regionLevel && playerLevel < regionTarget) {
+                rangeNum = Math.ceil(monsterArray.length * (playerLevel / regionTarget));
+            } else {
+                rangeNum = monsterArray.length;
+            }
+            // let monNum = this.$parent.randNum(0, rangeNum);
+            console.log(rangeNum)
+            let monNum = 0;
+            const message = alternateMessage || "You encountered " + monsterArray[monNum].name + ", " + monsterArray[monNum].title + ".";
+            this.$parent.message = message;
+            console.log("message: " + message);
+            this.$parent.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
+            this.$parent.currentEnemy.hp = monsterArray[monNum].hpMax;
+            this.$parent.currentEnemy.mp = monsterArray[monNum].mpMax;
+            this.$parent.currentEnemy.animation = 'idle';
+            this.$parent.currentEnemy.isDead = false
+
+            this.addEnemyItems(this.$parent.currentEnemy);
+
+            // console.log(this.state.currentEnemy);
+            this.$parent.changeScene('Battle')
+
+            console.log('Enemy:',this.$parent.currentEnemy);
+        },
         addEnemyItems(enemy) {
             let randItem = this.$parent.randNum(0, this.$parent.items3.length);
             this.$parent.addItem(enemy.inventory, this.$parent.items3[randItem]);
@@ -148,8 +225,9 @@ export default {
             this.$parent.addItem(enemy.inventory, this.$parent.items1[1]);
         },
     },
+    
     created: function() {
-        this.$parent.location = 'Wild';
+        this.$parent.location = 'Dungeon';
     }
 }
 </script>
