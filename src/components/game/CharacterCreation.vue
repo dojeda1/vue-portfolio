@@ -216,10 +216,8 @@ export default {
             // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
             player.animation = 'idle';
 
-            this.$parent.changeScene('Wild');
-            this.$parent.message = 'Your adventure begins...';
-            this.$parent.messageBox = [];
             console.log('player:',player);
+            this.setUpGame()
         },
         editSprite(race,cls) {
             // this.$parent.sprite = $this.playerSprites[race + cls];
@@ -263,10 +261,16 @@ export default {
                     default: console.log("error");
                 }
             }
+        },
+        setUpGame() {
+            this.$parent.changeScene('Wild');
+            this.$parent.message = 'Your adventure begins...';
+            this.$parent.messageBox = [];
         }
     },
     created: function() {
         this.$parent.resetPlayer();
+        this.$parent.resetBosses();
         this.$parent.location = 'Character Creation';
     }
 }

@@ -5,7 +5,7 @@
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleExplore">Explore</button>
         </p>
         <p>
-            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}">Go to Town</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleTown">Go to Town</button>
         </p>
         <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
@@ -54,6 +54,17 @@ export default {
             } else {
                 this.monsterEncounter();
             }
+        },
+        handleTown() {
+            this.$parent.message = "You traveled to town."
+            var $this = this
+            $this.playerTurn = false
+            $this.$parent.player.animation = 'walk'
+            setTimeout(function() {
+                $this.$parent.player.animation = 'idle'
+                $this.playerTurn = true
+                $this.$parent.changeScene('Town');
+            },900)
         },
         handleBack() {
             this.task = 'wild';

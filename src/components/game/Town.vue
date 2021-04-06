@@ -1,0 +1,150 @@
+<template>
+    <template v-if="task == 'town'">
+        <p>Where to next?</p>
+        <p>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleInn">Stay at Inn</button>
+        </p>
+        <p>
+            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}" @click="handleShop">Visit Shop</button>
+        </p>
+        <p>
+            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}" @click="handleTavern">Visit Tavern</button>
+        </p>
+        <p>
+            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}" @click="handleQuestBoard">View Quest Board</button>
+        </p>
+        <p>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
+        </p>
+        <p>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeaveTown"><i class="material-icons left">arrow_back</i>Leave Town</button>
+        </p>
+    </template>
+    <template v-else-if="task == 'use item'">
+        <p>{{$parent.infoText}}</p>
+        <div class="items" @mouseleave="$parent.infoText = 'Select an Item'">
+            <button class="btn-blue"
+            v-for="(item, index) in $parent.player.inventory"
+            :key="index"
+                :class="{ 'disabled' : !playerTurn}"
+                @mouseover="$parent.infoText = item.info"
+                @click="handleAttemptItem(item,index)">{{ item.name }} x {{item.qty}}</button>
+        </div>
+        <p>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+        </p>
+    </template>
+    <template v-else-if="task == 'inn'">
+        <p>Pay for the room?</p>
+        <p>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesInn">Yes</button>
+        </p>
+        <p>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoInn"><i class="material-icons left">arrow_back</i>No</button>
+        </p>
+    </template>
+</template>
+
+<script>
+export default {
+    name: 'Town',
+    data() {
+        return {
+            task: 'town',
+            playerTurn: true
+        }
+    },
+    methods: {
+        log(msg) {
+            console.log('Log:',msg);
+        },
+        handleBack() {
+            this.task = 'town';
+        },
+        handleLeaveTown() {
+            this.$parent.message = "You left town."
+            var $this = this
+            $this.playerTurn = false
+            $this.$parent.player.animation = 'walk'
+            setTimeout(function() {
+                $this.$parent.player.animation = 'idle'
+                $this.playerTurn = true
+                $this.$parent.changeScene('Wild');
+            },900)
+        },
+        // handleEnd() {
+        //     this.$parent.messageBox = [];
+        //     if (this.$parent.location == 'Wild') {
+        //         this.$parent.changeScene('Wild');
+        //     } else if (this.$parent.location == 'Dungeon') {
+        //         this.$parent.changeScene('Dungeon');
+        //     }
+        // },
+        handleInn() {
+            const player = this.$parent.player
+            if (player.hp < player.hpMax || player.mp < player.mpMax) {
+                const cost = 10 + (player.level - 2) * 2;
+                this.$parent.message = 'It costs ' + cost + 'g to stay the night.'
+                this.task = 'inn';
+            } else {
+                this.$parent.message = 'You are already at full Health and Mana.'
+            }
+        },
+        handleYesInn() {
+            let player = this.$parent.player;
+            const cost = 10 + (player.level - 2) * 2;
+            if (player.gold >= cost) {
+                player.gold = player.gold - cost;
+                player.hp = player.hpMax;
+                player.mp = player.mpMax;
+                this.$parent.message = 'You feel well rested.'
+                player.animation = 'buffer'
+                this.playerTurn = false
+                var $this = this
+                setTimeout(function() {
+                    player.animation = 'idle'
+                    $this.playerTurn = true
+                    $this.task = 'town'
+                },600) 
+            } else {
+                this.$parent.message = "You can't afford to stay here."
+                this.task = 'town'
+            }
+        },
+        handleNoInn() {
+            this.$parent.message = "You decided against it."
+            this.task = 'town'
+        },
+        handleUseItem() {
+            if (this.$parent.player.inventory.length) {
+                this.$parent.infoText = 'Select an item'
+            } else {
+                this.$parent.infoText = 'Inventory empty'
+            }
+            this.task = 'use item';
+        },
+        handleAttemptItem(item,index) {
+            let $this = this;
+            let player = this.$parent.player;
+            // let enemy = this.$parent.currentEnemy;
+            this.$parent.handleAttemptItem(item,index,
+                function() {
+                    $this.playerTurn = false;
+                    setTimeout(function() {
+                        $this.playerTurn = true;
+                        player.animation = 'idle'
+                    }, 600)
+                }
+            );
+        }
+    },
+    created: function() {
+        this.$parent.location = 'Town';
+    }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+
+</style>

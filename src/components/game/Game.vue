@@ -14,12 +14,10 @@
         </div>
         <TitleScreen v-if="scene == 'TitleScreen'"/>
         <CharacterCreation v-if="scene == 'CharacterCreation'"/>
-        <EventDisplay v-if="scene == 'Wild'
-        || scene == 'Dungeon'
-        || scene == 'Battle'
-        || scene == 'ChestEncounter'
-        || scene == 'DungeonEncounter'"/>
+        <EventDisplay v-if="scene != 'TitleScreen'
+        && scene != 'CharacterCreation'"/>
         <Wild v-if="scene == 'Wild'"/>
+        <Town v-if="scene == 'Town'"/>
         <Dungeon v-if="scene == 'Dungeon'"/>
         <Battle v-if="scene == 'Battle'"/>
         <ChestEncounter v-if="scene == 'ChestEncounter'"/>
@@ -33,6 +31,7 @@ import TitleScreen from './TitleScreen.vue'
 import CharacterCreation from './CharacterCreation.vue'
 import EventDisplay from './EventDisplay.vue'
 import Wild from './Wild.vue'
+import Town from './Town.vue'
 import Dungeon from './Dungeon.vue'
 import Battle from './Battle.vue'
 import ChestEncounter from './ChestEncounter.vue'
@@ -72,6 +71,7 @@ export default {
         CharacterCreation,
         EventDisplay,
         Wild,
+        Town,
         Dungeon,
         Battle,
         ChestEncounter,
@@ -101,7 +101,7 @@ export default {
             dungeonCount: 0,
             // castleCount: 0,
             // meadCount: 0,
-            playerDefault: playerDefault,
+            // playerDefault: playerDefault,
             encounters: encounters,
             items1: items1,
             items2: items2,
@@ -125,6 +125,13 @@ export default {
         },
         resetPlayer() {
             this.player = JSON.parse(JSON.stringify(playerDefault));
+        },
+        resetBosses() {
+            this.player = JSON.parse(JSON.stringify(playerDefault));
+            this.bosses1 = JSON.parse(JSON.stringify(bosses1));
+            this.bosses2 = JSON.parse(JSON.stringify(bosses2));
+            this.bosses3 = JSON.parse(JSON.stringify(bosses3));
+            this.endBosses = JSON.parse(JSON.stringify(endBosses));
         },
         changeScene(nextScene) {
             this.scene = nextScene;
