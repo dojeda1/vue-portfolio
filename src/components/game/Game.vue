@@ -1,6 +1,6 @@
 <template>
 <div id="game">
-    <p>SCENE: {{scene}} DungComp: {{player.totalDungeons}}</p>
+    <p>SCENE: {{scene}}, DungComp: {{player.totalDungeons}}, P1 LV: {{player.level}}</p>
     <div class="container">
         <div class="game-header">
             <h1>
@@ -18,6 +18,8 @@
         && scene != 'CharacterCreation'"/>
         <Wild v-if="scene == 'Wild'"/>
         <Town v-if="scene == 'Town'"/>
+        <Shop v-if="scene == 'Shop'"/>
+        <Tavern v-if="scene == 'Tavern'"/>
         <Dungeon v-if="scene == 'Dungeon'"/>
         <Battle v-if="scene == 'Battle'"/>
         <ChestEncounter v-if="scene == 'ChestEncounter'"/>
@@ -32,13 +34,12 @@ import CharacterCreation from './CharacterCreation.vue'
 import EventDisplay from './EventDisplay.vue'
 import Wild from './Wild.vue'
 import Town from './Town.vue'
+import Shop from './Shop.vue'
+import Tavern from './Tavern.vue'
 import Dungeon from './Dungeon.vue'
 import Battle from './Battle.vue'
 import ChestEncounter from './ChestEncounter.vue'
 import DungeonEncounter from './DungeonEncounter.vue'
-// import Town from './Town.vue'
-// import Shop from './Shop.vue'
-// import Tavern from './Tavern.vue'
 
 //JSON Files
 import playerDefault from './data/playerDefault.json';
@@ -47,10 +48,12 @@ import regions from "./data/regions.json";
 
 import encounters from "./data/encounters.json";
 
+// import monsters1 from "./data/monstersAll.json";
 import monsters1 from "./data/monsters1.json";
 import monsters2 from "./data/monsters2.json";
 import monsters3 from "./data/monsters3.json";
 
+// import bosses1 from "./data/bossesAll.json";
 import bosses1 from "./data/bosses1.json";
 import bosses2 from "./data/bosses2.json";
 import bosses3 from "./data/bosses3.json";
@@ -72,13 +75,12 @@ export default {
         EventDisplay,
         Wild,
         Town,
+        Shop,
+        Tavern,
         Dungeon,
         Battle,
         ChestEncounter,
         DungeonEncounter
-        // Town,
-        // Shop,
-        // Tavern
     },
     data() {
         return {
@@ -97,10 +99,10 @@ export default {
             currentEncounter: {},
             // quests: [],
             // tavernQuests: [],
-            // merchant: [],
+            merchant: [],
             dungeonCount: 0,
             // castleCount: 0,
-            // meadCount: 0,
+            meadCount: 0,
             // playerDefault: playerDefault,
             encounters: encounters,
             items1: items1,
@@ -132,6 +134,25 @@ export default {
             this.bosses2 = JSON.parse(JSON.stringify(bosses2));
             this.bosses3 = JSON.parse(JSON.stringify(bosses3));
             this.endBosses = JSON.parse(JSON.stringify(endBosses));
+        },
+        resetMerchant() {
+            let randItem;
+            this.merchant = [];
+            const merchant = this.merchant;
+            this.addItem(merchant,items1[0]);
+            for (let i = 0; i < 4; i++) {
+                randItem = this.randNum(0, items1.length);
+                this.addItem(merchant, items1[randItem]);
+            }
+            for (let i = 0; i < 2; i++) {
+                randItem = this.randNum(0, items2.length);
+                this.addItem(merchant, items2[randItem]);
+            }
+            for (let i = 0; i < 1; i++) {
+                randItem = this.randNum(0, items3.length);
+                this.addItem(merchant, items3[randItem]);
+            }
+            console.log('Merchant',this.merchant)
         },
         changeScene(nextScene) {
             this.scene = nextScene;
@@ -171,6 +192,7 @@ export default {
         },
         addItem(array, item) {
             const newItem = JSON.parse(JSON.stringify(item));
+            newItem.qty = 1;
             let inInventory = false;
             array.forEach(element => {
                 if (newItem.name === element.name) {
@@ -223,6 +245,8 @@ export default {
             var transferItem = JSON.parse(JSON.stringify(item));
             this.addItem(toArr, transferItem);
             this.removeItem(fromArr, transferItem.name);
+            console.log('fromArr:',fromArr)
+            console.log('toArr:',toArr)
         },
         handleAttemptItem(item,index,cb) {
             console.log('chosen item: ' + item.name + ' ' + index)

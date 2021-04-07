@@ -25,7 +25,10 @@
                 </p>
                 <p>
                     <span >XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> | 
-                    <span :class="{'text-red': $parent.player.gold < 10}">{{ $parent.player.gold }}g</span>
+                    <span 
+                    :class="{'text-red': $parent.player.gold < 10,
+                    'text-gray': $parent.player.hp <= 0}">
+                    {{ $parent.player.gold }}g</span>
                 </p>
                 <p>{{$parent.player.status.join()}}</p>
             </div>

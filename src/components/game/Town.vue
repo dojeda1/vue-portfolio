@@ -5,10 +5,10 @@
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleInn">Stay at Inn</button>
         </p>
         <p>
-            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}" @click="handleShop">Visit Shop</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleShop">Visit Shop</button>
         </p>
         <p>
-            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}" @click="handleTavern">Visit Tavern</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleTavern">Visit Tavern</button>
         </p>
         <p>
             <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}" @click="handleQuestBoard">View Quest Board</button>
@@ -70,16 +70,8 @@ export default {
                 $this.$parent.player.animation = 'idle'
                 $this.playerTurn = true
                 $this.$parent.changeScene('Wild');
-            },900)
+            },1200)
         },
-        // handleEnd() {
-        //     this.$parent.messageBox = [];
-        //     if (this.$parent.location == 'Wild') {
-        //         this.$parent.changeScene('Wild');
-        //     } else if (this.$parent.location == 'Dungeon') {
-        //         this.$parent.changeScene('Dungeon');
-        //     }
-        // },
         handleInn() {
             const player = this.$parent.player
             if (player.hp < player.hpMax || player.mp < player.mpMax) {
@@ -115,6 +107,14 @@ export default {
             this.$parent.message = "You decided against it."
             this.task = 'town'
         },
+        handleShop() {
+            this.$parent.message = 'You entered the Shop.'
+            this.$parent.changeScene('Shop');
+        },
+        handleTavern() {
+            this.$parent.message = 'You entered the Tavern.'
+            this.$parent.changeScene('Tavern');
+        },
         handleUseItem() {
             if (this.$parent.player.inventory.length) {
                 this.$parent.infoText = 'Select an item'
@@ -126,7 +126,6 @@ export default {
         handleAttemptItem(item,index) {
             let $this = this;
             let player = this.$parent.player;
-            // let enemy = this.$parent.currentEnemy;
             this.$parent.handleAttemptItem(item,index,
                 function() {
                     $this.playerTurn = false;

@@ -2,6 +2,7 @@
     {
         "name": "Orc",
         "type": "common",
+        "sprite": "/images/game/orc.png",
         "hpMax": 40,
         "mpMax": 0,
         "strength": 10,
@@ -17,6 +18,7 @@
     {
         "name": "Harpy",
         "type": "common",
+        "sprite": "/images/game/harpy.png",
         "hpMax": 45,
         "mpMax": 0,
         "strength": 15,
@@ -32,6 +34,7 @@
     {
         "name": "Ogre",
         "type": "common",
+        "sprite": "/images/game/ogre.png",
         "hpMax": 50,
         "mpMax": 0,
         "strength": 17,

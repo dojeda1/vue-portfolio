@@ -2,6 +2,7 @@
     {
         "name": "Dire Wolf",
         "type": "common",
+        "sprite": "/images/game/dire-wolf.png",
         "hpMax": 50,
         "mpMax": 10,
         "strength": 20,
@@ -17,6 +18,7 @@
     {
         "name": "Giant",
         "type": "common",
+        "sprite": "/images/game/giant.png",
         "hpMax": 55,
         "mpMax": 10,
         "strength": 22,
@@ -32,6 +34,7 @@
     {
         "name": "Demon",
         "type": "common",
+        "sprite": "/images/game/demon.png",
         "hpMax": 60,
         "mpMax": 25,
         "strength": 25,
@@ -47,6 +50,7 @@
     {
         "name": "Dragon",
         "type": "common",
+        "sprite": "/images/game/dragon.png",
         "hpMax": 70,
         "mpMax": 30,
         "strength": 30,

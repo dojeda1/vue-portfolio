@@ -35,7 +35,7 @@
         </p>
     </template>
     <template v-else-if="task == 'use item'">
-        <p>{{this.$parent.infoText}}</p>
+        <p>{{$parent.infoText}}</p>
         <div class="items" @mouseleave="$parent.infoText = 'Select an Item'">
             <button class="btn-blue"
             v-for="(item, index) in $parent.player.inventory"

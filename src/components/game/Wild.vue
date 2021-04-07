@@ -60,11 +60,13 @@ export default {
             var $this = this
             $this.playerTurn = false
             $this.$parent.player.animation = 'walk'
+            this.$parent.resetMerchant();
+            this.$parent.meadCount = 0;
             setTimeout(function() {
                 $this.$parent.player.animation = 'idle'
                 $this.playerTurn = true
                 $this.$parent.changeScene('Town');
-            },900)
+            },1200)
         },
         handleBack() {
             this.task = 'wild';
@@ -80,7 +82,6 @@ export default {
         handleAttemptItem(item,index) {
             let $this = this;
             let player = this.$parent.player;
-            // let enemy = this.$parent.currentEnemy;
             this.$parent.handleAttemptItem(item,index,
                 function() {
                     $this.playerTurn = false;
@@ -147,7 +148,6 @@ export default {
 
             this.addEnemyItems(this.$parent.currentEnemy);
 
-            // console.log(this.state.currentEnemy);
             this.$parent.changeScene('Battle')
 
             console.log('Enemy:',this.$parent.currentEnemy);
