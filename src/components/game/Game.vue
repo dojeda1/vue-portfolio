@@ -20,6 +20,7 @@
         <Town v-if="scene == 'Town'"/>
         <Shop v-if="scene == 'Shop'"/>
         <Tavern v-if="scene == 'Tavern'"/>
+        <Quests v-if="scene == 'Quests'"/>
         <Dungeon v-if="scene == 'Dungeon'"/>
         <Battle v-if="scene == 'Battle'"/>
         <ChestEncounter v-if="scene == 'ChestEncounter'"/>
@@ -36,6 +37,7 @@ import Wild from './Wild.vue'
 import Town from './Town.vue'
 import Shop from './Shop.vue'
 import Tavern from './Tavern.vue'
+import Quests from './Quests.vue'
 import Dungeon from './Dungeon.vue'
 import Battle from './Battle.vue'
 import ChestEncounter from './ChestEncounter.vue'
@@ -63,9 +65,9 @@ import items1 from "./data/items1.json";
 import items2 from "./data/items2.json";
 import items3 from "./data/items3.json";
 
-// import quests1 from "./data/quests1.json";
-// import quests2 from "./data/quests2.json";
-// import quests3 from "./data/quests3.json";
+import quests1 from "./data/quests1.json";
+import quests2 from "./data/quests2.json";
+import quests3 from "./data/quests3.json";
 
 export default {
     name: 'Game',
@@ -77,6 +79,7 @@ export default {
         Town,
         Shop,
         Tavern,
+        Quests,
         Dungeon,
         Battle,
         ChestEncounter,
@@ -88,6 +91,7 @@ export default {
             messageBox: [],
             infoText: "",
             region: regions[0],
+            regions: regions,
             scene: "TitleScreen",
             location: "Title Screen",
             // task: "new or load",
@@ -97,7 +101,7 @@ export default {
             player: {},
             currentEnemy: {},
             currentEncounter: {},
-            // quests: [],
+            questBoard: [],
             // tavernQuests: [],
             merchant: [],
             dungeonCount: 0,
@@ -153,6 +157,32 @@ export default {
                 this.addItem(merchant, items3[randItem]);
             }
             console.log('Merchant',this.merchant)
+        },
+        resetQuestBoard() {
+            let randQuest;
+            let questArr;
+            this.questBoard = [];
+            switch (this.region.index) {
+                case 1:
+                    questArr = quests1
+                    break;
+                case 2:
+                    questArr = quests2
+                    break;
+                case 3:
+                    questArr = quests3
+                    break;
+                default:
+                // code block
+            }
+            for (let i = 0; i < 3; i++) {
+                randQuest = this.randNum(0, questArr.length);
+                this.addQuest(questArr, this.questBoard, randQuest)
+            }
+            console.log('QuestBoard:',this.questBoard)
+        },
+        resetRegion() {
+            this.region = regions[0];
         },
         changeScene(nextScene) {
             this.scene = nextScene;
@@ -301,6 +331,18 @@ export default {
             } else {
                 this.message = "SOMETHING WENT WRONG"
             }
+        },
+        addQuest(fromArr, toArr, index) {
+            let newQuest = JSON.parse(JSON.stringify(fromArr[index]));
+            newQuest.index = index;
+            toArr.push(newQuest);
+            // if (newQuest.type === "fetch") {
+            //     this.fetchQuestCheck(newQuest.task);
+            // }
+        },
+        removeQuest(array, index) {
+            console.log("quest removed.")
+            array.splice(index, 1);
         }
     }
 }
@@ -328,6 +370,7 @@ export default {
 
     .message-box {
         border: 2px solid gray;
+        border-radius: 10px;
         padding: 10px;
         /* min-height: 162px; */
     }

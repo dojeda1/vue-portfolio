@@ -4,11 +4,19 @@
           <!-- <img id="logo-side" src="@/assets/img/art-logo.png" alt="D Logo" /> -->
           <img src="/images/web-portfolio/D_logo_final.png" alt="D Logo" />
       </a>
-      <a href="#portfolio" class="nav-link">Portfolio</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#contact" class="nav-link">Contact</a>
-      <a href="/files/dro_resume.pdf" target="blank" class="nav-link">Resume</a>
-      <div class="nav-link text-gray" @click="gameToggled">{{code}}</div>
+      <template v-if="!$parent.playingGame">
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <a href="/files/dro_resume.pdf" target="blank" class="nav-link">Resume</a>
+        <div class="nav-link text-gray" @click="gameToggled">{{code}}</div>
+      </template>
+      <template v-else>
+        <div class="nav-link">Save</div>
+        <div class="nav-link">Quests</div>
+        <div class="nav-link">Stats</div>
+        <div class="nav-link text-gray" @click="gameToggled">{{code}}</div>
+      </template>
     </div>
 </template>
 

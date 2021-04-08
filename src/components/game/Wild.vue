@@ -11,7 +11,18 @@
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
         </p>
         <p>
-            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}">To Forest<i className="material-icons">arrow_forward</i></button>
+            <button class="btn-inv"
+            @click="handleMoveBack"
+            v-if="$parent.regions[$parent.region.index - 2]"
+            :class="{ 'disabled' : !playerTurn}">
+            <i className="material-icons left">arrow_back</i>{{$parent.regions[$parent.region.index - 2].name}}
+            </button>
+            <button class="btn-inv"
+            @click="handleMoveForward"
+            v-if="$parent.regions[$parent.region.index]"
+            :class="{ 'disabled' : !playerTurn}">
+            {{$parent.regions[$parent.region.index].name}}<i className="material-icons">arrow_forward</i>
+            </button>
         </p>
     </template>
     <template v-else-if="task == 'use item'">
@@ -61,6 +72,7 @@ export default {
             $this.playerTurn = false
             $this.$parent.player.animation = 'walk'
             this.$parent.resetMerchant();
+            this.$parent.resetQuestBoard();
             this.$parent.meadCount = 0;
             setTimeout(function() {
                 $this.$parent.player.animation = 'idle'
@@ -158,6 +170,14 @@ export default {
             this.$parent.addItem(enemy.inventory, this.$parent.items1[0]);
             this.$parent.addItem(enemy.inventory, this.$parent.items1[1]);
         },
+        handleMoveBack() {
+            this.$parent.region = this.$parent.regions[this.$parent.region.index - 2]
+            this.$parent.message = 'You went back to the ' + this.$parent.region.name
+        },
+        handleMoveForward() {
+            this.$parent.region = this.$parent.regions[this.$parent.region.index]
+            this.$parent.message = 'You moved on to the ' + this.$parent.region.name
+        }
     },
     created: function() {
         this.$parent.location = 'Wild';

@@ -11,7 +11,7 @@
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleTavern">Visit Tavern</button>
         </p>
         <p>
-            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}" @click="handleQuestBoard">View Quest Board</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleQuestBoard">View Quest Board</button>
         </p>
         <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
@@ -135,6 +135,15 @@ export default {
                     }, 600)
                 }
             );
+        },
+        handleQuestBoard() {
+            this.$parent.message = 'You viewed the Quest Board.'
+            this.$parent.changeScene('Quests');
+            if (!this.$parent.questBoard.length) {
+                this.$parent.infoText = "There are no more Quests at this time."
+            } else {
+                this.$parent.infoText = "Accept a quest"
+            }
         }
     },
     created: function() {

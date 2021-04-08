@@ -271,6 +271,7 @@ export default {
     created: function() {
         this.$parent.resetPlayer();
         this.$parent.resetBosses();
+        this.$parent.resetRegion();
         this.$parent.location = 'Character Creation';
     }
 }

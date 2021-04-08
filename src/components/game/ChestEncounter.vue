@@ -79,12 +79,12 @@ export default {
                 this.$parent.addItem(player.inventory, item);
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }
-            if (this.$parent.location === "Dungeon") {
-                this.$parent.dungeonCount++
-                if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
-                    player.totalDungeons++
-                }
-            }
+            // if (this.$parent.location === "Dungeon") {
+            //     this.$parent.dungeonCount++
+            //     if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
+            //         player.totalDungeons++
+            //     }
+            // }
         },
         mimicEncounter(alternateMessage) {
             // let rangeNum = 0;
