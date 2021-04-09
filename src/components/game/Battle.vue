@@ -133,7 +133,7 @@ export default {
                 this.dropGold();
                 this.dropLoot(enemy)
                 this.gainXp(enemy.xp, player);
-                // this.killQuestCheck(enemy.name);
+                this.$parent.killQuestCheck(enemy.name);
                 this.$parent.message = this.$parent.currentEnemy.name + ' defeated.';
                 this.task = 'next';
                 console.log("total kills: " + player.totalKills);

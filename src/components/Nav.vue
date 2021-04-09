@@ -12,9 +12,9 @@
         <div class="nav-link text-gray" @click="gameToggled">{{code}}</div>
       </template>
       <template v-else>
-        <div class="nav-link">Save</div>
-        <div class="nav-link">Quests</div>
-        <div class="nav-link">Stats</div>
+        <div class="nav-link" :class="{'selected' : $parent.menu == 'Save'}" @click="saveToggled">Save</div>
+        <div class="nav-link" :class="{'selected' : $parent.menu == 'Quests'}" @click="questsToggled">Quests</div>
+        <div class="nav-link" :class="{'selected' : $parent.menu == 'Stats'}" @click="statsToggled">Stats</div>
         <div class="nav-link text-gray" @click="gameToggled">{{code}}</div>
       </template>
     </div>
@@ -38,6 +38,30 @@ export default {
     gameToggled() {
       console.log('gameTogged!');
       this.$emit('gameToggled');
+    },
+    saveToggled() {
+      if (this.$parent.menu != 'Save') {
+          this.$parent.menu = 'Save';
+      } else {
+          this.$parent.menu = false
+      }
+      console.log(this.menu)
+    },
+    questsToggled() {
+      if (this.$parent.menu != 'Quests') {
+          this.$parent.menu = 'Quests';
+      } else {
+          this.$parent.menu = false
+      }
+      console.log(this.$parent.menu)
+    },
+    statsToggled() {
+      if (this.$parent.menu != 'Stats') {
+          this.$parent.menu = 'Stats';
+      } else {
+          this.$parent.menu = false
+      }
+      console.log(this.$parent.menu)
     }
   }
 }
@@ -69,6 +93,11 @@ export default {
       border-right: #27aae1 5px solid;
   }
 
+  #nav .nav-link.selected {
+      color: #8dc63f;
+      border-right: #8dc63f 5px solid;
+  }
+
   #nav .nav-logo {
       /* width: 100%; */
   }
@@ -86,7 +115,7 @@ export default {
       text-align: left;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: space-evenly;
       align-items: center;
     }
 
@@ -104,9 +133,14 @@ export default {
       display: inline-block;
     }
     #nav .nav-link:hover {
-        color: #27aae1;
-        border-bottom: #27aae1 5px solid;
-        border-right: none;
+      color: #27aae1;
+      border-bottom: #27aae1 5px solid;
+      border-right: none;
+    }
+    #nav .nav-link.selected {
+      color: #8dc63f;
+      border-bottom: #8dc63f 5px solid;
+      border-right: none;
     }
   }
 

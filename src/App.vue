@@ -38,7 +38,8 @@ export default {
   data() {
     return {
       code: '< / >',
-      playingGame: false
+      playingGame: false,
+      menu: false
     }
   },
   methods: {

@@ -1,7 +1,7 @@
 <template>
 <div id="game">
-    <p>SCENE: {{scene}}, DungComp: {{player.totalDungeons}}, P1 LV: {{player.level}}</p>
     <div class="container">
+        <p class="text-gray">SCENE: {{scene}}, DungComp: {{player.totalDungeons}}, P1 LV: {{player.level}}</p>
         <div class="game-header">
             <h1>
                 <img class="game-sprite"
@@ -12,19 +12,24 @@
             </h1>
             <p>- {{ this.region.name}} | {{location}} -</p>
         </div>
-        <TitleScreen v-if="scene == 'TitleScreen'"/>
-        <CharacterCreation v-if="scene == 'CharacterCreation'"/>
-        <EventDisplay v-if="scene != 'TitleScreen'
-        && scene != 'CharacterCreation'"/>
-        <Wild v-if="scene == 'Wild'"/>
-        <Town v-if="scene == 'Town'"/>
-        <Shop v-if="scene == 'Shop'"/>
-        <Tavern v-if="scene == 'Tavern'"/>
-        <Quests v-if="scene == 'Quests'"/>
-        <Dungeon v-if="scene == 'Dungeon'"/>
-        <Battle v-if="scene == 'Battle'"/>
-        <ChestEncounter v-if="scene == 'ChestEncounter'"/>
-        <DungeonEncounter v-if="scene == 'DungeonEncounter'"/>
+        <template v-if="$parent.menu == false">
+            <TitleScreen v-if="scene == 'TitleScreen'"/>
+            <CharacterCreation v-if="scene == 'CharacterCreation'"/>
+            <EventDisplay v-if="scene != 'TitleScreen'
+            && scene != 'CharacterCreation'"/>
+            <Wild v-if="scene == 'Wild'"/>
+            <Town v-if="scene == 'Town'"/>
+            <Shop v-if="scene == 'Shop'"/>
+            <Tavern v-if="scene == 'Tavern'"/>
+            <Quests v-if="scene == 'Quests'"/>
+            <Dungeon v-if="scene == 'Dungeon'"/>
+            <Battle v-if="scene == 'Battle'"/>
+            <ChestEncounter v-if="scene == 'ChestEncounter'"/>
+            <DungeonEncounter v-if="scene == 'DungeonEncounter'"/>
+        </template>
+        <template v-else>
+            <Quests v-if="$parent.menu == 'Quests'"/>
+        </template>
     </div>
 </div>
 </template>
@@ -220,6 +225,15 @@ export default {
             })
             return $special
         },
+        hasItem(inventory, itemName){
+            let inInventory = false;
+            inventory.forEach(element => {
+                if (itemName === element.name) {
+                    inInventory = true;
+                }
+            })
+            return inInventory
+        },
         addItem(array, item) {
             const newItem = JSON.parse(JSON.stringify(item));
             newItem.qty = 1;
@@ -252,7 +266,7 @@ export default {
             //     currentEnemy: this.state.currentEnemy,
             //     merchant: this.state.merchant
             // }, this.fetchQuestCheck(item.name));
-            // this.fetchQuestCheck(item.name));
+            this.fetchQuestCheck(item.name);
         },
         removeItem(array, itemName) {
             array.forEach((element, i) => {
@@ -269,7 +283,7 @@ export default {
             //     currentEnemy: this.state.currentEnemy,
             //     merchant: this.state.merchant
             // }, this.fetchQuestCheck(itemName));
-            // this.fetchQuestCheck(itemName));
+            this.fetchQuestCheck(itemName);
         },
         transferItem(fromArr, toArr, item) {
             var transferItem = JSON.parse(JSON.stringify(item));
@@ -336,14 +350,66 @@ export default {
             let newQuest = JSON.parse(JSON.stringify(fromArr[index]));
             newQuest.index = index;
             toArr.push(newQuest);
-            // if (newQuest.type === "fetch") {
-            //     this.fetchQuestCheck(newQuest.task);
-            // }
+            if (newQuest.type === "fetch") {
+                this.fetchQuestCheck(newQuest.task);
+            }
         },
         removeQuest(array, index) {
             console.log("quest removed.")
             array.splice(index, 1);
+        },
+        killQuestCheck(enemyName) {
+            let quests = this.player.quests;
+            quests.forEach(quest => {
+                if (quest.type == "kill" && quest.count < quest.goal) {
+                    console.log("kill Quest: " + enemyName);
+                    console.log(enemyName + ":" + quest.task)
+                    if (enemyName === quest.task) {
+                        quest.count++;
+                        // if (quest.count >= quest.goal) {
+                        //     quest.completed = true
+                        // }
+                        console.log("QC: " + quest.count)
+                    } else {
+                        console.log("not correct enemy.")
+                    }
+                }
+            })
+        },
+        fetchQuestCheck(itemName) {
+            let player = this.player;
+            let quests = player.quests;
+            quests.forEach(quest => {
+                if (quest.type == "fetch" && itemName == quest.task) {
+                    let qty = 0;
+                    console.log("fetch Quest: " + itemName);
+                    console.log(itemName + ":" + quest.task)
+                    if (this.hasItem(player.inventory, itemName)) {
+                        player.inventory.forEach(item => {
+                            if (item.name == itemName) {
+                                qty = item.qty;
+                                if (qty >= quest.goal) {
+                                    qty = quest.goal
+                                    // quest.completed = true
+                                }
+                                // else {
+                                //     quest.completed = false
+                                // }
+                            }
+                        })
+                    }
+                    // else {
+                    //     quest.completed = false;
+                    // }
+                    quest.count = qty
+                    console.log("quest count: " + quest.count)
+                }
+            })
+            console.log(quests);
         }
+    },
+    created: function() {
+        this.$parent.menu = false;
     }
 }
 </script>

@@ -36,9 +36,9 @@ export default {
             console.log('Log:',msg);
         },
         handleMead() {
-            const player = this.$parent.player
+            // const player = this.$parent.player
             // if (player.hp < player.hpMax || player.mp < player.mpMax) {
-                const cost = 10 + (player.level - 2) * 2;
+                const cost = 8;
                 this.$parent.message = 'It costs ' + cost + 'g for a mead.'
                 this.task = 'mead';
             // } else {
