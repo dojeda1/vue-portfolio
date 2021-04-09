@@ -46,7 +46,7 @@
                 :src="$parent.currentEnemy.sprite"
                 :alt="$parent.currentEnemy.name">
                 <div class="display-text"
-                :class="{'text-green': $parent.currentEnemy.type == 'common',
+                :class="{'text-green': $parent.currentEnemy.type == 'common' || $parent.currentEnemy.type == 'vicious',
                 'text-jade': $parent.currentEnemy.type == 'boss',
                 'text-gray': $parent.currentEnemy.hp <= 0}">
                     <p>

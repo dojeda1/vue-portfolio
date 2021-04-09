@@ -406,7 +406,128 @@ export default {
                 }
             })
             console.log(quests);
-        }
+        },
+        monsterEncounter(alternateMessage) {
+            let rangeNum = 0;
+            let playerLevel = this.player.level;
+
+            const regionIndex = this.region.index;
+            console.log("RI:" + regionIndex)
+            const regionLevel = this.region.level;
+            const regionTarget = this.region.targetLevel;
+
+            let monsterArray;
+
+            switch (regionIndex) {
+                case 1:
+                    monsterArray = monsters1;
+                        break;
+                    case 2:
+                        monsterArray = monsters2;
+                        break;
+                    case 3:
+                        monsterArray = monsters3;
+                    break;
+
+                default:
+                // code block
+            }
+            if (playerLevel <= regionLevel) {
+                rangeNum = 1;
+
+            } else if (playerLevel > regionLevel && playerLevel < regionTarget) {
+                rangeNum = Math.ceil(monsterArray.length * (playerLevel / regionTarget));
+            } else {
+                rangeNum = monsterArray.length;
+            }
+            let monNum = this.randNum(0, rangeNum);
+            const message = alternateMessage || "You encountered " + this.anA(monsterArray[monNum].name) + " " + monsterArray[monNum].name + ".";
+            this.message = message;
+            console.log("message: " + message);
+            this.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
+            this.currentEnemy.hp = monsterArray[monNum].hpMax;
+            this.currentEnemy.mp = monsterArray[monNum].mpMax;
+            this.currentEnemy.animation = 'idle';
+            this.currentEnemy.isDead = false
+
+            this.addEnemyItems(this.currentEnemy);
+
+            this.changeScene('Battle')
+
+            console.log('Enemy:',this.currentEnemy);
+        },
+        viciousEncounter(alternateMessage) {
+            let rangeNum = 0;
+            let playerLevel = this.player.level;
+
+            const regionIndex = this.region.index;
+            console.log("RI:" + regionIndex)
+            const regionLevel = this.region.level;
+            const regionTarget = this.region.targetLevel;
+
+            let monsterArray;
+
+            switch (regionIndex) {
+                case 1:
+                    monsterArray = monsters1;
+                        break;
+                    case 2:
+                        monsterArray = monsters2;
+                        break;
+                    case 3:
+                        monsterArray = monsters3;
+                    break;
+
+                default:
+                // code block
+            }
+            if (playerLevel <= regionLevel) {
+                rangeNum = 1;
+
+            } else if (playerLevel > regionLevel && playerLevel < regionTarget) {
+                rangeNum = Math.ceil(monsterArray.length * (playerLevel / regionTarget));
+            } else {
+                rangeNum = monsterArray.length;
+            }
+            let monNum = this.randNum(0, rangeNum);
+            const message = alternateMessage || "You encountered a Vicious " + monsterArray[monNum].name + ".";
+            this.message = message;
+            console.log("message: " + message);
+            this.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
+            const enemy = this.currentEnemy;
+            enemy.name = "Vicious " + monsterArray[monNum].name;
+            enemy.type = "vicious";
+            enemy.hpMax += 5;
+            enemy.hp = monsterArray[monNum].hpMax + 5;
+            enemy.mpMax += 5;
+            enemy.mp = monsterArray[monNum].mpMax + 5;
+            enemy.strength += 3;
+            enemy.defense += 3;
+            enemy.speed += 2;
+            enemy.luck += 1
+            enemy.xp += 10;
+            enemy.gold += 30;
+
+            enemy.animation = 'idle';
+            enemy.isDead = false
+
+            this.addEnemyItems(this.currentEnemy);
+
+            this.changeScene('Battle')
+
+            console.log('Enemy:',this.currentEnemy);
+        },
+        addEnemyItems(enemy) {
+            let randItem = this.randNum(0, items3.length);
+            this.addItem(enemy.inventory, items3[randItem]);
+            this.addItem(enemy.inventory, items1[0]);
+            this.addItem(enemy.inventory, items1[1]);
+        },
+        chestEncounter() {
+            this.currentEncounter = JSON.parse(JSON.stringify(encounters[0]));
+            this.message = "You found a chest!"
+            this.changeScene('ChestEncounter');
+        },
     },
     created: function() {
         this.$parent.menu = false;

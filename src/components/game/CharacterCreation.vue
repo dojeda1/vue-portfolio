@@ -131,7 +131,7 @@ export default {
                     luck = 0
                     player.specials.push({
                         name: "Axe Strike",
-                        cost: 2,
+                        cost: 6,
                         active: false
                     })
                     player.specials.push({

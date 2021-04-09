@@ -47,13 +47,13 @@ export default {
             console.log('Log:',msg);
         },
         handleExplore() {
-            const exploreCheck = this.$parent.randNum(1, 5)
+            const exploreCheck = this.$parent.randNum(1, 4)
             if (exploreCheck == 1) {
-                this.chestEncounter();
-            // } else if (exploreCheck === 300) {
-            //     this.viciousEncounter();
+                this.$parent.chestEncounter();
+            } else if (exploreCheck == 2) {
+                this.$parent.viciousEncounter();
             } else {
-                this.monsterEncounter();
+                this.$parent.monsterEncounter();
             }
         },
         handleBack() {
@@ -109,62 +109,6 @@ export default {
                 // this.darkEncounter();
             }
         },
-        chestEncounter() {
-            this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[0]));
-            this.$parent.message = "You found a chest!"
-            this.$parent.changeScene('ChestEncounter');
-        },
-        monsterEncounter(alternateMessage) {
-
-            let rangeNum = 0;
-            let playerLevel = this.$parent.player.level;
-
-            const regionIndex = this.$parent.region.index;
-            console.log("RI:" + regionIndex)
-            const regionLevel = this.$parent.region.level;
-            const regionTarget = this.$parent.region.targetLevel;
-
-            let monsterArray;
-
-            switch (regionIndex) {
-                case 1:
-                    monsterArray = this.$parent.monsters1;
-                    break;
-                case 2:
-                    monsterArray = this.$parent.monsters2;
-                    break;
-                case 3:
-                    monsterArray = this.$parent.monsters3;
-                break;
-
-                default:
-                // code block
-            }
-            if (playerLevel <= regionLevel) {
-                rangeNum = 1;
-
-            } else if (playerLevel > regionLevel && playerLevel < regionTarget) {
-                rangeNum = Math.ceil(monsterArray.length * (playerLevel / regionTarget));
-            } else {
-                rangeNum = monsterArray.length;
-            }
-            let monNum = this.$parent.randNum(0, rangeNum);
-            const message = alternateMessage || "You encountered " + this.$parent.anA(monsterArray[monNum].name) + " " + monsterArray[monNum].name + ".";
-            this.$parent.message = message;
-            console.log("message: " + message);
-            this.$parent.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
-            this.$parent.currentEnemy.hp = monsterArray[monNum].hpMax;
-            this.$parent.currentEnemy.mp = monsterArray[monNum].mpMax;
-            this.$parent.currentEnemy.animation = 'idle';
-            this.$parent.currentEnemy.isDead = false
-
-            this.addEnemyItems(this.$parent.currentEnemy);
-
-            // console.log(this.state.currentEnemy);
-            this.$parent.changeScene('Battle')
-
-            console.log('Enemy:',this.$parent.currentEnemy);
-        },
         bossEncounter(alternateMessage) {
 
             let rangeNum = 0;
@@ -211,19 +155,13 @@ export default {
             this.$parent.currentEnemy.animation = 'idle';
             this.$parent.currentEnemy.isDead = false
 
-            this.addEnemyItems(this.$parent.currentEnemy);
+            this.$parent.addEnemyItems(this.$parent.currentEnemy);
 
             // console.log(this.state.currentEnemy);
             this.$parent.changeScene('Battle')
 
             console.log('Enemy:',this.$parent.currentEnemy);
-        },
-        addEnemyItems(enemy) {
-            let randItem = this.$parent.randNum(0, this.$parent.items3.length);
-            this.$parent.addItem(enemy.inventory, this.$parent.items3[randItem]);
-            this.$parent.addItem(enemy.inventory, this.$parent.items1[0]);
-            this.$parent.addItem(enemy.inventory, this.$parent.items1[1]);
-        },
+        }
     },
     
     created: function() {
