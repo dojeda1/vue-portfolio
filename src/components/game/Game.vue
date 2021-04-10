@@ -312,7 +312,7 @@ export default {
             }
         },
         activateItem(user, opponent, item, index) {
-            user.animation = 'walk';
+            user.animation = 'jump';
             console.log('opponent',opponent)
             console.log("item: " + item.name + " " + index)
             if (item.name.includes('Health Potion')) {

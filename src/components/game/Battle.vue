@@ -583,14 +583,25 @@ export default {
             player.gold -= lostGold;
             const lostHp = this.$parent.randNum(0, 3);
             player.hp -= lostHp;
-            if (this.$parent.location == 'Wild') {
-                this.$parent.changeScene('Wild');
-            } else if (this.$parent.location == 'Dungeon') {
-                this.$parent.changeScene('Dungeon');
-            }
-            this.gameOverCheck();
             this.$parent.message = "You lost " + lostGold + " gold and " + lostHp + " HP.";
             this.$parent.messageBox = []
+            this.gameOverCheck();
+            const $this = this;
+            player.animation = 'walk';
+            this.playerTurn = false;
+            setTimeout(function() {
+                this.playerTurn = true;
+                if (player.hp > 0) {
+                    if ($this.$parent.location == 'Wild') {
+                        $this.$parent.changeScene('Wild');
+                    } else if ($this.$parent.location == 'Dungeon') {
+                        $this.$parent.changeScene('Dungeon');
+                    }
+                    player.animation = 'idle';
+                } else {
+                    player.animation = 'die';
+                }
+            }, 600)
         },
         dropGold() {
             const amount = this.$parent.randNum(2, this.$parent.currentEnemy.gold);

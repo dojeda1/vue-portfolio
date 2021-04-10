@@ -4,6 +4,7 @@
             <img class="game-sprite"
             :class="{ 'idle': $parent.player.animation == 'idle',
             'walk': $parent.player.animation == 'walk' ,
+            'jump': $parent.player.animation == 'jump' ,
             'dodge': $parent.player.animation == 'dodge' ,
             'buffer': $parent.player.animation == 'buffer' ,
             'die-left': $parent.player.animation == 'die' ,
@@ -38,6 +39,7 @@
                 <img class="game-sprite"
                 :class="{ 'idle': $parent.currentEnemy.animation == 'idle',
                 'walk': $parent.currentEnemy.animation == 'walk' ,
+                'jump': $parent.currentEnemy.animation == 'jump' ,
                 'dodge': $parent.currentEnemy.animation == 'dodge' ,
                 'buffer': $parent.currentEnemy.animation == 'buffer' ,
                 'die-right': $parent.currentEnemy.animation == 'die' ,
@@ -66,6 +68,7 @@
                 <img class="game-sprite"
                 :class="{ 'idle': $parent.currentEncounter.animation == 'idle',
                 'walk': $parent.currentEncounter.animation == 'walk' ,
+                'jump': $parent.currentEncounter.animation == 'jump' ,
                 'dodge': $parent.currentEncounter.animation == 'dodge' ,
                 'buffer': $parent.currentEncounter.animation == 'buffer' ,
                 'die-right': $parent.currentEncounter.animation == 'die' ,
