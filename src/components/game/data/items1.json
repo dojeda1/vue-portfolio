@@ -1,6 +1,7 @@
 [
     {
         "name": "Health Potion",
+        "sprite": "/images/game/potion-small.png",
         "order": 3,
         "qty": 1,
         "buy": 10,
@@ -10,6 +11,7 @@
     },
     {
         "name": "Mana Potion",
+        "sprite": "/images/game/potion-small.png",
         "order": 6,
         "qty": 1,
         "buy": 10,

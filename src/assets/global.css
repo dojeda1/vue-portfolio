@@ -269,6 +269,32 @@ button i {
     image-rendering: optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
 }
+.item-sprite {
+    position: absolute;
+    display: none;
+    z-index: 1;
+    top: 0;
+    width: 32px;
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+
+}
+.left-display .item-sprite {
+    right: -36px;
+}
+.right-display .item-sprite {
+    left: -36px;
+}
+.sprite-container {
+    position: relative;
+    width: min-content;
+    margin: auto;
+}
 
 .idle {
     animation-name: idle;
@@ -292,6 +318,13 @@ button i {
     transform-origin: bottom;
     animation-duration: .3s;
     animation-iteration-count: infinite;
+}
+.use-item {
+    animation-name: jump;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
 }
 
 .attack-right {
@@ -321,12 +354,23 @@ button i {
     /* animation-iteration-count: infinite; */
 }
 
-.dodge{
+.dodge {
     animation-name: dodge;
     animation-timing-function: ease;
     transform-origin: bottom;
     animation-duration: .3s;
     animation-iteration-count: 1;
+    /* animation-iteration-count: infinite; */
+}
+
+.item-rise {
+    display: block;
+    animation-name: item-rise;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+    transform: translateY(-10px);
     /* animation-iteration-count: infinite; */
 }
 
@@ -364,6 +408,11 @@ button i {
 }
 
 
+@keyframes item-rise {
+    0%   { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
 @keyframes die-left {
     0%   { transform: scaleY(1); }
     100% { transform: rotate(-90deg) scaleY(1.2) scaleX(.8) translateX(10px); }
@@ -388,9 +437,9 @@ button i {
 }
 
 @keyframes jump {
-    0%   { transform: translateY(0) scaleX(1.2); }
-    50%  { transform: translateY(-15px) scaleY(1.2);}
-    100% { transform: translateY(0) scaleX(1.2); }
+    0%   { transform: translateY(0) scaleX(1.1); }
+    50%  { transform: translateY(-15px) scaleY(1.1);}
+    100% { transform: translateY(0) scaleX(1.1); }
 }
 
 @keyframes attack-right {

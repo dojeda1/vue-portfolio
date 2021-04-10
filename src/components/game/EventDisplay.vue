@@ -1,8 +1,13 @@
 <template>
     <div class="event-display">
         <div class="left-display">
+            <div class="sprite-container">
+            <img class="item-sprite"
+            :class="{ 'item-rise': $parent.player.animation == 'use item'}"
+            :src="$parent.player.itemSprite" :alt="$parent.player.itemName">
             <img class="game-sprite"
             :class="{ 'idle': $parent.player.animation == 'idle',
+            'use-item': $parent.player.animation == 'use item' ,
             'walk': $parent.player.animation == 'walk' ,
             'jump': $parent.player.animation == 'jump' ,
             'dodge': $parent.player.animation == 'dodge' ,
@@ -12,6 +17,7 @@
             'attack-right': $parent.player.animation == 'attack' }"
             :src="$parent.player.sprite"
             :alt="$parent.player.name">
+            </div>
             <div class="display-text text-blue" :class="{'text-gray': $parent.player.hp <= 0}">
                 <p>
                     {{ $parent.player.name }} | 
@@ -38,6 +44,7 @@
             <template v-if="$parent.scene == 'Battle'">
                 <img class="game-sprite"
                 :class="{ 'idle': $parent.currentEnemy.animation == 'idle',
+                'walk': $parent.currentEnemy.animation == 'use-item' ,
                 'walk': $parent.currentEnemy.animation == 'walk' ,
                 'jump': $parent.currentEnemy.animation == 'jump' ,
                 'dodge': $parent.currentEnemy.animation == 'dodge' ,

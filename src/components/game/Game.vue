@@ -3,14 +3,14 @@
     <div class="container">
         <p class="text-gray">SCENE: {{scene}}, DungComp: {{player.totalDungeons}}, P1 LV: {{player.level}}</p>
         <div class="game-header">
-            <h1>
-                <img class="game-sprite"
-                src="/images/game/dragon.png" style="width: 32px">
-                Fantasy RPG
-                <img class="game-sprite"
-                src="/images/game/dragon.png" style="width: 32px;transform: scaleX(-1);">
-            </h1>
-            <p>- {{ this.region.name}} | {{location}} -</p>
+            <h1>Fantasy RPG</h1>
+            <p>
+                <img class="location-sprite"
+                :src="region.sprite">
+                {{ this.region.name}} | {{location}}
+                <img class="location-sprite"
+                :src="region.sprite">
+            </p>
         </div>
         <template v-if="$parent.menu == false">
             <TitleScreen v-if="scene == 'TitleScreen'"/>
@@ -296,6 +296,13 @@ export default {
             console.log('chosen item: ' + item.name + ' ' + index)
             if (item.name == 'Old Hat') {
                 this.message = 'It looks good on you...'
+                const $this = this;
+                $this.player.itemSprite = item.sprite;
+                $this.player.itemName = item.name;
+                $this.player.animation = 'use item';
+                setTimeout(function() {
+                    $this.player.animation = 'idle';
+                }, 600)
             } else if (item.name == 'Death Scroll' && this.scene != 'Battle') {
                 this.message = 'Death Scroll can only be used in battle.'
             } else if (item.name.includes('Health Potion') && this.player.hp >= this.player.hpMax) {
@@ -312,7 +319,9 @@ export default {
             }
         },
         activateItem(user, opponent, item, index) {
-            user.animation = 'jump';
+            user.itemSprite = item.sprite;
+            user.itemName = item.name;
+            user.animation = 'use item';
             console.log('opponent',opponent)
             console.log("item: " + item.name + " " + index)
             if (item.name.includes('Health Potion')) {
@@ -553,6 +562,24 @@ export default {
         animation-timing-function: ease;
         animation: slide-in-left 3s;
         animation-iteration-count: 1;
+    }
+
+    .game-header p{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .location-sprite {
+        width: 32px;
+        margin: -16px 10px;
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: pixelated;
+        image-rendering: optimize-contrast;
+        -ms-interpolation-mode: nearest-neighbor;
     }
 
     .message-box {

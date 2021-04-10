@@ -3,6 +3,8 @@
     "race": "",
     "class": "",
     "sprite": "",
+    "itemSprite": "",
+    "itemName": "",
     "specials": [],
     "status": [],
     "strength": 4,

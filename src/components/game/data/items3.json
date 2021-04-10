@@ -1,6 +1,7 @@
 [
     {
         "name": "Superior Health Potion",
+        "sprite": "/images/game/potion-large.png",
         "order": 1,
         "qty": 1,
         "buy": 30,
@@ -10,6 +11,7 @@
     },
     {
         "name": "Superior Mana Potion",
+        "sprite": "/images/game/potion-large.png",
         "order": 4,
         "qty": 1,
         "buy": 30,
@@ -19,6 +21,7 @@
     },
     {
         "name": "Old Hat",
+        "sprite": "/images/game/hat.png",
         "order": 7,
         "qty": 1,
         "buy": 100,
@@ -27,6 +30,7 @@
     },
     {
         "name": "Death Scroll",
+        "sprite": "/images/game/scroll.png",
         "order": 8,
         "qty": 1,
         "buy": 300,
