@@ -282,13 +282,24 @@ button i {
     image-rendering: pixelated;
     image-rendering: optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
-
+}
+.note {
+    position: absolute;
+    display: none;
+    z-index: 1;
+    top: 0;
 }
 .left-display .item-sprite {
     right: -36px;
 }
+.left-display .note {
+    left: -20px;
+}
 .right-display .item-sprite {
     left: -36px;
+}
+.right-display .note {
+    right: -20px;
 }
 .sprite-container {
     position: relative;

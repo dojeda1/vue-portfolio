@@ -102,6 +102,7 @@ export default {
             this.$parent.currentEnemy = JSON.parse(JSON.stringify(mimic));
             // this.$parent.currentEnemy.hp = mimic.hpMax;
             // this.$parent.currentEnemy.mp = mimic.mpMax;
+            this.$parent.currentEnemy.note = '';
             this.$parent.currentEnemy.animation = 'idle';
             this.$parent.currentEnemy.isDead = false
 

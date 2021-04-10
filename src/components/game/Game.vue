@@ -318,6 +318,12 @@ export default {
                 }
             }
         },
+        note(character,text) {
+            character.note = text;
+            setTimeout(function() {
+                character.note = ''
+            },600);
+        },
         activateItem(user, opponent, item, index) {
             user.itemSprite = item.sprite;
             user.itemName = item.name;
@@ -332,6 +338,7 @@ export default {
                 }
                 this.removeItem(user.inventory, user.inventory[index].name);
                 this.messageBox.push(user.name + ' recovered ' + amount + ' HP.')
+                this.note(user,'+' + amount)
             } else if (item.name.includes('Mana Potion')) {
                 let amount = Math.floor(user.mpMax * item.recover);
                 user.mp += amount;
@@ -340,16 +347,19 @@ export default {
                 }
                 this.removeItem(user.inventory, user.inventory[index].name);
                 this.messageBox.push(user.name + ' recovered ' + amount + ' MP.')
+                this.note(user,'+' + amount)
             } else if (item.name == 'Death Scroll') {
                 if (opponent.type === 'boss' || opponent.type === 'endBoss') {
                     let power = Math.ceil(opponent.hp / 2);
                     opponent.hp -= power;
                     this.removeItem(user.inventory, user.inventory[index].name);
                     this.messageBox.push('Death Scroll only did ' + power + ' damage')
+                    this.note(opponent,-power)
                 } else {
-                    opponent.hp = 0;
                     this.removeItem(user.inventory, user.inventory[index].name);
                     this.messageBox.push(user.name + ' read from the Death Scroll.')
+                    this.note(opponent,-opponent.hp)
+                    opponent.hp = 0;
                 }
             } else {
                 this.message = "SOMETHING WENT WRONG"
@@ -456,6 +466,7 @@ export default {
             this.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
             this.currentEnemy.hp = monsterArray[monNum].hpMax;
             this.currentEnemy.mp = monsterArray[monNum].mpMax;
+            this.currentEnemy.note = '';
             this.currentEnemy.animation = 'idle';
             this.currentEnemy.isDead = false
 
@@ -517,6 +528,7 @@ export default {
             enemy.xp += 10;
             enemy.gold += 30;
 
+            enemy.note = '';
             enemy.animation = 'idle';
             enemy.isDead = false
 

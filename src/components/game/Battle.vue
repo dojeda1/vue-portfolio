@@ -212,6 +212,7 @@ export default {
         handleSpecial($special) {
             const cost = $special.cost
             const name = $special.name;
+            const $this = this;
             console.log("Special: " + name + " " + cost);
             if (name === "Heal" && this.$parent.player.hp >= this.$parent.player.hpMax) {
                 this.$parent.message = "You are already at full health."
@@ -224,9 +225,8 @@ export default {
                 let player = this.$parent.player;
                 let enemy = this.$parent.currentEnemy;
                 this.$parent.messageBox = [];
-                let $this = this;
                 // $this.attack(player, enemy)
-                $this.special(player, enemy, $special);
+                this.special(player, enemy, $special);
                 setTimeout(function() {
                     $this.enemyTurn(player, enemy);
                 }, 1200);
@@ -235,6 +235,7 @@ export default {
         },
         attack(attacker, defender) {
             attacker.animation = 'attack'
+            const $this = this;
             let berserkNum = 0;
             let berserkMessage;
             if (attacker.status.includes('Berserk')) {
@@ -271,24 +272,27 @@ export default {
                 attackMessage = attacker.name + " missed...";
                 setTimeout(function() {
                     defender.animation = 'dodge'
+                    $this.$parent.note(defender,'miss')
                 },300);
             } else if (criticalCheck >= luckCheck) {
-                setTimeout(function() {
-                    defender.animation = 'damage'
-                },300);
                 damage = attacker.strength + berserkNum - defense;
                 console.log('S:',attacker.strength,'B:',berserkNum,'-D:',defense,"=",damage)
                 if (damage < 1) {
                     damage = 1;
                 }
                 attackMessage = attacker.name + " did " + damage + " damage.";
-            } else {
                 setTimeout(function() {
                     defender.animation = 'damage'
+                    $this.$parent.note(defender,-damage)
                 },300);
+            } else {
                 damage = attacker.strength + Math.ceil(attacker.strength * 0.25) + berserkNum;
                 console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.25),'B:',berserkNum,"=",damage)
                 attackMessage = "Critical hit! " + attacker.name + " did " + damage + " damage.";
+                setTimeout(function() {
+                    defender.animation = 'damage'
+                    $this.$parent.note(defender,-damage)
+                },300);
             }
             defender.hp -= damage;
             this.$parent.messageBox.push(attackMessage);
@@ -300,6 +304,7 @@ export default {
         special (attacker, defender, $special) {
             const cost = $special.cost
             const name = $special.name;
+            const $this = this;
             let attackMessage;
             let damage = 0;
             let defense = defender.defense;
@@ -339,12 +344,10 @@ export default {
                     if (missCheck < speedCheck) {
                         setTimeout(function() {
                             defender.animation = 'dodge'
+                            $this.$parent.note(defender,'miss')
                         },300);
                         attackMessage = attacker.name + "'s Axe missed...";
                     } else if (criticalCheck >= luckCheck) {
-                        setTimeout(function() {
-                            defender.animation = 'damage'
-                        },300);
                         defense = Math.floor(defense / 4);
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.25) + berserkNum - defense;
                         console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
@@ -352,13 +355,18 @@ export default {
                             damage = 1;
                         }
                         attackMessage = attacker.name + "'s Axe did " + damage + " damage.";
-                    } else {
                         setTimeout(function() {
                             defender.animation = 'damage'
+                            $this.$parent.note(defender,-damage)
                         },300);
+                    } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
                         console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.5),'B:',berserkNum,"=",damage)
                         attackMessage = "Critical hit! " + attacker.name + "'s Axe did " + damage + " damage.";
+                        setTimeout(function() {
+                            defender.animation = 'damage'
+                            $this.$parent.note(defender,-damage)
+                        },300);
                     }
                     defender.hp -= damage;
                     attacker.mp -= cost;
@@ -393,14 +401,12 @@ export default {
                         }
                     }
                     if (missCheck < speedCheck) {
+                        attackMessage = attacker.name + "'s Fire missed...";
                         setTimeout(function() {
                             defender.animation = 'dodge'
+                            $this.$parent.note(defender,'miss')
                         },300);
-                        attackMessage = attacker.name + "'s Fire missed...";
                     } else if (criticalCheck >= luckCheck) {
-                        setTimeout(function() {
-                            defender.animation = 'damage'
-                        },300);
                         defense = Math.floor(defense / 4);
                         damage = attacker.mana + Math.ceil(attacker.mana * 0.25) + berserkNum - defense;
                         console.log('S:',attacker.mana,'X:',Math.ceil(attacker.mana * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
@@ -408,13 +414,18 @@ export default {
                             damage = 1;
                         }
                         attackMessage = attacker.name + "'s Fire did " + damage + " damage.";
-                    } else {
                         setTimeout(function() {
                             defender.animation = 'damage'
+                            $this.$parent.note(defender,-damage)
                         },300);
+                    } else {
                         damage = attacker.mana + Math.ceil(attacker.mana * 0.5) + berserkNum;
                         console.log('S:',attacker.mana,'X:',Math.ceil(attacker.mana * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
                         attackMessage = "Critical hit! " + attacker.name + "'s Fire did " + damage + " damage.";
+                        setTimeout(function() {
+                            defender.animation = 'damage'
+                            $this.$parent.note(defender,-damage)
+                        },300);
                     }
                     defender.hp -= damage;
                     attacker.mp -= cost;
@@ -439,6 +450,7 @@ export default {
                         damage = attacker.hpMax;
                         attackMessage = "Wow! " + attacker.name + " recovered max HP.";
                     }
+                    this.$parent.note(attacker,'+' + damage)
                     attacker.hp += damage;
                     if (attacker.hp > attacker.hpMax) {
                         attacker.hp = attacker.hpMax;
@@ -463,14 +475,12 @@ export default {
                         }
                     }
                     if (missCheck < speedCheck) {
+                        attackMessage = attacker.name + "'s Dagger missed...";
                         setTimeout(function() {
                             defender.animation = 'dodge'
+                            $this.$parent.note(defender,'miss')
                         },300);
-                        attackMessage = attacker.name + "'s Dagger missed...";
                     } else if (criticalCheck >= luckCheck) {
-                        setTimeout(function() {
-                            defender.animation = 'damage'
-                        },300);
                         defense = Math.floor(defense / 4);
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.25) + berserkNum - defense;
                         console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
@@ -478,12 +488,17 @@ export default {
                             damage = 1;
                         }
                         attackMessage = attacker.name + "'s Dagger did " + damage + " damage.";
-                    } else {
                         setTimeout(function() {
                             defender.animation = 'damage'
+                            $this.$parent.note(defender,-damage)
                         },300);
+                    } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
                         attackMessage = "Critical hit! " + attacker.name + "'s Dagger did " + damage + " damage.";
+                        setTimeout(function() {
+                            defender.animation = 'damage'
+                            $this.$parent.note(defender,-damage)
+                        },300);
                     }
                     defender.hp -= damage;
                     attacker.mp -= cost;
@@ -502,22 +517,23 @@ export default {
                     }
                     console.log("rand/CritCheck: " + criticalCheck + "/" + speedCheck);
                     if (criticalCheck <= speedCheck) {
-                        setTimeout(function() {
-                            defender.animation = 'damage'
-                        },300);
                         const itemNum = this.$parent.randNum(0, defender.inventory.length);
                         const item = defender.inventory[itemNum];
                         this.$parent.transferItem(defender.inventory, attacker.inventory, item);
                         attackMessage = attacker.name + " stole " + this.$parent.anA(item.name) + " " + item.name + "."
                         this.$parent.messageBox.push(attackMessage);
                         console.log(attackMessage);
-                    } else {
                         setTimeout(function() {
-                            defender.animation = 'dodge'
+                            defender.animation = 'damage'
                         },300);
+                    } else {
                         attackMessage = attacker.name + " failed to steal anything."
                         this.$parent.messageBox.push(attackMessage);
                         console.log(attackMessage);
+                        setTimeout(function() {
+                            defender.animation = 'dodge'
+                            $this.$parent.note(defender,'miss')
+                        },300);
                     }
 
                     attacker.mp -= cost;
