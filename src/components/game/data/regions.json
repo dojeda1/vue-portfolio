@@ -5,7 +5,8 @@
         "sprite": "/images/game/plains.png",
         "level": 1,
         "targetLevel": 10,
-        "dungeonGoal": 3
+        "dungeonGoal": 3,
+        "bossDefeated": false
     },
     {
         "index": 2,
@@ -13,7 +14,8 @@
         "sprite": "/images/game/forest.png",
         "level": 4,
         "targetLevel": 8,
-        "dungeonGoal": 4
+        "dungeonGoal": 4,
+        "bossDefeated": false
     },
     {
         "index": 3,
@@ -21,6 +23,7 @@
         "sprite": "/images/game/mountains.png",
         "level": 8,
         "targetLevel": 12,
-        "dungeonGoal": 5
+        "dungeonGoal": 5,
+        "bossDefeated": false
     }
 ]

@@ -102,7 +102,7 @@ export default {
             // task: "new or load",
             // step: null,
             // inputName: "",
-            // movingForward: false,
+            movingForward: false,
             player: {},
             currentEnemy: {},
             currentEncounter: {},
@@ -534,6 +534,28 @@ export default {
 
             this.addEnemyItems(this.currentEnemy);
 
+            this.changeScene('Battle')
+
+            console.log('Enemy:',this.currentEnemy);
+        },
+        endBossEncounter(alternateMessage) {
+            const bossIndex = this.region.index - 1;
+            let message;
+            if (this.movingForward === true) {
+                message = alternateMessage || "You face " + endBosses[bossIndex].name + ", " + endBosses[bossIndex].title + ".";
+            }
+            message = endBosses[bossIndex].name + ", " + endBosses[bossIndex].title + " blocks your path."
+            this.message = message;
+            console.log("message: " + message);
+            this.currentEnemy = JSON.parse(JSON.stringify(endBosses[bossIndex]));
+            this.currentEnemy.hp = endBosses[bossIndex].hpMax;
+            this.currentEnemy.mp = endBosses[bossIndex].mpMax;
+            this.currentEnemy.animation = 'idle';
+            this.currentEnemy.isDead = false
+
+            this.addEnemyItems(this.currentEnemy);
+
+            // console.log(this.state.currentEnemy);
             this.changeScene('Battle')
 
             console.log('Enemy:',this.currentEnemy);

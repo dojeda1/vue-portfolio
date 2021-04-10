@@ -105,7 +105,7 @@ export default {
             if (bossArray.length) {
                 this.bossEncounter();
             } else {
-                this.monsterEncounter();
+                this.$parent.viciousEncounter();
                 // this.darkEncounter();
             }
         },

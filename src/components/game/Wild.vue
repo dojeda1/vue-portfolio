@@ -39,6 +39,15 @@
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
+    <template v-else-if="task == 'next level'">
+        <p>Continue forward?</p>
+        <p>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesForward">Yes</button>
+        </p>
+        <p>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoForward"><i class="material-icons left">arrow_back</i>No</button>
+        </p>
+    </template>
 </template>
 
 <script>
@@ -110,13 +119,33 @@ export default {
             this.$parent.changeScene('DungeonEncounter');
         },
         handleMoveBack() {
-            this.$parent.region = this.$parent.regions[this.$parent.region.index - 2]
-            this.$parent.message = 'You went back to the ' + this.$parent.region.name
+            this.$parent.player.animation = 'walk'
+            this.playerTurn = false
+            const $this = this;
+            setTimeout(function() {
+                $this.$parent.region = $this.$parent.regions[$this.$parent.region.index - 2]
+                $this.$parent.message = 'You went back to the ' + $this.$parent.region.name
+                $this.$parent.player.animation = 'idle'
+                $this.playerTurn = true
+            },1200)
         },
         handleMoveForward() {
-            this.$parent.region = this.$parent.regions[this.$parent.region.index]
-            this.$parent.message = 'You moved on to the ' + this.$parent.region.name
-        }
+            this.task = 'next level'
+            this.$parent.message = 'The road ahead is dangerous.'
+        },
+        handleYesForward() {
+            this.$parent.movingForward = true;
+            console.log('movingUP:',this.$parent.movingForward)
+            if (!this.$parent.region.bossDefeated) {
+                this.$parent.endBossEncounter();
+            } else {
+                this.$parent.viciousEncounter();
+            }
+        },
+        handleNoForward() {
+            this.task = 'wild'
+            this.$parent.message = 'You decided against it.'
+        },
     },
     created: function() {
         this.$parent.location = 'Wild';

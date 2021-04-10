@@ -50,12 +50,12 @@
     </template>
     <template v-else-if="task == 'next'">
         <p>
-            <button class="btn-inv" @click="handleNext">Next</button>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNext">Next</button>
         </p>
     </template>
     <template v-else-if="task == 'end'">
         <p>
-            <button class="btn-inv" @click="handleEnd">End</button>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleEnd">End</button>
         </p>
     </template>
 </template>
@@ -86,15 +86,35 @@ export default {
             }, 1200);
         },
         handleNext() {
-            this.$parent.messageBox = [];
-            if (this.$parent.location == 'Wild') {
-                this.$parent.changeScene('Wild');
-            } else if (this.$parent.location == 'Dungeon') {
-                if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
-                    this.$parent.message = 'Dungeon Completed.'
+            console.log('movingUP:',this.$parent.movingForward)
+            if (this.$parent.movingForward == true) {
+                console.log('Move On')
+                this.$parent.movingForward = false;
+                this.$parent.region.bossDefeated = true;
+                this.$parent.player.animation = 'walk'
+                this.playerTurn = false
+                const $this = this;
+                setTimeout(function() {
+                    $this.$parent.messageBox = [];
+                    $this.task = 'wild'
+                    $this.$parent.region = $this.$parent.regions[$this.$parent.region.index]
+                    $this.$parent.message = 'You moved on to the ' + $this.$parent.region.name
+                    $this.$parent.player.animation = 'idle'
+                    $this.playerTurn = true
+                    $this.$parent.changeScene('Wild');
+                },1200)
+            } else {
+                console.log('Stay')
+                this.$parent.messageBox = [];
+                if (this.$parent.location == 'Wild') {
                     this.$parent.changeScene('Wild');
-                } else {
-                    this.$parent.changeScene('Dungeon');
+                } else if (this.$parent.location == 'Dungeon') {
+                    if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
+                        this.$parent.message = 'Dungeon Completed.'
+                        this.$parent.changeScene('Wild');
+                    } else {
+                        this.$parent.changeScene('Dungeon');
+                    }
                 }
             }
         },
