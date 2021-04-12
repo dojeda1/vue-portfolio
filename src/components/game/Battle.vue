@@ -56,6 +56,7 @@
     <template v-else-if="task == 'end'">
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleEnd">End</button>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLoad">Load Game</button>
         </p>
     </template>
 </template>
@@ -593,6 +594,9 @@ export default {
         },
         handleEnd() {
             this.$parent.changeScene('TitleScreen');
+        },
+        handleLoad() {
+            this.$parent.loadGame();
         },
         gainXp(xpNum, player) {
             player.xp += xpNum;

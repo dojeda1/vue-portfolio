@@ -29,6 +29,7 @@
             <DungeonEncounter v-if="scene == 'DungeonEncounter'"/>
         </template>
         <template v-else>
+            <Save v-if="$parent.menu == 'Save'"/>
             <Quests v-if="$parent.menu == 'Quests'"/>
         </template>
     </div>
@@ -44,6 +45,7 @@ import Town from './Town.vue'
 import Shop from './Shop.vue'
 import Tavern from './Tavern.vue'
 import Quests from './Quests.vue'
+import Save from './Save.vue'
 import Dungeon from './Dungeon.vue'
 import Castle from './Castle.vue'
 import Battle from './Battle.vue'
@@ -87,6 +89,7 @@ export default {
         Shop,
         Tavern,
         Quests,
+        Save,
         Dungeon,
         Castle,
         Battle,
@@ -192,6 +195,22 @@ export default {
         resetRegion() {
             this.regions = JSON.parse(JSON.stringify(regions))
             this.region = regions[0];
+        },
+        loadGame() {
+            console.log('Game Loaded')
+            this.message = 'Your game has been Loaded.';
+            this.messageBox = [];
+            this.player = JSON.parse(localStorage.getItem("player"));
+            this.regions = JSON.parse(localStorage.getItem("regions"));
+            this.region = JSON.parse(localStorage.getItem("region"));
+            this.bosses1 = JSON.parse(localStorage.getItem("bosses1"));
+            this.bosses2 = JSON.parse(localStorage.getItem("bosses2"));
+            this.bosses3 = JSON.parse(localStorage.getItem("bosses3"));
+            this.scene = 'Town'
+            this.location = 'Town'
+            this.resetMerchant()
+            this.resetQuestBoard()
+            console.log('P1:',this.player)
         },
         changeScene(nextScene) {
             this.scene = nextScene;
