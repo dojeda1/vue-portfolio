@@ -23,6 +23,7 @@
             <Tavern v-if="scene == 'Tavern'"/>
             <Quests v-if="scene == 'Quests'"/>
             <Dungeon v-if="scene == 'Dungeon'"/>
+            <Castle v-if="scene == 'Castle'"/>
             <Battle v-if="scene == 'Battle'"/>
             <ChestEncounter v-if="scene == 'ChestEncounter'"/>
             <DungeonEncounter v-if="scene == 'DungeonEncounter'"/>
@@ -44,6 +45,7 @@ import Shop from './Shop.vue'
 import Tavern from './Tavern.vue'
 import Quests from './Quests.vue'
 import Dungeon from './Dungeon.vue'
+import Castle from './Castle.vue'
 import Battle from './Battle.vue'
 import ChestEncounter from './ChestEncounter.vue'
 import DungeonEncounter from './DungeonEncounter.vue'
@@ -86,6 +88,7 @@ export default {
         Tavern,
         Quests,
         Dungeon,
+        Castle,
         Battle,
         ChestEncounter,
         DungeonEncounter
@@ -168,13 +171,13 @@ export default {
             let questArr;
             this.questBoard = [];
             switch (this.region.index) {
-                case 1:
+                case 0:
                     questArr = quests1
                     break;
-                case 2:
+                case 1:
                     questArr = quests2
                     break;
-                case 3:
+                case 2:
                     questArr = quests3
                     break;
                 default:
@@ -187,6 +190,7 @@ export default {
             console.log('QuestBoard:',this.questBoard)
         },
         resetRegion() {
+            this.regions = JSON.parse(JSON.stringify(regions))
             this.region = regions[0];
         },
         changeScene(nextScene) {
@@ -438,15 +442,15 @@ export default {
             let monsterArray;
 
             switch (regionIndex) {
-                case 1:
+                case 0:
                     monsterArray = monsters1;
-                        break;
-                    case 2:
-                        monsterArray = monsters2;
-                        break;
-                    case 3:
-                        monsterArray = monsters3;
                     break;
+                case 1:
+                    monsterArray = monsters2;
+                    break;
+                case 2:
+                    monsterArray = monsters3;
+                break;
 
                 default:
                 // code block
@@ -488,15 +492,15 @@ export default {
             let monsterArray;
 
             switch (regionIndex) {
-                case 1:
+                case 0:
                     monsterArray = monsters1;
-                        break;
-                    case 2:
-                        monsterArray = monsters2;
-                        break;
-                    case 3:
-                        monsterArray = monsters3;
                     break;
+                case 1:
+                    monsterArray = monsters2;
+                    break;
+                case 2:
+                    monsterArray = monsters3;
+                break;
 
                 default:
                 // code block
@@ -539,12 +543,13 @@ export default {
             console.log('Enemy:',this.currentEnemy);
         },
         endBossEncounter(alternateMessage) {
-            const bossIndex = this.region.index - 1;
+            const bossIndex = this.region.index;
             let message;
             if (this.movingForward === true) {
+                message = endBosses[bossIndex].name + ", " + endBosses[bossIndex].title + " blocks your path."
+            } else {
                 message = alternateMessage || "You face " + endBosses[bossIndex].name + ", " + endBosses[bossIndex].title + ".";
             }
-            message = endBosses[bossIndex].name + ", " + endBosses[bossIndex].title + " blocks your path."
             this.message = message;
             console.log("message: " + message);
             this.currentEnemy = JSON.parse(JSON.stringify(endBosses[bossIndex]));

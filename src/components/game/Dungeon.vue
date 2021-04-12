@@ -89,13 +89,13 @@ export default {
             let bossArray = [];
 
             switch (regionIndex) {
-                case 1:
+                case 0:
                     bossArray = this.$parent.bosses1;
                     break;
-                case 2:
+                case 1:
                     bossArray = this.$parent.bosses2;
                     break;
-                case 3:
+                case 2:
                     bossArray = this.$parent.bosses3;
                     break;
 
@@ -122,14 +122,14 @@ export default {
             let monsterArray;
 
             switch (regionIndex) {
-                case 1:
+                case 0:
                     monsterArray = this.$parent.bosses1;
-                        break;
-                    case 2:
-                        monsterArray = this.$parent.bosses2;
-                        break;
-                    case 3:
-                        monsterArray = this.$parent.bosses3;
+                    break;
+                case 1:
+                    monsterArray = this.$parent.bosses2;
+                    break;
+                case 2:
+                    monsterArray = this.$parent.bosses3;
                     break;
 
                 default:

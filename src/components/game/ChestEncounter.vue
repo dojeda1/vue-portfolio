@@ -42,6 +42,8 @@ export default {
                 this.$parent.changeScene('Wild');
             } else if (this.$parent.location == 'Dungeon') {
                 this.$parent.changeScene('Dungeon');
+            } else if (this.$parent.location == 'Castle') {
+                this.$parent.changeScene('Castle');
             }
         },
         handleEnd() {
@@ -50,6 +52,8 @@ export default {
                 this.$parent.changeScene('Wild');
             } else if (this.$parent.location == 'Dungeon') {
                 this.$parent.changeScene('Dungeon');
+            } else if (this.$parent.location == 'Castle') {
+                this.$parent.changeScene('Castle');
             }
         },
         openChest() {

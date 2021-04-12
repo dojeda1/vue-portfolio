@@ -68,6 +68,7 @@
                 <div class="display-text"
                 :class="{'text-green': $parent.currentEnemy.type == 'common' || $parent.currentEnemy.type == 'vicious',
                 'text-jade': $parent.currentEnemy.type == 'boss' || $parent.currentEnemy.type == 'endBoss',
+                'text-purple': $parent.currentEnemy.type == 'finalBoss',
                 'text-gray': $parent.currentEnemy.hp <= 0}">
                     <p>
                         {{ $parent.currentEnemy.name }} | 

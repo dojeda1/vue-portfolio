@@ -87,17 +87,19 @@ export default {
         },
         handleNext() {
             console.log('movingUP:',this.$parent.movingForward)
+            if (this.$parent.currentEnemy.type == 'endBoss' || this.$parent.currentEnemy.type == 'finalBoss') {
+                this.$parent.region.bossDefeated = true;
+            }
             if (this.$parent.movingForward == true) {
                 console.log('Move On')
                 this.$parent.movingForward = false;
-                this.$parent.region.bossDefeated = true;
                 this.$parent.player.animation = 'walk'
                 this.playerTurn = false
                 const $this = this;
                 setTimeout(function() {
                     $this.$parent.messageBox = [];
                     $this.task = 'wild'
-                    $this.$parent.region = $this.$parent.regions[$this.$parent.region.index]
+                    $this.$parent.region = $this.$parent.regions[$this.$parent.region.index + 1]
                     $this.$parent.message = 'You moved on to the ' + $this.$parent.region.name
                     $this.$parent.player.animation = 'idle'
                     $this.playerTurn = true
@@ -114,6 +116,17 @@ export default {
                         this.$parent.changeScene('Wild');
                     } else {
                         this.$parent.changeScene('Dungeon');
+                    }
+                } else if (this.$parent.location == 'Castle') {
+                    if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
+                        if (this.$parent.currentEnemy.type == 'finalBoss') {
+                            this.$parent.message = 'The Master of Darkness has finally been vanquished.'
+                        } else {
+                            this.$parent.message = 'Castle Completed.'
+                        }
+                        this.$parent.changeScene('Wild');
+                    } else {
+                        this.$parent.changeScene('Castle');
                     }
                 }
             }
@@ -157,19 +170,19 @@ export default {
                 this.$parent.message = this.$parent.currentEnemy.name + ' defeated.';
                 this.task = 'next';
                 console.log("total kills: " + player.totalKills);
-                if (enemy.type === "endBoss") {
+                if (enemy.type == "endBoss" || enemy.type == "finalBoss") {
                     const endBosses = this.$parent.endBosses;
                     endBosses[enemy.index].isDead = true;
                 } else if (enemy.type === "boss") {
                     let bossArray = [];
                     switch (regionIndex) {
-                        case 1:
+                        case 0:
                             bossArray = this.$parent.bosses1;
                             break;
-                        case 2:
+                        case 1:
                             bossArray = this.$parent.bosses2;
                             break;
-                        case 3:
+                        case 2:
                             bossArray = this.$parent.bosses3;
                             break;
 
@@ -178,7 +191,7 @@ export default {
                     }
                     bossArray.splice(enemy.index, 1);
                 }
-                if (this.$parent.location === "Dungeon") {
+                if (this.$parent.location === "Dungeon" || this.$parent.location === "Castle") {
                     this.$parent.dungeonCount++
                     if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
                         player.totalDungeons++
@@ -632,6 +645,8 @@ export default {
                         $this.$parent.changeScene('Wild');
                     } else if ($this.$parent.location == 'Dungeon') {
                         $this.$parent.changeScene('Dungeon');
+                    } else if ($this.$parent.location == 'Castle') {
+                        $this.$parent.changeScene('Castle');
                     }
                     player.animation = 'idle';
                 } else {

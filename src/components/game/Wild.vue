@@ -13,15 +13,21 @@
         <p>
             <button class="btn-inv"
             @click="handleMoveBack"
-            v-if="$parent.regions[$parent.region.index - 2]"
+            v-if="$parent.regions[$parent.region.index - 1]"
             :class="{ 'disabled' : !playerTurn}">
-            <i className="material-icons left">arrow_back</i>{{$parent.regions[$parent.region.index - 2].name}}
+            <i className="material-icons left">arrow_back</i>{{$parent.regions[$parent.region.index - 1].name}}
             </button>
             <button class="btn-inv"
             @click="handleMoveForward"
-            v-if="$parent.regions[$parent.region.index]"
+            v-if="$parent.regions[$parent.region.index + 1]"
             :class="{ 'disabled' : !playerTurn}">
-            {{$parent.regions[$parent.region.index].name}}<i className="material-icons">arrow_forward</i>
+            {{$parent.regions[$parent.region.index + 1].name}}<i className="material-icons">arrow_forward</i>
+            </button>
+            <button class="btn-inv"
+            @click="handleCastle"
+            v-if="$parent.region.index + 1 == $parent.regions.length"
+            :class="{ 'disabled' : !playerTurn}">
+            Dark Castle<i className="material-icons">arrow_forward</i>
             </button>
         </p>
     </template>
@@ -46,6 +52,15 @@
         </p>
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoForward"><i class="material-icons left">arrow_back</i>No</button>
+        </p>
+    </template>
+    <template v-else-if="task == 'castle'">
+        <p>Dare to enter?</p>
+        <p>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesCastle">Enter</button>
+        </p>
+        <p>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoCaslte"><i class="material-icons left">arrow_back</i>Leave</button>
         </p>
     </template>
 </template>
@@ -123,7 +138,7 @@ export default {
             this.playerTurn = false
             const $this = this;
             setTimeout(function() {
-                $this.$parent.region = $this.$parent.regions[$this.$parent.region.index - 2]
+                $this.$parent.region = $this.$parent.regions[$this.$parent.region.index - 1]
                 $this.$parent.message = 'You went back to the ' + $this.$parent.region.name
                 $this.$parent.player.animation = 'idle'
                 $this.playerTurn = true
@@ -146,6 +161,19 @@ export default {
             this.task = 'wild'
             this.$parent.message = 'You decided against it.'
         },
+        handleCastle() {
+            this.task = 'castle'
+            this.$parent.message = 'The Castle emits an evil aura...'
+        },
+        handleYesCastle() {
+            this.$parent.dungeonCount = 0;
+            this.$parent.message = "You step into the castle."
+            this.$parent.changeScene('Castle');
+        },
+        handleNoCastle() {
+            this.$parent.message = "You left the castle behind."
+            this.$parent.changeScene('Wild');
+        }
     },
     created: function() {
         this.$parent.location = 'Wild';

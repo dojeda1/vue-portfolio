@@ -41,7 +41,7 @@
         "index": 2,
         "name": "Asteroth",
         "title": "Master of Darkness",
-        "type": "endBoss",
+        "type": "finalBoss",
         "sprite": "/images/game/asteroth.png",
         "hpMax": 200,
         "mpMax": 40,
