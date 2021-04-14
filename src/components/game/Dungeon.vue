@@ -47,13 +47,13 @@ export default {
             console.log('Log:',msg);
         },
         handleExplore() {
-            const exploreCheck = this.$parent.randNum(1, 5)
-            if (exploreCheck == 1) {
+            const exploreCheck = this.$parent.randNum(1, 10)
+            if (exploreCheck <= 2) {
                 this.$parent.chestEncounter();
-            } else if (exploreCheck == 2) {
-                this.$parent.merchantEncounter();
-            } else if (exploreCheck == 3) {
+            } else if (exploreCheck <= 5) {
                 this.$parent.viciousEncounter();
+            } else if (exploreCheck == 6) {
+                this.$parent.merchantEncounter();
             } else {
                 this.$parent.monsterEncounter();
             }

@@ -110,7 +110,7 @@ export default {
             this.$parent.currentEnemy.animation = 'idle';
             this.$parent.currentEnemy.isDead = false
 
-            this.$parent.currentEnemy.maxHp = (regionLevel * 5) + mimic.hpMax;
+            this.$parent.currentEnemy.hpMax = (regionLevel * 5) + mimic.hpMax;
             this.$parent.currentEnemy.hp = (regionLevel * 5) + mimic.hpMax;
             this.$parent.currentEnemy.mp = mimic.mpMax;
             this.$parent.currentEnemy.strength = regionLevel * 2 + mimic.strength;

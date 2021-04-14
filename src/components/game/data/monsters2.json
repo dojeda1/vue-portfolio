@@ -32,6 +32,22 @@
         "gold": 25
     },
     {
+        "name": "Spider",
+        "type": "common",
+        "sprite": "/images/game/spider.png",
+        "hpMax": 45,
+        "mpMax": 0,
+        "strength": 16,
+        "speed": 20,
+        "defense": 7,
+        "luck": 6,
+        "xp": 25,
+        "inventory": [],
+        "specials": [],
+        "status": [],
+        "gold": 25
+    },
+    {
         "name": "Ogre",
         "type": "common",
         "sprite": "/images/game/ogre.png",
@@ -41,7 +57,7 @@
         "speed": 12,
         "defense": 9,
         "luck": 7,
-        "xp": 25,
+        "xp": 30,
         "inventory": [],
         "specials": [],
         "status": [],

@@ -28,6 +28,20 @@
         "completed": false
     },
     {
+        "name": "Kill 3 Spiders",
+        "info": "Eww, there are so many Spiders in the Forest! Please Exterminate, will pay.",
+        "amount": 35,
+        "reward": "gold",
+        "rarity": null,
+        "itemIndex": null,
+        "type": "kill",
+        "task": "Spider",
+        "count": 0,
+        "goal": 3,
+        "region": "Forest",
+        "completed": false
+    },
+    {
         "name": "Kill 3 Ogres",
         "info": "Ogres have stolen our wives! We will pay to have them killed and our wives back home.",
         "amount": 40,
