@@ -1,7 +1,6 @@
 <template>
 <div id="game">
     <div class="container">
-        <p class="text-gray">SCENE: {{scene}}, DungComp: {{player.totalDungeons}}, P1 LV: {{player.level}}</p>
         <div class="game-header">
             <h1>Fantasy RPG</h1>
             <p>
@@ -31,7 +30,9 @@
         <template v-else>
             <Save v-if="$parent.menu == 'Save'"/>
             <Quests v-if="$parent.menu == 'Quests'"/>
+            <Stats v-if="$parent.menu == 'Stats'"/>
         </template>
+        <p class="text-gray">SCENE: {{scene}}</p>
     </div>
 </div>
 </template>
@@ -46,6 +47,7 @@ import Shop from './Shop.vue'
 import Tavern from './Tavern.vue'
 import Quests from './Quests.vue'
 import Save from './Save.vue'
+import Stats from './Stats.vue'
 import Dungeon from './Dungeon.vue'
 import Castle from './Castle.vue'
 import Battle from './Battle.vue'
@@ -90,6 +92,7 @@ export default {
         Tavern,
         Quests,
         Save,
+        Stats,
         Dungeon,
         Castle,
         Battle,
@@ -105,18 +108,13 @@ export default {
             regions: regions,
             scene: "TitleScreen",
             location: "Title Screen",
-            // task: "new or load",
-            // step: null,
-            // inputName: "",
             movingForward: false,
             player: {},
             currentEnemy: {},
             currentEncounter: {},
             questBoard: [],
-            // tavernQuests: [],
             merchant: [],
             dungeonCount: 0,
-            // castleCount: 0,
             meadCount: 0,
             // playerDefault: playerDefault,
             encounters: encounters,
@@ -594,6 +592,13 @@ export default {
             this.currentEncounter = JSON.parse(JSON.stringify(encounters[0]));
             this.message = "You found a chest!"
             this.changeScene('ChestEncounter');
+        },
+        merchantEncounter() {
+            this.currentEncounter = JSON.parse(JSON.stringify(this.encounters[6]));
+            this.resetMerchant();
+            this.message = "You came across a Traveling Merchant!"
+            this.currentEncounter.animation = 'idle'
+            this.changeScene('Shop');
         },
     },
     created: function() {

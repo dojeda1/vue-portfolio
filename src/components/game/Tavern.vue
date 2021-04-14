@@ -59,10 +59,10 @@ export default {
                 if (player.mp > player.mpMax) {
                     player.mp = player.mpMax;
                 }
-
-                let meadNum = this.$parent.meadCount++;
+                this.$parent.meadCount++
+                const meadNum = this.$parent.meadCount;
                 console.log('meadCount',this.$parent.meadCount)
-                if (meadNum < 3) {
+                if (meadNum == 1) {
                     this.$parent.message = "It's Refreshing."
                     player.animation = 'buffer'
                     this.playerTurn = false
@@ -71,7 +71,7 @@ export default {
                         $this.playerTurn = true
                         $this.task = 'tavern'
                     },600) 
-                } else if (meadNum < 4) {
+                } else if (meadNum == 2) {
                     this.$parent.message = "You are starting to feel drunk..."
                     player.animation = 'buffer'
                     this.playerTurn = false
@@ -80,7 +80,7 @@ export default {
                         $this.playerTurn = true
                         $this.task = 'tavern'
                     },600)
-                } else if (meadNum < 5) {
+                } else if (meadNum == 3) {
                     this.$parent.message = "Maaaysssbe wwuuun meerrrrr..."
                     player.animation = 'buffer'
                     this.playerTurn = false

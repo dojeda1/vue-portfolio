@@ -47,10 +47,12 @@ export default {
             console.log('Log:',msg);
         },
         handleExplore() {
-            const exploreCheck = this.$parent.randNum(1, 4)
+            const exploreCheck = this.$parent.randNum(1, 5)
             if (exploreCheck == 1) {
                 this.$parent.chestEncounter();
             } else if (exploreCheck == 2) {
+                this.$parent.merchantEncounter();
+            } else if (exploreCheck == 3) {
                 this.$parent.viciousEncounter();
             } else {
                 this.$parent.monsterEncounter();

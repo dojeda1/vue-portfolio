@@ -97,8 +97,19 @@ export default {
             }
         },
         handleLeave() {
-            this.$parent.message = "You left the shop."
-            this.$parent.changeScene('Town');
+            if (this.$parent.location == 'Town') {
+                this.$parent.message = "You left the shop."
+                this.$parent.changeScene('Town');
+            } else if (this.$parent.location == 'Wild') {
+                this.$parent.message = "You left the merchant behind."
+                this.$parent.changeScene('Wild');
+            } else if (this.$parent.location == 'Dungeon') {
+                this.$parent.message = "You left the merchant behind."
+                this.$parent.changeScene('Dungeon');
+            } else if (this.$parent.location == 'Castle') {
+                this.$parent.message = "You left the merchant behind."
+                this.$parent.changeScene('Castle');
+            }
         },
         handleBack() {
             this.task = 'shop';

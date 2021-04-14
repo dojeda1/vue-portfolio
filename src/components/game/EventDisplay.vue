@@ -83,6 +83,9 @@
                 </div>
             </template>
             <template v-else-if="$parent.scene == 'ChestEncounter'
+            || $parent.scene == 'Quests'
+            || $parent.scene == 'Shop'
+            || $parent.scene == 'Tavern'
             || $parent.scene == 'DungeonEncounter'">
                 <img class="game-sprite"
                 :class="{ 'idle': $parent.currentEncounter.animation == 'idle',

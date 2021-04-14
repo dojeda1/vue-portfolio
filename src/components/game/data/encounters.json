@@ -26,5 +26,25 @@
         "name": "Dungeon",
         "type": "common",
         "sprite": "/images/game/dungeon.png"
+    },
+    {
+        "name": "Quest Board",
+        "type": "common",
+        "sprite": "/images/game/quest-board.png"
+    },
+    {
+        "name": "Shop",
+        "type": "common",
+        "sprite": "/images/game/shop.png"
+    },
+    {
+        "name": "Tavern",
+        "type": "common",
+        "sprite": "/images/game/tavern.png"
+    },
+    {
+        "name": "Traveling Merchant",
+        "type": "common",
+        "sprite": "/images/game/merchant.png"
     }
 ]

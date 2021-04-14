@@ -82,9 +82,11 @@ export default {
             const exploreCheck = this.$parent.randNum(1, 10)
             if (exploreCheck == 1) {
                 this.$parent.chestEncounter();
-            } else if (exploreCheck == 2) {
-                this.dungeonEncounter();
+            // } else if (exploreCheck == 2) {
+            //     this.$parent.merchantEncounter();
             } else if (exploreCheck == 3) {
+                this.dungeonEncounter();
+            } else if (exploreCheck == 4) {
                 this.$parent.viciousEncounter();
             } else {
                 this.$parent.monsterEncounter();

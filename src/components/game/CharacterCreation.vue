@@ -79,7 +79,7 @@ export default {
                 case "Elf":
                     hpMax = 4;
                     mpMax = 6;
-                    strength = 0;
+                    strength = 1;
                     defense = 0;
                     mana = 2;
                     speed = 1;

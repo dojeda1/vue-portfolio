@@ -109,10 +109,14 @@ export default {
         },
         handleShop() {
             this.$parent.message = 'You entered the Shop.'
+            this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[4]));
+            this.$parent.currentEncounter.animation = 'idle'
             this.$parent.changeScene('Shop');
         },
         handleTavern() {
             this.$parent.message = 'You entered the Tavern.'
+            this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[5]));
+            this.$parent.currentEncounter.animation = 'idle'
             this.$parent.changeScene('Tavern');
         },
         handleUseItem() {
@@ -138,6 +142,7 @@ export default {
         },
         handleQuestBoard() {
             this.$parent.message = 'You viewed the Quest Board.'
+            this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[3]));
             this.$parent.changeScene('Quests');
             if (!this.$parent.questBoard.length) {
                 this.$parent.infoText = "There are no more Quests at this time."
