@@ -161,6 +161,7 @@ export default {
             if (enemy.hp <= 0) {
                 let regionIndex = this.$parent.region.index;
                 player.totalKills++;
+                this.$parent.region.kills++
                 let text = this.$parent.messageBox;
                 text.push("You killed " + enemy.name + "!")
                 text.push("--- RESULTS ---")
@@ -198,18 +199,6 @@ export default {
                         player.totalDungeons++
                     }
                 }
-                // if (this.$parent.location === "Castle") {
-                //     this.setState({
-                //         castleCount: this.$parent.castleCount + 1
-                //     }, () => {
-                //         if (this.$parent.castleCount > this.$parent.region.dungeonGoal) {
-                //             player.totalDungeons++
-                //             this.setState({
-                //                 player: player
-                //             })
-                //         }
-                //     })
-                // }
 
                 // enemy can use health potion
 
@@ -259,12 +248,10 @@ export default {
                 let player = this.$parent.player;
                 let enemy = this.$parent.currentEnemy;
                 this.$parent.messageBox = [];
-                // $this.attack(player, enemy)
                 this.special(player, enemy, $special);
                 setTimeout(function() {
                     $this.enemyTurn(player, enemy);
                 }, 1200);
-                //
             }
         },
         attack(attacker, defender) {
@@ -310,6 +297,10 @@ export default {
                 },300);
             } else if (criticalCheck >= luckCheck) {
                 damage = attacker.strength + berserkNum - defense;
+                if (attacker.ambushing) {
+                    attacker.ambushing = false;
+                    damage = Math.ceil(damage/2);
+                }
                 console.log('S:',attacker.strength,'B:',berserkNum,'-D:',defense,"=",damage)
                 if (damage < 1) {
                     damage = 1;
@@ -321,6 +312,10 @@ export default {
                 },300);
             } else {
                 damage = attacker.strength + Math.ceil(attacker.strength * 0.25) + berserkNum;
+                if (attacker.ambushing) {
+                    attacker.ambushing = false;
+                    damage = Math.ceil(damage/2);
+                }
                 console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.25),'B:',berserkNum,"=",damage)
                 attackMessage = "Critical hit! " + attacker.name + " did " + damage + " damage.";
                 setTimeout(function() {
@@ -695,6 +690,13 @@ export default {
     created: function() {
         this.$parent.messageBox = [];
         this.$parent.player.animation = 'idle'
+        if (this.$parent.currentEnemy.ambushing) {
+            console.log('Ambush')
+            this.enemyTurn(this.$parent.player, this.$parent.currentEnemy);
+        } else {
+            console.log('No ambush')
+
+        }
     }
 }
 </script>

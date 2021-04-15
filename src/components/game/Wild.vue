@@ -20,13 +20,13 @@
             <button class="btn-inv"
             @click="handleMoveForward"
             v-if="$parent.regions[$parent.region.index + 1]"
-            :class="{ 'disabled' : !playerTurn}">
+            :class="{ 'disabled' : !playerTurn || $parent.region.kills < 4}">
             {{$parent.regions[$parent.region.index + 1].name}}<i className="material-icons">arrow_forward</i>
             </button>
             <button class="btn-inv"
             @click="handleCastle"
             v-if="$parent.region.index + 1 == $parent.regions.length"
-            :class="{ 'disabled' : !playerTurn}">
+            :class="{ 'disabled' : !playerTurn || $parent.region.kills < 4}">
             Dark Castle<i className="material-icons">arrow_forward</i>
             </button>
         </p>
@@ -93,18 +93,23 @@ export default {
             }
         },
         handleTown() {
-            this.$parent.message = "You traveled to town."
-            var $this = this
-            $this.playerTurn = false
-            $this.$parent.player.animation = 'walk'
-            this.$parent.resetMerchant();
-            this.$parent.resetQuestBoard();
-            this.$parent.meadCount = 0;
-            setTimeout(function() {
-                $this.$parent.player.animation = 'idle'
-                $this.playerTurn = true
-                $this.$parent.changeScene('Town');
-            },1200)
+            const ambushCheck = this.$parent.randNum(1, 10)
+            if (ambushCheck == 1) {
+                this.$parent.monsterEncounter(true)
+            } else {
+                this.$parent.message = "You traveled to town."
+                var $this = this
+                $this.playerTurn = false
+                $this.$parent.player.animation = 'walk'
+                this.$parent.resetMerchant();
+                this.$parent.resetQuestBoard();
+                this.$parent.meadCount = 0;
+                setTimeout(function() {
+                    $this.$parent.player.animation = 'idle'
+                    $this.playerTurn = true
+                    $this.$parent.changeScene('Town');
+                },1200)
+            }
         },
         handleBack() {
             this.task = 'wild';

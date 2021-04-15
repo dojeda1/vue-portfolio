@@ -66,11 +66,14 @@ p {
 .text-blue {
     color: #27aae1;
 }
+.text-purple {
+    color: #ab08d4;
+}
+.text-gold {
+    color: gold;
+}
 .text-red {
     color: #F44336;
-}
-.text-purple {
-    color: #7c2bb6;
 }
 .text-gray {
     color: gray;

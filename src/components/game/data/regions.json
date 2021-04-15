@@ -6,7 +6,8 @@
         "level": 1,
         "targetLevel": 10,
         "dungeonGoal": 3,
-        "bossDefeated": false
+        "bossDefeated": false,
+        "kills": 0
     },
     {
         "index": 1,
@@ -15,7 +16,8 @@
         "level": 4,
         "targetLevel": 8,
         "dungeonGoal": 4,
-        "bossDefeated": false
+        "bossDefeated": false,
+        "kills": 0
     },
     {
         "index": 2,
@@ -24,6 +26,7 @@
         "level": 8,
         "targetLevel": 12,
         "dungeonGoal": 5,
-        "bossDefeated": false
+        "bossDefeated": false,
+        "kills": 0
     }
 ]

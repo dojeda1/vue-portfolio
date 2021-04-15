@@ -192,7 +192,7 @@ export default {
         },
         resetRegion() {
             this.regions = JSON.parse(JSON.stringify(regions))
-            this.region = regions[0];
+            this.region = this.regions[0];
         },
         loadGame() {
             console.log('Game Loaded')
@@ -447,7 +447,7 @@ export default {
             })
             console.log(quests);
         },
-        monsterEncounter(alternateMessage) {
+        monsterEncounter(ambushed) {
             let rangeNum = 0;
             let playerLevel = this.player.level;
 
@@ -481,7 +481,12 @@ export default {
                 rangeNum = monsterArray.length;
             }
             let monNum = this.randNum(0, rangeNum);
-            const message = alternateMessage || "You encountered " + this.anA(monsterArray[monNum].name) + " " + monsterArray[monNum].name + ".";
+            let message;
+            if (ambushed) {
+                message = "You were ambushed by " + this.anA(monsterArray[monNum].name) + " " + monsterArray[monNum].name + "!";
+            } else {
+                message = "You encountered " + this.anA(monsterArray[monNum].name) + " " + monsterArray[monNum].name + ".";
+            }
             this.message = message;
             console.log("message: " + message);
             this.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
@@ -490,6 +495,7 @@ export default {
             this.currentEnemy.note = '';
             this.currentEnemy.animation = 'idle';
             this.currentEnemy.isDead = false
+            this.currentEnemy.ambushing = ambushed
 
             this.addEnemyItems(this.currentEnemy);
 
@@ -497,7 +503,7 @@ export default {
 
             console.log('Enemy:',this.currentEnemy);
         },
-        viciousEncounter(alternateMessage) {
+        viciousEncounter(ambushed) {
             let rangeNum = 0;
             let playerLevel = this.player.level;
 
@@ -531,7 +537,12 @@ export default {
                 rangeNum = monsterArray.length;
             }
             let monNum = this.randNum(0, rangeNum);
-            const message = alternateMessage || "You encountered a Vicious " + monsterArray[monNum].name + ".";
+            let message;
+            if (ambushed) {
+                message = "You were ambushed by a Vicious " + monsterArray[monNum].name + "!";
+            } else {
+                message = "You encountered a Vicious " + monsterArray[monNum].name + ".";
+            }
             this.message = message;
             console.log("message: " + message);
             this.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
@@ -552,6 +563,7 @@ export default {
             enemy.note = '';
             enemy.animation = 'idle';
             enemy.isDead = false
+            enemy.ambushing = ambushed
 
             this.addEnemyItems(this.currentEnemy);
 
