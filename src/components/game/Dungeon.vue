@@ -147,7 +147,7 @@ export default {
             }
             // let monNum = this.$parent.randNum(0, rangeNum);
             console.log(rangeNum)
-            let monNum = 0;
+            let monNum = this.$parent.region.bossKills;
             const message = alternateMessage || "You encountered " + monsterArray[monNum].name + ", " + monsterArray[monNum].title + ".";
             this.$parent.message = message;
             console.log("message: " + message);

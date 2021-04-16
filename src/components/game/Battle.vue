@@ -89,7 +89,7 @@ export default {
         handleNext() {
             console.log('movingUP:',this.$parent.movingForward)
             if (this.$parent.currentEnemy.type == 'endBoss' || this.$parent.currentEnemy.type == 'finalBoss') {
-                this.$parent.region.bossDefeated = true;
+                this.$parent.region.endBossKills++;
             }
             if (this.$parent.movingForward == true) {
                 console.log('Move On')
@@ -101,6 +101,7 @@ export default {
                     $this.$parent.messageBox = [];
                     $this.task = 'wild'
                     $this.$parent.region = $this.$parent.regions[$this.$parent.region.index + 1]
+                    $this.$parent.region.discovered = true;
                     $this.$parent.message = 'You moved on to the ' + $this.$parent.region.name
                     $this.$parent.player.animation = 'idle'
                     $this.playerTurn = true
@@ -159,7 +160,7 @@ export default {
         },
         enemyTurn(player, enemy) {
             if (enemy.hp <= 0) {
-                let regionIndex = this.$parent.region.index;
+                // let regionIndex = this.$parent.region.index;
                 player.totalKills++;
                 this.$parent.region.kills++
                 let text = this.$parent.messageBox;
@@ -176,22 +177,23 @@ export default {
                     const endBosses = this.$parent.endBosses;
                     endBosses[enemy.index].isDead = true;
                 } else if (enemy.type === "boss") {
-                    let bossArray = [];
-                    switch (regionIndex) {
-                        case 0:
-                            bossArray = this.$parent.bosses1;
-                            break;
-                        case 1:
-                            bossArray = this.$parent.bosses2;
-                            break;
-                        case 2:
-                            bossArray = this.$parent.bosses3;
-                            break;
+                    this.$parent.region.bossKills++
+                    // let bossArray = [];
+                    // switch (regionIndex) {
+                    //     case 0:
+                    //         bossArray = this.$parent.bosses1;
+                    //         break;
+                    //     case 1:
+                    //         bossArray = this.$parent.bosses2;
+                    //         break;
+                    //     case 2:
+                    //         bossArray = this.$parent.bosses3;
+                    //         break;
 
-                        default:
-                        // code block
-                    }
-                    bossArray.splice(enemy.index, 1);
+                    //     default:
+                    //     // code block
+                    // }
+                    // bossArray.splice(enemy.index, 1);
                 }
                 if (this.$parent.location === "Dungeon" || this.$parent.location === "Castle") {
                     this.$parent.dungeonCount++
@@ -554,6 +556,7 @@ export default {
                         console.log(attackMessage);
                         setTimeout(function() {
                             defender.animation = 'damage'
+                            $this.$parent.note(defender,'?')
                         },300);
                     } else {
                         attackMessage = attacker.name + " failed to steal anything."
@@ -695,7 +698,13 @@ export default {
             this.enemyTurn(this.$parent.player, this.$parent.currentEnemy);
         } else {
             console.log('No ambush')
-
+        }
+        if (this.$parent.player.hp <= 0) {
+            this.task = 'end';
+            this.$parent.player.animation = 'die'
+        } else if (this.$parent.currentEnemy.hp <= 0) {
+            this.task = 'next';
+            this.$parent.currentEnemy.animation = 'die'
         }
     }
 }

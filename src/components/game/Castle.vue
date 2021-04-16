@@ -106,7 +106,7 @@ export default {
             //     this.$parent.viciousEncounter();
             //     // this.darkEncounter();
             // }
-            if (!this.$parent.region.bossDefeated) {
+            if (!this.$parent.region.endBossKills == 0) {
                 this.$parent.endBossEncounter();
             } else {
                 this.$parent.viciousEncounter();

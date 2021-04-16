@@ -6,7 +6,9 @@
         "level": 1,
         "targetLevel": 10,
         "dungeonGoal": 3,
-        "bossDefeated": false,
+        "endBossKills": 0,
+        "bossKills": 0,
+        "discovered": true,
         "kills": 0
     },
     {
@@ -16,7 +18,9 @@
         "level": 4,
         "targetLevel": 8,
         "dungeonGoal": 4,
-        "bossDefeated": false,
+        "endBossKills": 0,
+        "bossKills": 0,
+        "discovered": false,
         "kills": 0
     },
     {
@@ -26,7 +30,9 @@
         "level": 8,
         "targetLevel": 12,
         "dungeonGoal": 5,
-        "bossDefeated": false,
+        "endBossKills": 0,
+        "bossKills": 0,
+        "discovered": false,
         "kills": 0
     }
 ]
