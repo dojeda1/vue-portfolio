@@ -10,7 +10,9 @@
     "specials": [],
     "status": {
         "Berserk": 0,
-        "Burn": 0
+        "Bleed": 3,
+        "Burn": 3,
+        "Poison":3
     },
     "strength": 4,
     "defense": 2,
@@ -22,7 +24,7 @@
     "mpMax": 4,
     "mp": 4,
     "level": 1,
-    "xp": 0,
+    "xp": 150,
     "nextLevel": 50,
     "inventory": [],
     "quests": [],

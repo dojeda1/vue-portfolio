@@ -277,14 +277,15 @@ export default {
             // this.atkText(attacker, attackMessage);
             // attacker.berserkCheck();
         },
-        special (attacker, defender, $special) {
+        special(attacker, defender, $special) {
             const cost = $special.cost
             const name = $special.name;
             const $this = this;
             let attackMessage;
-            let burnMessage;
+            let statusMessage;
             let damage = 0;
             let defense = defender.defense;
+            let statusCheck;
             let criticalCheck = this.$parent.randNum(1, 100);
             let missCheck = this.$parent.randNum(1, 100);
             let luckCheck = (attacker.luck - defender.luck) + 10;
@@ -329,16 +330,22 @@ export default {
                             damage = 1;
                         }
                         attackMessage = attacker.name + "'s Axe did " + damage + " damage.";
+                        statusCheck = this.$parent.randNum(1,5);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
+                            statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
                         console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.5),'B:',berserkNum,"=",damage)
                         attackMessage = "Critical hit! " + attacker.name + "'s Axe did " + damage + " damage.";
+                        statusCheck = this.$parent.randNum(1,3);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
+                            statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
                         },300);
                     }
@@ -346,6 +353,7 @@ export default {
                     attacker.mp -= cost;
                     console.log('message in a bottle:',berserkMessage)
                     this.$parent.messageBox.push(attackMessage);
+                    statusMessage ? this.$parent.messageBox.push(statusMessage) : null;
                     berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
                     console.log(attackMessage);
                     break;
@@ -383,27 +391,29 @@ export default {
                             damage = 1;
                         }
                         attackMessage = attacker.name + "'s Fire did " + damage + " damage.";
-                        burnMessage = "- " + defender.name + " is now Burned. -";
+                        statusCheck = this.$parent.randNum(1,5);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Burned. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
-                            defender.status['Burn'] = 3
+                            statusCheck == 1 ? defender.status['Burn'] = 3 : null;
                             $this.$parent.note(defender,-damage)
                         },300);
                     } else {
                         damage = attacker.mana + Math.ceil(attacker.mana * 0.5) + berserkNum;
                         console.log('S:',attacker.mana,'X:',Math.ceil(attacker.mana * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
                         attackMessage = "Critical hit! " + attacker.name + "'s Fire did " + damage + " damage.";
-                        burnMessage = "- " + defender.name + " is now Burned. -";
+                        statusCheck = this.$parent.randNum(1,3);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Burned. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
-                            defender.status['Burn'] = 3
+                            statusCheck == 1 ? defender.status['Burn'] = 3 : null;
                             $this.$parent.note(defender,-damage)
                         },300);
                     }
                     defender.hp -= damage;
                     attacker.mp -= cost;
                     this.$parent.messageBox.push(attackMessage);
-                    this.$parent.messageBox.push(burnMessage);
+                    statusMessage ? this.$parent.messageBox.push(statusMessage) : null;
                     berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
                     this.$parent.statusCheck(attacker);
                     console.log(attackMessage);
@@ -461,21 +471,28 @@ export default {
                             damage = 1;
                         }
                         attackMessage = attacker.name + "'s Dagger did " + damage + " damage.";
+                        statusCheck = this.$parent.randNum(1,5);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
+                            statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
                         attackMessage = "Critical hit! " + attacker.name + "'s Dagger did " + damage + " damage.";
+                        statusCheck = this.$parent.randNum(1,3);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
+                            statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
                         },300);
                     }
                     defender.hp -= damage;
                     attacker.mp -= cost;
                     this.$parent.messageBox.push(attackMessage);
+                    statusMessage ? this.$parent.messageBox.push(statusMessage) : null;
                     berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
                     console.log(attackMessage);
                     break;

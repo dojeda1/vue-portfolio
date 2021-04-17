@@ -295,6 +295,12 @@ export default {
                 this.message = 'You are already at full Health.'
             } else if (item.name.includes('Mana Potion') && this.player.mp >= this.player.mpMax) {
                 this.message = 'You are already at full Mana.'
+            } else if (item.name == 'Bandage' && this.player.status['Bleed'] <= 0) {
+                this.message = "You aren't currently Bleeding."
+            } else if (item.name == 'Antidote' && this.player.status['Poison'] <= 0) {
+                this.message = "You aren't currently Poisoned."
+            } else if (item.name == 'Remedy' && this.player.status['Burn'] <= 0) {
+                this.message = "You aren't currently Burned."
             } else {
                 this.messageBox = [];
                 console.log('PLAYER',this.player)
@@ -334,6 +340,21 @@ export default {
                 this.removeItem(user.inventory, user.inventory[index].name);
                 this.messageBox.push(user.name + ' recovered ' + amount + ' MP.')
                 this.note(user,'+' + amount)
+            } else if (item.name == 'Bandage') {
+                user.status['Bleed'] = 0;
+                this.removeItem(user.inventory, user.inventory[index].name);
+                this.messageBox.push(user.name + "'s Bleed is healed.")
+                // this.note(user,'!')
+            } else if (item.name == 'Antidote') {
+                user.status['Poison'] = 0;
+                this.removeItem(user.inventory, user.inventory[index].name);
+                this.messageBox.push(user.name + "'s Poison is cured")
+                // this.note(user,'!')
+            } else if (item.name == 'Remedy') {
+                user.status['Burn'] = 0;
+                this.removeItem(user.inventory, user.inventory[index].name);
+                this.messageBox.push(user.name + "'s Burn is healed.")
+                // this.note(user,'!')
             } else if (item.name == 'Death Scroll') {
                 if (opponent.type === 'boss' || opponent.type === 'endBoss') {
                     let power = Math.ceil(opponent.hp / 2);
@@ -413,17 +434,41 @@ export default {
             console.log(quests);
         },
         statusCheck(user) {
+            var totalDamage = 0;
             var damage;
+            if (user.status['Bleed'] > 0) {
+                damage = 5
+                totalDamage+= damage;
+                this.messageBox.push('- Bleed hurt ' + user.name + ' for ' +  damage + ' damage. -')
+                user.hp-= 5;
+                user.status['Bleed']--
+                if (user.status['Bleed'] <= 0) {
+                    this.messageBox.push('- Bleed has worn out. -')
+                }
+                this.note(user,-damage);
+            }
             if (user.status['Burn'] > 0) {
                 damage = 5
+                totalDamage+= damage;
                 this.messageBox.push('- Burn hurt ' + user.name + ' for ' +  damage + ' damage. -')
                 user.hp-= 5;
                 user.status['Burn']--
                 if (user.status['Burn'] <= 0) {
-                    this.messageBox.push('- Burn has run out. -')
+                    this.messageBox.push('- Burn has worn out. -')
                 }
                 this.note(user,-damage);
             }
+            if (user.status['Poison'] > 0) {
+                damage = 5
+                totalDamage+= damage;
+                this.messageBox.push('- Poison hurt ' + user.name + ' for ' +  damage + ' damage. -')
+                user.hp-= 5;
+                user.status['Poison']--
+                if (user.status['Poison'] <= 0) {
+                    this.messageBox.push('- Poison has worn out. -')
+                }
+            }
+            this.note(user,-totalDamage);
         },
         monsterEncounter(ambushed) {
             let rangeNum = 0;

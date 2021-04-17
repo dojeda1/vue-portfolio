@@ -67,7 +67,7 @@
         {
             "name": "Old Hat",
             "sprite": "/images/game/hat.png",
-            "order": 7,
+            "order": 10,
             "qty": 1,
             "buy": 100,
             "sell": 80,
@@ -76,11 +76,40 @@
         {
             "name": "Death Scroll",
             "sprite": "/images/game/scroll.png",
-            "order": 8,
+            "order": 11,
             "qty": 1,
             "buy": 300,
             "sell": 150,
             "info": "Instantly kill common enemies."
+        }
+    ],
+    [
+        {
+            "name": "Bandage",
+            "sprite": "/images/game/bandage.png",
+            "order": 7,
+            "qty": 1,
+            "buy": 20,
+            "sell": 10,
+            "info": "Removes Bleed status effect."
+        },
+        {
+            "name": "Antidote",
+            "sprite": "/images/game/antidote.png",
+            "order": 8,
+            "qty": 1,
+            "buy": 20,
+            "sell": 10,
+            "info": "Removes Poison status effect."
+        },
+        {
+            "name": "Remedy",
+            "sprite": "/images/game/remedy.png",
+            "order": 9,
+            "qty": 1,
+            "buy": 20,
+            "sell": 10,
+            "info": "Removes Burn status effect."
         }
     ]
 ]
