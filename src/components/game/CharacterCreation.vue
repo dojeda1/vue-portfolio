@@ -138,7 +138,6 @@ export default {
                         name: "Berserk",
                         cost: 8,
                         active: false,
-                        count: 0
                     })
                     break;
                 case "Mage":
@@ -194,26 +193,26 @@ export default {
             player.luck += luck;
 
             this.editSprite(player.race,player.class);
-            this.$parent.addItem(player.inventory,this.$parent.items1[0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items1[0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items1[1]);
-            // this.$parent.addItem(player.inventory,this.$parent.items1[1]);
-            // this.$parent.addItem(player.inventory,this.$parent.items2[0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items2[0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items2[1]);
-            // this.$parent.addItem(player.inventory,this.$parent.items2[1]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[1]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[1]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[2]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[2]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
-            // this.$parent.addItem(player.inventory,this.$parent.items3[3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[0][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[0][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[0][1]);
+            this.$parent.addItem(player.inventory,this.$parent.items[0][1]);
+            this.$parent.addItem(player.inventory,this.$parent.items[1][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[1][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[1][1]);
+            this.$parent.addItem(player.inventory,this.$parent.items[1][1]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][1]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][1]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][2]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][2]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
             player.animation = 'idle';
 
             console.log('player:',player);

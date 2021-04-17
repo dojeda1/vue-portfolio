@@ -88,22 +88,7 @@ export default {
         },
         handleFightBoss() {
             const regionIndex = this.$parent.region.index;
-            let bossArray = [];
-
-            switch (regionIndex) {
-                case 0:
-                    bossArray = this.$parent.bosses1;
-                    break;
-                case 1:
-                    bossArray = this.$parent.bosses2;
-                    break;
-                case 2:
-                    bossArray = this.$parent.bosses3;
-                    break;
-
-                default:
-                // code block
-            }
+            let bossArray = this.$parent.bosses[regionIndex];
             if (bossArray.length) {
                 this.bossEncounter();
             } else {
@@ -121,39 +106,24 @@ export default {
             const regionLevel = this.$parent.region.level;
             const regionTarget = this.$parent.region.targetLevel;
 
-            let monsterArray;
-
-            switch (regionIndex) {
-                case 0:
-                    monsterArray = this.$parent.bosses1;
-                    break;
-                case 1:
-                    monsterArray = this.$parent.bosses2;
-                    break;
-                case 2:
-                    monsterArray = this.$parent.bosses3;
-                    break;
-
-                default:
-                // code block
-            }
+            let bossArray = this.$parent.bosses[regionIndex]
             if (playerLevel <= regionLevel) {
                 rangeNum = 1;
 
             } else if (playerLevel > regionLevel && playerLevel < regionTarget) {
-                rangeNum = Math.ceil(monsterArray.length * (playerLevel / regionTarget));
+                rangeNum = Math.ceil(bossArray.length * (playerLevel / regionTarget));
             } else {
-                rangeNum = monsterArray.length;
+                rangeNum = bossArray.length;
             }
             // let monNum = this.$parent.randNum(0, rangeNum);
             console.log(rangeNum)
             let monNum = this.$parent.region.bossKills;
-            const message = alternateMessage || "You encountered " + monsterArray[monNum].name + ", " + monsterArray[monNum].title + ".";
+            const message = alternateMessage || "You encountered " + bossArray[monNum].name + ", " + bossArray[monNum].title + ".";
             this.$parent.message = message;
             console.log("message: " + message);
-            this.$parent.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
-            this.$parent.currentEnemy.hp = monsterArray[monNum].hpMax;
-            this.$parent.currentEnemy.mp = monsterArray[monNum].mpMax;
+            this.$parent.currentEnemy = JSON.parse(JSON.stringify(bossArray[monNum]));
+            this.$parent.currentEnemy.hp = bossArray[monNum].hpMax;
+            this.$parent.currentEnemy.mp = bossArray[monNum].mpMax;
             this.$parent.currentEnemy.animation = 'idle';
             this.$parent.currentEnemy.isDead = false
 

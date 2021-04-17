@@ -83,88 +83,12 @@ export default {
             );
         },
         handleFightBoss() {
-            // const regionIndex = this.$parent.region.index;
-            // let bossArray = [];
-
-            // switch (regionIndex) {
-            //     case 0:
-            //         bossArray = this.$parent.bosses1;
-            //         break;
-            //     case 1:
-            //         bossArray = this.$parent.bosses2;
-            //         break;
-            //     case 2:
-            //         bossArray = this.$parent.bosses3;
-            //         break;
-
-            //     default:
-            //     // code block
-            // }
-            // if (bossArray.length) {
-            //     this.bossEncounter();
-            // } else {
-            //     this.$parent.viciousEncounter();
-            //     // this.darkEncounter();
-            // }
             if (!this.$parent.region.endBossKills == 0) {
                 this.$parent.endBossEncounter();
             } else {
                 this.$parent.viciousEncounter();
             }
-        },
-        // bossEncounter(alternateMessage) {
-
-        //     let rangeNum = 0;
-        //     let playerLevel = this.$parent.player.level;
-
-        //     const regionIndex = this.$parent.region.index;
-        //     console.log("RI:" + regionIndex)
-        //     const regionLevel = this.$parent.region.level;
-        //     const regionTarget = this.$parent.region.targetLevel;
-
-        //     let monsterArray;
-
-        //     switch (regionIndex) {
-        //         case 0:
-        //             monsterArray = this.$parent.bosses1;
-        //             break;
-        //         case 1:
-        //             monsterArray = this.$parent.bosses2;
-        //             break;
-        //         case 2:
-        //             monsterArray = this.$parent.bosses3;
-        //             break;
-
-        //         default:
-        //         // code block
-        //     }
-        //     if (playerLevel <= regionLevel) {
-        //         rangeNum = 1;
-
-        //     } else if (playerLevel > regionLevel && playerLevel < regionTarget) {
-        //         rangeNum = Math.ceil(monsterArray.length * (playerLevel / regionTarget));
-        //     } else {
-        //         rangeNum = monsterArray.length;
-        //     }
-        //     // let monNum = this.$parent.randNum(0, rangeNum);
-        //     console.log(rangeNum)
-        //     let monNum = 0;
-        //     const message = alternateMessage || "You encountered " + monsterArray[monNum].name + ", " + monsterArray[monNum].title + ".";
-        //     this.$parent.message = message;
-        //     console.log("message: " + message);
-        //     this.$parent.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
-        //     this.$parent.currentEnemy.hp = monsterArray[monNum].hpMax;
-        //     this.$parent.currentEnemy.mp = monsterArray[monNum].mpMax;
-        //     this.$parent.currentEnemy.animation = 'idle';
-        //     this.$parent.currentEnemy.isDead = false
-
-        //     this.$parent.addEnemyItems(this.$parent.currentEnemy);
-
-        //     // console.log(this.state.currentEnemy);
-        //     this.$parent.changeScene('Battle')
-
-        //     console.log('Enemy:',this.$parent.currentEnemy);
-        // }
+        }
     },
     
     created: function() {

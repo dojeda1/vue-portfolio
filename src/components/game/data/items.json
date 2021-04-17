@@ -1,0 +1,86 @@
+[
+    [
+        {
+            "name": "Health Potion",
+            "sprite": "/images/game/potion-small.png",
+            "order": 3,
+            "qty": 1,
+            "buy": 10,
+            "sell": 5,
+            "recover": 0.5,
+            "info": "Recovers 50% of max HP."
+        },
+        {
+            "name": "Mana Potion",
+            "sprite": "/images/game/potion-small.png",
+            "order": 6,
+            "qty": 1,
+            "buy": 10,
+            "sell": 5,
+            "recover": 0.5,
+            "info": "Recovers 50% of max MP."
+        }
+    ],
+    [
+        {
+            "name": "Greater Health Potion",
+            "sprite": "/images/game/potion-medium.png",
+            "order": 2,
+            "qty": 1,
+            "buy": 18,
+            "sell": 9,
+            "recover": 0.75,
+            "info": "Recovers 75% of max HP."
+        },
+        {
+            "name": "Greater Mana Potion",
+            "sprite": "/images/game/potion-medium.png",
+            "order": 5,
+            "qty": 1,
+            "buy": 18,
+            "sell": 9,
+            "recover": 0.75,
+            "info": "Recovers 75% of max MP."
+        }
+    ],
+    [
+        {
+            "name": "Superior Health Potion",
+            "sprite": "/images/game/potion-large.png",
+            "order": 1,
+            "qty": 1,
+            "buy": 30,
+            "sell": 15,
+            "recover": 1,
+            "info": "Recovers 100% of max HP."
+        },
+        {
+            "name": "Superior Mana Potion",
+            "sprite": "/images/game/potion-large.png",
+            "order": 4,
+            "qty": 1,
+            "buy": 30,
+            "sell": 15,
+            "recover": 1,
+            "info": "Recovers 100% of max MP."
+        },
+        {
+            "name": "Old Hat",
+            "sprite": "/images/game/hat.png",
+            "order": 7,
+            "qty": 1,
+            "buy": 100,
+            "sell": 80,
+            "info": "An old, but stylish hat."
+        },
+        {
+            "name": "Death Scroll",
+            "sprite": "/images/game/scroll.png",
+            "order": 8,
+            "qty": 1,
+            "buy": 300,
+            "sell": 150,
+            "info": "Instantly kill common enemies."
+        }
+    ]
+]

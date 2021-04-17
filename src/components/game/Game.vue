@@ -61,24 +61,12 @@ import regions from "./data/regions.json";
 
 import encounters from "./data/encounters.json";
 
-// import monsters1 from "./data/monstersAll.json";
-import monsters1 from "./data/monsters1.json";
-import monsters2 from "./data/monsters2.json";
-import monsters3 from "./data/monsters3.json";
-
-// import bosses1 from "./data/bossesAll.json";
-import bosses1 from "./data/bosses1.json";
-import bosses2 from "./data/bosses2.json";
-import bosses3 from "./data/bosses3.json";
+import monsters from "./data/monsters.json";
+import bosses from "./data/bosses.json";
 import endBosses from "./data/endBosses.json";
+import items from "./data/items.json";
 
-import items1 from "./data/items1.json";
-import items2 from "./data/items2.json";
-import items3 from "./data/items3.json";
-
-import quests1 from "./data/quests1.json";
-import quests2 from "./data/quests2.json";
-import quests3 from "./data/quests3.json";
+import quests from "./data/quests.json";
 
 export default {
     name: 'Game',
@@ -118,15 +106,9 @@ export default {
             meadCount: 0,
             // playerDefault: playerDefault,
             encounters: encounters,
-            items1: items1,
-            items2: items2,
-            items3: items3,
-            monsters1: monsters1,
-            monsters2: monsters2,
-            monsters3: monsters3,
-            bosses1: bosses1,
-            bosses2: bosses2,
-            bosses3: bosses3,
+            items: items,
+            monsters: monsters,
+            bosses: bosses,
             endBosses: endBosses,
             // showSave: false,
             // showStats: false,
@@ -143,47 +125,32 @@ export default {
         },
         resetBosses() {
             this.player = JSON.parse(JSON.stringify(playerDefault));
-            this.bosses1 = JSON.parse(JSON.stringify(bosses1));
-            this.bosses2 = JSON.parse(JSON.stringify(bosses2));
-            this.bosses3 = JSON.parse(JSON.stringify(bosses3));
+            this.bosses = JSON.parse(JSON.stringify(bosses));
             this.endBosses = JSON.parse(JSON.stringify(endBosses));
         },
         resetMerchant() {
             let randItem;
             this.merchant = [];
             const merchant = this.merchant;
-            this.addItem(merchant,items1[0]);
+            this.addItem(merchant,items[0][0]);
             for (let i = 0; i < 4; i++) {
-                randItem = this.randNum(0, items1.length);
-                this.addItem(merchant, items1[randItem]);
+                randItem = this.randNum(0, items[0].length);
+                this.addItem(merchant, items[0][randItem]);
             }
             for (let i = 0; i < 2; i++) {
-                randItem = this.randNum(0, items2.length);
-                this.addItem(merchant, items2[randItem]);
+                randItem = this.randNum(0, items[1].length);
+                this.addItem(merchant, items[1][randItem]);
             }
             for (let i = 0; i < 1; i++) {
-                randItem = this.randNum(0, items3.length);
-                this.addItem(merchant, items3[randItem]);
+                randItem = this.randNum(0, items[2].length);
+                this.addItem(merchant, items[2][randItem]);
             }
             console.log('Merchant',this.merchant)
         },
         resetQuestBoard() {
             let randQuest;
-            let questArr;
+            let questArr = quests[this.region.index]
             this.questBoard = [];
-            switch (this.region.index) {
-                case 0:
-                    questArr = quests1
-                    break;
-                case 1:
-                    questArr = quests2
-                    break;
-                case 2:
-                    questArr = quests3
-                    break;
-                default:
-                // code block
-            }
             for (let i = 0; i < 3; i++) {
                 randQuest = this.randNum(0, questArr.length);
                 this.addQuest(questArr, this.questBoard, randQuest)
@@ -201,9 +168,7 @@ export default {
             this.player = JSON.parse(localStorage.getItem("player"));
             this.regions = JSON.parse(localStorage.getItem("regions"));
             this.region = JSON.parse(localStorage.getItem("region"));
-            this.bosses1 = JSON.parse(localStorage.getItem("bosses1"));
-            this.bosses2 = JSON.parse(localStorage.getItem("bosses2"));
-            this.bosses3 = JSON.parse(localStorage.getItem("bosses3"));
+            this.bosses = JSON.parse(localStorage.getItem("bosses"));
             this.scene = 'Town'
             this.location = 'Town'
             this.resetMerchant()
@@ -447,6 +412,19 @@ export default {
             })
             console.log(quests);
         },
+        statusCheck(user) {
+            var damage;
+            if (user.status['Burn'] > 0) {
+                damage = 5
+                this.messageBox.push('- Burn hurt ' + user.name + ' for ' +  damage + ' damage. -')
+                user.hp-= 5;
+                user.status['Burn']--
+                if (user.status['Burn'] <= 0) {
+                    this.messageBox.push('- Burn has run out. -')
+                }
+                this.note(user,-damage);
+            }
+        },
         monsterEncounter(ambushed) {
             let rangeNum = 0;
             let playerLevel = this.player.level;
@@ -455,23 +433,7 @@ export default {
             console.log("RI:" + regionIndex)
             const regionLevel = this.region.level;
             const regionTarget = this.region.targetLevel;
-
-            let monsterArray;
-
-            switch (regionIndex) {
-                case 0:
-                    monsterArray = monsters1;
-                    break;
-                case 1:
-                    monsterArray = monsters2;
-                    break;
-                case 2:
-                    monsterArray = monsters3;
-                break;
-
-                default:
-                // code block
-            }
+            let monsterArray = monsters[regionIndex];
             if (playerLevel <= regionLevel) {
                 rangeNum = 1;
 
@@ -512,22 +474,7 @@ export default {
             const regionLevel = this.region.level;
             const regionTarget = this.region.targetLevel;
 
-            let monsterArray;
-
-            switch (regionIndex) {
-                case 0:
-                    monsterArray = monsters1;
-                    break;
-                case 1:
-                    monsterArray = monsters2;
-                    break;
-                case 2:
-                    monsterArray = monsters3;
-                break;
-
-                default:
-                // code block
-            }
+            let monsterArray = monsters[regionIndex];
             if (playerLevel <= regionLevel) {
                 rangeNum = 1;
 
@@ -595,10 +542,10 @@ export default {
             console.log('Enemy:',this.currentEnemy);
         },
         addEnemyItems(enemy) {
-            let randItem = this.randNum(0, items3.length);
-            this.addItem(enemy.inventory, items3[randItem]);
-            this.addItem(enemy.inventory, items1[0]);
-            this.addItem(enemy.inventory, items1[1]);
+            let randItem = this.randNum(0, items[2].length);
+            this.addItem(enemy.inventory, items[2][randItem]);
+            this.addItem(enemy.inventory, items[0][0]);
+            this.addItem(enemy.inventory, items[0][1]);
         },
         chestEncounter() {
             this.currentEncounter = JSON.parse(JSON.stringify(encounters[0]));

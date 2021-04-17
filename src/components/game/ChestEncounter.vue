@@ -71,15 +71,15 @@ export default {
             text.push("Chest contained " + goldNum + " gold.");
 
             for (let i = 0; i < 2; i++) {
-                const itemNum = this.$parent.randNum(0, this.$parent.items1.length)
-                const item = this.$parent.items1[itemNum];
+                const itemNum = this.$parent.randNum(0, this.$parent.items[0].length)
+                const item = this.$parent.items[0][itemNum];
                 this.$parent.addItem(player.inventory, item);
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }
             let uncommonCheck = this.$parent.randNum(0, 2);
             for (let i = 0; i < uncommonCheck; i++) {
-                const itemNum = this.$parent.randNum(0, this.$parent.items2.length)
-                const item = this.$parent.items2[itemNum];
+                const itemNum = this.$parent.randNum(0, this.$parent.items[1].length)
+                const item = this.$parent.items[1][itemNum];
                 this.$parent.addItem(player.inventory, item);
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }
@@ -128,10 +128,10 @@ export default {
             console.log('Enemy:',this.$parent.currentEnemy);
         },
         addEnemyItems(enemy) {
-            let randItem = this.$parent.randNum(0, this.$parent.items3.length);
-            this.$parent.addItem(enemy.inventory, this.$parent.items3[randItem]);
-            this.$parent.addItem(enemy.inventory, this.$parent.items1[0]);
-            this.$parent.addItem(enemy.inventory, this.$parent.items1[1]);
+            let randItem = this.$parent.randNum(0, this.$parent.items[2].length);
+            this.$parent.addItem(enemy.inventory, this.$parent.items[2][randItem]);
+            this.$parent.addItem(enemy.inventory, this.$parent.items[0][0]);
+            this.$parent.addItem(enemy.inventory, this.$parent.items[0][1]);
         },
     },
     created: function() {

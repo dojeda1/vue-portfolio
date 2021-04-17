@@ -119,20 +119,7 @@ export default {
                 player.totalGold += quest.amount
                 player.totalQuests++
             } else {
-                let itemArray = [];
-                switch (quest.rarity) {
-                    case 1:
-                        itemArray = this.$parent.items1;
-                        break;
-                    case 2:
-                        itemArray = this.$parent.items2;
-                        break;
-                    case 3:
-                        itemArray = this.$parent.items3;
-                        break;
-                    default:
-                    // code block
-                }
+                let itemArray = this.$parent.items[quest.rarity];
                 console.log("Item Array")
                 console.log(itemArray)
                 for (let i = 0; i < quest.amount; i++) {

@@ -158,7 +158,7 @@ export default {
         handleYesForward() {
             this.$parent.movingForward = true;
             console.log('movingUP:',this.$parent.movingForward)
-            if (!this.$parent.region.endBossKills == 0) {
+            if (this.$parent.region.endBossKills == 0) {
                 this.$parent.endBossEncounter();
             } else {
                 this.$parent.viciousEncounter();

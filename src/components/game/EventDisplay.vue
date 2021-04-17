@@ -43,7 +43,11 @@
                     'text-gray': $parent.player.hp <= 0}">
                     {{ $parent.player.gold }}g</span>
                 </p>
-                <p>{{$parent.player.status.join()}}</p>
+                <p>
+                    <template v-for="(value, key) in $parent.player.status" :key="key">
+                        <span v-if="value > 0">{{ key }}: {{value}},</span>
+                    </template>
+                </p>
             </div>
         </div>
         <div class="right-display">
@@ -85,6 +89,11 @@
                         'text-red': $parent.currentEnemy.mp < $parent.currentEnemy.mpMax/4,
                         'text-gray': $parent.currentEnemy.hp <= 0}">
                         MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.mpMax }}</span>
+                    </p>
+                    <p>
+                        <template v-for="(value, key) in $parent.currentEnemy.status" :key="key">
+                            <span v-if="value > 0">{{ key }}: {{value}},</span>
+                        </template>
                     </p>
                 </div>
             </template>

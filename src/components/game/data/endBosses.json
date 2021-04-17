@@ -14,7 +14,7 @@
         "xp": 45,
         "inventory": [],
         "specials": [],
-        "status": [],
+        "status": {},
         "gold": 100,
         "isDead": false
     },
@@ -33,7 +33,7 @@
         "xp": 75,
         "inventory": [],
         "specials": [],
-        "status": [],
+        "status": {},
         "gold": 100,
         "isDead": false
     },
@@ -52,7 +52,7 @@
         "xp": 200,
         "inventory": [],
         "specials": [],
-        "status": [],
+        "status": {},
         "gold": 1000,
         "isDead": false
     }

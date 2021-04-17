@@ -2,12 +2,16 @@
     "name": "",
     "race": "",
     "class": "",
+    "type": "player",
     "sprite": "",
     "itemSprite": "",
     "itemName": "",
     "note": "",
     "specials": [],
-    "status": [],
+    "status": {
+        "Berserk": 0,
+        "Burn": 0
+    },
     "strength": 4,
     "defense": 2,
     "mana": 4,
