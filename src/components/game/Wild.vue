@@ -83,7 +83,7 @@ export default {
             if (exploreCheck <= 2) {
                 this.$parent.chestEncounter();
             } else if (exploreCheck <= 4) {
-                this.dungeonEncounter();
+                this.$parent.dungeonEncounter();
             } else if (exploreCheck <= 6) {
                 this.$parent.viciousEncounter();
             } else if (exploreCheck == 7) {
@@ -134,11 +134,6 @@ export default {
                     }, 600)
                 }
             );
-        },
-        dungeonEncounter() {
-            this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[2]));
-            this.$parent.message = "You discovered a dungeon!"
-            this.$parent.changeScene('DungeonEncounter');
         },
         handleMoveBack() {
             this.$parent.player.animation = 'walk'

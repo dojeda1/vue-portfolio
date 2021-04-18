@@ -132,18 +132,39 @@ export default {
             let randItem;
             this.merchant = [];
             const merchant = this.merchant;
-            this.addItem(merchant,items[0][0]);
+            // this.addItem(merchant,items[0][0]);
             for (let i = 0; i < 4; i++) {
-                randItem = this.randNum(0, items[0].length);
+                console.log('Add Items 0')
+                randItem = this.randNum(0, items[0].length - 1);
                 this.addItem(merchant, items[0][randItem]);
             }
             for (let i = 0; i < 2; i++) {
-                randItem = this.randNum(0, items[1].length);
+                console.log('Add Items 1')
+                randItem = this.randNum(0, items[1].length - 1);
                 this.addItem(merchant, items[1][randItem]);
             }
-            for (let i = 0; i < 1; i++) {
-                randItem = this.randNum(0, items[2].length);
+            for (let i = 0; i < this.randNum(1, 2); i++) {
+                console.log('Add Items 2')
+                randItem = this.randNum(0, items[2].length - 1);
                 this.addItem(merchant, items[2][randItem]);
+            }
+            for (let i = 0; i < this.randNum(1, 3); i++) {
+                console.log('Add Items 3')
+                randItem = this.randNum(0, items[3].length - 1);
+                this.addItem(merchant, items[3][randItem]);
+            }
+            if (this.currentEncounter.name == "Traveling Merchant") {
+                for (let i = 0; i < this.randNum(1, 3); i++) {
+                    console.log('Add Items 4')
+                    randItem = this.randNum(0, items[4].length - 1);
+                    this.addItem(merchant, items[4][randItem]);
+                }
+            } else {
+                for (let i = 0; i < this.randNum(0, 1); i++) {
+                    console.log('Add Items 4')
+                    randItem = this.randNum(0, items[4].length - 1);
+                    this.addItem(merchant, items[4][randItem]);
+                }
             }
             console.log('Merchant',this.merchant)
         },
@@ -211,14 +232,23 @@ export default {
             })
             return $special
         },
-        hasItem(inventory, itemName){
-            let inInventory = false;
-            inventory.forEach(element => {
-                if (itemName === element.name) {
-                    inInventory = true;
+        findItem(inventory, itemName){
+            let foundItem = false;
+            inventory.forEach(item => {
+                if (itemName === item.name) {
+                    foundItem = item;
                 }
             })
-            return inInventory
+            return foundItem
+        },
+        findSpecial(moveList, specialName){
+            let foundSpecial = false;
+            moveList.forEach(special => {
+                if (specialName === special.name) {
+                    foundSpecial = special;
+                }
+            })
+            return foundSpecial
         },
         addItem(array, item) {
             const newItem = JSON.parse(JSON.stringify(item));
@@ -289,8 +319,12 @@ export default {
                 setTimeout(function() {
                     $this.player.animation = 'idle';
                 }, 600)
+            } else if (item.name == 'Fairy' &&  this.player.hp > 0) {
+                this.message = 'Fairy can only be used if dead.'
             } else if (item.name == 'Death Scroll' && this.scene != 'Battle') {
                 this.message = 'Death Scroll can only be used in battle.'
+            } else if (item.name == 'Map' && this.scene != 'Wild') {
+                this.message = 'Map can only be used in the Wild.'
             } else if (item.name.includes('Health Potion') && this.player.hp >= this.player.hpMax) {
                 this.message = 'You are already at full Health.'
             } else if (item.name.includes('Mana Potion') && this.player.mp >= this.player.mpMax) {
@@ -304,7 +338,7 @@ export default {
             } else {
                 this.messageBox = [];
                 console.log('PLAYER',this.player)
-                this.activateItem(this.player, this.currentEnemy, item, index);
+                this.activateItem(this.player, this.currentEnemy, item);
                 if (cb) {
                     cb();
                 }
@@ -316,19 +350,20 @@ export default {
                 character.note = ''
             },600);
         },
-        activateItem(user, opponent, item, index) {
+        activateItem(user, opponent, item) {
+            const itemName = item.name;
+            // const $this = this;
             user.itemSprite = item.sprite;
-            user.itemName = item.name;
             user.animation = 'use item';
             console.log('opponent',opponent)
-            console.log("item: " + item.name + " " + index)
+            console.log("item: " + item.name)
             if (item.name.includes('Health Potion')) {
                 let amount = Math.floor(user.hpMax * item.recover);
                 user.hp += amount;
                 if (user.hp > user.hpMax) {
                     user.hp = user.hpMax
                 }
-                this.removeItem(user.inventory, user.inventory[index].name);
+                this.removeItem(user.inventory, itemName);
                 this.messageBox.push(user.name + ' recovered ' + amount + ' HP.')
                 this.note(user,'+' + amount)
             } else if (item.name.includes('Mana Potion')) {
@@ -337,39 +372,56 @@ export default {
                 if (user.mp > user.mpMax) {
                     user.mp = user.mpMax
                 }
-                this.removeItem(user.inventory, user.inventory[index].name);
+                this.removeItem(user.inventory, itemName);
                 this.messageBox.push(user.name + ' recovered ' + amount + ' MP.')
                 this.note(user,'+' + amount)
             } else if (item.name == 'Bandage') {
                 user.status['Bleed'] = 0;
-                this.removeItem(user.inventory, user.inventory[index].name);
+                this.removeItem(user.inventory, itemName);
                 this.messageBox.push(user.name + "'s Bleed is healed.")
                 // this.note(user,'!')
             } else if (item.name == 'Antidote') {
                 user.status['Poison'] = 0;
-                this.removeItem(user.inventory, user.inventory[index].name);
+                this.removeItem(user.inventory, itemName);
                 this.messageBox.push(user.name + "'s Poison is cured")
                 // this.note(user,'!')
             } else if (item.name == 'Remedy') {
                 user.status['Burn'] = 0;
-                this.removeItem(user.inventory, user.inventory[index].name);
+                this.removeItem(user.inventory, itemName);
                 this.messageBox.push(user.name + "'s Burn is healed.")
                 // this.note(user,'!')
+            } else if (item.name == 'Map') {
+                this.removeItem(user.inventory, itemName);
+                this.message = user.name + ' used Map.'
+                this.dungeonEncounter(true);
+            } else if (item.name == 'Fairy') {
+                let amount = Math.floor(user.hpMax * item.recover);
+                user.isDead = false;
+                user.hp = amount;
+                this.removeItem(user.inventory, itemName);
+                this.messageBox.push(user.name + ' was revived by Fairy')
+                this.note(user,'+' + amount)
+                setTimeout(function() {
+                    user.animation = 'idle'
+                },600);
             } else if (item.name == 'Death Scroll') {
                 if (opponent.type === 'boss' || opponent.type === 'endBoss') {
                     let power = Math.ceil(opponent.hp / 2);
                     opponent.hp -= power;
-                    this.removeItem(user.inventory, user.inventory[index].name);
+                    this.removeItem(user.inventory, itemName);
                     this.messageBox.push('Death Scroll only did ' + power + ' damage')
                     this.note(opponent,-power)
                 } else {
-                    this.removeItem(user.inventory, user.inventory[index].name);
+                    this.removeItem(user.inventory, itemName);
                     this.messageBox.push(user.name + ' read from the Death Scroll.')
                     this.note(opponent,-opponent.hp)
                     opponent.hp = 0;
                 }
             } else {
                 this.message = "SOMETHING WENT WRONG"
+            }
+            if (this.scene == 'Battle') {
+                this.statusCheck(user);
             }
         },
         addQuest(fromArr, toArr, index) {
@@ -410,23 +462,16 @@ export default {
                     let qty = 0;
                     console.log("fetch Quest: " + itemName);
                     console.log(itemName + ":" + quest.task)
-                    if (this.hasItem(player.inventory, itemName)) {
+                    if (this.findItem(player.inventory, itemName)) {
                         player.inventory.forEach(item => {
                             if (item.name == itemName) {
                                 qty = item.qty;
                                 if (qty >= quest.goal) {
                                     qty = quest.goal
-                                    // quest.completed = true
                                 }
-                                // else {
-                                //     quest.completed = false
-                                // }
                             }
                         })
                     }
-                    // else {
-                    //     quest.completed = false;
-                    // }
                     quest.count = qty
                     console.log("quest count: " + quest.count)
                 }
@@ -434,41 +479,49 @@ export default {
             console.log(quests);
         },
         statusCheck(user) {
+            const $this = this
             var totalDamage = 0;
             var damage;
-            if (user.status['Bleed'] > 0) {
-                damage = 5
-                totalDamage+= damage;
-                this.messageBox.push('- Bleed hurt ' + user.name + ' for ' +  damage + ' damage. -')
-                user.hp-= 5;
-                user.status['Bleed']--
-                if (user.status['Bleed'] <= 0) {
-                    this.messageBox.push('- Bleed has worn out. -')
+            setTimeout(function() {
+                if (user.status['Bleed'] > 0) {
+                    damage = 5
+                    totalDamage+= damage;
+                    $this.messageBox.push('- Bleed hurt ' + user.name + ' for ' +  damage + ' damage. -')
+                    user.hp-= 5;
+                    user.status['Bleed']--
+                    if (user.status['Bleed'] <= 0) {
+                        $this.messageBox.push('- Bleed has worn out. -')
+                    }
+                    $this.note(user,-damage);
                 }
-                this.note(user,-damage);
-            }
-            if (user.status['Burn'] > 0) {
-                damage = 5
-                totalDamage+= damage;
-                this.messageBox.push('- Burn hurt ' + user.name + ' for ' +  damage + ' damage. -')
-                user.hp-= 5;
-                user.status['Burn']--
-                if (user.status['Burn'] <= 0) {
-                    this.messageBox.push('- Burn has worn out. -')
+                if (user.status['Burn'] > 0) {
+                    damage = 5
+                    totalDamage+= damage;
+                    $this.messageBox.push('- Burn hurt ' + user.name + ' for ' +  damage + ' damage. -')
+                    user.hp-= 5;
+                    user.status['Burn']--
+                    if (user.status['Burn'] <= 0) {
+                        $this.messageBox.push('- Burn has worn out. -')
+                    }
+                    $this.note(user,-damage);
                 }
-                this.note(user,-damage);
-            }
-            if (user.status['Poison'] > 0) {
-                damage = 5
-                totalDamage+= damage;
-                this.messageBox.push('- Poison hurt ' + user.name + ' for ' +  damage + ' damage. -')
-                user.hp-= 5;
-                user.status['Poison']--
-                if (user.status['Poison'] <= 0) {
-                    this.messageBox.push('- Poison has worn out. -')
+                if (user.status['Poison'] > 0) {
+                    damage = 5
+                    totalDamage+= damage;
+                    $this.messageBox.push('- Poison hurt ' + user.name + ' for ' +  damage + ' damage. -')
+                    user.hp-= 5;
+                    user.status['Poison']--
+                    if (user.status['Poison'] <= 0) {
+                        $this.messageBox.push('- Poison has worn out. -')
+                    }
                 }
-            }
-            this.note(user,-totalDamage);
+                $this.note(user,-totalDamage);
+            },650);
+        },
+        dungeonEncounter(usedItem) {
+            this.currentEncounter = JSON.parse(JSON.stringify(this.encounters[2]));
+            usedItem ? this.message = "Map lead you to a Dungeon!" : this.message = "You discovered a Dungeon!";
+            this.changeScene('DungeonEncounter');
         },
         monsterEncounter(ambushed) {
             let rangeNum = 0;

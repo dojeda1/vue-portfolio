@@ -160,24 +160,21 @@ export default {
         },
         enemyTurn(player, enemy) {
             this.deathCheck();
+            var specialAxeStrike = this.$parent.findSpecial(enemy.specials,"Axe Strike");
+            var item;
+
             if (!player.isDead && !enemy.isDead) {
-                this.attack(enemy, player);
+                //Enemy Logic
+                if (this.$parent.randNum(1,5) == 1 && enemy.hp < enemy.hpMax/2 && this.$parent.findItem(enemy.inventory,"Health Potion")) {
+                    item = this.$parent.findItem(enemy.inventory,"Health Potion");
+                    this.$parent.activateItem(enemy,player,item)
+                } else if (this.$parent.randNum(1,2) == 1 && specialAxeStrike && enemy.mp >= specialAxeStrike.cost) {
+                    this.special(enemy, player, specialAxeStrike);
+                } else {
+                    this.attack(enemy, player);
+                }
                 this.deathCheck();
             }
-            var $this = this;
-            setTimeout(function() {
-                if (!player.isDead) {
-                    player.animation = 'idle'
-                } else {
-                    player.animation = 'die';
-                }
-                if (!enemy.isDead) {
-                    enemy.animation = 'idle'
-                } else {
-                    enemy.animation = 'die';
-                }
-                $this.playerTurn = true;
-            },600)
         },
         handleSpecial($special) {
             const cost = $special.cost
@@ -386,6 +383,7 @@ export default {
                     } else if (criticalCheck >= luckCheck) {
                         defense = Math.floor(defense / 4);
                         damage = attacker.mana + Math.ceil(attacker.mana * 0.25) + berserkNum - defense;
+                        console.log('attacker:',attacker)
                         console.log('S:',attacker.mana,'X:',Math.ceil(attacker.mana * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
                         if (damage < 1) {
                             damage = 1;
@@ -415,7 +413,6 @@ export default {
                     this.$parent.messageBox.push(attackMessage);
                     statusMessage ? this.$parent.messageBox.push(statusMessage) : null;
                     berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
-                    this.$parent.statusCheck(attacker);
                     console.log(attackMessage);
                     break;
 
@@ -534,30 +531,56 @@ export default {
                 this.$parent.message = "ERRor"
                 // code block
             }
+            this.$parent.statusCheck(attacker);
         },
         deathCheck() {
             console.log('Running Death check...')
             const player = this.$parent.player;
             const enemy = this.$parent.currentEnemy;
+            const $this = this;
             if (player.hp <= 0) {
+                console.log('Player is Dead')
                 player.isDead = true
             }
             if (enemy.hp <= 0) {
+                console.log('Enemy is Dead')
                 enemy.isDead = true
             }
+            setTimeout(function() {
+                if (!player.isDead) {
+                    player.animation = 'idle'
+                    $this.playerTurn = true;
+                } else {
+                    player.animation = 'die';
+                }
+                if (!enemy.isDead) {
+                    enemy.animation = 'idle'
+                } else {
+                    enemy.animation = 'die';
+                }
+            },600)
             if (player.isDead) {
-                console.log('Player is Dead')
                 let text = this.$parent.messageBox;
                 text.push(enemy.name + " killed you.");
-                text.push("--- RESULTS ---");
-                text.push("Monsters Killed: " + player.totalKills);
-                text.push("Gold Collected: " + player.totalGold);
-                text.push("Quests Completed: " + player.totalQuests);
-                text.push("Dungeons Completed: " + player.totalDungeons);
-                this.$parent.message = 'Game Over.';
-                this.task = 'end';
+                if (this.$parent.findItem(player.inventory,'Fairy')) {
+                    var fairy = this.$parent.findItem(player.inventory,'Fairy');
+                    setTimeout(function() {
+                        $this.$parent.activateItem(player,enemy,fairy);
+                        $this.playerTurn = true;
+                    },1200)
+                } else {
+                    setTimeout(function() {
+                        text.push("--- RESULTS ---");
+                        text.push("Monsters Killed: " + player.totalKills);
+                        text.push("Gold Collected: " + player.totalGold);
+                        text.push("Quests Completed: " + player.totalQuests);
+                        text.push("Dungeons Completed: " + player.totalDungeons);
+                        $this.$parent.message = 'Game Over.';
+                        $this.task = 'end';
+                        $this.playerTurn = true;
+                    },1200)
+                }
             } else if (enemy.isDead) {
-                console.log('Enemy is Dead')
                 player.totalKills++;
                 this.$parent.region.kills++
                 let text = this.$parent.messageBox;
@@ -575,15 +598,14 @@ export default {
                     endBosses[enemy.index].isDead = true;
                 } else if (enemy.type === "boss") {
                     this.$parent.region.bossKills++
-                    if (this.$parent.location === "Dungeon" || this.$parent.location === "Castle") {
-                        this.$parent.dungeonCount++
-                        if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
-                            player.totalDungeons++
-                        }
+                }
+                if (this.$parent.location === "Dungeon" || this.$parent.location === "Castle") {
+                    this.$parent.dungeonCount++
+                    if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
+                        player.totalDungeons++
                     }
                 }
             }
-
             console.log('player:',this.$parent.player);
             console.log('enemy:',this.$parent.currentEnemy);
         },

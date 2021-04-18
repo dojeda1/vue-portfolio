@@ -11,8 +11,8 @@
     "status": {
         "Berserk": 0,
         "Bleed": 3,
-        "Burn": 3,
-        "Poison":3
+        "Burn": 0,
+        "Poison": 0
     },
     "strength": 4,
     "defense": 2,
@@ -24,7 +24,7 @@
     "mpMax": 4,
     "mp": 4,
     "level": 1,
-    "xp": 150,
+    "xp": 0,
     "nextLevel": 50,
     "inventory": [],
     "quests": [],

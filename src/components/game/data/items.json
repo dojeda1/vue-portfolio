@@ -63,24 +63,6 @@
             "sell": 15,
             "recover": 1,
             "info": "Recovers 100% of max MP."
-        },
-        {
-            "name": "Old Hat",
-            "sprite": "/images/game/hat.png",
-            "order": 10,
-            "qty": 1,
-            "buy": 100,
-            "sell": 80,
-            "info": "An old, but stylish hat."
-        },
-        {
-            "name": "Death Scroll",
-            "sprite": "/images/game/scroll.png",
-            "order": 11,
-            "qty": 1,
-            "buy": 300,
-            "sell": 150,
-            "info": "Instantly kill common enemies."
         }
     ],
     [
@@ -110,6 +92,45 @@
             "buy": 20,
             "sell": 10,
             "info": "Removes Burn status effect."
+        }
+    ],
+    [    
+        {
+            "name": "Map",
+            "sprite": "/images/game/map.png",
+            "order": 10,
+            "qty": 1,
+            "buy": 100,
+            "sell": 50,
+            "info": "Leads you directly to a Dungeon."
+        },
+        {
+            "name": "Death Scroll",
+            "sprite": "/images/game/scroll.png",
+            "order": 11,
+            "qty": 1,
+            "buy": 300,
+            "sell": 150,
+            "info": "Instantly kill common enemies."
+        },
+        {
+            "name": "Fairy",
+            "sprite": "/images/game/fairy.png",
+            "order": 12,
+            "qty": 1,
+            "buy": 300,
+            "sell": 150,
+            "recover": 0.75,
+            "info": "Revives you after Death."
+        },
+        {
+            "name": "Old Hat",
+            "sprite": "/images/game/hat.png",
+            "order": 13,
+            "qty": 1,
+            "buy": 100,
+            "sell": 80,
+            "info": "An old, but stylish hat."
         }
     ]
 ]

@@ -9,12 +9,18 @@
             "mpMax": 10,
             "strength": 9,
             "defense": 4,
+            "mana": 8,
             "speed": 12,
             "luck": 6,
             "xp": 40,
             "inventory": [],
             "specials": [],
-            "status": {},
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
             "gold": 50
         },
         {
@@ -26,12 +32,18 @@
             "mpMax": 20,
             "strength": 15,
             "defense": 5,
+            "mana": 10,
             "speed": 16,
             "luck": 8,
             "xp": 50,
             "inventory": [],
             "specials": [],
-            "status": {},
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
             "gold": 50
         }
     ],
@@ -45,12 +57,18 @@
             "mpMax": 10,
             "strength": 15,
             "defense": 6,
+            "mana": 10,
             "speed": 15,
             "luck": 6,
             "xp": 75,
             "inventory": [],
             "specials": [],
-            "status": {},
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
             "gold": 80
         },
         {
@@ -62,12 +80,18 @@
             "mpMax": 10,
             "strength": 15,
             "defense": 7,
+            "mana": 13,
             "speed": 15,
             "luck": 5,
             "xp": 75,
             "inventory": [],
             "specials": [],
-            "status": {},
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
             "gold": 80
         },
         {
@@ -79,12 +103,18 @@
             "mpMax": 30,
             "strength": 20,
             "defense": 8,
+            "mana": 20,
             "speed": 12,
             "luck": 6,
             "xp": 100,
             "inventory": [],
             "specials": [],
-            "status": {},
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
             "gold": 85
         }
     ],
@@ -98,12 +128,18 @@
             "mpMax": 10,
             "strength": 25,
             "defense": 9,
+            "mana": 20,
             "speed": 15,
             "luck": 5,
             "xp": 100,
             "inventory": [],
             "specials": [],
-            "status": {},
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
             "gold": 120
         },
         {
@@ -115,12 +151,18 @@
             "mpMax": 20,
             "strength": 25,
             "defense": 9,
+            "mana": 25,
             "speed": 25,
             "luck": 8,
             "xp": 100,
             "inventory": [],
             "specials": [],
-            "status": {},
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
             "gold": 150
         },
         {
@@ -132,12 +174,18 @@
             "mpMax": 20,
             "strength": 30,
             "defense": 12,
+            "mana": 30,
             "speed": 30,
             "luck": 8,
             "xp": 100,
             "inventory": [],
             "specials": [],
-            "status": {},
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
             "gold": 150
         }
     ]

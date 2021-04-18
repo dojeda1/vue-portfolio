@@ -211,13 +211,10 @@ export default {
             this.$parent.addItem(player.inventory,this.$parent.items[3][1]);
             this.$parent.addItem(player.inventory,this.$parent.items[3][2]);
             this.$parent.addItem(player.inventory,this.$parent.items[3][2]);
-            this.$parent.addItem(player.inventory,this.$parent.items[2][2]);
-            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
-            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
-            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
-            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
-            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
-            this.$parent.addItem(player.inventory,this.$parent.items[2][3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][1]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][2]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][3]);
             player.animation = 'idle';
 
             console.log('player:',player);

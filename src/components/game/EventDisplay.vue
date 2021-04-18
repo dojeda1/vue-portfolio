@@ -45,7 +45,9 @@
                 </p>
                 <p>
                     <template v-for="(value, key) in $parent.player.status" :key="key">
-                        <span v-if="value > 0">{{ key }}: {{value}},</span>
+                        <span v-if="value > 0" class="text-gold"
+                        :class="{'text-gray': $parent.player.hp <= 0}">
+                        {{ key }}: {{value}},</span>
                     </template>
                 </p>
             </div>
@@ -92,8 +94,9 @@
                     </p>
                     <p>
                         <template v-for="(value, key) in $parent.currentEnemy.status" :key="key">
-                            <span v-if="value > 0">{{ key }}: {{value}},</span>
-                        </template>
+                        <span v-if="value > 0" class="text-gold"
+                        :class="{'text-gray': $parent.currentEnemy.hp <= 0}">
+                        {{ key }}: {{value}},</span>                        </template>
                     </p>
                 </div>
             </template>

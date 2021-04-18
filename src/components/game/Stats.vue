@@ -54,7 +54,7 @@
                 <h5 v-if="region.discovered">{{ region.name }}</h5>
                 <h5 v-else>???</h5>
                 <p>End Bosses Defeated: {{region.endBossKills}}/1</p>
-                <p>Dungeon Bosses Killed: {{region.bossKills}}/{{$parent['bosses' + (index + 1)].length}}</p>
+                <p>Dungeon Bosses Killed: {{region.bossKills}}/{{$parent.bosses[region.index].length}}</p>
         </div>
     </div>
     <p>
