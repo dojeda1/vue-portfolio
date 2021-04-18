@@ -20,7 +20,7 @@
             <p>
                 STR: {{$parent.player.strength}} |
                 DEF: {{$parent.player.defense}} |
-                MANA: {{$parent.player.mana}} |
+                WILL: {{$parent.player.will}} |
                 LUCK: {{$parent.player.luck}} |
                 SPD: {{$parent.player.speed}}
             </p>

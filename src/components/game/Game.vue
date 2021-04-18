@@ -109,11 +109,7 @@ export default {
             items: items,
             monsters: monsters,
             bosses: bosses,
-            endBosses: endBosses,
-            // showSave: false,
-            // showStats: false,
-            // showQuests: false,
-            // showQuit: false
+            endBosses: endBosses
         }
     },
     methods: {
@@ -135,34 +131,34 @@ export default {
             // this.addItem(merchant,items[0][0]);
             for (let i = 0; i < 4; i++) {
                 console.log('Add Items 0')
-                randItem = this.randNum(0, items[0].length - 1);
+                randItem = this.randNum(0, items[0].length);
                 this.addItem(merchant, items[0][randItem]);
             }
             for (let i = 0; i < 2; i++) {
                 console.log('Add Items 1')
-                randItem = this.randNum(0, items[1].length - 1);
+                randItem = this.randNum(0, items[1].length);
                 this.addItem(merchant, items[1][randItem]);
             }
             for (let i = 0; i < this.randNum(1, 2); i++) {
                 console.log('Add Items 2')
-                randItem = this.randNum(0, items[2].length - 1);
+                randItem = this.randNum(0, items[2].length);
                 this.addItem(merchant, items[2][randItem]);
             }
             for (let i = 0; i < this.randNum(1, 3); i++) {
                 console.log('Add Items 3')
-                randItem = this.randNum(0, items[3].length - 1);
+                randItem = this.randNum(0, items[3].length);
                 this.addItem(merchant, items[3][randItem]);
             }
             if (this.currentEncounter.name == "Traveling Merchant") {
                 for (let i = 0; i < this.randNum(1, 3); i++) {
                     console.log('Add Items 4')
-                    randItem = this.randNum(0, items[4].length - 1);
+                    randItem = this.randNum(0, items[4].length);
                     this.addItem(merchant, items[4][randItem]);
                 }
             } else {
                 for (let i = 0; i < this.randNum(0, 1); i++) {
                     console.log('Add Items 4')
-                    randItem = this.randNum(0, items[4].length - 1);
+                    randItem = this.randNum(0, items[4].length);
                     this.addItem(merchant, items[4][randItem]);
                 }
             }
@@ -417,6 +413,50 @@ export default {
                     this.note(opponent,-opponent.hp)
                     opponent.hp = 0;
                 }
+            } else if (item.name == 'Health Elixir') {
+                let amount = item.amount;
+                user.hpMax += amount;
+                user.hp += amount;
+                this.removeItem(user.inventory, itemName);
+                this.messageBox.push(user.name + "'s max HP has inceased by " + amount + '.')
+                this.note(user,'+' + amount)
+            } else if (item.name == 'Mana Elixir') {
+                let amount = item.amount;
+                user.mpMax += amount;
+                user.mp += amount;
+                this.removeItem(user.inventory, itemName);
+                this.messageBox.push(user.name + "'s max MP has inceased by " + amount + '.')
+                this.note(user,'+' + amount)
+            } else if (item.name == 'Strength Elixir') {
+                let amount = item.amount;
+                user.strength += amount;
+                this.removeItem(user.inventory, itemName);
+                this.messageBox.push(user.name + "'s Strength has inceased by " + amount + '.')
+                this.note(user,'+' + amount)
+            } else if (item.name == 'Defense Elixir') {
+                let amount = item.amount;
+                user.defense += amount;
+                this.removeItem(user.inventory, itemName);
+                this.messageBox.push(user.name + "'s Defense has inceased by " + amount + '.')
+                this.note(user,'+' + amount)
+            } else if (item.name == 'Will Elixir') {
+                let amount = item.amount;
+                user.will += amount;
+                this.removeItem(user.inventory, itemName);
+                this.messageBox.push(user.name + "'s Will has inceased by " + amount + '.')
+                this.note(user,'+' + amount)
+            } else if (item.name == 'Speed Elixir') {
+                let amount = item.amount;
+                user.speed += amount;
+                this.removeItem(user.inventory, itemName);
+                this.messageBox.push(user.name + "'s Speed has inceased by " + amount + '.')
+                this.note(user,'+' + amount)
+            } else if (item.name == 'Luck Elixir') {
+                let amount = item.amount;
+                user.luck += amount;
+                this.removeItem(user.inventory, itemName);
+                this.messageBox.push(user.name + "'s Luck has inceased by " + amount + '.')
+                this.note(user,'+' + amount)
             } else {
                 this.message = "SOMETHING WENT WRONG"
             }

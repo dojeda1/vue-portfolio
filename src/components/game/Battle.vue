@@ -382,9 +382,9 @@ export default {
                         },300);
                     } else if (criticalCheck >= luckCheck) {
                         defense = Math.floor(defense / 4);
-                        damage = attacker.mana + Math.ceil(attacker.mana * 0.25) + berserkNum - defense;
+                        damage = attacker.will + Math.ceil(attacker.will * 0.25) + berserkNum - defense;
                         console.log('attacker:',attacker)
-                        console.log('S:',attacker.mana,'X:',Math.ceil(attacker.mana * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
+                        console.log('S:',attacker.will,'X:',Math.ceil(attacker.will * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
                         if (damage < 1) {
                             damage = 1;
                         }
@@ -397,8 +397,8 @@ export default {
                             $this.$parent.note(defender,-damage)
                         },300);
                     } else {
-                        damage = attacker.mana + Math.ceil(attacker.mana * 0.5) + berserkNum;
-                        console.log('S:',attacker.mana,'X:',Math.ceil(attacker.mana * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
+                        damage = attacker.will + Math.ceil(attacker.will * 0.5) + berserkNum;
+                        console.log('S:',attacker.will,'X:',Math.ceil(attacker.will * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
                         attackMessage = "Critical hit! " + attacker.name + "'s Fire did " + damage + " damage.";
                         statusCheck = this.$parent.randNum(1,3);
                         statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Burned. -" : null;
@@ -628,7 +628,7 @@ export default {
                 player.strength += 2;
                 player.defense += 1;
                 player.speed += 1;
-                player.mana += 2;
+                player.will += 2;
                 player.luck += 1;
                 player.hpMax += 5;
                 player.hp = player.hpMax;

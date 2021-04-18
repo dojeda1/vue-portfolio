@@ -63,7 +63,7 @@ export default {
             let mpMax;
             let strength;
             let defense;
-            let mana;
+            let will;
             let speed;
             let luck;
             switch (race) {
@@ -72,7 +72,7 @@ export default {
                     mpMax = 4;
                     strength = 1;
                     defense = 1;
-                    mana = 1;
+                    will = 1;
                     speed = 1;
                     luck = 0;
                     break;
@@ -81,7 +81,7 @@ export default {
                     mpMax = 6;
                     strength = 1;
                     defense = 0;
-                    mana = 2;
+                    will = 2;
                     speed = 1;
                     luck = 1;
                     break;
@@ -90,7 +90,7 @@ export default {
                     mpMax = 2;
                     strength = 2;
                     defense = 1;
-                    mana = 0;
+                    will = 0;
                     speed = 0;
                     luck = 0;
                     break;
@@ -103,7 +103,7 @@ export default {
             player.mp += mpMax;
             player.strength += strength;
             player.defense += defense;
-            player.mana += mana;
+            player.will += will;
             player.speed += speed;
             player.luck += luck;
 
@@ -117,7 +117,7 @@ export default {
             let mpMax;
             let strength;
             let defense;
-            let mana;
+            let will;
             let speed;
             let luck;
             switch (cls) {
@@ -126,7 +126,7 @@ export default {
                     mpMax = 0
                     strength = 2
                     defense = 2
-                    mana = 0
+                    will = 0
                     speed = 0
                     luck = 0
                     player.specials.push({
@@ -145,7 +145,7 @@ export default {
                     mpMax = 6
                     strength = 0
                     defense = 0
-                    mana = 7
+                    will = 7
                     speed = 0
                     luck = 1
                     player.specials.push({
@@ -164,7 +164,7 @@ export default {
                     mpMax = 2
                     strength = 1
                     defense = 0
-                    mana = 1
+                    will = 1
                     speed = 2
                     luck = 2
                     player.specials.push({
@@ -188,7 +188,7 @@ export default {
             player.mp += mpMax;
             player.strength += strength;
             player.defense += defense;
-            player.mana += mana;
+            player.will += will;
             player.speed += speed;
             player.luck += luck;
 
@@ -215,6 +215,13 @@ export default {
             this.$parent.addItem(player.inventory,this.$parent.items[4][1]);
             this.$parent.addItem(player.inventory,this.$parent.items[4][2]);
             this.$parent.addItem(player.inventory,this.$parent.items[4][3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[5][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[5][1]);
+            this.$parent.addItem(player.inventory,this.$parent.items[5][2]);
+            this.$parent.addItem(player.inventory,this.$parent.items[5][3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[5][4]);
+            this.$parent.addItem(player.inventory,this.$parent.items[5][5]);
+            this.$parent.addItem(player.inventory,this.$parent.items[5][6]);
             player.animation = 'idle';
 
             console.log('player:',player);

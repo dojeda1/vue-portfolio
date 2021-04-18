@@ -132,5 +132,77 @@
             "sell": 80,
             "info": "An old, but stylish hat."
         }
+    ],
+    [
+        {
+            "name": "Health Elixir",
+            "sprite": "/images/game/elixir.png",
+            "order": 14,
+            "qty": 1,
+            "buy": 1000,
+            "sell": 500,
+            "amount": 5,
+            "info": "Increases max HP by 5."
+        },
+        {
+            "name": "Mana Elixir",
+            "sprite": "/images/game/elixir.png",
+            "order": 14,
+            "qty": 1,
+            "buy": 1000,
+            "sell": 500,
+            "amount": 5,
+            "info": "Increases max MP by 4."
+        },
+        {
+            "name": "Strength Elixir",
+            "sprite": "/images/game/elixir.png",
+            "order": 14,
+            "qty": 1,
+            "buy": 1000,
+            "sell": 500,
+            "amount": 2,
+            "info": "Increases Strength by 2."
+        },
+        {
+            "name": "Defense Elixir",
+            "sprite": "/images/game/elixir.png",
+            "order": 14,
+            "qty": 1,
+            "buy": 1000,
+            "sell": 500,
+            "amount": 2,
+            "info": "Increases Defense by 2."
+        },
+        {
+            "name": "Will Elixir",
+            "sprite": "/images/game/elixir.png",
+            "order": 14,
+            "qty": 1,
+            "buy": 1000,
+            "sell": 500,
+            "amount": 2,
+            "info": "Increases Will by 2."
+        },
+        {
+            "name": "Speed Elixir",
+            "sprite": "/images/game/elixir.png",
+            "order": 14,
+            "qty": 1,
+            "buy": 1000,
+            "sell": 500,
+            "amount": 2,
+            "info": "Increases Speed by 2."
+        },
+        {
+            "name": "Luck Elixir",
+            "sprite": "/images/game/elixir.png",
+            "order": 14,
+            "qty": 1,
+            "buy": 1000,
+            "sell": 500,
+            "amount": 2,
+            "info": "Increases Luck by 2."
+        }
     ]
 ]
