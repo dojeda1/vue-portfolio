@@ -14,13 +14,19 @@
         "mpMax": 10,
         "strength": 2,
         "defense": 0,
+        "will": 0,
         "speed": 2,
         "luck": 2,
         "xp": 5,
         "inventory": [],
         "specials": [],
-        "status": {},
-        "gold": 13
+        "status": {
+            "Berserk": 0,
+            "Bleed": 0,
+            "Burn": 0,
+            "Poison": 0
+        },
+        "gold": 50
     },
     {
         "name": "Dungeon",

@@ -71,24 +71,47 @@ export default {
             text.push("Chest contained " + goldNum + " gold.");
 
             for (let i = 0; i < 2; i++) {
+                console.log('Add Items 0')
                 const itemNum = this.$parent.randNum(0, this.$parent.items[0].length)
                 const item = this.$parent.items[0][itemNum];
                 this.$parent.addItem(player.inventory, item);
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }
-            let uncommonCheck = this.$parent.randNum(0, 2);
-            for (let i = 0; i < uncommonCheck; i++) {
+            for (let i = 0; i < this.$parent.randNum(0, 2); i++) {
+                console.log('Add Items 1')
                 const itemNum = this.$parent.randNum(0, this.$parent.items[1].length)
                 const item = this.$parent.items[1][itemNum];
                 this.$parent.addItem(player.inventory, item);
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }
-            // if (this.$parent.location === "Dungeon") {
-            //     this.$parent.dungeonCount++
-            //     if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
-            //         player.totalDungeons++
-            //     }
-            // }
+            for (let i = 0; i < this.$parent.randNum(0, 2); i++) {
+                console.log('Add Items 2')
+                const itemNum = this.$parent.randNum(0, this.$parent.items[2].length)
+                const item = this.$parent.items[2][itemNum];
+                this.$parent.addItem(player.inventory, item);
+                text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
+            }
+            for (let i = 0; i < this.$parent.randNum(0, 1); i++) {
+                console.log('Add Items 3')
+                const itemNum = this.$parent.randNum(0, this.$parent.items[3].length)
+                const item = this.$parent.items[3][itemNum];
+                this.$parent.addItem(player.inventory, item);
+                text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
+            }
+            if (this.$parent.randNum(1, 4) == 1) {
+                console.log('Add Items 4')
+                const itemNum = this.$parent.randNum(0, this.$parent.items[4].length)
+                const item = this.$parent.items[4][itemNum];
+                this.$parent.addItem(player.inventory, item);
+                text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
+            }
+            if (this.$parent.randNum(1, 50) == 1) {
+                console.log('Add Items 5')
+                const itemNum = this.$parent.randNum(0, this.$parent.items[5].length)
+                const item = this.$parent.items[5][itemNum];
+                this.$parent.addItem(player.inventory, item);
+                text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
+            }
         },
         mimicEncounter(alternateMessage) {
             // let rangeNum = 0;
@@ -121,18 +144,12 @@ export default {
             this.$parent.currentEnemy.inventory = [];
             this.$parent.currentEnemy.gold = 60 + regionLevel * 5;
 
-            this.addEnemyItems(this.$parent.currentEnemy);
+            this.$parent.addEnemyItems(this.$parent.currentEnemy);
 
             this.$parent.changeScene('Battle')
 
             console.log('Enemy:',this.$parent.currentEnemy);
-        },
-        addEnemyItems(enemy) {
-            let randItem = this.$parent.randNum(0, this.$parent.items[2].length);
-            this.$parent.addItem(enemy.inventory, this.$parent.items[2][randItem]);
-            this.$parent.addItem(enemy.inventory, this.$parent.items[0][0]);
-            this.$parent.addItem(enemy.inventory, this.$parent.items[0][1]);
-        },
+        }
     },
     created: function() {
         // this.$parent.location = 'Wild';

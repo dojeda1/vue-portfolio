@@ -690,10 +690,34 @@ export default {
             console.log('Enemy:',this.currentEnemy);
         },
         addEnemyItems(enemy) {
-            let randItem = this.randNum(0, items[2].length);
-            this.addItem(enemy.inventory, items[2][randItem]);
+            let randItem;
+            console.log('Add Items 0')
             this.addItem(enemy.inventory, items[0][0]);
             this.addItem(enemy.inventory, items[0][1]);
+            for (let i = 0; i < this.randNum(0, 2); i++) {
+                console.log('Add Items 1')
+                randItem = this.randNum(0, items[1].length);
+                this.addItem(enemy.inventory, items[1][randItem]);
+            }
+            for (let i = 0; i < this.randNum(0, 1); i++) {
+                console.log('Add Items 2')
+                randItem = this.randNum(0, items[2].length);
+                this.addItem(enemy.inventory, items[2][randItem]);
+            }
+            for (let i = 0; i < this.randNum(0, 1); i++) {
+                console.log('Add Items 3')
+                randItem = this.randNum(0, items[3].length);
+                this.addItem(enemy.inventory, items[3][randItem]);
+            }
+            if (enemy.name == "Mimic"
+            || enemy.type == "boss"
+            || enemy.type == "endBoss") {
+                for (let i = 0; i < this.randNum(0, 1); i++) {
+                    console.log('Add Items 4')
+                    randItem = this.randNum(0, items[4].length);
+                    this.addItem(enemy.inventory, items[4][randItem]);
+                }
+            }
         },
         chestEncounter() {
             this.currentEncounter = JSON.parse(JSON.stringify(encounters[0]));

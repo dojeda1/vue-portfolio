@@ -591,7 +591,7 @@ export default {
                 text.push("You killed " + enemy.name + "!")
                 text.push("--- RESULTS ---")
                 this.dropGold();
-                this.dropLoot(enemy)
+                this.dropLoot();
                 this.gainXp(enemy.xp, player);
                 this.$parent.killQuestCheck(enemy.name);
                 this.$parent.message = enemy.name + ' defeated.';
@@ -680,19 +680,21 @@ export default {
             }, 600)
         },
         dropGold() {
+            const player = this.$parent.player;
             const amount = this.$parent.randNum(2, this.$parent.currentEnemy.gold);
             let text = this.$parent.messageBox;
             text.push(this.$parent.currentEnemy.name + " dropped " + amount + " gold.")
-            let player = this.$parent.player;
             player.gold += amount;
             player.totalGold += amount;
         },
-        dropLoot(enemy) {
+        dropLoot() {
+            const player = this.$parent.player;
+            const enemy = this.$parent.currentEnemy;
             let text = this.$parent.messageBox;
             if (enemy.name === "Mimic") {
                 if (enemy.inventory.length) {
                     enemy.inventory.forEach(item => {
-                        this.$parent.transferItem(enemy.inventory, this.$parent.player.inventory, item)
+                        this.$parent.transferItem(enemy.inventory, player.inventory, item)
                         text.push(enemy.name + " dropped " + this.$parent.anA(item.name) + " " + item.name + ".");
                     });
                 } else {
@@ -704,11 +706,22 @@ export default {
                     if (enemy.inventory.length) {
                         const itemNum = this.$parent.randNum(0, enemy.inventory.length);
                         const item = enemy.inventory[itemNum];
-                        this.$parent.transferItem(enemy.inventory, this.$parent.player.inventory, item)
+                        this.$parent.transferItem(enemy.inventory, player.inventory, item)
                         text.push(enemy.name + " dropped " + this.$parent.anA(item.name) + " " + item.name + ".");
                     } else {
                         console.log("enemy has no items")
                     }
+                }
+            }
+            if (enemy.type == 'boss' || enemy.type == 'endBoss') {
+                if (enemy.name == 'Bob') {
+                    const item = this.$parent.items[5][0];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Asteroth') {
+                    const item = this.$parent.items[6][0];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained the " + item.name + ".");
                 }
             }
         }
