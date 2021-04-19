@@ -317,6 +317,10 @@ export default {
                 }, 600)
             } else if (item.name == 'Fairy' &&  this.player.hp > 0) {
                 this.message = 'Fairy can only be used if dead.'
+            } else if (item.name == 'Head of Asteroth' && this.scene != 'Battle') {
+                this.message = 'Head of Asteroth can only be used in battle.'
+            } else if (item.name == 'Head of Asteroth' && item.charge > 0) {
+                this.message = 'Head of Asteroth needs ' + item.charge + ' more kills to recharge.'
             } else if (item.name == 'Death Scroll' && this.scene != 'Battle') {
                 this.message = 'Death Scroll can only be used in battle.'
             } else if (item.name == 'Map' && this.scene != 'Wild') {
@@ -413,6 +417,12 @@ export default {
                     this.note(opponent,-opponent.hp)
                     opponent.hp = 0;
                 }
+            } else if (item.name == 'Head of Asteroth') {
+                let power = opponent.hp;
+                opponent.hp -= power;
+                item.charge = 6;
+                this.messageBox.push('The eyes of Asteroth pierce ' + opponent.name + "'s soul.")
+                this.note(opponent,-power)
             } else if (item.name == 'Health Elixir') {
                 let amount = item.amount;
                 user.hpMax += amount;
@@ -458,7 +468,7 @@ export default {
                 this.messageBox.push(user.name + "'s Luck has inceased by " + amount + '.')
                 this.note(user,'+' + amount)
             } else {
-                this.message = "SOMETHING WENT WRONG"
+                this.message = "Item does nothing."
             }
             if (this.scene == 'Battle') {
                 this.statusCheck(user);

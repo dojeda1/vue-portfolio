@@ -222,6 +222,7 @@ export default {
             this.$parent.addItem(player.inventory,this.$parent.items[5][4]);
             this.$parent.addItem(player.inventory,this.$parent.items[5][5]);
             this.$parent.addItem(player.inventory,this.$parent.items[5][6]);
+            this.$parent.addItem(player.inventory,this.$parent.items[6][0]);
             player.animation = 'idle';
 
             console.log('player:',player);

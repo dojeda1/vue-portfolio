@@ -31,7 +31,7 @@
             <button class="btn-blue"
             v-for="(item, index) in $parent.player.inventory"
             :key="index"
-                :class="{ 'disabled' : !playerTurn}"
+                :class="{ 'disabled' : !playerTurn || item.name == 'Head of Asteroth'}"
                 @mouseover="$parent.infoText = item.info"
                 @click="handleSellItem(item,index)">{{ item.name }} ({{item.sell}}g) x {{item.qty}}</button>
         </div>

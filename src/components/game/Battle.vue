@@ -165,7 +165,7 @@ export default {
 
             if (!player.isDead && !enemy.isDead) {
                 //Enemy Logic
-                if (this.$parent.randNum(1,5) == 1 && enemy.hp < enemy.hpMax/2 && this.$parent.findItem(enemy.inventory,"Health Potion")) {
+                if (this.$parent.randNum(1,5) == 1 && enemy.hp < enemy.hpMax/4 && this.$parent.findItem(enemy.inventory,"Health Potion")) {
                     item = this.$parent.findItem(enemy.inventory,"Health Potion");
                     this.$parent.activateItem(enemy,player,item)
                 } else if (this.$parent.randNum(1,2) == 1 && specialAxeStrike && enemy.mp >= specialAxeStrike.cost) {
@@ -583,6 +583,10 @@ export default {
             } else if (enemy.isDead) {
                 player.totalKills++;
                 this.$parent.region.kills++
+                var head = this.$parent.findItem(player.inventory,'Head of Asteroth');
+                if (head && head.charge > 0) {
+                    head.charge--;
+                }
                 let text = this.$parent.messageBox;
                 text.push("You killed " + enemy.name + "!")
                 text.push("--- RESULTS ---")
