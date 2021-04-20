@@ -13,20 +13,20 @@
         <p>
             <button class="btn-inv"
             @click="handleMoveBack"
-            v-if="$parent.regions[$parent.region.index - 1]"
+            v-if="$parent.regions[$parent.region - 1]"
             :class="{ 'disabled' : !playerTurn}">
-            <i className="material-icons left">arrow_back</i>{{$parent.regions[$parent.region.index - 1].name}}
+            <i className="material-icons left">arrow_back</i>{{$parent.regions[$parent.region - 1].name}}
             </button>
             <button class="btn-inv"
             @click="handleMoveForward"
-            v-if="$parent.regions[$parent.region.index + 1]"
-            :class="{ 'disabled' : !playerTurn || $parent.region.kills < 4}">
-            {{$parent.regions[$parent.region.index + 1].name}}<i className="material-icons">arrow_forward</i>
+            v-if="$parent.regions[$parent.region + 1]"
+            :class="{ 'disabled' : !playerTurn || $parent.regions[$parent.region].kills < 3}">
+            {{$parent.regions[$parent.region + 1].name}}<i className="material-icons">arrow_forward</i>
             </button>
             <button class="btn-inv"
             @click="handleCastle"
-            v-if="$parent.region.index + 1 == $parent.regions.length"
-            :class="{ 'disabled' : !playerTurn || $parent.region.kills < 4}">
+            v-if="$parent.region + 1 == $parent.regions.length"
+            :class="{ 'disabled' : !playerTurn || $parent.regions[$parent.region].kills < 4}">
             Dark Castle<i className="material-icons">arrow_forward</i>
             </button>
         </p>
@@ -140,8 +140,8 @@ export default {
             this.playerTurn = false
             const $this = this;
             setTimeout(function() {
-                $this.$parent.region = $this.$parent.regions[$this.$parent.region.index - 1]
-                $this.$parent.message = 'You went back to the ' + $this.$parent.region.name
+                $this.$parent.region--
+                $this.$parent.message = 'You went back to the ' + $this.$parent.regions[$this.$parent.region]
                 $this.$parent.player.animation = 'idle'
                 $this.playerTurn = true
             },1200)
@@ -153,7 +153,7 @@ export default {
         handleYesForward() {
             this.$parent.movingForward = true;
             console.log('movingUP:',this.$parent.movingForward)
-            if (this.$parent.region.endBossKills == 0) {
+            if (this.$parent.regions[this.$parent.region].endBossKills == 0) {
                 this.$parent.endBossEncounter();
             } else {
                 this.$parent.viciousEncounter();

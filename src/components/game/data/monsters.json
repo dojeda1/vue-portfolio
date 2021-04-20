@@ -5,13 +5,98 @@
             "type": "common",
             "sprite": "/images/game/slime.png",
             "hpMax": 20,
-            "mpMax": 12,
+            "mpMax": 0,
             "strength": 5,
             "defense": 0,
             "will": 4,
             "speed": 12,
             "luck": 3,
             "xp": 10,
+            "inventory": [],
+            "specials": [],
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
+            "gold": 10
+        },
+        {
+            "name": "Wolf",
+            "type": "common",
+            "sprite": "/images/game/wolf.png",
+            "hpMax": 32,
+            "mpMax": 6,
+            "strength": 7,
+            "defense": 2,
+            "will": 4,
+            "speed": 15,
+            "luck": 3,
+            "xp": 12,
+            "inventory": [],
+            "specials": [
+                {
+                    "name": "Bite",
+                    "cost": 6,
+                    "active": false
+                }
+            ],
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
+            "gold": 10
+        },
+        {
+            "name": "Goblin",
+            "type": "common",
+            "sprite": "/images/game/goblin.png",
+            "hpMax": 35,
+            "mpMax": 10,
+            "strength": 9,
+            "defense": 3,
+            "will": 5,
+            "speed": 16,
+            "luck": 3,
+            "xp": 15,
+            "inventory": [],
+            "specials": [
+                {
+                    "name": "Axe Strike",
+                    "cost": 6,
+                    "active": false
+                },
+                {
+                    "name": "Steal",
+                    "cost": 5,
+                    "active": false
+                }
+            ],
+            "status": {
+                "Berserk": 0,
+                "Bleed": 0,
+                "Burn": 0,
+                "Poison": 0
+            },
+            "gold": 10
+        }
+    ],
+    [
+        {
+            "name": "Orc",
+            "type": "common",
+            "sprite": "/images/game/orc.png",
+            "hpMax": 40,
+            "mpMax": 12,
+            "strength": 10,
+            "defense": 4,
+            "will": 5,
+            "speed": 16,
+            "luck": 4,
+            "xp": 20,
             "inventory": [],
             "specials": [
                 {
@@ -27,80 +112,6 @@
                 "Poison": 0
             },
             "gold": 13
-        },
-        {
-            "name": "Wolf",
-            "type": "common",
-            "sprite": "/images/game/wolf.png",
-            "hpMax": 32,
-            "mpMax": 0,
-            "strength": 7,
-            "defense": 2,
-            "will": 4,
-            "speed": 15,
-            "luck": 3,
-            "xp": 12,
-            "inventory": [],
-            "specials": [],
-            "status": {
-                "Berserk": 0,
-                "Bleed": 0,
-                "Burn": 0,
-                "Poison": 0
-            },
-            "gold": 14
-        },
-        {
-            "name": "Goblin",
-            "type": "common",
-            "sprite": "/images/game/goblin.png",
-            "hpMax": 35,
-            "mpMax": 6,
-            "strength": 9,
-            "defense": 3,
-            "will": 5,
-            "speed": 16,
-            "luck": 3,
-            "xp": 15,
-            "inventory": [],
-            "specials": [
-                {
-                    "name": "Axe Strike",
-                    "cost": 6,
-                    "active": false
-                }
-            ],
-            "status": {
-                "Berserk": 0,
-                "Bleed": 0,
-                "Burn": 0,
-                "Poison": 0
-            },
-            "gold": 15
-        }
-    ],
-    [
-        {
-            "name": "Orc",
-            "type": "common",
-            "sprite": "/images/game/orc.png",
-            "hpMax": 40,
-            "mpMax": 0,
-            "strength": 10,
-            "defense": 4,
-            "will": 5,
-            "speed": 16,
-            "luck": 4,
-            "xp": 20,
-            "inventory": [],
-            "specials": [],
-            "status": {
-                "Berserk": 0,
-                "Bleed": 0,
-                "Burn": 0,
-                "Poison": 0
-            },
-            "gold": 20
         },
         {
             "name": "Harpy",
@@ -122,14 +133,14 @@
                 "Burn": 0,
                 "Poison": 0
             },
-            "gold": 25
+            "gold": 13
         },
         {
             "name": "Spider",
             "type": "common",
             "sprite": "/images/game/spider.png",
             "hpMax": 45,
-            "mpMax": 0,
+            "mpMax": 18,
             "strength": 16,
             "speed": 20,
             "defense": 7,
@@ -137,14 +148,20 @@
             "luck": 6,
             "xp": 25,
             "inventory": [],
-            "specials": [],
+            "specials": [
+                {
+                    "name": "Poison Fang",
+                    "cost": 6,
+                    "active": false
+                }
+            ],
             "status": {
                 "Berserk": 0,
                 "Bleed": 0,
                 "Burn": 0,
                 "Poison": 0
             },
-            "gold": 25
+            "gold": 13
         },
         {
             "name": "Ogre",
@@ -166,7 +183,7 @@
                 "Burn": 0,
                 "Poison": 0
             },
-            "gold": 25
+            "gold": 13
         }
     ],
     [
@@ -175,7 +192,7 @@
             "type": "common",
             "sprite": "/images/game/dire-wolf.png",
             "hpMax": 50,
-            "mpMax": 10,
+            "mpMax": 12,
             "strength": 20,
             "defense": 6,
             "will": 15,
@@ -183,21 +200,27 @@
             "luck": 8,
             "xp": 30,
             "inventory": [],
-            "specials": [],
+            "specials": [
+                {
+                    "name": "Bite",
+                    "cost": 6,
+                    "active": false
+                }
+            ],
             "status": {
                 "Berserk": 0,
                 "Bleed": 0,
                 "Burn": 0,
                 "Poison": 0
             },
-            "gold": 30
+            "gold": 15
         },
         {
             "name": "Giant",
             "type": "common",
             "sprite": "/images/game/giant.png",
             "hpMax": 55,
-            "mpMax": 10,
+            "mpMax": 0,
             "strength": 22,
             "defense": 10,
             "will": 18,
@@ -212,7 +235,7 @@
                 "Burn": 0,
                 "Poison": 0
             },
-            "gold": 35
+            "gold": 15
         },
         {
             "name": "Demon",
@@ -227,14 +250,25 @@
             "luck": 10,
             "xp": 40,
             "inventory": [],
-            "specials": [],
+            "specials": [
+                {
+                    "name": "Fireball",
+                    "cost": 6,
+                    "active": false
+                },
+                {
+                    "name": "Steal",
+                    "cost": 5,
+                    "active": false
+                }
+            ],
             "status": {
                 "Berserk": 0,
                 "Bleed": 0,
                 "Burn": 0,
                 "Poison": 0
             },
-            "gold": 40
+            "gold": 15
         },
         {
             "name": "Dragon",
@@ -249,14 +283,20 @@
             "luck": 15,
             "xp": 50,
             "inventory": [],
-            "specials": [],
+            "specials": [
+                {
+                    "name": "Fireball",
+                    "cost": 6,
+                    "active": false
+                }
+            ],
             "status": {
                 "Berserk": 0,
                 "Bleed": 0,
                 "Burn": 0,
                 "Poison": 0
             },
-            "gold": 50
+            "gold": 17
         }
     ]
 ]

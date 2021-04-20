@@ -4,7 +4,7 @@
         "name": "Plains",
         "sprite": "/images/game/plains.png",
         "level": 1,
-        "targetLevel": 10,
+        "targetLevel": 4,
         "dungeonGoal": 3,
         "endBossKills": 0,
         "bossKills": 0,

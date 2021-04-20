@@ -88,9 +88,6 @@ export default {
         },
         handleNext() {
             console.log('movingUP:',this.$parent.movingForward)
-            if (this.$parent.currentEnemy.type == 'endBoss' || this.$parent.currentEnemy.type == 'finalBoss') {
-                this.$parent.region.endBossKills++;
-            }
             if (this.$parent.movingForward == true) {
                 console.log('Move On')
                 this.$parent.movingForward = false;
@@ -100,9 +97,9 @@ export default {
                 setTimeout(function() {
                     $this.$parent.messageBox = [];
                     $this.task = 'wild'
-                    $this.$parent.region = $this.$parent.regions[$this.$parent.region.index + 1]
-                    $this.$parent.region.discovered = true;
-                    $this.$parent.message = 'You moved on to the ' + $this.$parent.region.name
+                    $this.$parent.region++
+                    $this.$parent.regions[$this.$parent.region].discovered = true;
+                    $this.$parent.message = 'You moved on to the ' + $this.$parent.regions[$this.$parent.region].name
                     $this.$parent.player.animation = 'idle'
                     $this.playerTurn = true
                     $this.$parent.changeScene('Wild');
@@ -113,14 +110,14 @@ export default {
                 if (this.$parent.location == 'Wild') {
                     this.$parent.changeScene('Wild');
                 } else if (this.$parent.location == 'Dungeon') {
-                    if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
+                    if (this.$parent.dungeonCount >= this.$parent.regions[this.$parent.region].dungeonGoal + 1) {
                         this.$parent.message = 'Dungeon Completed.'
                         this.$parent.changeScene('Wild');
                     } else {
                         this.$parent.changeScene('Dungeon');
                     }
                 } else if (this.$parent.location == 'Castle') {
-                    if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
+                    if (this.$parent.dungeonCount >= this.$parent.regions[this.$parent.region].dungeonGoal + 1) {
                         if (this.$parent.currentEnemy.type == 'finalBoss') {
                             this.$parent.message = 'The Master of Darkness has finally been vanquished.'
                         } else {
@@ -161,6 +158,13 @@ export default {
         enemyTurn(player, enemy) {
             this.deathCheck();
             var specialAxeStrike = this.$parent.findSpecial(enemy.specials,"Axe Strike");
+            var specialBerserk = this.$parent.findSpecial(enemy.specials,"Berserk");
+            var specialFireball = this.$parent.findSpecial(enemy.specials,"Fireball");
+            var specialHeal = this.$parent.findSpecial(enemy.specials,"Heal");
+            var specialDaggerSlash = this.$parent.findSpecial(enemy.specials,"Dagger Slash");
+            var specialSteal = this.$parent.findSpecial(enemy.specials,"Steal");
+            var specialBite = this.$parent.findSpecial(enemy.specials,"Bite");
+            var specialPoisonFang = this.$parent.findSpecial(enemy.specials,"Poison Fang");
             var item;
 
             if (!player.isDead && !enemy.isDead) {
@@ -168,8 +172,25 @@ export default {
                 if (this.$parent.randNum(1,5) == 1 && enemy.hp < enemy.hpMax/4 && this.$parent.findItem(enemy.inventory,"Health Potion")) {
                     item = this.$parent.findItem(enemy.inventory,"Health Potion");
                     this.$parent.activateItem(enemy,player,item)
-                } else if (this.$parent.randNum(1,2) == 1 && specialAxeStrike && enemy.mp >= specialAxeStrike.cost) {
+                } else if (this.$parent.randNum(1,5) == 1 && enemy.mp < enemy.mpMax/2 && this.$parent.findItem(enemy.inventory,"Mana Potion")) {
+                    item = this.$parent.findItem(enemy.inventory,"Mana Potion");
+                    this.$parent.activateItem(enemy,player,item)
+                } else if (this.$parent.randNum(1,3) == 1 && specialHeal && enemy.mp >= specialHeal.cost && enemy.hp <= enemy.hpMax/4) {
+                    this.special(enemy, player, specialHeal);
+                } else if (this.$parent.randNum(1,3) == 1 && specialBerserk && enemy.mp >= specialBerserk.cost && enemy.status['Berserk'] <= 0) {
+                    this.special(enemy, player, specialBerserk);
+                } else if (this.$parent.randNum(1,3) == 1 && specialSteal && enemy.mp >= specialSteal.cost && player.inventory.length > 0) {
+                    this.special(enemy, player, specialSteal);
+                } else if (this.$parent.randNum(1,6) == 1 && specialAxeStrike && enemy.mp >= specialAxeStrike.cost) {
                     this.special(enemy, player, specialAxeStrike);
+                } else if (this.$parent.randNum(1,3) == 1 && specialFireball && enemy.mp >= specialFireball.cost) {
+                    this.special(enemy, player, specialFireball);
+                } else if (this.$parent.randNum(1,3) == 1 && specialDaggerSlash && enemy.mp >= specialDaggerSlash.cost) {
+                    this.special(enemy, player, specialDaggerSlash);
+                } else if (this.$parent.randNum(1,3) == 1 && specialBite && enemy.mp >= specialBite.cost) {
+                    this.special(enemy, player, specialBite);
+                } else if (this.$parent.randNum(1,3) == 1 && specialPoisonFang && enemy.mp >= specialPoisonFang.cost) {
+                    this.special(enemy, player, specialPoisonFang);
                 } else {
                     this.attack(enemy, player);
                 }
@@ -207,7 +228,6 @@ export default {
                 attacker.status['Berserk']--
                 berserkNum = Math.ceil(attacker.strength / 2);
                 if (attacker.status['Berserk'] <= 0) {
-                    // attacker.status.splice(attacker.status.indexOf('Berserk'), 1);
                     console.log(" - Berserk has run out. - \n");
                     berserkMessage = '- Berserk has run out. -'
                 }
@@ -527,6 +547,113 @@ export default {
                     attacker.mp -= cost;
                     break;
 
+                case "Bite":
+                    attacker.animation = 'attack'
+                    console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
+                    console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
+                    if (attacker.status['Berserk'] > 0) {
+                        attacker.status['Berserk']--
+                        berserkNum = Math.ceil(attacker.strength / 2);
+                        if (attacker.status['Berserk'] <= 0) {
+                            console.log(" - Berserk has run out. - \n");
+                            berserkMessage = '- Berserk has run out. -'
+                        }
+                    }
+                    if (missCheck < speedCheck) {
+                        setTimeout(function() {
+                            defender.animation = 'dodge'
+                            $this.$parent.note(defender,'miss')
+                        },300);
+                        attackMessage = attacker.name + "'s Bite missed...";
+                    } else if (criticalCheck >= luckCheck) {
+                        defense = Math.floor(defense / 4);
+                        damage = attacker.strength + Math.ceil(attacker.strength * 0.25) + berserkNum - defense;
+                        console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
+                        if (damage < 1) {
+                            damage = 1;
+                        }
+                        attackMessage = attacker.name + "'s Bite did " + damage + " damage.";
+                        // statusCheck = this.$parent.randNum(1,5);
+                        // statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
+                        setTimeout(function() {
+                            defender.animation = 'damage'
+                            // statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
+                            $this.$parent.note(defender,-damage)
+                        },300);
+                    } else {
+                        damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
+                        console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.5),'B:',berserkNum,"=",damage)
+                        attackMessage = "Critical hit! " + attacker.name + "'s Bite did " + damage + " damage.";
+                        // statusCheck = this.$parent.randNum(1,3);
+                        // statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
+                        setTimeout(function() {
+                            defender.animation = 'damage'
+                            // statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
+                            $this.$parent.note(defender,-damage)
+                        },300);
+                    }
+                    defender.hp -= damage;
+                    attacker.mp -= cost;
+                    console.log('message in a bottle:',berserkMessage)
+                    this.$parent.messageBox.push(attackMessage);
+                    statusMessage ? this.$parent.messageBox.push(statusMessage) : null;
+                    berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
+                    console.log(attackMessage);
+                    break;
+
+                case "Poison Fang":
+                    attacker.animation = 'attack'
+                    console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
+                    console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
+                    if (attacker.status['Berserk'] > 0) {
+                        attacker.status['Berserk']--
+                        berserkNum = Math.ceil(attacker.strength / 2);
+                        if (attacker.status['Berserk'] <= 0) {
+                            console.log(" - Berserk has run out. - \n");
+                            berserkMessage = '- Berserk has run out. -'
+                        }
+                    }
+                    if (missCheck < speedCheck) {
+                        attackMessage = attacker.name + "'s Fang missed...";
+                        setTimeout(function() {
+                            defender.animation = 'dodge'
+                            $this.$parent.note(defender,'miss')
+                        },300);
+                    } else if (criticalCheck >= luckCheck) {
+                        defense = Math.floor(defense / 4);
+                        damage = attacker.strength + Math.ceil(attacker.strength * 0.25) + berserkNum - defense;
+                        console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.25),'B:',berserkNum,'-D:',defense,"=",damage)
+                        if (damage < 1) {
+                            damage = 1;
+                        }
+                        attackMessage = attacker.name + "'s Fang did " + damage + " damage.";
+                        statusCheck = this.$parent.randNum(1,5);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Poisoned. -" : null;
+                        setTimeout(function() {
+                            defender.animation = 'damage'
+                            statusCheck == 1 ? defender.status['Poison'] = 3 : null;
+                            $this.$parent.note(defender,-damage)
+                        },300);
+                    } else {
+                        damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
+                        attackMessage = "Critical hit! " + attacker.name + "'s Fang did " + damage + " damage.";
+                        statusCheck = this.$parent.randNum(1,3);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Poisoned. -" : null;
+                        setTimeout(function() {
+                            defender.animation = 'damage'
+                            statusCheck == 1 ? defender.status['Poison'] = 3 : null;
+                            $this.$parent.note(defender,-damage)
+                        },300);
+                    }
+                    defender.hp -= damage;
+                    attacker.mp -= cost;
+                    this.$parent.messageBox.push(attackMessage);
+                    statusMessage ? this.$parent.messageBox.push(statusMessage) : null;
+                    berserkMessage ? this.$parent.messageBox.push(berserkMessage) : null;
+                    console.log(attackMessage);
+                    break;
+
+
                 default:
                 this.$parent.message = "ERRor"
                 // code block
@@ -582,7 +709,7 @@ export default {
                 }
             } else if (enemy.isDead) {
                 player.totalKills++;
-                this.$parent.region.kills++
+                this.$parent.regions[this.$parent.region].kills++
                 var head = this.$parent.findItem(player.inventory,'Head of Asteroth');
                 if (head && head.charge > 0) {
                     head.charge--;
@@ -598,14 +725,13 @@ export default {
                 this.task = 'next';
                 console.log("total kills: " + player.totalKills);
                 if (enemy.type == "endBoss" || enemy.type == "finalBoss") {
-                    const endBosses = this.$parent.endBosses;
-                    endBosses[enemy.index].isDead = true;
+                    this.$parent.regions[this.$parent.region].endBossKills++;
                 } else if (enemy.type === "boss") {
-                    this.$parent.region.bossKills++
+                    this.$parent.regions[this.$parent.region].bossKills++
                 }
                 if (this.$parent.location === "Dungeon" || this.$parent.location === "Castle") {
                     this.$parent.dungeonCount++
-                    if (this.$parent.dungeonCount >= this.$parent.region.dungeonGoal + 1) {
+                    if (this.$parent.dungeonCount >= this.$parent.regions[this.$parent.region].dungeonGoal + 1) {
                         player.totalDungeons++
                     }
                 }
@@ -691,7 +817,7 @@ export default {
             const player = this.$parent.player;
             const enemy = this.$parent.currentEnemy;
             let text = this.$parent.messageBox;
-            if (enemy.name === "Mimic") {
+            if (enemy.name == "Mimic") {
                 if (enemy.inventory.length) {
                     enemy.inventory.forEach(item => {
                         this.$parent.transferItem(enemy.inventory, player.inventory, item)
@@ -702,7 +828,7 @@ export default {
                 }
             } else {
                 const lootCheck = this.$parent.randNum(1, 5);
-                if (lootCheck === 1) {
+                if (lootCheck == 1) {
                     if (enemy.inventory.length) {
                         const itemNum = this.$parent.randNum(0, enemy.inventory.length);
                         const item = enemy.inventory[itemNum];
@@ -715,10 +841,60 @@ export default {
             }
             if (enemy.type == 'boss' || enemy.type == 'endBoss') {
                 if (enemy.name == 'Bob') {
+                    //Old Hat
+                    const item = this.$parent.items[4][3];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Goblong') {
+                    //Defense Elixir
+                    const item = this.$parent.items[5][3];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Brutus') {
+                    //Strength Elixir
+                    const item = this.$parent.items[5][2];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Xerus') {
+                    //Defense Elixir
+                    const item = this.$parent.items[5][3];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Celene') {
+                    //Fairy
+                    const item = this.$parent.items[4][2];
+                    //Death Scroll
+                    this.$parent.addItem(player.inventory, this.$parent.items[4][1]);
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + this.$parent.items[4][1] + ".");
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Rigor') {
+                    //Speed Elixir
+                    const item = this.$parent.items[5][5];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Lilith') {
+                    //Will Elixir
+                    const item = this.$parent.items[5][4];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Valdora') {
+                    //Luck Elixir
+                    const item = this.$parent.items[5][6];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Grue') {
+                    //Health Elixir
                     const item = this.$parent.items[5][0];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                } else if (enemy.name == 'Arealus') {
+                    //Mana Elixir
+                    const item = this.$parent.items[5][1];
+                    this.$parent.addItem(player.inventory, item);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Asteroth') {
+                    //Head of Asteroth
                     const item = this.$parent.items[6][0];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained the " + item.name + ".");

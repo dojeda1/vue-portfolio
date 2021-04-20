@@ -1,10 +1,10 @@
 <template>
     <p>
-        DC: {{$parent.dungeonCount}}/{{this.$parent.region.dungeonGoal}}
+        DC: {{$parent.dungeonCount}}/{{this.$parent.regions[this.$parent.region].dungeonGoal}}
     </p>
     <template v-if="task == 'castle'">
         <p>Where to next?</p>
-        <p v-if="$parent.dungeonCount >= this.$parent.region.dungeonGoal">
+        <p v-if="$parent.dungeonCount >= this.$parent.regions[this.$parent.region].dungeonGoal">
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleFightBoss">Fight Boss</button>
         </p>
         <p v-else>
@@ -83,7 +83,7 @@ export default {
             );
         },
         handleFightBoss() {
-            if (!this.$parent.region.endBossKills == 0) {
+            if (!this.$parent.regions[this.$parent.region].endBossKills == 0) {
                 this.$parent.endBossEncounter();
             } else {
                 this.$parent.viciousEncounter();

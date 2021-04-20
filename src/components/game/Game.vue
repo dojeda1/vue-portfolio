@@ -5,10 +5,10 @@
             <h1>Fantasy RPG</h1>
             <p>
                 <img class="location-sprite"
-                :src="region.sprite">
-                {{ this.region.name}} | {{location}}
+                :src="regions[region].sprite">
+                {{ regions[region].name}} | {{location}}
                 <img class="location-sprite"
-                :src="region.sprite">
+                :src="regions[region].sprite">
             </p>
         </div>
         <template v-if="$parent.menu == false">
@@ -92,7 +92,7 @@ export default {
             message: "",
             messageBox: [],
             infoText: "",
-            region: regions[0],
+            region: 0,
             regions: regions,
             scene: "TitleScreen",
             location: "Title Screen",
@@ -166,7 +166,7 @@ export default {
         },
         resetQuestBoard() {
             let randQuest;
-            let questArr = quests[this.region.index]
+            let questArr = quests[this.region];
             this.questBoard = [];
             for (let i = 0; i < 3; i++) {
                 randQuest = this.randNum(0, questArr.length);
@@ -176,7 +176,7 @@ export default {
         },
         resetRegion() {
             this.regions = JSON.parse(JSON.stringify(regions))
-            this.region = this.regions[0];
+            this.region = 0;
         },
         loadGame() {
             console.log('Game Loaded')
@@ -476,7 +476,6 @@ export default {
         },
         addQuest(fromArr, toArr, index) {
             let newQuest = JSON.parse(JSON.stringify(fromArr[index]));
-            newQuest.index = index;
             toArr.push(newQuest);
             if (newQuest.type === "fetch") {
                 this.fetchQuestCheck(newQuest.task);
@@ -577,10 +576,10 @@ export default {
             let rangeNum = 0;
             let playerLevel = this.player.level;
 
-            const regionIndex = this.region.index;
+            const regionIndex = this.region;
             console.log("RI:" + regionIndex)
-            const regionLevel = this.region.level;
-            const regionTarget = this.region.targetLevel;
+            const regionLevel = this.regions[regionIndex].level;
+            const regionTarget = this.regions[regionIndex].targetLevel;
             let monsterArray = monsters[regionIndex];
             if (playerLevel <= regionLevel) {
                 rangeNum = 1;
@@ -592,22 +591,23 @@ export default {
             }
             let monNum = this.randNum(0, rangeNum);
             let message;
+            this.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
+            const enemy = this.currentEnemy;
             if (ambushed) {
-                message = "You were ambushed by " + this.anA(monsterArray[monNum].name) + " " + monsterArray[monNum].name + "!";
+                message = "You were ambushed by " + this.anA(enemy.name) + " " + enemy.name + "!";
             } else {
-                message = "You encountered " + this.anA(monsterArray[monNum].name) + " " + monsterArray[monNum].name + ".";
+                message = "You encountered " + this.anA(enemy.name) + " " + enemy.name + ".";
             }
             this.message = message;
             console.log("message: " + message);
-            this.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
-            this.currentEnemy.hp = monsterArray[monNum].hpMax;
-            this.currentEnemy.mp = monsterArray[monNum].mpMax;
-            this.currentEnemy.note = '';
-            this.currentEnemy.animation = 'idle';
-            this.currentEnemy.isDead = false
-            this.currentEnemy.ambushing = ambushed
+            enemy.hp = monsterArray[monNum].hpMax;
+            enemy.mp = monsterArray[monNum].mpMax;
+            enemy.note = '';
+            enemy.animation = 'idle';
+            enemy.isDead = false
+            enemy.ambushing = ambushed
 
-            this.addEnemyItems(this.currentEnemy);
+            this.addEnemyItems(enemy);
 
             this.changeScene('Battle')
 
@@ -617,10 +617,10 @@ export default {
             let rangeNum = 0;
             let playerLevel = this.player.level;
 
-            const regionIndex = this.region.index;
+            const regionIndex = this.region;
             console.log("RI:" + regionIndex)
-            const regionLevel = this.region.level;
-            const regionTarget = this.region.targetLevel;
+            const regionLevel = this.regions[regionIndex].level;
+            const regionTarget = this.regions[regionIndex].targetLevel;
 
             let monsterArray = monsters[regionIndex];
             if (playerLevel <= regionLevel) {
@@ -632,22 +632,22 @@ export default {
                 rangeNum = monsterArray.length;
             }
             let monNum = this.randNum(0, rangeNum);
+            this.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
+            const enemy = this.currentEnemy;
             let message;
             if (ambushed) {
-                message = "You were ambushed by a Vicious " + monsterArray[monNum].name + "!";
+                message = "You were ambushed by a Vicious " + enemy.name + "!";
             } else {
-                message = "You encountered a Vicious " + monsterArray[monNum].name + ".";
+                message = "You encountered a Vicious " + enemy.name + ".";
             }
             this.message = message;
             console.log("message: " + message);
-            this.currentEnemy = JSON.parse(JSON.stringify(monsterArray[monNum]));
-            const enemy = this.currentEnemy;
-            enemy.name = "Vicious " + monsterArray[monNum].name;
+            enemy.name = "Vicious " + enemy.name;
             enemy.type = "vicious";
             enemy.hpMax += 5;
-            enemy.hp = monsterArray[monNum].hpMax + 5;
+            enemy.hp = enemy.hpMax + 5;
             enemy.mpMax += 5;
-            enemy.mp = monsterArray[monNum].mpMax + 5;
+            enemy.mp = enemy.mpMax + 5;
             enemy.strength += 3;
             enemy.defense += 3;
             enemy.speed += 2;
@@ -660,29 +660,30 @@ export default {
             enemy.isDead = false
             enemy.ambushing = ambushed
 
-            this.addEnemyItems(this.currentEnemy);
+            this.addEnemyItems(enemy);
 
             this.changeScene('Battle')
 
             console.log('Enemy:',this.currentEnemy);
         },
         endBossEncounter(alternateMessage) {
-            const bossIndex = this.region.index;
+            const bossIndex = this.region;
+            this.currentEnemy = JSON.parse(JSON.stringify(endBosses[bossIndex]));
+            const enemy = this.currentEnemy;
             let message;
             if (this.movingForward === true) {
-                message = endBosses[bossIndex].name + ", " + endBosses[bossIndex].title + " blocks your path."
+                message = enemy.name + ", " + enemy.title + " blocks your path."
             } else {
-                message = alternateMessage || "You face " + endBosses[bossIndex].name + ", " + endBosses[bossIndex].title + ".";
+                message = alternateMessage || "You face " + enemy.name + ", " + enemy.title + ".";
             }
             this.message = message;
             console.log("message: " + message);
-            this.currentEnemy = JSON.parse(JSON.stringify(endBosses[bossIndex]));
-            this.currentEnemy.hp = endBosses[bossIndex].hpMax;
-            this.currentEnemy.mp = endBosses[bossIndex].mpMax;
-            this.currentEnemy.animation = 'idle';
-            this.currentEnemy.isDead = false
+            enemy.hp = enemy.hpMax;
+            enemy.mp = enemy.mpMax;
+            enemy.animation = 'idle';
+            enemy.isDead = false
 
-            this.addEnemyItems(this.currentEnemy);
+            this.addEnemyItems(enemy);
 
             // console.log(this.state.currentEnemy);
             this.changeScene('Battle')

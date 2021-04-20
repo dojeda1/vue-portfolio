@@ -19,7 +19,13 @@
         "luck": 2,
         "xp": 5,
         "inventory": [],
-        "specials": [],
+        "specials": [
+            {
+                "name": "Steal",
+                "cost": 5,
+                "active": false
+            }
+        ],
         "status": {
             "Berserk": 0,
             "Bleed": 0,

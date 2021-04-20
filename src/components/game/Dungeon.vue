@@ -1,10 +1,10 @@
 <template>
     <p>
-        DC: {{$parent.dungeonCount}}/{{this.$parent.region.dungeonGoal}}
+        DC: {{$parent.dungeonCount}}/{{this.$parent.regions[this.$parent.region].dungeonGoal}}
     </p>
     <template v-if="task == 'dungeon'">
         <p>Where to next?</p>
-        <p v-if="$parent.dungeonCount >= this.$parent.region.dungeonGoal">
+        <p v-if="$parent.dungeonCount >= this.$parent.regions[this.$parent.region].dungeonGoal">
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleFightBoss">Fight Boss</button>
         </p>
         <p v-else>
@@ -87,7 +87,7 @@ export default {
             );
         },
         handleFightBoss() {
-            const regionIndex = this.$parent.region.index;
+            const regionIndex = this.$parent.region;
             let bossArray = this.$parent.bosses[regionIndex];
             if (bossArray.length) {
                 this.bossEncounter();
@@ -101,10 +101,10 @@ export default {
             let rangeNum = 0;
             let playerLevel = this.$parent.player.level;
 
-            const regionIndex = this.$parent.region.index;
+            const regionIndex = this.$parent.region;
             console.log("RI:" + regionIndex)
-            const regionLevel = this.$parent.region.level;
-            const regionTarget = this.$parent.region.targetLevel;
+            const regionLevel = this.$parent.regions[this.$parent.region].level;
+            const regionTarget = this.$parent.regions[this.$parent.region].targetLevel;
 
             let bossArray = this.$parent.bosses[regionIndex]
             if (playerLevel <= regionLevel) {
@@ -117,17 +117,18 @@ export default {
             }
             // let monNum = this.$parent.randNum(0, rangeNum);
             console.log(rangeNum)
-            let monNum = this.$parent.region.bossKills;
-            const message = alternateMessage || "You encountered " + bossArray[monNum].name + ", " + bossArray[monNum].title + ".";
+            let monNum = this.$parent.regions[this.$parent.region].bossKills;
+            this.$parent.currentEnemy = JSON.parse(JSON.stringify(bossArray[monNum]));
+            const enemy = this.$parent.currentEnemy;
+            const message = alternateMessage || "You encountered " + enemy.name + ", " + enemy.title + ".";
             this.$parent.message = message;
             console.log("message: " + message);
-            this.$parent.currentEnemy = JSON.parse(JSON.stringify(bossArray[monNum]));
-            this.$parent.currentEnemy.hp = bossArray[monNum].hpMax;
-            this.$parent.currentEnemy.mp = bossArray[monNum].mpMax;
-            this.$parent.currentEnemy.animation = 'idle';
-            this.$parent.currentEnemy.isDead = false
+            enemy.hp = enemy.hpMax;
+            enemy.mp = enemy.mpMax;
+            enemy.animation = 'idle';
+            enemy.isDead = false
 
-            this.$parent.addEnemyItems(this.$parent.currentEnemy);
+            this.$parent.addEnemyItems(enemy);
 
             // console.log(this.state.currentEnemy);
             this.$parent.changeScene('Battle')

@@ -117,34 +117,32 @@ export default {
             // let rangeNum = 0;
             // let playerLevel = this.$parent.player.level;
 
-            // const regionIndex = this.$parent.region.index;
+            const regionIndex = this.$parent.region;
             // console.log("RI:" + regionIndex)
-            const regionLevel = this.$parent.region.level;
+            const regionLevel = this.$parent.regions[regionIndex].level;
             // const regionTarget = this.$parent.region.targetLevel;
 
-            let mimic = this.$parent.encounters[1];
-            const message = alternateMessage || "You were tricked by " + this.$parent.anA(mimic.name) + " " + mimic.name + ".";
+            this.$parent.currentEnemy = JSON.parse(JSON.stringify(this.$parent.encounters[1]));
+            const enemy = this.$parent.currentEnemy;
+            const message = alternateMessage || "You were tricked by " + this.$parent.anA(enemy.name) + " " + enemy.name + ".";
             this.$parent.message = message;
             console.log("message: " + message);
-            this.$parent.currentEnemy = JSON.parse(JSON.stringify(mimic));
-            // this.$parent.currentEnemy.hp = mimic.hpMax;
-            // this.$parent.currentEnemy.mp = mimic.mpMax;
-            this.$parent.currentEnemy.note = '';
-            this.$parent.currentEnemy.animation = 'idle';
-            this.$parent.currentEnemy.isDead = false
+            enemy.note = '';
+            enemy.animation = 'idle';
+            enemy.isDead = false
 
-            this.$parent.currentEnemy.hpMax = (regionLevel * 5) + mimic.hpMax;
-            this.$parent.currentEnemy.hp = (regionLevel * 5) + mimic.hpMax;
-            this.$parent.currentEnemy.mp = mimic.mpMax;
-            this.$parent.currentEnemy.strength = regionLevel * 2 + mimic.strength;
-            this.$parent.currentEnemy.defense = regionLevel * 2 + mimic.defense;
-            this.$parent.currentEnemy.speed = regionLevel + mimic.speed;
-            this.$parent.currentEnemy.luck = regionLevel * 2 + mimic.luck;
-            this.$parent.currentEnemy.xp = regionLevel * 5 + mimic.xp;
-            this.$parent.currentEnemy.inventory = [];
-            this.$parent.currentEnemy.gold = 60 + regionLevel * 5;
+            enemy.hpMax+=(regionLevel * 5);
+            enemy.hp = enemy.hpMax;
+            enemy.mp = enemy.mpMax;
+            enemy.strength+=(regionLevel * 2);
+            enemy.defense+=(regionLevel * 2);
+            enemy.speed+=regionLevel;
+            enemy.luck+=(regionLevel * 2);
+            enemy.xp+=(regionLevel * 5);
+            enemy.inventory = [];
+            enemy.gold+=(regionLevel * 5);
 
-            this.$parent.addEnemyItems(this.$parent.currentEnemy);
+            this.$parent.addEnemyItems(enemy);
 
             this.$parent.changeScene('Battle')
 

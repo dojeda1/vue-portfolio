@@ -54,7 +54,7 @@
                 <h5 v-if="region.discovered">{{ region.name }}</h5>
                 <h5 v-else>???</h5>
                 <p>End Bosses Defeated: {{region.endBossKills}}/1</p>
-                <p>Dungeon Bosses Killed: {{region.bossKills}}/{{$parent.bosses[region.index].length}}</p>
+                <p>Dungeon Bosses Killed: {{region.bossKills}}/{{$parent.bosses[index].length}}</p>
         </div>
     </div>
     <p>
@@ -82,12 +82,19 @@ export default {
     },
     created: function() {
         console.log('Stats Opened')
-        this.completionNum = Math.floor(((this.$parent.regions[0].endBossKills + 
+        this.completionNum = Math.floor(
+            ((this.$parent.regions[0].endBossKills + 
             this.$parent.regions[0].bossKills + 
             this.$parent.regions[1].endBossKills + 
             this.$parent.regions[1].bossKills + 
             this.$parent.regions[2].endBossKills + 
-            this.$parent.regions[2].bossKills)/11) * 100)
+            this.$parent.regions[2].bossKills)
+            /
+            (this.$parent.endBosses.length +
+            this.$parent.bosses[0].length +
+            this.$parent.bosses[1].length +
+            this.$parent.bosses[2].length))
+            * 100)
     }
 }
 </script>

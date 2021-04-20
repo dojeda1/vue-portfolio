@@ -41,7 +41,7 @@
                 <div>
                     <h5>{{quest.name}}</h5>
                     <p>{{quest.info}}</p>
-                    <p :class="{'text-red': quest.region != $parent.region.name}">Region: {{quest.region}}</p>
+                    <p :class="{'text-red': quest.region != $parent.regions[$parent.region].name}">Region: {{quest.region}}</p>
                     <p>Reward: {{quest.amount}} {{quest.reward}}</p>
                     <p :class="{'text-blue': quest.count >= quest.goal}">Progress: {{quest.count}}/{{quest.goal}}</p>
                 </div>
@@ -51,7 +51,7 @@
                 <p>
                     <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleAbandon(index)">Abandon<i class="material-icons right">delete</i></button>
                     <button  v-if="$parent.location == 'Town'" class="btn-blue"
-                    :class="{ 'disabled' : !playerTurn || quest.count < quest.goal || quest.region != $parent.region.name}"
+                    :class="{ 'disabled' : !playerTurn || quest.count < quest.goal || quest.region != $parent.regions[$parent.region].name}"
                     @click="handleRedeem(quest,index)">Redeem<i class="material-icons right">check</i></button>
                 </p>
             </div>

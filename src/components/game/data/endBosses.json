@@ -1,12 +1,11 @@
 [
     {
-        "index": 0,
         "name": "Grue",
         "title": "the Devourer",
         "type": "endBoss",
         "sprite": "/images/game/grue.png",
         "hpMax": 45,
-        "mpMax": 10,
+        "mpMax": 12,
         "strength": 12,
         "defense": 6,
         "will": 12,
@@ -14,7 +13,13 @@
         "luck": 10,
         "xp": 45,
         "inventory": [],
-        "specials": [],
+        "specials": [
+            {
+                "name": "Bite",
+                "cost": 6,
+                "active": false
+            }
+        ],
         "status": {
             "Berserk": 0,
             "Bleed": 0,
@@ -25,7 +30,6 @@
         "isDead": false
     },
     {
-        "index": 1,
         "name": "Arealus",
         "title": "the White Lion",
         "type": "endBoss",
@@ -39,7 +43,13 @@
         "luck": 8,
         "xp": 75,
         "inventory": [],
-        "specials": [],
+        "specials": [
+            {
+                "name": "Heal",
+                "cost": 10,
+                "active": false
+            }
+        ],
         "status": {
             "Berserk": 0,
             "Bleed": 0,
@@ -50,7 +60,6 @@
         "isDead": false
     },
     {
-        "index": 2,
         "name": "Asteroth",
         "title": "Master of Darkness",
         "type": "finalBoss",
