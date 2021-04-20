@@ -159,7 +159,7 @@
         {
             "name": "Find a Death Scroll",
             "info": "I am in desperate need of a Death Scroll. I fancy a girl, but her brute of a father has forbade our union.",
-            "amount": 300,
+            "amount": 125,
             "reward": "gold",
             "rarity": 2,
             "itemIndex": 3,

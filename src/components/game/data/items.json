@@ -109,8 +109,8 @@
             "sprite": "/images/game/scroll.png",
             "order": 21,
             "qty": 1,
-            "buy": 300,
-            "sell": 150,
+            "buy": 150,
+            "sell": 75,
             "info": "Instantly kill common enemies."
         },
         {
@@ -118,8 +118,8 @@
             "sprite": "/images/game/fairy.png",
             "order": 22,
             "qty": 1,
-            "buy": 300,
-            "sell": 150,
+            "buy": 150,
+            "sell": 75,
             "recover": 0.75,
             "info": "Revives you after Death."
         },
@@ -139,8 +139,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 30,
             "qty": 1,
-            "buy": 1000,
-            "sell": 500,
+            "buy": 400,
+            "sell": 200,
             "amount": 5,
             "info": "Increases max HP by 5."
         },
@@ -149,8 +149,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 31,
             "qty": 1,
-            "buy": 1000,
-            "sell": 500,
+            "buy": 400,
+            "sell": 200,
             "amount": 5,
             "info": "Increases max MP by 4."
         },
@@ -159,8 +159,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 32,
             "qty": 1,
-            "buy": 1000,
-            "sell": 500,
+            "buy": 400,
+            "sell": 200,
             "amount": 2,
             "info": "Increases Strength by 2."
         },
@@ -169,8 +169,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 33,
             "qty": 1,
-            "buy": 1000,
-            "sell": 500,
+            "buy": 400,
+            "sell": 200,
             "amount": 2,
             "info": "Increases Defense by 2."
         },
@@ -179,8 +179,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 34,
             "qty": 1,
-            "buy": 1000,
-            "sell": 500,
+            "buy": 400,
+            "sell": 200,
             "amount": 2,
             "info": "Increases Will by 2."
         },
@@ -189,8 +189,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 35,
             "qty": 1,
-            "buy": 1000,
-            "sell": 500,
+            "buy": 400,
+            "sell": 200,
             "amount": 2,
             "info": "Increases Speed by 2."
         },
@@ -199,8 +199,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 36,
             "qty": 1,
-            "buy": 1000,
-            "sell": 500,
+            "buy": 400,
+            "sell": 200,
             "amount": 2,
             "info": "Increases Luck by 2."
         }

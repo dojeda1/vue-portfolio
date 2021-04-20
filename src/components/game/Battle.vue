@@ -861,12 +861,13 @@ export default {
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Celene') {
-                    //Fairy
-                    const item = this.$parent.items[4][2];
                     //Death Scroll
-                    this.$parent.addItem(player.inventory, this.$parent.items[4][1]);
+                    const item = this.$parent.items[4][1]
+                    //Fairy
+                    const item2 = this.$parent.items[4][2];
                     this.$parent.addItem(player.inventory, item);
-                    text.push("You obtained " + this.$parent.anA(item.name) + " " + this.$parent.items[4][1] + ".");
+                    this.$parent.addItem(player.inventory, item2);
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item2.name + ".");
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Rigor') {
                     //Speed Elixir
