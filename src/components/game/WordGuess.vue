@@ -201,9 +201,10 @@ export default {
             const wordStr = words[this.$parent.randNum(0,words.length)];
             const wordObj = [];
             for (var i = 0; i < wordStr.length; i++) {
+                var isSymbol = !wordStr[i].match(/[a-z]/i);
                 wordObj.push({
                     letter: wordStr[i],
-                    guessed: false
+                    guessed: isSymbol
                 })
             }
             this.currentWord = wordObj;

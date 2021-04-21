@@ -95,5 +95,9 @@
     "Run",
     "Missed",
     "Defense",
-    "Castle"
+    "Castle",
+    "Fantasy",
+    "Plains",
+    "Mountains",
+    "Inventory"
 ]
