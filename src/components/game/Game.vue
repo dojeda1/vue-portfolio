@@ -20,6 +20,7 @@
             <Town v-if="scene == 'Town'"/>
             <Shop v-if="scene == 'Shop'"/>
             <Tavern v-if="scene == 'Tavern'"/>
+            <WordGuess v-if="scene == 'WordGuess'"/>
             <Quests v-if="scene == 'Quests'"/>
             <Dungeon v-if="scene == 'Dungeon'"/>
             <Castle v-if="scene == 'Castle'"/>
@@ -46,6 +47,7 @@ import Wild from './Wild.vue'
 import Town from './Town.vue'
 import Shop from './Shop.vue'
 import Tavern from './Tavern.vue'
+import WordGuess from './WordGuess.vue'
 import Quests from './Quests.vue'
 import Save from './Save.vue'
 import Stats from './Stats.vue'
@@ -80,6 +82,7 @@ export default {
         Town,
         Shop,
         Tavern,
+        WordGuess,
         Quests,
         Save,
         Stats,

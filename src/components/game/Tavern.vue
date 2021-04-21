@@ -5,7 +5,7 @@
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleMead">Buy a Mead</button>
         </p>
         <p>
-            <button class="btn-blue disabled" :class="{ 'disabled' : !playerTurn}" @click="handleSell">Play a Game</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handlePlayGame">Play a Game</button>
         </p>
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Leave</button>
@@ -111,6 +111,10 @@ export default {
         handleNoMead() {
             this.$parent.message = "You decided against it."
             this.task = 'tavern'
+        },
+        handlePlayGame() {
+            this.$parent.message = "You decided to Play."
+            this.$parent.changeScene('WordGuess');
         },
         handleLeave() {
             this.$parent.message = "You left the Tavern."

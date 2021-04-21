@@ -104,18 +104,27 @@
             || $parent.scene == 'Quests'
             || $parent.scene == 'Shop'
             || $parent.scene == 'Tavern'
+            || $parent.scene == 'WordGuess'
             || $parent.scene == 'DungeonEncounter'">
-                <img class="game-sprite"
-                :class="{ 'idle': $parent.currentEncounter.animation == 'idle',
-                'walk': $parent.currentEncounter.animation == 'walk' ,
-                'jump': $parent.currentEncounter.animation == 'jump' ,
-                'dodge': $parent.currentEncounter.animation == 'dodge' ,
-                'buffer': $parent.currentEncounter.animation == 'buffer' ,
-                'die-right': $parent.currentEncounter.animation == 'die' ,
-                'damage': $parent.currentEncounter.animation == 'damage' ,
-                'attack-left': $parent.currentEncounter.animation == 'attack' }"
-                :src="$parent.currentEncounter.sprite"
-                :alt="$parent.currentEncounter.name">
+                <div class="sprite-container">
+                    <span class="note"
+                    :class="{ 'item-rise': $parent.currentEncounter.note != ''}"
+                    >{{$parent.currentEncounter.note}}</span>
+                    <img class="item-sprite"
+                    :class="{ 'item-rise': $parent.currentEncounter.animation == 'use item'}"
+                    :src="$parent.currentEncounter.itemSprite" :alt="$parent.currentEncounter.itemName">
+                    <img class="game-sprite"
+                    :class="{ 'idle': $parent.currentEncounter.animation == 'idle',
+                    'walk': $parent.currentEncounter.animation == 'walk' ,
+                    'jump': $parent.currentEncounter.animation == 'jump' ,
+                    'dodge': $parent.currentEncounter.animation == 'dodge' ,
+                    'buffer': $parent.currentEncounter.animation == 'buffer' ,
+                    'die-right': $parent.currentEncounter.animation == 'die' ,
+                    'damage': $parent.currentEncounter.animation == 'damage' ,
+                    'attack-left': $parent.currentEncounter.animation == 'attack' }"
+                    :src="$parent.currentEncounter.sprite"
+                    :alt="$parent.currentEncounter.name">
+                </div>
                 <div class="display-text text-blue">
                     <p>{{ $parent.currentEncounter.name }}</p>
                 </div>
