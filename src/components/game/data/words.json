@@ -93,11 +93,20 @@
     "Bleed",
     "Burn",
     "Run",
-    "Missed",
+    "Dodge",
     "Defense",
     "Castle",
     "Fantasy",
     "Plains",
     "Mountains",
-    "Inventory"
+    "Inventory",
+    "Chest",
+    "Map",
+    "Damage",
+    "Level up",
+    "Defeat",
+    "Attack",
+    "Merchant",
+    "Shop",
+    "Quest"
 ]

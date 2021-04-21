@@ -195,8 +195,10 @@ export default {
                 this.guessesLeft = 3
             } else if(this.gold >= 50) {
                 this.guessesLeft = 4
-            } else {
+            } else if(this.gold >= 10) {
                 this.guessesLeft = 5
+            } else {
+                this.guessesLeft = 6
             }
             const wordStr = words[this.$parent.randNum(0,words.length)];
             const wordObj = [];
