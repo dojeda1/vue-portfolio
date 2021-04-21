@@ -15,7 +15,7 @@
         <div class="nav-link" :class="{'selected' : $parent.menu == 'Save'}" @click="saveToggled">Save</div>
         <div class="nav-link" :class="{'selected' : $parent.menu == 'Quests'}" @click="questsToggled">Quests</div>
         <div class="nav-link" :class="{'selected' : $parent.menu == 'Stats'}" @click="statsToggled">Stats</div>
-        <div class="nav-link text-gray" @click="gameToggled">{{code}}</div>
+        <div class="nav-link text-gray" :class="{'selected' : $parent.menu == 'Quit'}" @click="quitToggled">{{code}}</div>
       </template>
     </div>
 </template>
@@ -58,6 +58,14 @@ export default {
     statsToggled() {
       if (this.$parent.menu != 'Stats') {
           this.$parent.menu = 'Stats';
+      } else {
+          this.$parent.menu = false
+      }
+      console.log(this.$parent.menu)
+    },
+    quitToggled() {
+      if (this.$parent.menu != 'Quit') {
+          this.$parent.menu = 'Quit';
       } else {
           this.$parent.menu = false
       }

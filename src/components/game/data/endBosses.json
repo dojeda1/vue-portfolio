@@ -65,7 +65,7 @@
         "type": "finalBoss",
         "sprite": "/images/game/asteroth.png",
         "hpMax": 200,
-        "mpMax": 40,
+        "mpMax": 24,
         "strength": 40,
         "defense": 15,
         "will": 40,
@@ -73,7 +73,23 @@
         "luck": 15,
         "xp": 200,
         "inventory": [],
-        "specials": [],
+        "specials": [
+            {
+                "name": "Axe Strike",
+                "cost": 6,
+                "active": false
+            },
+            {
+                "name": "Fireball",
+                "cost": 6,
+                "active": false
+            },
+            {
+                "name": "Berserk",
+                "cost": 8,
+                "active": false
+            }
+        ],
         "status": {
             "Berserk": 0,
             "Bleed": 0,

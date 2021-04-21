@@ -223,7 +223,7 @@
             "type": "boss",
             "sprite": "/images/game/valdora.png",
             "hpMax": 100,
-            "mpMax": 30,
+            "mpMax": 24,
             "strength": 30,
             "defense": 12,
             "will": 30,

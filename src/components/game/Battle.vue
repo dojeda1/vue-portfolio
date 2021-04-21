@@ -177,11 +177,11 @@ export default {
                     this.$parent.activateItem(enemy,player,item)
                 } else if (this.$parent.randNum(1,3) == 1 && specialHeal && enemy.mp >= specialHeal.cost && enemy.hp <= enemy.hpMax/4) {
                     this.special(enemy, player, specialHeal);
-                } else if (this.$parent.randNum(1,3) == 1 && specialBerserk && enemy.mp >= specialBerserk.cost && enemy.status['Berserk'] <= 0) {
+                } else if (this.$parent.randNum(1,6) == 1 && specialBerserk && enemy.mp >= specialBerserk.cost && enemy.status['Berserk'] <= 0) {
                     this.special(enemy, player, specialBerserk);
                 } else if (this.$parent.randNum(1,3) == 1 && specialSteal && enemy.mp >= specialSteal.cost && player.inventory.length > 0) {
                     this.special(enemy, player, specialSteal);
-                } else if (this.$parent.randNum(1,6) == 1 && specialAxeStrike && enemy.mp >= specialAxeStrike.cost) {
+                } else if (this.$parent.randNum(1,3) == 1 && specialAxeStrike && enemy.mp >= specialAxeStrike.cost) {
                     this.special(enemy, player, specialAxeStrike);
                 } else if (this.$parent.randNum(1,3) == 1 && specialFireball && enemy.mp >= specialFireball.cost) {
                     this.special(enemy, player, specialFireball);
@@ -839,7 +839,7 @@ export default {
                     }
                 }
             }
-            if (enemy.type == 'boss' || enemy.type == 'endBoss') {
+            if (enemy.type == 'boss' || enemy.type == 'endBoss' || enemy.type == 'finalBoss') {
                 if (enemy.name == 'Bob') {
                     //Old Hat
                     const item = this.$parent.items[4][3];

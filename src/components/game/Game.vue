@@ -31,6 +31,7 @@
             <Save v-if="$parent.menu == 'Save'"/>
             <Quests v-if="$parent.menu == 'Quests'"/>
             <Stats v-if="$parent.menu == 'Stats'"/>
+            <Quit v-if="$parent.menu == 'Quit'"/>
         </template>
         <p class="text-gray">SCENE: {{scene}}</p>
     </div>
@@ -48,6 +49,7 @@ import Tavern from './Tavern.vue'
 import Quests from './Quests.vue'
 import Save from './Save.vue'
 import Stats from './Stats.vue'
+import Quit from './Quit.vue'
 import Dungeon from './Dungeon.vue'
 import Castle from './Castle.vue'
 import Battle from './Battle.vue'
@@ -81,6 +83,7 @@ export default {
         Quests,
         Save,
         Stats,
+        Quit,
         Dungeon,
         Castle,
         Battle,
@@ -645,9 +648,9 @@ export default {
             enemy.name = "Vicious " + enemy.name;
             enemy.type = "vicious";
             enemy.hpMax += 5;
-            enemy.hp = enemy.hpMax + 5;
+            enemy.hp = enemy.hpMax;
             enemy.mpMax += 5;
-            enemy.mp = enemy.mpMax + 5;
+            enemy.mp = enemy.mpMax;
             enemy.strength += 3;
             enemy.defense += 3;
             enemy.speed += 2;
