@@ -526,14 +526,19 @@ export default {
                     if (criticalCheck <= speedCheck) {
                         const itemNum = this.$parent.randNum(0, defender.inventory.length);
                         const item = defender.inventory[itemNum];
-                        this.$parent.transferItem(defender.inventory, attacker.inventory, item);
-                        attackMessage = attacker.name + " stole " + this.$parent.anA(item.name) + " " + item.name + "."
-                        this.$parent.messageBox.push(attackMessage);
-                        console.log(attackMessage);
-                        setTimeout(function() {
-                            defender.animation = 'damage'
-                            $this.$parent.note(defender,'?')
-                        },300);
+                        if (item.name != 'Head of Asteroth') {
+                            this.$parent.transferItem(defender.inventory, attacker.inventory, item);
+                            attackMessage = attacker.name + " stole " + this.$parent.anA(item.name) + " " + item.name + "."
+                            this.$parent.messageBox.push(attackMessage);
+                            console.log(attackMessage);
+                            setTimeout(function() {
+                                defender.animation = 'damage'
+                                $this.$parent.note(defender,'?')
+                            },300);
+                        } else {
+                            attackMessage = item.name + " refused to be stolen."
+                            this.$parent.messageBox.push(attackMessage);
+                        }
                     } else {
                         attackMessage = attacker.name + " failed to steal anything."
                         this.$parent.messageBox.push(attackMessage);

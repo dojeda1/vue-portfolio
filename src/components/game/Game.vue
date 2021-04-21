@@ -320,10 +320,10 @@ export default {
                 }, 600)
             } else if (item.name == 'Fairy' &&  this.player.hp > 0) {
                 this.message = 'Fairy can only be used if dead.'
-            } else if (item.name == 'Head of Asteroth' && this.scene != 'Battle') {
-                this.message = 'Head of Asteroth can only be used in battle.'
             } else if (item.name == 'Head of Asteroth' && item.charge > 0) {
                 this.message = 'Head of Asteroth needs ' + item.charge + ' more kills to recharge.'
+            } else if (item.name == 'Head of Asteroth' && this.scene != 'Battle') {
+                this.message = 'Head of Asteroth can only be used in battle.'
             } else if (item.name == 'Death Scroll' && this.scene != 'Battle') {
                 this.message = 'Death Scroll can only be used in battle.'
             } else if (item.name == 'Map' && this.scene != 'Wild') {
