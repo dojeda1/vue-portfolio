@@ -46,7 +46,7 @@
     "Dire Wolf",
     "Monster",
     "Experience",
-    "Travel",
+    "Traveler",
     "Potion",
     "Death",
     "Item",
@@ -108,5 +108,13 @@
     "Attack",
     "Merchant",
     "Shop",
-    "Quest"
+    "Quest",
+    "Fairy",
+    "King",
+    "Queen",
+    "Prince",
+    "Princess",
+    "Master",
+    "Knight",
+    "Wild"
 ]
