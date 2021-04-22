@@ -6,8 +6,11 @@
                 :class="{ 'item-rise': $parent.player.note != ''}"
                 >{{$parent.player.note}}</span>
                 <img class="item-sprite"
-                :class="{ 'item-rise': $parent.player.animation == 'use item'}"
-                :src="$parent.player.itemSprite" :alt="$parent.player.itemName">
+                :class="{ 'item-rise': $parent.player.itemSprite != ''}"
+                :src="$parent.player.itemSprite" alt="Item Sprite">
+                <img class="special-sprite"
+                :class="{ 'special-right': $parent.player.specialSprite != ''}"
+                :src="$parent.player.specialSprite" alt="Special Sprite">
                 <img class="game-sprite"
                 :class="{ 'idle': $parent.player.animation == 'idle',
                 'use-item': $parent.player.animation == 'use item' ,
@@ -59,8 +62,11 @@
                     :class="{ 'item-rise': $parent.currentEnemy.note != ''}"
                     >{{$parent.currentEnemy.note}}</span>
                     <img class="item-sprite"
-                    :class="{ 'item-rise': $parent.currentEnemy.animation == 'use item'}"
-                    :src="$parent.currentEnemy.itemSprite" :alt="$parent.currentEnemy.itemName">
+                    :class="{ 'item-rise': $parent.currentEnemy.itemSprite != ''}"
+                    :src="$parent.currentEnemy.itemSprite" alt="Item Sprite">
+                    <img class="special-sprite"
+                    :class="{ 'special-left': $parent.currentEnemy.specialSprite != ''}"
+                    :src="$parent.currentEnemy.specialSprite" alt="Special Sprite">
                     <img class="game-sprite"
                     :class="{ 'idle': $parent.currentEnemy.animation == 'idle',
                     'use-item': $parent.currentEnemy.animation == 'use item' ,

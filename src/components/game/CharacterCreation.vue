@@ -134,6 +134,7 @@ export default {
                     luck = 0
                     player.specials.push({
                         name: "Axe Strike",
+                        sprite: '/images/game/strike.png',
                         cost: 6,
                         active: false
                     })
@@ -153,6 +154,7 @@ export default {
                     luck = 1
                     player.specials.push({
                         name: "Fireball",
+                        sprite: '/images/game/fireball.png',
                         cost: 6,
                         active: false,
                     })
@@ -172,6 +174,7 @@ export default {
                     luck = 2
                     player.specials.push({
                         name: "Dagger Slash",
+                        sprite: '/images/game/strike.png',
                         cost: 6,
                         active: false,
                     })
@@ -213,13 +216,12 @@ export default {
             // this.$parent.addItem(player.inventory,this.$parent.items[3][2]);
             // this.$parent.addItem(player.inventory,this.$parent.items[3][2]);
             //Scrolls
-            this.$parent.addItem(player.inventory,this.$parent.items[4][0]);
-            this.$parent.addItem(player.inventory,this.$parent.items[4][1]);
-            this.$parent.addItem(player.inventory,this.$parent.items[4][2]);
-            this.$parent.addItem(player.inventory,this.$parent.items[4][3]);
-            this.$parent.addItem(player.inventory,this.$parent.items[4][4]);
-            this.$parent.addItem(player.inventory,this.$parent.items[4][5]);
-            this.$parent.addItem(player.inventory,this.$parent.items[4][5]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[4][0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[4][1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[4][2]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[4][3]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[4][4]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[4][5]);
             //Elixirs
             // this.$parent.addItem(player.inventory,this.$parent.items[5][0]);
             // this.$parent.addItem(player.inventory,this.$parent.items[5][1]);
@@ -233,7 +235,37 @@ export default {
             this.$parent.addItem(player.inventory,this.$parent.items[6][1]);
             //Unique
             this.$parent.addItem(player.inventory,this.$parent.items[7][0]);
-            player.xp+=3000
+            //Add Stats
+            player.xp+=1000
+            // player.specials.push({
+            //     name: "Evil Eye",
+            //     sprite: '/images/game/evil-eye.png',
+            //     cost: 1,
+            //     active: true
+            // })
+            // player.specials.push({
+            //     name: "Steal",
+            //     cost: 1,
+            //     active: true
+            // })
+            // player.specials.push({
+            //     name: "Axe Strike",
+            //     sprite: '/images/game/strike.png',
+            //     cost: 1,
+            //     active: true
+            // })
+            // player.specials.push({
+            //     name: "Bite",
+            //     sprite: '/images/game/bite.png',
+            //     cost: 1,
+            //     active: true
+            // })
+            // player.specials.push({
+            //     name: "Fireball",
+            //     sprite: '/images/game/fireball.png',
+            //     cost: 1,
+            //     active: true
+            // })
 
             player.animation = 'idle';
 

@@ -4,6 +4,8 @@
             "name": "Slime",
             "type": "common",
             "sprite": "/images/game/slime.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 20,
             "mpMax": 0,
             "strength": 5,
@@ -26,6 +28,8 @@
             "name": "Wolf",
             "type": "common",
             "sprite": "/images/game/wolf.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 32,
             "mpMax": 6,
             "strength": 7,
@@ -38,6 +42,7 @@
             "specials": [
                 {
                     "name": "Bite",
+                    "sprite": "/images/game/bite.png",
                     "cost": 6,
                     "active": false
                 }
@@ -54,6 +59,8 @@
             "name": "Goblin",
             "type": "common",
             "sprite": "/images/game/goblin.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 35,
             "mpMax": 10,
             "strength": 9,
@@ -66,6 +73,7 @@
             "specials": [
                 {
                     "name": "Axe Strike",
+                    "sprite": "/images/game/strike.png",
                     "cost": 6,
                     "active": false
                 },
@@ -89,6 +97,8 @@
             "name": "Orc",
             "type": "common",
             "sprite": "/images/game/orc.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 40,
             "mpMax": 12,
             "strength": 10,
@@ -101,6 +111,7 @@
             "specials": [
                 {
                     "name": "Axe Strike",
+                    "sprite": "/images/game/strike.png",
                     "cost": 6,
                     "active": false
                 }
@@ -117,6 +128,8 @@
             "name": "Harpy",
             "type": "common",
             "sprite": "/images/game/harpy.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 45,
             "mpMax": 0,
             "strength": 15,
@@ -139,6 +152,8 @@
             "name": "Spider",
             "type": "common",
             "sprite": "/images/game/spider.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 45,
             "mpMax": 18,
             "strength": 16,
@@ -151,6 +166,7 @@
             "specials": [
                 {
                     "name": "Poison Fang",
+                    "sprite": "/images/game/bite.png",
                     "cost": 6,
                     "active": false
                 }
@@ -167,6 +183,8 @@
             "name": "Ogre",
             "type": "common",
             "sprite": "/images/game/ogre.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 50,
             "mpMax": 0,
             "strength": 17,
@@ -191,6 +209,8 @@
             "name": "Dire Wolf",
             "type": "common",
             "sprite": "/images/game/dire-wolf.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 50,
             "mpMax": 12,
             "strength": 20,
@@ -203,6 +223,7 @@
             "specials": [
                 {
                     "name": "Bite",
+                    "sprite": "/images/game/bite.png",
                     "cost": 6,
                     "active": false
                 }
@@ -219,6 +240,8 @@
             "name": "Giant",
             "type": "common",
             "sprite": "/images/game/giant.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 55,
             "mpMax": 0,
             "strength": 22,
@@ -241,6 +264,8 @@
             "name": "Demon",
             "type": "common",
             "sprite": "/images/game/demon.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 60,
             "mpMax": 25,
             "strength": 25,
@@ -253,6 +278,7 @@
             "specials": [
                 {
                     "name": "Fireball",
+                    "sprite": "/images/game/fireball.png",
                     "cost": 6,
                     "active": false
                 },
@@ -274,6 +300,8 @@
             "name": "Dragon",
             "type": "common",
             "sprite": "/images/game/dragon.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 70,
             "mpMax": 30,
             "strength": 30,
@@ -286,6 +314,7 @@
             "specials": [
                 {
                     "name": "Fireball",
+                    "sprite": "/images/game/fireball.png",
                     "cost": 6,
                     "active": false
                 }

@@ -4,6 +4,8 @@
         "title": "the Devourer",
         "type": "endBoss",
         "sprite": "/images/game/grue.png",
+        "itemSprite": "",
+        "specialSprite": "",
         "hpMax": 45,
         "mpMax": 12,
         "strength": 12,
@@ -16,6 +18,7 @@
         "specials": [
             {
                 "name": "Bite",
+                "sprite": "/images/game/bite.png",
                 "cost": 6,
                 "active": false
             }
@@ -34,6 +37,8 @@
         "title": "the White Lion",
         "type": "endBoss",
         "sprite": "/images/game/arealus.png",
+        "itemSprite": "",
+        "specialSprite": "",
         "hpMax": 70,
         "mpMax": 20,
         "strength": 18,
@@ -47,6 +52,12 @@
             {
                 "name": "Heal",
                 "cost": 10,
+                "active": false
+            },
+            {
+                "name": "Bite",
+                "sprite": "/images/game/bite.png",
+                "cost": 6,
                 "active": false
             }
         ],
@@ -64,6 +75,8 @@
         "title": "Master of Darkness",
         "type": "finalBoss",
         "sprite": "/images/game/asteroth.png",
+        "itemSprite": "",
+        "specialSprite": "",
         "hpMax": 200,
         "mpMax": 24,
         "strength": 40,
@@ -76,11 +89,13 @@
         "specials": [
             {
                 "name": "Axe Strike",
+                "sprite": "/images/game/strike.png",
                 "cost": 6,
                 "active": false
             },
             {
                 "name": "Evil Eye",
+                "sprite": "/images/game/evil-eye.png",
                 "cost": 10,
                 "active": false
             },

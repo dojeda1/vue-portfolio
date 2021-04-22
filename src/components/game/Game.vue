@@ -317,6 +317,7 @@ export default {
                 this.player.itemSprite = item.sprite;
                 this.player.itemName = item.name;
                 this.player.animation = 'use item';
+                this.itemNote(this.player,item);
                 const $this = this;
                 setTimeout(function() {
                     $this.player.animation = 'idle';
@@ -326,6 +327,7 @@ export default {
                 this.player.itemSprite = item.sprite;
                 this.player.itemName = item.name;
                 this.player.animation = 'use item';
+                this.itemNote(this.player,item);
                 const $this = this;
                 setTimeout(function() {
                     $this.player.animation = 'idle';
@@ -372,11 +374,25 @@ export default {
                 character.note = ''
             },600);
         },
+        itemNote(character,item) {
+            character.itemSprite = item.sprite;
+            setTimeout(function() {
+                character.itemSprite = ''
+            },1000);
+        },
+        specialNote(character,special) {
+            console.log('Special Sprite')
+            character.specialSprite = special.sprite;
+            setTimeout(function() {
+                character.specialSprite = ''
+            },100);
+        },
         activateItem(user, opponent, item) {
             const itemName = item.name;
             // const $this = this;
             user.itemSprite = item.sprite;
             user.animation = 'use item';
+            this.itemNote(user,item);
             console.log('opponent',opponent)
             console.log("item: " + item.name)
             if (item.name.includes('Health Potion')) {

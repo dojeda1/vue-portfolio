@@ -5,6 +5,8 @@
             "title": "the Persistent",
             "type": "boss",
             "sprite": "/images/game/bob.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 40,
             "mpMax": 12,
             "strength": 9,
@@ -17,6 +19,7 @@
             "specials": [
                 {
                     "name": "Dagger Slash",
+                    "sprite": "/images/game/strike.png",
                     "cost": 6,
                     "active": false
                 }
@@ -34,6 +37,8 @@
             "title": "the Goblin King",
             "type": "boss",
             "sprite": "/images/game/goblong.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 50,
             "mpMax": 18,
             "strength": 15,
@@ -46,6 +51,7 @@
             "specials": [
                 {
                     "name": "Axe Strike",
+                    "sprite": "/images/game/strike.png",
                     "cost": 6,
                     "active": false
                 },
@@ -70,6 +76,8 @@
             "title": "Crusher of Skulls",
             "type": "boss",
             "sprite": "/images/game/brutus.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 60,
             "mpMax": 12,
             "strength": 15,
@@ -82,6 +90,7 @@
             "specials": [
                 {
                     "name": "Axe Strike",
+                    "sprite": "/images/game/strike.png",
                     "cost": 6,
                     "active": false
                 },
@@ -104,6 +113,8 @@
             "title": "Mother of Spiders",
             "type": "boss",
             "sprite": "/images/game/xerus.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 65,
             "mpMax": 12,
             "strength": 15,
@@ -116,6 +127,7 @@
             "specials": [
                 {
                     "name": "Poison Fang",
+                    "sprite": "/images/game/bite.png",
                     "cost": 6,
                     "active": false
                 }
@@ -133,6 +145,8 @@
             "title": "Collector of Lost Souls",
             "type": "boss",
             "sprite": "/images/game/celene.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 70,
             "mpMax": 20,
             "strength": 20,
@@ -164,6 +178,8 @@
             "title": "the Grand Dire Wolf",
             "type": "boss",
             "sprite": "/images/game/rigor.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 85,
             "mpMax": 12,
             "strength": 25,
@@ -176,6 +192,7 @@
             "specials": [
                 {
                     "name": "Bite",
+                    "sprite": "/images/game/bite.png",
                     "cost": 6,
                     "active": false
                 }
@@ -193,6 +210,8 @@
             "title": "Demon of the Black Lake",
             "type": "boss",
             "sprite": "/images/game/lilith.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 90,
             "mpMax": 24,
             "strength": 25,
@@ -205,6 +224,13 @@
             "specials": [
                 {
                     "name": "Fireball",
+                    "sprite": "/images/game/fireball.png",
+                    "cost": 6,
+                    "active": false
+                },
+                {
+                    "name": "Poison Fang",
+                    "sprite": "/images/game/bite.png",
                     "cost": 6,
                     "active": false
                 }
@@ -222,6 +248,8 @@
             "title": "Elder Dragon of the Skies",
             "type": "boss",
             "sprite": "/images/game/valdora.png",
+            "itemSprite": "",
+            "specialSprite": "",
             "hpMax": 100,
             "mpMax": 24,
             "strength": 30,
@@ -234,6 +262,7 @@
             "specials": [
                 {
                     "name": "Fireball",
+                    "sprite": "/images/game/fireball.png",
                     "cost": 6,
                     "active": false
                 }

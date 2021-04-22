@@ -10,6 +10,8 @@
         "name": "Mimic",
         "type": "common",
         "sprite": "/images/game/mimic.png",
+        "itemSprite": "",
+        "specialSprite": "",
         "hpMax": 20,
         "mpMax": 10,
         "strength": 2,

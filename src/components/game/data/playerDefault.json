@@ -5,7 +5,7 @@
     "type": "player",
     "sprite": "",
     "itemSprite": "",
-    "itemName": "",
+    "specialSprite": "",
     "note": "",
     "specials": [],
     "status": {

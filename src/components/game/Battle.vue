@@ -179,7 +179,7 @@ export default {
                 } else if (this.$parent.randNum(1,5) == 1 && enemy.mp < enemy.mpMax/2 && this.$parent.findItem(enemy.inventory,"Mana Potion")) {
                     item = this.$parent.findItem(enemy.inventory,"Mana Potion");
                     this.$parent.activateItem(enemy,player,item)
-                } else if (this.$parent.randNum(1,2) == 1 && specialEvilEye && enemy.mp >= specialEvilEye.cost && enemy.hp <= enemy.hpMax/4) {
+                } else if (this.$parent.randNum(1,2) == 1 && specialEvilEye && enemy.mp >= specialEvilEye.cost && enemy.hp <= enemy.hpMax/3) {
                     this.special(enemy, player, specialEvilEye);
                 } else if (this.$parent.randNum(1,3) == 1 && specialHeal && enemy.mp >= specialHeal.cost && enemy.hp <= enemy.hpMax/4) {
                     this.special(enemy, player, specialHeal);
@@ -343,6 +343,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                         attackMessage = attacker.name + "'s Axe missed...";
                     } else if (criticalCheck >= luckCheck) {
@@ -359,6 +360,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
@@ -370,6 +372,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     }
                     defender.hp -= damage;
@@ -405,6 +408,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     } else if (criticalCheck >= luckCheck) {
                         defense = Math.floor(defense / 4);
@@ -421,6 +425,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Burn'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     } else {
                         damage = attacker.will + Math.ceil(attacker.will * 0.5) + berserkNum;
@@ -432,6 +437,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Burn'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     }
                     defender.hp -= damage;
@@ -485,6 +491,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     } else if (criticalCheck >= luckCheck) {
                         defense = Math.floor(defense / 4);
@@ -500,6 +507,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
@@ -510,6 +518,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     }
                     defender.hp -= damage;
@@ -540,6 +549,7 @@ export default {
                             setTimeout(function() {
                                 defender.animation = 'damage'
                                 $this.$parent.note(defender,'?')
+                                $this.$parent.itemNote(attacker,item);
                             },300);
                         } else {
                             attackMessage = item.name + " refused to be stolen."
@@ -574,6 +584,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                         attackMessage = attacker.name + "'s Bite missed...";
                     } else if (criticalCheck >= luckCheck) {
@@ -590,6 +601,7 @@ export default {
                             defender.animation = 'damage'
                             // statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
@@ -601,6 +613,7 @@ export default {
                             defender.animation = 'damage'
                             // statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     }
                     defender.hp -= damage;
@@ -629,6 +642,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     } else if (criticalCheck >= luckCheck) {
                         defense = Math.floor(defense / 4);
@@ -644,6 +658,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Poison'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
@@ -654,6 +669,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Poison'] = 3 : null;
                             $this.$parent.note(defender,-damage)
+                            $this.$parent.specialNote(attacker,$special)
                         },300);
                     }
                     defender.hp -= damage;
@@ -676,6 +692,7 @@ export default {
                     setTimeout(function() {
                         defender.animation = 'damage'
                         $this.$parent.note(defender,-damage)
+                        $this.$parent.specialNote(attacker,$special)
                     },300);
                     this.$parent.messageBox.push(attackMessage);
                     statusMessage ? this.$parent.messageBox.push(statusMessage) : null;
