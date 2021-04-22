@@ -105,6 +105,33 @@
             "info": "Leads you directly to a Dungeon."
         },
         {
+            "name": "Flame Scroll",
+            "sprite": "/images/game/scroll.png",
+            "order": 21,
+            "qty": 1,
+            "buy": 40,
+            "sell": 20,
+            "info": "Give enemy Burn."
+        },
+        {
+            "name": "Venom Scroll",
+            "sprite": "/images/game/scroll.png",
+            "order": 21,
+            "qty": 1,
+            "buy": 40,
+            "sell": 20,
+            "info": "Give enemy Poison."
+        },
+        {
+            "name": "Blood Scroll",
+            "sprite": "/images/game/scroll.png",
+            "order": 21,
+            "qty": 1,
+            "buy": 40,
+            "sell": 20,
+            "info": "Give enemy Bleed."
+        },
+        {
             "name": "Death Scroll",
             "sprite": "/images/game/scroll.png",
             "order": 21,
@@ -122,15 +149,6 @@
             "sell": 75,
             "recover": 0.75,
             "info": "Revives you after Death."
-        },
-        {
-            "name": "Old Hat",
-            "sprite": "/images/game/hat.png",
-            "order": 23,
-            "qty": 1,
-            "buy": 100,
-            "sell": 80,
-            "info": "An old, but stylish hat. Should be sold."
         }
     ],
     [
@@ -139,8 +157,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 30,
             "qty": 1,
-            "buy": 400,
-            "sell": 200,
+            "buy": 250,
+            "sell": 150,
             "amount": 5,
             "info": "Increases max HP by 5."
         },
@@ -149,8 +167,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 31,
             "qty": 1,
-            "buy": 400,
-            "sell": 200,
+            "buy": 250,
+            "sell": 150,
             "amount": 5,
             "info": "Increases max MP by 4."
         },
@@ -159,8 +177,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 32,
             "qty": 1,
-            "buy": 400,
-            "sell": 200,
+            "buy": 250,
+            "sell": 150,
             "amount": 2,
             "info": "Increases Strength by 2."
         },
@@ -169,8 +187,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 33,
             "qty": 1,
-            "buy": 400,
-            "sell": 200,
+            "buy": 250,
+            "sell": 150,
             "amount": 2,
             "info": "Increases Defense by 2."
         },
@@ -179,8 +197,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 34,
             "qty": 1,
-            "buy": 400,
-            "sell": 200,
+            "buy": 250,
+            "sell": 150,
             "amount": 2,
             "info": "Increases Will by 2."
         },
@@ -189,8 +207,8 @@
             "sprite": "/images/game/elixir.png",
             "order": 35,
             "qty": 1,
-            "buy": 400,
-            "sell": 200,
+            "buy": 250,
+            "sell": 150,
             "amount": 2,
             "info": "Increases Speed by 2."
         },
@@ -199,10 +217,30 @@
             "sprite": "/images/game/elixir.png",
             "order": 36,
             "qty": 1,
-            "buy": 400,
-            "sell": 200,
+            "buy": 250,
+            "sell": 150,
             "amount": 2,
             "info": "Increases Luck by 2."
+        }
+    ],
+    [
+        {
+            "name": "Old Hat",
+            "sprite": "/images/game/hat.png",
+            "order": 41,
+            "qty": 1,
+            "buy": 100,
+            "sell": 80,
+            "info": "An old, but stylish hat. Should be sold."
+        },
+        {
+            "name": "Rare Gem",
+            "sprite": "/images/game/gem.png",
+            "order": 42,
+            "qty": 1,
+            "buy": 120,
+            "sell": 100,
+            "info": "A bright and beautiful gem. Should be sold."
         }
     ],
     [
@@ -214,7 +252,8 @@
             "buy": 0,
             "sell": 0,
             "charge": 0,
-            "info": "Instantly kill any enemy. Recharges after 5 kills."
+            "goal": 5,
+            "info": "Bring any enemy to the brink of death. Recharges after 5 kills."
         }
 
     ]

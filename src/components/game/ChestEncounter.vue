@@ -98,10 +98,17 @@ export default {
                 this.$parent.addItem(player.inventory, item);
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }
-            if (this.$parent.randNum(1, 4) == 1) {
+            if (this.$parent.randNum(1, 3) == 1) {
                 console.log('Add Items 4')
                 const itemNum = this.$parent.randNum(0, this.$parent.items[4].length)
                 const item = this.$parent.items[4][itemNum];
+                this.$parent.addItem(player.inventory, item);
+                text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
+            }
+            if (this.$parent.randNum(1, 4) == 1) {
+                console.log('Add Items 6')
+                const itemNum = this.$parent.randNum(0, this.$parent.items[6].length)
+                const item = this.$parent.items[6][itemNum];
                 this.$parent.addItem(player.inventory, item);
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }

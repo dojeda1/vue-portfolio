@@ -23,7 +23,8 @@
             {{ msg }}
         </p>
     </div>
-    <p>Save your Progress - Save in Town</p>
+    <p v-if="$parent.location == 'Town'">Save your Progress</p>
+    <p v-else>Visit Town to Save</p>
     <p>
         <button :class="{ 'disabled' : !playerTurn || $parent.location != 'Town'}" @click="handleSave">Save Game</button>
         <button :class="{ 'disabled' : !playerTurn }" @click="handleLoad">Load Game</button>

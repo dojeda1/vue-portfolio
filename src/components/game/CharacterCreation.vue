@@ -196,28 +196,31 @@ export default {
             player.luck += luck;
 
             this.editSprite(player.race,player.class);
+            //Potions
             this.$parent.addItem(player.inventory,this.$parent.items[0][0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[0][0]);
             this.$parent.addItem(player.inventory,this.$parent.items[0][1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[0][0]);
             // this.$parent.addItem(player.inventory,this.$parent.items[0][1]);
             // this.$parent.addItem(player.inventory,this.$parent.items[1][0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[1][0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[1][1]);
             // this.$parent.addItem(player.inventory,this.$parent.items[1][1]);
             // this.$parent.addItem(player.inventory,this.$parent.items[2][0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[2][0]);
             // this.$parent.addItem(player.inventory,this.$parent.items[2][1]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[2][1]);
+            //Status
             // this.$parent.addItem(player.inventory,this.$parent.items[3][0]);
             // this.$parent.addItem(player.inventory,this.$parent.items[3][0]);
             // this.$parent.addItem(player.inventory,this.$parent.items[3][1]);
             // this.$parent.addItem(player.inventory,this.$parent.items[3][1]);
             // this.$parent.addItem(player.inventory,this.$parent.items[3][2]);
             // this.$parent.addItem(player.inventory,this.$parent.items[3][2]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[4][0]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[4][1]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[4][2]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[4][3]);
+            //Scrolls
+            this.$parent.addItem(player.inventory,this.$parent.items[4][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][1]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][2]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][3]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][4]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][5]);
+            this.$parent.addItem(player.inventory,this.$parent.items[4][5]);
+            //Elixirs
             // this.$parent.addItem(player.inventory,this.$parent.items[5][0]);
             // this.$parent.addItem(player.inventory,this.$parent.items[5][1]);
             // this.$parent.addItem(player.inventory,this.$parent.items[5][2]);
@@ -225,7 +228,13 @@ export default {
             // this.$parent.addItem(player.inventory,this.$parent.items[5][4]);
             // this.$parent.addItem(player.inventory,this.$parent.items[5][5]);
             // this.$parent.addItem(player.inventory,this.$parent.items[5][6]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[6][0]);
+            //Valuables
+            this.$parent.addItem(player.inventory,this.$parent.items[6][0]);
+            this.$parent.addItem(player.inventory,this.$parent.items[6][1]);
+            //Unique
+            this.$parent.addItem(player.inventory,this.$parent.items[7][0]);
+            player.xp+=3000
+
             player.animation = 'idle';
 
             console.log('player:',player);

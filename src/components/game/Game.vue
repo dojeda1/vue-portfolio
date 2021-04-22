@@ -314,19 +314,35 @@ export default {
             console.log('chosen item: ' + item.name + ' ' + index)
             if (item.name == 'Old Hat') {
                 this.message = 'It looks good on you...'
+                this.player.itemSprite = item.sprite;
+                this.player.itemName = item.name;
+                this.player.animation = 'use item';
                 const $this = this;
-                $this.player.itemSprite = item.sprite;
-                $this.player.itemName = item.name;
-                $this.player.animation = 'use item';
+                setTimeout(function() {
+                    $this.player.animation = 'idle';
+                }, 600)
+            } else if (item.name == 'Rare Gem') {
+                this.message = 'It glistens in the light...'
+                this.player.itemSprite = item.sprite;
+                this.player.itemName = item.name;
+                this.player.animation = 'use item';
+                const $this = this;
                 setTimeout(function() {
                     $this.player.animation = 'idle';
                 }, 600)
             } else if (item.name == 'Fairy' &&  this.player.hp > 0) {
                 this.message = 'Fairy can only be used if dead.'
             } else if (item.name == 'Head of Asteroth' && item.charge > 0) {
-                this.message = 'Head of Asteroth needs ' + item.charge + ' more kills to recharge.'
+                var kill = item.charge != 1 ? 'kills' : 'kill';
+                this.message = 'Head of Asteroth needs ' + item.charge + ' more ' + kill + ' to recharge.'
             } else if (item.name == 'Head of Asteroth' && this.scene != 'Battle') {
                 this.message = 'Head of Asteroth can only be used in battle.'
+            } else if (item.name == 'Flame Scroll' && this.scene != 'Battle') {
+                this.message = 'Flame Scroll can only be used in battle.'
+            } else if (item.name == 'Blood Scroll' && this.scene != 'Battle') {
+                this.message = 'Blood Scroll can only be used in battle.'
+            } else if (item.name == 'Venom Scroll' && this.scene != 'Battle') {
+                this.message = 'Venom Scroll can only be used in battle.'
             } else if (item.name == 'Death Scroll' && this.scene != 'Battle') {
                 this.message = 'Death Scroll can only be used in battle.'
             } else if (item.name == 'Map' && this.scene != 'Wild') {
@@ -411,24 +427,134 @@ export default {
                     user.animation = 'idle'
                 },600);
             } else if (item.name == 'Death Scroll') {
-                if (opponent.type === 'boss' || opponent.type === 'endBoss') {
-                    let power = Math.ceil(opponent.hp / 2);
-                    opponent.hp -= power;
+                if (opponent.type === 'finalBoss') {
+                    let damage = Math.ceil(opponent.hp / 3);
+                    opponent.hp -= damage;
                     this.removeItem(user.inventory, itemName);
-                    this.messageBox.push('Death Scroll only did ' + power + ' damage')
-                    this.note(opponent,-power)
+                    const $this = this;
+                    setTimeout(function() {
+                        opponent.animation = 'damage'
+                        $this.note(opponent,-damage)
+                    },300);
+                    this.messageBox.push('Death Scroll only did ' + damage + ' damage')
+                } else if (opponent.type === 'boss' || opponent.type === 'endBoss') {
+                    let damage = Math.ceil(opponent.hp / 2);
+                    opponent.hp -= damage;
+                    this.removeItem(user.inventory, itemName);
+                    const $this = this;
+                    setTimeout(function() {
+                        opponent.animation = 'damage'
+                        $this.note(opponent,-damage)
+                    },300);
+                    this.messageBox.push('Death Scroll only did ' + damage + ' damage')
                 } else {
+                    let damage = opponent.hp;
+                    opponent.hp -= damage;
                     this.removeItem(user.inventory, itemName);
+                    const $this = this;
+                    setTimeout(function() {
+                        opponent.animation = 'damage'
+                        $this.note(opponent,-damage)
+                    },300);
                     this.messageBox.push(user.name + ' read from the Death Scroll.')
-                    this.note(opponent,-opponent.hp)
-                    opponent.hp = 0;
+                }
+            } else if (item.name == 'Flame Scroll') {
+                const $this = this;
+                let missCheck = this.randNum(1, 100);
+                let luckCheck = (user.luck - opponent.luck) + 10;
+                if (luckCheck > 95) {
+                    luckCheck = 95;
+                } else if (luckCheck < 5) {
+                    luckCheck = 5;
+                }
+                if (missCheck < luckCheck) {
+                    this.removeItem(user.inventory, itemName);
+                    setTimeout(function() {
+                        opponent.animation = 'dodge'
+                        $this.note(opponent,'miss')
+                    },300);
+                    this.messageBox.push(user.name + "'s Fire Scroll missed...");
+                } else {
+                    let damage = user.will;
+                    opponent.hp -= damage;
+                    this.removeItem(user.inventory, itemName);
+                    setTimeout(function() {
+                        opponent.animation = 'damage'
+                        opponent.status['Burn'] = 3;
+                        $this.note(opponent,-damage)
+                    },300);
+                    this.messageBox.push('Flame Scroll did ' + damage + ' damage')
+                    this.messageBox.push("- " + opponent.name + " is now Burned. -");
+                }
+            } else if (item.name == 'Venom Scroll') {
+                const $this = this;
+                let missCheck = this.randNum(1, 100);
+                let luckCheck = (user.luck - opponent.luck) + 10;
+                if (luckCheck > 95) {
+                    luckCheck = 95;
+                } else if (luckCheck < 5) {
+                    luckCheck = 5;
+                }
+                if (missCheck < luckCheck) {
+                    this.removeItem(user.inventory, itemName);
+                    setTimeout(function() {
+                        opponent.animation = 'dodge'
+                        $this.note(opponent,'miss')
+                    },300);
+                    this.messageBox.push(user.name + "'s Venom Scroll missed...");
+                } else {
+                    let damage = user.will;
+                    opponent.hp -= damage;
+                    this.removeItem(user.inventory, itemName);
+                    setTimeout(function() {
+                        opponent.animation = 'damage'
+                        opponent.status['Poison'] = 3;
+                        $this.note(opponent,-damage)
+                    },300);
+                    this.messageBox.push('Venom Scroll did ' + damage + ' damage')
+                    this.messageBox.push("- " + opponent.name + " is now Poisoned. -");
+                }
+            } else if (item.name == 'Blood Scroll') {
+                const $this = this;
+                let missCheck = this.randNum(1, 100);
+                let luckCheck = (user.luck - opponent.luck) + 10;
+                if (luckCheck > 95) {
+                    luckCheck = 95;
+                } else if (luckCheck < 5) {
+                    luckCheck = 5;
+                }
+                if (missCheck < luckCheck) {
+                    this.removeItem(user.inventory, itemName);
+                    setTimeout(function() {
+                        opponent.animation = 'dodge'
+                        $this.note(opponent,'miss')
+                    },300);
+                    this.messageBox.push(user.name + "'s Blood Scroll missed...");
+                } else {
+                    let damage = user.will;
+                    opponent.hp -= damage;
+                    this.removeItem(user.inventory, itemName);
+                    setTimeout(function() {
+                        opponent.animation = 'damage'
+                        opponent.status['Bleed'] = 3;
+                        $this.note(opponent,-damage)
+                    },300);
+                    this.messageBox.push('Blood Scroll did ' + damage + ' damage')
+                    this.messageBox.push("- " + opponent.name + " is now Bleeding. -");
                 }
             } else if (item.name == 'Head of Asteroth') {
-                let power = opponent.hp;
-                opponent.hp -= power;
-                item.charge = 6;
-                this.messageBox.push('The eyes of Asteroth pierce ' + opponent.name + "'s soul.")
-                this.note(opponent,-power)
+                let damage = opponent.hp - 5;
+                if (damage < 0) {
+                    damage = 0;
+                }
+                opponent.hp -= damage;
+                item.charge = item.goal;
+                const $this = this;
+                setTimeout(function() {
+                    opponent.animation = 'damage'
+                    $this.note(opponent,-damage)
+                },300);
+                this.messageBox.push('The eyes of Asteroth bring ' + opponent.name + ' to the brink of death.')
             } else if (item.name == 'Health Elixir') {
                 let amount = item.amount;
                 user.hpMax += amount;
@@ -721,13 +847,20 @@ export default {
                 randItem = this.randNum(0, items[3].length);
                 this.addItem(enemy.inventory, items[3][randItem]);
             }
-            if (enemy.name == "Mimic"
-            || enemy.type == "boss"
-            || enemy.type == "endBoss") {
+            if (enemy.type == "vicious") {
                 for (let i = 0; i < this.randNum(0, 1); i++) {
                     console.log('Add Items 4')
                     randItem = this.randNum(0, items[4].length);
                     this.addItem(enemy.inventory, items[4][randItem]);
+                }
+            }
+            if (enemy.name == "Mimic"
+            || enemy.type == "boss"
+            || enemy.type == "endBoss") {
+                for (let i = 0; i < this.randNum(0, 1); i++) {
+                    console.log('Add Items 6')
+                    randItem = this.randNum(0, items[6].length);
+                    this.addItem(enemy.inventory, items[6][randItem]);
                 }
             }
         },

@@ -51,7 +51,8 @@
                 {{ msg }}
             </p>
         </div>
-        <p>Your Quests - Redeem in Town</p>
+        <p v-if="$parent.location == 'Town'">Your Quests</p>
+        <p v-else>Visit Town to Redeem</p>
         <div class="quest-board">
             <div class="quest"
             v-for="(quest, index) in $parent.player.quests"

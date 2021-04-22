@@ -59,6 +59,9 @@
     "Mage",
     "Sorcerer",
     "Death Scroll",
+    "Venom Scroll",
+    "Fire Scroll",
+    "Blood Scroll",
     "Game Over",
     "Vicious",
     "Recover",
@@ -115,5 +118,6 @@
     "Princess",
     "Master",
     "Knight",
-    "Wild"
+    "Wild",
+    "Rare Gem"
 ]

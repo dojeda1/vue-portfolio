@@ -43,6 +43,7 @@
                 :class="{ 'disabled' : !playerTurn}"
                 @mouseover="$parent.infoText = item.info"
                 @click="handleAttemptItem(item,index)">{{ item.name }}
+                <template v-if="item.charge > 0"> ({{item.goal - item.charge}}/{{item.goal}})</template>
                 <template v-if="item.qty > 1"> &times; {{item.qty}}</template>
                 </button>
         </div>
@@ -167,6 +168,7 @@ export default {
             var specialSteal = this.$parent.findSpecial(enemy.specials,"Steal");
             var specialBite = this.$parent.findSpecial(enemy.specials,"Bite");
             var specialPoisonFang = this.$parent.findSpecial(enemy.specials,"Poison Fang");
+            var specialEvilEye = this.$parent.findSpecial(enemy.specials,"Evil Eye");
             var item;
 
             if (!player.isDead && !enemy.isDead) {
@@ -177,6 +179,8 @@ export default {
                 } else if (this.$parent.randNum(1,5) == 1 && enemy.mp < enemy.mpMax/2 && this.$parent.findItem(enemy.inventory,"Mana Potion")) {
                     item = this.$parent.findItem(enemy.inventory,"Mana Potion");
                     this.$parent.activateItem(enemy,player,item)
+                } else if (this.$parent.randNum(1,2) == 1 && specialEvilEye && enemy.mp >= specialEvilEye.cost && enemy.hp <= enemy.hpMax/4) {
+                    this.special(enemy, player, specialEvilEye);
                 } else if (this.$parent.randNum(1,3) == 1 && specialHeal && enemy.mp >= specialHeal.cost && enemy.hp <= enemy.hpMax/4) {
                     this.special(enemy, player, specialHeal);
                 } else if (this.$parent.randNum(1,6) == 1 && specialBerserk && enemy.mp >= specialBerserk.cost && enemy.status['Berserk'] <= 0) {
@@ -228,7 +232,7 @@ export default {
             let berserkMessage;
             if (attacker.status['Berserk'] > 0) {
                 attacker.status['Berserk']--
-                berserkNum = Math.ceil(attacker.strength / 2);
+                berserkNum = Math.ceil(attacker.strength / 3);
                 if (attacker.status['Berserk'] <= 0) {
                     console.log(" - Berserk has run out. - \n");
                     berserkMessage = '- Berserk has run out. -'
@@ -329,7 +333,7 @@ export default {
                     console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
                     if (attacker.status['Berserk'] > 0) {
                         attacker.status['Berserk']--
-                        berserkNum = Math.ceil(attacker.strength / 2);
+                        berserkNum = Math.ceil(attacker.strength / 3);
                         if (attacker.status['Berserk'] <= 0) {
                             console.log(" - Berserk has run out. - \n");
                             berserkMessage = '- Berserk has run out. -'
@@ -390,7 +394,7 @@ export default {
                     console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
                     if (attacker.status['Berserk'] > 0) {
                         attacker.status['Berserk']--
-                        berserkNum = Math.ceil(attacker.strength / 2);
+                        berserkNum = Math.ceil(attacker.strength / 3);
                         if (attacker.status['Berserk'] <= 0) {
                             console.log(" - Berserk has run out. - \n");
                             berserkMessage = '- Berserk has run out. -'
@@ -470,7 +474,7 @@ export default {
                     console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
                     if (attacker.status['Berserk'] > 0) {
                         attacker.status['Berserk']--
-                        berserkNum = Math.ceil(attacker.strength / 2);
+                        berserkNum = Math.ceil(attacker.strength / 3);
                         if (attacker.status['Berserk'] <= 0) {
                             console.log(" - Berserk has run out. - \n");
                             berserkMessage = '- Berserk has run out. -'
@@ -560,7 +564,7 @@ export default {
                     console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
                     if (attacker.status['Berserk'] > 0) {
                         attacker.status['Berserk']--
-                        berserkNum = Math.ceil(attacker.strength / 2);
+                        berserkNum = Math.ceil(attacker.strength / 3);
                         if (attacker.status['Berserk'] <= 0) {
                             console.log(" - Berserk has run out. - \n");
                             berserkMessage = '- Berserk has run out. -'
@@ -614,7 +618,7 @@ export default {
                     console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
                     if (attacker.status['Berserk'] > 0) {
                         attacker.status['Berserk']--
-                        berserkNum = Math.ceil(attacker.strength / 2);
+                        berserkNum = Math.ceil(attacker.strength / 3);
                         if (attacker.status['Berserk'] <= 0) {
                             console.log(" - Berserk has run out. - \n");
                             berserkMessage = '- Berserk has run out. -'
@@ -660,6 +664,23 @@ export default {
                     console.log(attackMessage);
                     break;
 
+                case "Evil Eye":
+                    attacker.animation = 'buffer'
+                    damage = defender.hp - 5;
+                    attackMessage = 'The eyes of ' + attacker.name + ' bring ' + defender.name + ' to the brink of death.'
+                    if (damage < 0) {
+                        damage = 0;
+                    }
+                    defender.hp -= damage;
+                    attacker.mp -= cost;
+                    setTimeout(function() {
+                        defender.animation = 'damage'
+                        $this.$parent.note(defender,-damage)
+                    },300);
+                    this.$parent.messageBox.push(attackMessage);
+                    statusMessage ? this.$parent.messageBox.push(statusMessage) : null;
+                    console.log(attackMessage);
+                    break;
 
                 default:
                 this.$parent.message = "ERRor"
@@ -850,7 +871,7 @@ export default {
             if (enemy.type == 'boss' || enemy.type == 'endBoss' || enemy.type == 'finalBoss') {
                 if (enemy.name == 'Bob') {
                     //Old Hat
-                    const item = this.$parent.items[4][3];
+                    const item = this.$parent.items[6][0];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Goblong') {
@@ -870,9 +891,9 @@ export default {
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Celene') {
                     //Death Scroll
-                    const item = this.$parent.items[4][1]
+                    const item = this.$parent.items[4][4]
                     //Fairy
-                    const item2 = this.$parent.items[4][2];
+                    const item2 = this.$parent.items[4][5];
                     this.$parent.addItem(player.inventory, item);
                     this.$parent.addItem(player.inventory, item2);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item2.name + ".");
@@ -904,7 +925,7 @@ export default {
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Asteroth') {
                     //Head of Asteroth
-                    const item = this.$parent.items[6][0];
+                    const item = this.$parent.items[7][0];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained the " + item.name + ".");
                 }

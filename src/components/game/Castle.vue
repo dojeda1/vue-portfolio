@@ -1,6 +1,6 @@
 <template>
     <p>
-        DC: {{$parent.dungeonCount}}/{{this.$parent.regions[this.$parent.region].dungeonGoal}}
+        Minion Kills: {{$parent.dungeonCount}}/{{this.$parent.regions[this.$parent.region].dungeonGoal}}
     </p>
     <template v-if="task == 'castle'">
         <p>Where to next?</p>
@@ -26,6 +26,7 @@
                 :class="{ 'disabled' : !playerTurn}"
                 @mouseover="$parent.infoText = item.info"
                 @click="handleAttemptItem(item,index)">{{ item.name }}
+                <template v-if="item.charge > 0"> ({{item.goal - item.charge}}/{{item.goal}})</template>
                 <template v-if="item.qty > 1"> &times; {{item.qty}}</template>
                 </button>
         </div>
