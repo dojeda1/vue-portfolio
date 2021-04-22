@@ -15,9 +15,9 @@
         </p>
     </template>
     <template v-else-if="task == 'play'">
-        <div class="message-box">
-            <h5>
-                <span class="letter" v-for="(letter,index) in currentWord" :key="index">
+        <div class="word-guess">
+            <h5 class="letters">
+                <span v-for="(letter,index) in currentWord" :key="index">
                     <template v-if="letter.guessed">{{letter.letter}}</template>
                     <template v-else>_</template>
                 </span>
@@ -220,7 +220,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-    .letter {
-        margin: 0 5px;
+    .letters {
+        letter-spacing: 10px;
+    }
+    .word-guess {
+        border: 2px solid gray;
+        border-radius: 10px;
+        padding: 10px;
+        margin-top: 10px;
     }
 </style>

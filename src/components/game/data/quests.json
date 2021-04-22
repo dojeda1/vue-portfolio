@@ -1,316 +1,323 @@
 [
     [
         {
+            "name": "Kill 3 Common Monsters",
+            "info": "Too many monsters have began surrounding the town. Show them we are not to be messed with.",
+            "amount": 20,
+            "reward": "gold",
+            "type": "killType",
+            "task": "common",
+            "count": 0,
+            "goal": 3,
+            "region": "Plains"
+        },
+        {
+            "name": "Kill 2 Vicious Monsters",
+            "info": "Some strong monsters have been ransacking the village. Eliminate immediately!",
+            "amount": 20,
+            "reward": "gold",
+            "type": "killType",
+            "task": "vicious",
+            "count": 0,
+            "goal": 3,
+            "region": "Plains"
+        },
+        {
             "name": "Kill 3 Goblins",
             "info": "Goblins have been ambushing our caravans. I will pay to have some of them taken out.",
             "amount": 30,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Goblin",
             "count": 0,
             "goal": 3,
-            "region": "Plains",
-            "completed": false
+            "region": "Plains"
         },
         {
             "name": "Kill 3 Slimes",
             "info": "Slimes are disgusting! Will pay for removing some of these vile creatures from our land.",
             "amount": 20,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Slime",
             "count": 0,
             "goal": 3,
-            "region": "Plains",
-            "completed": false
+            "region": "Plains"
         },
         {
             "name": "Kill 3 Wolves",
             "info": "Wolves are dangerous! Help make the Plains a safer place to travel.",
             "amount": 25,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Wolf",
             "count": 0,
             "goal": 3,
-            "region": "Plains",
-            "completed": false
+            "region": "Plains"
         },
         {
             "name": "Find 3 Health Potions",
             "info": "I have decided to start on an adventure. I am in need of a few Health Potions to start off my journey properly.",
             "amount": 50,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "fetch",
             "task": "Health Potion",
             "count": 0,
             "goal": 3,
-            "region": "Plains",
-            "completed": false
+            "region": "Plains"
         },
         {
             "name": "Find 1 Greater Mana Potion",
             "info": "Mage in desperate need of a Greater Mana Potion. Please bring it to me at the Inn and I will pay you in gold.",
             "amount": 30,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "fetch",
             "task": "Greater Mana Potion",
             "count": 0,
             "goal": 1,
-            "region": "Plains",
-            "completed": false
+            "region": "Plains"
         },
         {
             "name": "Kill a Vicious Slime",
             "info": "Vicious Slime, awful monster, please kill.",
             "amount": 2,
-            "reward": "Superior Health Potions",
-            "rarity": 2,
-            "itemIndex": 0,
+            "reward": "Superior Health Potion",
+            "invIndex": 2,
             "type": "kill",
             "task": "Vicious Slime",
             "count": 0,
             "goal": 1,
-            "region": "Plains",
-            "completed": false
+            "region": "Plains"
         },
         {
             "name": "Kill a Vicious Goblin",
             "info": "A Vicious Goblin has eaten all my corn. Take it out and I will reward you handsomely.",
             "amount": 3,
-            "reward": "Health Potions",
-            "rarity": 0,
-            "itemIndex": 0,
+            "reward": "Health Potion",
+            "invIndex": 0,
             "type": "kill",
             "task": "Vicious Goblin",
             "count": 0,
             "goal": 1,
-            "region": "Plains",
-            "completed": false
+            "region": "Plains"
         }
     ],
     [
+        {
+            "name": "Kill 5 Common Monsters",
+            "info": "I am doing a survey of the Forest. Please bring back some samples of the local monsters.",
+            "amount": 30,
+            "reward": "gold",
+            "type": "killType",
+            "task": "common",
+            "count": 0,
+            "goal": 5,
+            "region": "Forest"
+        },
+        {
+            "name": "Kill 3 Vicious Monsters",
+            "info": "A trio of vicious monsters have eaten all my cows! Avenge me and I will give you what I can.",
+            "amount": 30,
+            "reward": "gold",
+            "type": "killType",
+            "task": "vicious",
+            "count": 0,
+            "goal": 3,
+            "region": "Forest"
+        },
         {
             "name": "Kill 3 Orcs",
             "info": "Orcs have been ruining all my walks through the Forest. I will pay to have some of them taken out.",
             "amount": 30,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Orc",
             "count": 0,
             "goal": 3,
-            "region": "Forest",
-            "completed": false
+            "region": "Forest"
         },
         {
             "name": "Kill 3 Harpies",
             "info": "Harpies are the worst! Offering a reward to have some eliminated.",
             "amount": 30,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Harpy",
             "count": 0,
             "goal": 3,
-            "region": "Forest",
-            "completed": false
+            "region": "Forest"
         },
         {
-            "name": "Kill 3 Spiders",
-            "info": "Eww, there are so many Spiders in the Forest! Please Exterminate, will pay.",
-            "amount": 35,
-            "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
+            "name": "Kill 2 Spiders",
+            "info": "Eww, there are so many Spiders in the Forest! Please exterminate, earn antidote.",
+            "amount": 2,
+            "reward": "Antidote",
+            "invIndex": 3,
             "type": "kill",
             "task": "Spider",
             "count": 0,
-            "goal": 3,
-            "region": "Forest",
-            "completed": false
+            "goal": 2,
+            "region": "Forest"
         },
         {
             "name": "Kill 3 Ogres",
             "info": "Ogres have stolen our wives! We will pay to have them killed and our wives back home.",
             "amount": 40,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Ogre",
             "count": 0,
             "goal": 3,
-            "region": "Forest",
-            "completed": false
+            "region": "Forest"
         },
         {
             "name": "Find a Death Scroll",
             "info": "I am in desperate need of a Death Scroll. I fancy a girl, but her brute of a father has forbade our union.",
             "amount": 125,
             "reward": "gold",
-            "rarity": 2,
-            "itemIndex": 3,
             "type": "fetch",
             "task": "Death Scroll",
             "count": 0,
             "goal": 1,
-            "region": "Forest",
-            "completed": false
+            "region": "Forest"
         },
         {
             "name": "Find 3 Mana Potions",
             "info": "I am trying to improve my magic abilities. I need 3 Mana Potions so I can keep on practicing.",
             "amount": 50,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "fetch",
             "task": "Mana Potion",
             "count": 0,
             "goal": 3,
-            "region": "Forest",
-            "completed": false
+            "region": "Forest"
         },
         {
             "name": "Kill a Vicious Ogre",
             "info": "A Vicious Ogre ate my dog. Help me get revenge on this terrible creature.",
             "amount": 2,
-            "reward": "Superior Mana Potions",
-            "rarity": 2,
-            "itemIndex": 0,
+            "reward": "Superior Mana Potion",
+            "invIndex": 2,
             "type": "kill",
             "task": "Vicious Ogre",
             "count": 0,
             "goal": 1,
-            "region": "Forest",
-            "completed": false
+            "region": "Forest"
         }
     ],
     [
+        {
+            "name": "Kill 5 Common Monsters",
+            "info": "Bring me the heads of 5 monsters and I will reward you with gold.",
+            "amount": 30,
+            "reward": "gold",
+            "type": "killType",
+            "task": "common",
+            "count": 0,
+            "goal": 5,
+            "region": "Mountains"
+        },
+        {
+            "name": "Kill 3 Vicious Monsters",
+            "info": "Calling to all adventurers! The town mayor is paying to have vicious monsters slain.",
+            "amount": 30,
+            "reward": "gold",
+            "type": "killType",
+            "task": "vicious",
+            "count": 0,
+            "goal": 3,
+            "region": "Mountains"
+        },
         {
             "name": "Kill 3 Dire Wolves",
             "info": "Dire Wolves have been ruining all my walks outside town. I will pay to have some of them taken out.",
             "amount": 30,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Dire Wolf",
             "count": 0,
             "goal": 3,
-            "region": "Mountains",
-            "completed": false
+            "region": "Mountains"
         },
         {
             "name": "Kill 3 Giants",
             "info": "Giants are everywhere! They do not like the townsfolk and keep trying to eat them. Will Reward anyone who can eliminate some",
             "amount": 40,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Giant",
             "count": 0,
             "goal": 3,
-            "region": "Mountains",
-            "completed": false
+            "region": "Mountains"
         },
         {
             "name": "Kill 3 Demons",
             "info": "Demons have been seen lurking just beyond the edge of town. Will pay to get rid of them.",
             "amount": 40,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Demon",
             "count": 0,
             "goal": 3,
-            "region": "Mountains",
-            "completed": false
+            "region": "Mountains"
         },
         {
             "name": "Kill 3 Dragons",
             "info": "Dragons have been burning our crops and eating our livestock! Slay them and the reward is yours.",
             "amount": 50,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "kill",
             "task": "Dragon",
             "count": 0,
             "goal": 3,
-            "region": "Mountains",
-            "completed": false
+            "region": "Mountains"
         },
         {
             "name": "Find a Superior Health Potion",
             "info": "My husband is going off to war soon. I need a Superior Health Potion to make sure he comes back to me.",
             "amount": 50,
             "reward": "gold",
-            "rarity": null,
-            "itemIndex": null,
             "type": "fetch",
             "task": "Superior Health Potion",
             "count": 0,
             "goal": 1,
-            "region": "Mountains",
-            "completed": false
+            "region": "Mountains"
         },
         {
             "name": "Find 2 Health Potions",
             "info": "Trading a Superior Health Potion for 2 regular Health Potions. Come find me at the Tavern when you have them.",
             "amount": 1,
             "reward": "Superior Health Potion",
-            "rarity": 2,
-            "itemIndex": 0,
+            "invIndex": 2,
             "type": "fetch",
             "task": "Health Potion",
             "count": 0,
             "goal": 2,
-            "region": "Mountains",
-            "completed": false
+            "region": "Mountains"
         },
         {
             "name": "Kill a Vicious Dire Wolf",
             "info": "A Dire Wolf has taken my family from me. I will give you everything I have if you slay the beast.",
             "amount": 1,
             "reward": "Death Scroll",
-            "rarity": 2,
-            "itemIndex": 3,
+            "invIndex": 4,
             "type": "kill",
             "task": "Vicious Dire Wolf",
             "count": 0,
             "goal": 1,
-            "region": "Mountains",
-            "completed": false
+            "region": "Mountains"
         },
         {
             "name": "Kill a Demon",
             "info": "A Demon has torn our town apart. Kill it and you will be rewarded.",
             "amount": 1,
             "reward": "Greater Mana Potion",
-            "rarity": 1,
-            "itemIndex": 1,
+            "invIndex": 1,
             "type": "kill",
             "task": "Demon",
             "count": 0,
             "goal": 1,
-            "region": "Mountains",
-            "completed": false
+            "region": "Mountains"
         }
     ]
 ]

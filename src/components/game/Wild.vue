@@ -141,7 +141,7 @@ export default {
             const $this = this;
             setTimeout(function() {
                 $this.$parent.region--
-                $this.$parent.message = 'You went back to the ' + $this.$parent.regions[$this.$parent.region]
+                $this.$parent.message = 'You went back to the ' + $this.$parent.regions[$this.$parent.region].name
                 $this.$parent.player.animation = 'idle'
                 $this.playerTurn = true
             },1200)

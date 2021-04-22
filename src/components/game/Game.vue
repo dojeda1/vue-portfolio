@@ -491,17 +491,23 @@ export default {
             console.log("quest removed.")
             array.splice(index, 1);
         },
-        killQuestCheck(enemyName) {
+        killQuestCheck(enemy) {
             let quests = this.player.quests;
             quests.forEach(quest => {
-                if (quest.type == "kill" && quest.count < quest.goal) {
-                    console.log("kill Quest: " + enemyName);
-                    console.log(enemyName + ":" + quest.task)
-                    if (enemyName === quest.task) {
+                if (quest.type == "kill" && quest.count < quest.goal && quest.region == this.regions[this.region].name) {
+                    console.log("kill Quest: " + enemy.name);
+                    console.log(enemy.name + ":" + quest.task)
+                    if (enemy.name === quest.task) {
                         quest.count++;
-                        // if (quest.count >= quest.goal) {
-                        //     quest.completed = true
-                        // }
+                        console.log("QC: " + quest.count)
+                    } else {
+                        console.log("not correct enemy.")
+                    }
+                } else if(quest.type == "killType" && quest.count < quest.goal && quest.region == this.regions[this.region].name) {
+                    console.log("kill Quest: " + enemy.type);
+                    console.log(enemy.type + ":" + quest.task)
+                    if (enemy.type === quest.task) {
+                        quest.count++;
                         console.log("QC: " + quest.count)
                     } else {
                         console.log("not correct enemy.")

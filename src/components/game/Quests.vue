@@ -10,7 +10,8 @@
                     <h5>{{quest.name}}</h5>
                     <p>{{quest.info}}</p>
                     <p>Region: {{quest.region}}</p>
-                    <p>Reward: {{quest.amount}} {{quest.reward}}</p>
+                    <p v-if="quest.reward =='gold'">Reward: {{quest.amount}}g</p>
+                    <p v-else>Reward: {{quest.reward}} x {{quest.amount}}</p>
                 </div>
                 <p>
                     <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
@@ -42,7 +43,8 @@
                     <h5>{{quest.name}}</h5>
                     <p>{{quest.info}}</p>
                     <p :class="{'text-red': quest.region != $parent.regions[$parent.region].name}">Region: {{quest.region}}</p>
-                    <p>Reward: {{quest.amount}} {{quest.reward}}</p>
+                    <p v-if="quest.reward =='gold'">Reward: {{quest.amount}}g</p>
+                    <p v-else>Reward: {{quest.reward}} x {{quest.amount}}</p>
                     <p :class="{'text-blue': quest.count >= quest.goal}">Progress: {{quest.count}}/{{quest.goal}}</p>
                 </div>
                 <!-- <p>
@@ -119,11 +121,9 @@ export default {
                 player.totalGold += quest.amount
                 player.totalQuests++
             } else {
-                let itemArray = this.$parent.items[quest.rarity];
-                console.log("Item Array")
-                console.log(itemArray)
+                const item = this.$parent.findItem(this.$parent.items[quest.invIndex],quest.reward);
                 for (let i = 0; i < quest.amount; i++) {
-                    this.$parent.addItem(player.inventory, itemArray[quest.itemIndex]);
+                    this.$parent.addItem(player.inventory, item);
                 }
                 console.log("item reward.")
             }
