@@ -47,7 +47,9 @@
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
                 @mouseover="$parent.infoText = item.info"
-                @click="handleAttemptItem(item,index)">{{ item.name }} &times; {{item.qty}}</button>
+                @click="handleAttemptItem(item,index)">{{ item.name }}
+                <template v-if="item.qty > 1"> &times; {{item.qty}}</template>
+                </button>
         </div>
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>

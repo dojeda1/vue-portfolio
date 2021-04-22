@@ -19,7 +19,9 @@
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
                 @mouseover="$parent.infoText = item.info"
-                @click="handleBuyItem(item,index)">{{ item.name }} ({{item.buy}}g) &times; {{item.qty}}</button>
+                @click="handleBuyItem(item,index)">{{ item.name }} ({{item.buy}}g)
+                <template v-if="item.qty > 1"> &times; {{item.qty}}</template>
+                </button>
         </div>
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
@@ -33,7 +35,9 @@
             :key="index"
                 :class="{ 'disabled' : !playerTurn || item.name == 'Head of Asteroth'}"
                 @mouseover="$parent.infoText = item.info"
-                @click="handleSellItem(item,index)">{{ item.name }} ({{item.sell}}g) &times; {{item.qty}}</button>
+                @click="handleSellItem(item,index)">{{ item.name }} ({{item.sell}}g)
+                <template v-if="item.qty > 1"> &times; {{item.qty}}</template>
+                </button>
         </div>
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
