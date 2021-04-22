@@ -194,8 +194,6 @@ export default {
 
             this.editSprite(player.race,player.class);
             this.$parent.addItem(player.inventory,this.$parent.items[0][0]);
-            this.$parent.addItem(player.inventory,this.$parent.items[0][0]);
-            this.$parent.addItem(player.inventory,this.$parent.items[0][0]);
             // this.$parent.addItem(player.inventory,this.$parent.items[0][0]);
             this.$parent.addItem(player.inventory,this.$parent.items[0][1]);
             // this.$parent.addItem(player.inventory,this.$parent.items[0][1]);

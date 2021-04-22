@@ -540,42 +540,41 @@ export default {
             console.log(quests);
         },
         statusCheck(user) {
-            const $this = this
+            console.log('Status Check...')
             var totalDamage = 0;
             var damage;
+            if (user.status['Bleed'] > 0) {
+                damage = 5
+                totalDamage+= damage;
+                this.messageBox.push('- Bleed hurt ' + user.name + ' for ' +  damage + ' damage. -')
+                user.hp-= damage;
+                user.status['Bleed']--
+                if (user.status['Bleed'] <= 0) {
+                    this.messageBox.push('- Bleed has worn out. -')
+                }
+            }
+            if (user.status['Burn'] > 0) {
+                damage = 5
+                totalDamage+= damage;
+                this.messageBox.push('- Burn hurt ' + user.name + ' for ' +  damage + ' damage. -')
+                user.hp-= damage;
+                user.status['Burn']--
+                if (user.status['Burn'] <= 0) {
+                    this.messageBox.push('- Burn has worn out. -')
+                }
+            }
+            if (user.status['Poison'] > 0) {
+                damage = 5
+                totalDamage+= damage;
+                this.messageBox.push('- Poison hurt ' + user.name + ' for ' +  damage + ' damage. -')
+                user.hp-= damage;
+                user.status['Poison']--
+                if (user.status['Poison'] <= 0) {
+                    this.messageBox.push('- Poison has worn out. -')
+                }
+            }
+            const $this = this
             setTimeout(function() {
-                if (user.status['Bleed'] > 0) {
-                    damage = 5
-                    totalDamage+= damage;
-                    $this.messageBox.push('- Bleed hurt ' + user.name + ' for ' +  damage + ' damage. -')
-                    user.hp-= 5;
-                    user.status['Bleed']--
-                    if (user.status['Bleed'] <= 0) {
-                        $this.messageBox.push('- Bleed has worn out. -')
-                    }
-                    $this.note(user,-damage);
-                }
-                if (user.status['Burn'] > 0) {
-                    damage = 5
-                    totalDamage+= damage;
-                    $this.messageBox.push('- Burn hurt ' + user.name + ' for ' +  damage + ' damage. -')
-                    user.hp-= 5;
-                    user.status['Burn']--
-                    if (user.status['Burn'] <= 0) {
-                        $this.messageBox.push('- Burn has worn out. -')
-                    }
-                    $this.note(user,-damage);
-                }
-                if (user.status['Poison'] > 0) {
-                    damage = 5
-                    totalDamage+= damage;
-                    $this.messageBox.push('- Poison hurt ' + user.name + ' for ' +  damage + ' damage. -')
-                    user.hp-= 5;
-                    user.status['Poison']--
-                    if (user.status['Poison'] <= 0) {
-                        $this.messageBox.push('- Poison has worn out. -')
-                    }
-                }
                 $this.note(user,-totalDamage);
             },650);
         },
