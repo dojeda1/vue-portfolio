@@ -1,10 +1,10 @@
 <template>
     <template v-if="task == 'name'">
-        <h5>Hello Adventurer, what is your name?</h5>
-        <input type="text" v-model="name" placeholder="Killgore">
-        <p>
-            <button @click="editName">Enter</button>
-        </p>
+        <h5>{{$parent.message}}</h5>
+        <form>
+            <input class="text-white" :class="{'text-red': name.length > 16}" type="text" v-model="name" placeholder="Killgore">
+            <button @click="editName" v-on:submit.prevent="editName(event)">Enter</button>
+        </form>
     </template>
     <template v-if="task == 'race'">
         <h5>What is your race?</h5>
@@ -37,7 +37,7 @@ export default {
     name: 'CharacterCreation',
     data() {
         return {
-            name: 'Thomas',
+            name: '',
             race: '',
             class: '',
             task: 'name'
@@ -47,13 +47,16 @@ export default {
         log(msg) {
             console.log('Log:',msg);
         },
-        editName() {
-            if (this.name.length) {
-                this.$parent.player.name = this.name.trim();
+        editName(event) {
+            event.preventDefault()
+            if (this.name.length > 16) {
+                this.$parent.message = 'A bit long... Perhaps a nickname?'
+            } else if (this.name.length) {
+                this.$parent.player.name = this.name.trim().charAt(0).toUpperCase() + this.name.slice(1);
                 this.task = 'race'
                 console.log('player:',this.$parent.player);
             } else {
-                alert('Must contain at least 1 character')
+                this.$parent.message = 'Surely, you must have a name...'
             }
         },
         editRace(race) {
@@ -281,6 +284,7 @@ export default {
         this.$parent.resetPlayer();
         this.$parent.resetBosses();
         this.$parent.resetRegion();
+        this.$parent.message = 'Hello Adventurer, what is your name?';
         this.$parent.location = 'Character Creation';
     }
 }

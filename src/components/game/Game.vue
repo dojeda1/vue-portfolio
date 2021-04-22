@@ -819,6 +819,22 @@ export default {
         text-align: center;
     }
 
+    #game input {
+        font-family: 'Montserrat Alternates', sans-serif;
+        font-size: 100%;
+        background-color: transparent;
+        border: 2px solid gray;
+        border-radius: 10px;
+        padding: 10px;
+        /* color: white; */
+        margin-right: 10px;
+    }
+
+    #game input:focus {
+        outline: none;
+        border-color: white;
+    }
+
     @media screen and (max-width: 600px) {
         #game {
             width: 100%;
