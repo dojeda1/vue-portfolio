@@ -25,7 +25,7 @@
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
                 @mouseover="$parent.infoText = item.info"
-                @click="handleAttemptItem(item,index)">{{ item.name }} x {{item.qty}}</button>
+                @click="handleAttemptItem(item,index)">{{ item.name }} &times; {{item.qty}}</button>
         </div>
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>

@@ -6,7 +6,7 @@
             <p>
                 <img class="location-sprite"
                 :src="regions[region].sprite">
-                {{ regions[region].name}} | {{location}}
+                {{ regions[region].name}} &middot; {{location}}
                 <img class="location-sprite"
                 :src="regions[region].sprite">
             </p>

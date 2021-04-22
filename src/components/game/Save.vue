@@ -1,4 +1,22 @@
 <template>
+    <p>
+        {{ $parent.player.name }} &middot; 
+        <span 
+        :class="{'text-gold': $parent.player.hp < $parent.player.hpMax/2,
+        'text-red': $parent.player.hp < $parent.player.hpMax/4,
+        'text-gray': $parent.player.hp <= 0}">
+        HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> &middot;  
+        <span 
+        :class="{'text-gold': $parent.player.mp < $parent.player.mpMax/2,
+        'text-red': $parent.player.mp < $parent.player.mpMax/4,
+        'text-gray': $parent.player.hp <= 0}">
+        MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span> &middot; 
+        <span 
+        :class="{'text-gold': $parent.player.gold < 20,
+        'text-red': $parent.player.gold < 10,
+        'text-gray': $parent.player.hp <= 0}">
+        {{ $parent.player.gold }}g</span>
+    </p>
     <div class="message-box">
         <h5>{{ $parent.message }}</h5>
         <p v-for="(msg, index) in $parent.messageBox" :key="index">

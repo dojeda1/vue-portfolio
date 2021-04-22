@@ -42,7 +42,7 @@
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
                 @mouseover="$parent.infoText = item.info"
-                @click="handleAttemptItem(item,index)">{{ item.name }} x {{item.qty}}</button>
+                @click="handleAttemptItem(item,index)">{{ item.name }} &times; {{item.qty}}</button>
         </div>
         <p>
             <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
@@ -701,6 +701,7 @@ export default {
                         $this.playerTurn = true;
                     },1200)
                 } else {
+                    this.$parent.movingForward = false;
                     setTimeout(function() {
                         text.push("--- RESULTS ---");
                         text.push("Monsters Killed: " + player.totalKills);

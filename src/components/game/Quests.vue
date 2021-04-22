@@ -11,7 +11,7 @@
                     <p>{{quest.info}}</p>
                     <p>Region: {{quest.region}}</p>
                     <p v-if="quest.reward =='gold'">Reward: {{quest.amount}}g</p>
-                    <p v-else>Reward: {{quest.reward}} x {{quest.amount}}</p>
+                    <p v-else>Reward: {{quest.reward}} &times; {{quest.amount}}</p>
                 </div>
                 <p>
                     <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
@@ -27,6 +27,24 @@
         </p>
     </template>
     <template v-else-if="$parent.$parent.menu = 'Quests'">
+        <p>
+            {{ $parent.player.name }} &middot; 
+            <span 
+            :class="{'text-gold': $parent.player.hp < $parent.player.hpMax/2,
+            'text-red': $parent.player.hp < $parent.player.hpMax/4,
+            'text-gray': $parent.player.hp <= 0}">
+            HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> &middot;  
+            <span 
+            :class="{'text-gold': $parent.player.mp < $parent.player.mpMax/2,
+            'text-red': $parent.player.mp < $parent.player.mpMax/4,
+            'text-gray': $parent.player.hp <= 0}">
+            MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span> &middot; 
+            <span 
+            :class="{'text-gold': $parent.player.gold < 20,
+            'text-red': $parent.player.gold < 10,
+            'text-gray': $parent.player.hp <= 0}">
+            {{ $parent.player.gold }}g</span>
+        </p>
         <div class="message-box">
             <h5>{{ $parent.message }}</h5>
             <p v-for="(msg, index) in $parent.messageBox" :key="index">
@@ -44,7 +62,7 @@
                     <p>{{quest.info}}</p>
                     <p :class="{'text-red': quest.region != $parent.regions[$parent.region].name}">Region: {{quest.region}}</p>
                     <p v-if="quest.reward =='gold'">Reward: {{quest.amount}}g</p>
-                    <p v-else>Reward: {{quest.reward}} x {{quest.amount}}</p>
+                    <p v-else>Reward: {{quest.reward}} &times; {{quest.amount}}</p>
                     <p :class="{'text-blue': quest.count >= quest.goal}">Progress: {{quest.count}}/{{quest.goal}}</p>
                 </div>
                 <!-- <p>

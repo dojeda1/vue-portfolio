@@ -23,12 +23,12 @@
             </div>
             <div class="display-text text-blue" :class="{'text-gray': $parent.player.hp <= 0}">
                 <p>
-                    {{ $parent.player.name }} | 
+                    {{ $parent.player.name }} &middot; 
                     <span 
                     :class="{'text-gold': $parent.player.hp < $parent.player.hpMax/2,
                     'text-red': $parent.player.hp < $parent.player.hpMax/4,
                     'text-gray': $parent.player.hp <= 0}">
-                    HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> |  
+                    HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> &middot;  
                     <span 
                     :class="{'text-gold': $parent.player.mp < $parent.player.mpMax/2,
                     'text-red': $parent.player.mp < $parent.player.mpMax/4,
@@ -36,7 +36,7 @@
                     MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span>
                 </p>
                 <p>
-                    <span >XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> | 
+                    <span >XP: {{ $parent.player.xp }}/{{ $parent.player.nextLevel }}</span> &middot; 
                     <span 
                     :class="{'text-gold': $parent.player.gold < 20,
                     'text-red': $parent.player.gold < 10,
@@ -80,12 +80,12 @@
                 'text-purple': $parent.currentEnemy.type == 'finalBoss',
                 'text-gray': $parent.currentEnemy.hp <= 0}">
                     <p>
-                        {{ $parent.currentEnemy.name }} | 
+                        {{ $parent.currentEnemy.name }} &middot; 
                         <span 
                         :class="{'text-gold': $parent.currentEnemy.hp < $parent.currentEnemy.hpMax/2,
                         'text-red': $parent.currentEnemy.hp < $parent.currentEnemy.hpMax/4,
                         'text-gray': $parent.currentEnemy.hp <= 0}">
-                        HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.hpMax }}</span> |  
+                        HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.hpMax }}</span> &middot;  
                         <span 
                         :class="{'text-gold': $parent.currentEnemy.mp < $parent.currentEnemy.mpMax/2,
                         'text-red': $parent.currentEnemy.mp < $parent.currentEnemy.mpMax/4,

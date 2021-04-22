@@ -21,13 +21,21 @@
             @click="handleMoveForward"
             v-if="$parent.regions[$parent.region + 1]"
             :class="{ 'disabled' : !playerTurn || $parent.regions[$parent.region].kills < 3}">
-            {{$parent.regions[$parent.region + 1].name}}<i className="material-icons">arrow_forward</i>
+            {{$parent.regions[$parent.region + 1].name}}
+            <template v-if="$parent.regions[$parent.region].kills < 3"> ({{$parent.regions[$parent.region].kills}}/3)</template>
+            <template v-else>
+                <i className="material-icons">arrow_forward</i>
+            </template>
             </button>
             <button class="btn-inv"
             @click="handleCastle"
             v-if="$parent.region + 1 == $parent.regions.length"
-            :class="{ 'disabled' : !playerTurn || $parent.regions[$parent.region].kills < 4}">
-            Dark Castle<i className="material-icons">arrow_forward</i>
+            :class="{ 'disabled' : !playerTurn || $parent.regions[$parent.region].kills < 3}">
+            Dark Castle
+            <template v-if="$parent.regions[$parent.region].kills < 3"> ({{$parent.regions[$parent.region].kills}}/3)</template>
+            <template v-else>
+                <i className="material-icons">arrow_forward</i>
+            </template>
             </button>
         </p>
     </template>
@@ -39,7 +47,7 @@
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
                 @mouseover="$parent.infoText = item.info"
-                @click="handleAttemptItem(item,index)">{{ item.name }} x {{item.qty}}</button>
+                @click="handleAttemptItem(item,index)">{{ item.name }} &times; {{item.qty}}</button>
         </div>
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>

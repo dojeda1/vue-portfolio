@@ -8,7 +8,7 @@
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(10)">+10</button>
         </p>
         <p>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleBet">Bet {{this.gold}}g</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleBet">Bet ({{this.gold}}g)</button>
         </p>
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Back</button>

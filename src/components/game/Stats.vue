@@ -1,4 +1,22 @@
 <template>
+    <p>
+        {{ $parent.player.name }} &middot; 
+        <span 
+        :class="{'text-gold': $parent.player.hp < $parent.player.hpMax/2,
+        'text-red': $parent.player.hp < $parent.player.hpMax/4,
+        'text-gray': $parent.player.hp <= 0}">
+        HP: {{ $parent.player.hp }}/{{ $parent.player.hpMax }}</span> &middot;  
+        <span 
+        :class="{'text-gold': $parent.player.mp < $parent.player.mpMax/2,
+        'text-red': $parent.player.mp < $parent.player.mpMax/4,
+        'text-gray': $parent.player.hp <= 0}">
+        MP: {{ $parent.player.mp }}/{{ $parent.player.mpMax }}</span> &middot; 
+        <span 
+        :class="{'text-gold': $parent.player.gold < 20,
+        'text-red': $parent.player.gold < 10,
+        'text-gray': $parent.player.hp <= 0}">
+        {{ $parent.player.gold }}g</span>
+    </p>
     <div class="message-box">
         <h5>Stats</h5>
     </div>
@@ -7,21 +25,21 @@
             <h5>Player Stats</h5>
             <p>
                 {{$parent.player.name}},
-                Lv. {{$parent.player.level}}
-                {{$parent.player.race}}
+                Lv. {{$parent.player.level}} &middot;
+                {{$parent.player.race}} &middot;
                 {{$parent.player.class}}
             </p>
             <p>
-                HP: {{$parent.player.hp}}/{{$parent.player.hpMax}} |
-                MP: {{$parent.player.mp}}/{{$parent.player.mpMax}} |
-                XP: {{$parent.player.xp}}/{{$parent.player.nextLevel}} |
+                HP: {{$parent.player.hp}}/{{$parent.player.hpMax}} &middot;
+                MP: {{$parent.player.mp}}/{{$parent.player.mpMax}} &middot;
+                XP: {{$parent.player.xp}}/{{$parent.player.nextLevel}} &middot;
                 {{$parent.player.gold}}g
             </p>
             <p>
-                STR: {{$parent.player.strength}} |
-                DEF: {{$parent.player.defense}} |
-                WILL: {{$parent.player.will}} |
-                LUCK: {{$parent.player.luck}} |
+                STR: {{$parent.player.strength}} &middot;
+                DEF: {{$parent.player.defense}} &middot;
+                WILL: {{$parent.player.will}} &middot;
+                LUCK: {{$parent.player.luck}} &middot;
                 SPD: {{$parent.player.speed}}
             </p>
         </div>
@@ -36,7 +54,7 @@
             <h5>Inventory</h5>
             <div class="items">
                 <p v-for="(item, index) in $parent.player.inventory"
-                :key="index">{{ item.name }} x {{item.qty}}</p>
+                :key="index">{{ item.name }} &times; {{item.qty}}</p>
             </div>
         </div>
         <div class="stat">
