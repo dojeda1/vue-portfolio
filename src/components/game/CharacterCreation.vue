@@ -231,12 +231,12 @@ export default {
             // this.$parent.addItem(player.inventory,this.$parent.items[5][5]);
             // this.$parent.addItem(player.inventory,this.$parent.items[5][6]);
             //Valuables
-            this.$parent.addItem(player.inventory,this.$parent.items[6][0]);
-            this.$parent.addItem(player.inventory,this.$parent.items[6][1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[6][0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[6][1]);
             //Unique
-            this.$parent.addItem(player.inventory,this.$parent.items[7][0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[7][0]);
             //Add Stats
-            player.xp+=1000
+            // player.xp+=1000
             // player.specials.push({
             //     name: "Evil Eye",
             //     sprite: '/images/game/evil-eye.png',

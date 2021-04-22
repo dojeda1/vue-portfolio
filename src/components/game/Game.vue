@@ -443,6 +443,9 @@ export default {
                     user.animation = 'idle'
                 },600);
             } else if (item.name == 'Death Scroll') {
+                const move = {
+                    "sprite": "/images/game/spell.png",
+                }
                 if (opponent.type === 'finalBoss') {
                     let damage = Math.ceil(opponent.hp / 3);
                     opponent.hp -= damage;
@@ -451,6 +454,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'damage'
                         $this.note(opponent,-damage)
+                        $this.specialNote(user,move)
                     },300);
                     this.messageBox.push('Death Scroll only did ' + damage + ' damage')
                 } else if (opponent.type === 'boss' || opponent.type === 'endBoss') {
@@ -461,6 +465,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'damage'
                         $this.note(opponent,-damage)
+                        $this.specialNote(user,move)
                     },300);
                     this.messageBox.push('Death Scroll only did ' + damage + ' damage')
                 } else {
@@ -471,10 +476,14 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'damage'
                         $this.note(opponent,-damage)
+                        $this.specialNote(user,move)
                     },300);
                     this.messageBox.push(user.name + ' read from the Death Scroll.')
                 }
             } else if (item.name == 'Flame Scroll') {
+                const move = {
+                    "sprite": "/images/game/spell.png",
+                }
                 const $this = this;
                 let missCheck = this.randNum(1, 100);
                 let luckCheck = (user.luck - opponent.luck) + 10;
@@ -488,6 +497,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'dodge'
                         $this.note(opponent,'miss')
+                        $this.specialNote(user,move)
                     },300);
                     this.messageBox.push(user.name + "'s Fire Scroll missed...");
                 } else {
@@ -498,11 +508,15 @@ export default {
                         opponent.animation = 'damage'
                         opponent.status['Burn'] = 3;
                         $this.note(opponent,-damage)
+                        $this.specialNote(user,move)
                     },300);
                     this.messageBox.push('Flame Scroll did ' + damage + ' damage')
                     this.messageBox.push("- " + opponent.name + " is now Burned. -");
                 }
             } else if (item.name == 'Venom Scroll') {
+                const move = {
+                    "sprite": "/images/game/spell.png",
+                }
                 const $this = this;
                 let missCheck = this.randNum(1, 100);
                 let luckCheck = (user.luck - opponent.luck) + 10;
@@ -516,6 +530,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'dodge'
                         $this.note(opponent,'miss')
+                        $this.specialNote(user,move)
                     },300);
                     this.messageBox.push(user.name + "'s Venom Scroll missed...");
                 } else {
@@ -526,11 +541,15 @@ export default {
                         opponent.animation = 'damage'
                         opponent.status['Poison'] = 3;
                         $this.note(opponent,-damage)
+                        $this.specialNote(user,move)
                     },300);
                     this.messageBox.push('Venom Scroll did ' + damage + ' damage')
                     this.messageBox.push("- " + opponent.name + " is now Poisoned. -");
                 }
             } else if (item.name == 'Blood Scroll') {
+                const move = {
+                    "sprite": "/images/game/spell.png",
+                }
                 const $this = this;
                 let missCheck = this.randNum(1, 100);
                 let luckCheck = (user.luck - opponent.luck) + 10;
@@ -544,6 +563,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'dodge'
                         $this.note(opponent,'miss')
+                        $this.specialNote(user,move)
                     },300);
                     this.messageBox.push(user.name + "'s Blood Scroll missed...");
                 } else {
@@ -554,11 +574,15 @@ export default {
                         opponent.animation = 'damage'
                         opponent.status['Bleed'] = 3;
                         $this.note(opponent,-damage)
+                        $this.specialNote(user,move)
                     },300);
                     this.messageBox.push('Blood Scroll did ' + damage + ' damage')
                     this.messageBox.push("- " + opponent.name + " is now Bleeding. -");
                 }
             } else if (item.name == 'Head of Asteroth') {
+                const move = {
+                    "sprite": "/images/game/evil-eye.png",
+                }
                 let damage = opponent.hp - 5;
                 if (damage < 0) {
                     damage = 0;
@@ -568,7 +592,8 @@ export default {
                 const $this = this;
                 setTimeout(function() {
                     opponent.animation = 'damage'
-                    $this.note(opponent,-damage)
+                    $this.note(opponent,-damage);
+                    $this.specialNote(user,move)
                 },300);
                 this.messageBox.push('The eyes of Asteroth bring ' + opponent.name + ' to the brink of death.')
             } else if (item.name == 'Health Elixir') {
