@@ -266,6 +266,10 @@ export default {
             //     cost: 1,
             //     active: true
             // })
+            player.status['Berserk'] = 5;
+            player.status['Burn'] = 5;
+            player.status['Poison'] = 5;
+            player.status['Bleed'] = 5;
 
             player.animation = 'idle';
 

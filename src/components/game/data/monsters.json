@@ -18,9 +18,9 @@
             "specials": [],
             "status": {
                 "Berserk": 0,
-                "Bleed": 0,
+                "Bleed": 3,
                 "Burn": 0,
-                "Poison": 0
+                "Poison": 3
             },
             "gold": 10
         },

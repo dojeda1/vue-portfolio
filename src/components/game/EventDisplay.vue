@@ -46,12 +46,9 @@
                     'text-gray': $parent.player.hp <= 0}">
                     {{ $parent.player.gold }}g</span>
                 </p>
-                <p>
-                    <template v-for="(value, key) in $parent.player.status" :key="key">
-                        <span v-if="value > 0" class="text-gold"
-                        :class="{'text-gray': $parent.player.hp <= 0}">
-                        {{ key }}: {{value}},</span>
-                    </template>
+                <p class="text-gold"
+                :class="{'text-gray': $parent.player.hp <= 0}">
+                    {{statusList($parent.player)}}
                 </p>
             </div>
         </div>
@@ -98,11 +95,9 @@
                         'text-gray': $parent.currentEnemy.hp <= 0}">
                         MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.mpMax }}</span>
                     </p>
-                    <p>
-                        <template v-for="(value, key) in $parent.currentEnemy.status" :key="key">
-                        <span v-if="value > 0" class="text-gold"
-                        :class="{'text-gray': $parent.currentEnemy.hp <= 0}">
-                        {{ key }}: {{value}},</span>                        </template>
+                    <p class="text-gold"
+                    :class="{'text-gray': $parent.currentEnemy.hp <= 0}">
+                        {{statusList($parent.currentEnemy)}}
                     </p>
                 </div>
             </template>
@@ -157,6 +152,16 @@ export default {
         log(msg) {
             console.log('Log:',msg);
         },
+        statusList(character) {
+            var list = [];
+            for (const effect in character.status) {
+                if (character.status[effect] > 0) {
+                    // list.push(`${effect}: ${character.status[effect]}`)
+                    list.push(effect)
+                }
+            }
+            return list.join(', ')
+        }
     },
     created: function() {
         this.$parent.messageBox = [];
