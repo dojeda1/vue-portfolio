@@ -262,6 +262,14 @@ button i {
     /* text-align: left; */
     padding: 10px;
 }
+.enter-left {
+    /* text-align: left; */
+    animation-name: enter-left;
+    animation-timing-function: ease;
+    transform-origin: bottom;
+    animation-duration: .3s;
+    animation-iteration-count: 1;
+}
 .event-display .display-text {
     margin: 1rem 0;
 }
@@ -270,6 +278,7 @@ button i {
 }
 .game-sprite {
     width: 64px;
+    height: 64px;
     image-rendering: optimizeSpeed;
     image-rendering: -moz-crisp-edges;
     image-rendering: -o-crisp-edges;
@@ -517,6 +526,11 @@ button i {
 @keyframes attack-left {
     0%   { transform: translateX(0); }
     50%  { transform: translateX(-64px) scaleY(.8) scaleX(1.2); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes enter-left {
+    0%   { transform: translateX(64px); }
     100% { transform: translateX(0); }
 }
 

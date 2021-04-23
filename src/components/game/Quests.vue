@@ -1,7 +1,7 @@
 <template>
     <template v-if="task == 'questBoard' && !$parent.$parent.menu">
         <p>{{$parent.infoText}}</p>
-        <div class="quest-board">
+        <div v-if="$parent.questBoard.length > 0" class="quest-board">
             <div class="quest"
             v-for="(quest, index) in $parent.questBoard"
             :key="index"
@@ -51,9 +51,11 @@
                 {{ msg }}
             </p>
         </div>
-        <p v-if="$parent.location == 'Town'">Your Quests</p>
+
+        <p v-if="$parent.player.quests.length == 0">You have no Quests.</p>
+        <p v-else-if="$parent.location == 'Town'">Your Quests</p>
         <p v-else>Visit Town to Redeem</p>
-        <div class="quest-board">
+        <div v-if="$parent.player.quests.length > 0" class="quest-board">
             <div class="quest"
             v-for="(quest, index) in $parent.player.quests"
             :key="index"

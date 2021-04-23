@@ -50,12 +50,19 @@ export default {
             console.log('Log:',msg);
         },
         handleExplore() {
+            this.$parent.player.animation = 'walk';
+            this.playerTurn = false;
             const exploreCheck = this.$parent.randNum(1, 4)
-            if (exploreCheck == 1) {
-                this.$parent.chestEncounter();
-            } else {
-                this.$parent.viciousEncounter();
-            }
+            const $this = this;
+            setTimeout(function() {
+                $this.$parent.player.animation = 'idle';
+                $this.playerTurn = true;
+                if (exploreCheck == 1) {
+                    $this.$parent.chestEncounter();
+                } else {
+                    $this.$parent.viciousEncounter();
+                }
+            },600)
         },
         handleBack() {
             this.task = 'castle';

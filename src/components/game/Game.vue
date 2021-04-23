@@ -103,6 +103,7 @@ export default {
             scene: "TitleScreen",
             location: "Title Screen",
             movingForward: false,
+            newEvent: false,
             player: {},
             currentEnemy: {},
             currentEncounter: {},
@@ -197,6 +198,13 @@ export default {
             this.resetMerchant()
             this.resetQuestBoard()
             console.log('P1:',this.player)
+        },
+        enterEvent() {
+            this.newEvent = true;
+            const $this = this;
+            setTimeout(function() {
+                $this.newEvent = false;
+            },300)
         },
         changeScene(nextScene) {
             this.scene = nextScene;
@@ -385,7 +393,7 @@ export default {
             character.specialSprite = special.sprite;
             setTimeout(function() {
                 character.specialSprite = ''
-            },100);
+            },150);
         },
         activateItem(user, opponent, item) {
             const itemName = item.name;
@@ -660,6 +668,7 @@ export default {
         },
         killQuestCheck(enemy) {
             let quests = this.player.quests;
+            let questComplete = false;
             quests.forEach(quest => {
                 if (quest.type == "kill" && quest.count < quest.goal && quest.region == this.regions[this.region].name) {
                     console.log("kill Quest: " + enemy.name);
@@ -680,11 +689,16 @@ export default {
                         console.log("not correct enemy.")
                     }
                 }
-            })
+                if (quest.count >= quest.goal) {
+                    questComplete = true;
+                }
+            });
+            this.$parent.questComplete = questComplete;
         },
         fetchQuestCheck(itemName) {
             let player = this.player;
             let quests = player.quests;
+            let questComplete = false;
             quests.forEach(quest => {
                 if (quest.type == "fetch" && itemName == quest.task) {
                     let qty = 0;
@@ -703,7 +717,11 @@ export default {
                     quest.count = qty
                     console.log("quest count: " + quest.count)
                 }
+                if (quest.count >= quest.goal) {
+                    questComplete = true;
+                }
             })
+            this.$parent.questComplete = questComplete;
             console.log(quests);
         },
         statusCheck(user) {
@@ -749,6 +767,7 @@ export default {
             this.currentEncounter = JSON.parse(JSON.stringify(this.encounters[2]));
             usedItem ? this.message = "Map lead you to a Dungeon!" : this.message = "You discovered a Dungeon!";
             this.changeScene('DungeonEncounter');
+            this.enterEvent();
         },
         monsterEncounter(ambushed) {
             let rangeNum = 0;
@@ -788,6 +807,7 @@ export default {
             this.addEnemyItems(enemy);
 
             this.changeScene('Battle')
+            this.enterEvent();
 
             console.log('Enemy:',this.currentEnemy);
         },
@@ -841,6 +861,7 @@ export default {
             this.addEnemyItems(enemy);
 
             this.changeScene('Battle')
+            this.enterEvent();
 
             console.log('Enemy:',this.currentEnemy);
         },
@@ -865,6 +886,7 @@ export default {
 
             // console.log(this.state.currentEnemy);
             this.changeScene('Battle')
+            this.enterEvent();
 
             console.log('Enemy:',this.currentEnemy);
         },
@@ -909,6 +931,7 @@ export default {
             this.currentEncounter = JSON.parse(JSON.stringify(encounters[0]));
             this.message = "You found a chest!"
             this.changeScene('ChestEncounter');
+            this.enterEvent();
         },
         merchantEncounter() {
             this.currentEncounter = JSON.parse(JSON.stringify(this.encounters[6]));
@@ -916,6 +939,7 @@ export default {
             this.message = "You came across a Traveling Merchant!"
             this.currentEncounter.animation = 'idle'
             this.changeScene('Shop');
+            this.enterEvent();
         },
     },
     created: function() {

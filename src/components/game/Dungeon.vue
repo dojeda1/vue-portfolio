@@ -50,16 +50,23 @@ export default {
             console.log('Log:',msg);
         },
         handleExplore() {
+            this.$parent.player.animation = 'walk';
+            this.playerTurn = false;
             const exploreCheck = this.$parent.randNum(1, 10)
-            if (exploreCheck <= 2) {
-                this.$parent.chestEncounter();
-            } else if (exploreCheck <= 5) {
-                this.$parent.viciousEncounter();
-            } else if (exploreCheck == 6) {
-                this.$parent.merchantEncounter();
-            } else {
-                this.$parent.monsterEncounter();
-            }
+            const $this = this;
+            setTimeout(function() {
+                $this.$parent.player.animation = 'idle';
+                $this.playerTurn = true;
+                if (exploreCheck <= 2) {
+                    $this.$parent.chestEncounter();
+                } else if (exploreCheck <= 5 && $this.$parent.player.level > 1) {
+                    $this.$parent.viciousEncounter();
+                } else if (exploreCheck == 6) {
+                    $this.$parent.merchantEncounter();
+                } else {
+                    $this.$parent.monsterEncounter();
+                }
+            },600)
         },
         handleBack() {
             this.task = 'dungeon';
@@ -135,6 +142,7 @@ export default {
 
             // console.log(this.state.currentEnemy);
             this.$parent.changeScene('Battle')
+            this.enterEvent();
 
             console.log('Enemy:',this.$parent.currentEnemy);
         }

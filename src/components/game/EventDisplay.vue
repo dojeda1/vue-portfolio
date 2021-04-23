@@ -57,7 +57,7 @@
         </div>
         <div class="right-display">
             <template v-if="$parent.scene == 'Battle'">
-                <div class="sprite-container">
+                <div class="sprite-container" :class="{'enter-left': $parent.newEvent}">
                     <span class="note"
                     :class="{ 'item-rise': $parent.currentEnemy.note != ''}"
                     >{{$parent.currentEnemy.note}}</span>
@@ -112,7 +112,7 @@
             || $parent.scene == 'Tavern'
             || $parent.scene == 'WordGuess'
             || $parent.scene == 'DungeonEncounter'">
-                <div class="sprite-container">
+                <div class="sprite-container" :class="{'enter-left': $parent.newEvent}">
                     <span class="note"
                     :class="{ 'item-rise': $parent.currentEncounter.note != ''}"
                     >{{$parent.currentEncounter.note}}</span>

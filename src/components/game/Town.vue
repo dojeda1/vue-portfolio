@@ -115,12 +115,14 @@ export default {
             this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[4]));
             this.$parent.currentEncounter.animation = 'idle'
             this.$parent.changeScene('Shop');
+            this.$parent.enterEvent();
         },
         handleTavern() {
             this.$parent.message = 'You entered the Tavern.'
             this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[5]));
             this.$parent.currentEncounter.animation = 'idle'
             this.$parent.changeScene('Tavern');
+            this.$parent.enterEvent();
         },
         handleUseItem() {
             if (this.$parent.player.inventory.length) {
@@ -147,6 +149,7 @@ export default {
             this.$parent.message = 'You viewed the Quest Board.'
             this.$parent.currentEncounter = JSON.parse(JSON.stringify(this.$parent.encounters[3]));
             this.$parent.changeScene('Quests');
+            this.$parent.enterEvent();
             if (!this.$parent.questBoard.length) {
                 this.$parent.infoText = "There are no more Quests at this time."
             } else {

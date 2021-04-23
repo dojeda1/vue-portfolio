@@ -39,6 +39,7 @@ export default {
     return {
       code: '< / >',
       playingGame: false,
+      questComplete: false,
       menu: false
     }
   },

@@ -13,7 +13,7 @@
       </template>
       <template v-else>
         <div class="nav-link" :class="{'selected' : $parent.menu == 'Save'}" @click="saveToggled">Save</div>
-        <div class="nav-link" :class="{'selected' : $parent.menu == 'Quests'}" @click="questsToggled">Quests</div>
+        <div class="nav-link" :class="{'selected' : $parent.menu == 'Quests', 'notification': $parent.questComplete}" @click="questsToggled">Quests</div>
         <div class="nav-link" :class="{'selected' : $parent.menu == 'Stats'}" @click="statsToggled">Stats</div>
         <div class="nav-link text-gray" :class="{'selected' : $parent.menu == 'Quit'}" @click="quitToggled">{{code}}</div>
       </template>
@@ -104,6 +104,17 @@ export default {
   #nav .nav-link.selected {
       color: #8dc63f;
       border-right: #8dc63f 5px solid;
+  }
+
+  .notification::after {
+    display: inline-block;
+    content: '';
+    margin-left: 5px;
+    margin-right: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: gold;
   }
 
   #nav .nav-logo {
