@@ -43,6 +43,7 @@ export default {
             this.$parent.message = "You left the Old Aventurer behind."
             this.$parent.messageBox = []
             if (this.$parent.movingForward == true) {
+                this.playerTurn = false;
                 this.$parent.moveForward();
             } else {
                 this.$parent.changeScene('Wild');

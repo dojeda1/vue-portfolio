@@ -95,6 +95,7 @@ export default {
                 if (this.$parent.region == 1 && !this.$parent.regions[2].discovered) {
                     this.$parent.adventurerEncounter();
                 } else {
+                    this.playerTurn = false;
                     this.$parent.moveForward();
                 }
             } else {
