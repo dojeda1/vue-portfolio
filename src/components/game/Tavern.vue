@@ -39,7 +39,7 @@ export default {
             // const player = this.$parent.player
             // if (player.hp < player.hpMax || player.mp < player.mpMax) {
                 const cost = 8;
-                this.$parent.message = 'It costs ' + cost + 'g for a mead.'
+                this.$parent.message = 'It costs ' + cost + 'g for a mead. Removes 1 negative status effect.'
                 this.task = 'mead';
             // } else {
             //     this.$parent.message = 'You are already at full Health and Mana.'
@@ -50,6 +50,7 @@ export default {
             const cost = 8;
             const $this = this
             if (player.gold >= cost) {
+                this.$parent.messageBox = [];
                 player.gold = player.gold - cost;
                 player.hp += 10;
                 player.mp += 5;
@@ -58,6 +59,16 @@ export default {
                 }
                 if (player.mp > player.mpMax) {
                     player.mp = player.mpMax;
+                }
+                if (player.status['Burn'] > 0) {
+                    player.status['Burn'] = 0;
+                    this.$parent.messageBox.push('Burn removed.')
+                } else if(player.status['Bleed'] > 0) {
+                    player.status['Bleed'] = 0;
+                    this.$parent.messageBox.push('Bleed removed.')
+                } else if(player.status['Poison'] > 0) {
+                    player.status['Poison'] = 0;
+                    this.$parent.messageBox.push('Poison removed.')
                 }
                 this.$parent.meadCount++
                 const meadNum = this.$parent.meadCount;
@@ -118,6 +129,7 @@ export default {
         },
         handleLeave() {
             this.$parent.message = "You left the Tavern."
+            this.$parent.messageBox = [];
             this.$parent.changeScene('Town');
         },
         handleBack() {

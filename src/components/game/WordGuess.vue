@@ -122,6 +122,7 @@ export default {
         },
         handleLeave() {
             this.$parent.message = "You decided against it."
+            this.$parent.messageBox = [];
             this.$parent.changeScene('Tavern');
         },
         handleGiveUp() {

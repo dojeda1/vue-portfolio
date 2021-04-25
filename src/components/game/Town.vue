@@ -66,6 +66,7 @@ export default {
         },
         handleLeaveTown() {
             this.$parent.message = "You left town."
+            this.$parent.messageBox = [];
             var $this = this
             $this.playerTurn = false
             $this.$parent.player.animation = 'walk'
@@ -79,7 +80,7 @@ export default {
             const player = this.$parent.player
             if (player.hp < player.hpMax || player.mp < player.mpMax) {
                 const cost = 10 + (player.level - 2) * 2;
-                this.$parent.message = 'It costs ' + cost + 'g to stay the night.'
+                this.$parent.message = 'It costs ' + cost + 'g to stay the night. Recovers max HP and MP.'
                 this.task = 'inn';
             } else {
                 this.$parent.message = 'You are already at full Health and Mana.'

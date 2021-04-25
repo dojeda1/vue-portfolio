@@ -108,6 +108,7 @@ export default {
         },
         handleLeave() {
             this.$parent.message = "You left the Quest Board."
+            this.$parent.messageBox = [];
             this.$parent.changeScene('Town');
         },
         handleBack() {

@@ -24,10 +24,12 @@ export default {
         handleEnter() {
             this.$parent.dungeonCount = 0;
             this.$parent.message = "You step into the dungeon."
+            this.$parent.messageBox = [];
             this.$parent.changeScene('Dungeon');
         },
         handleBack() {
             this.$parent.message = "You left the dungeon behind."
+            this.$parent.messageBox = [];
             this.$parent.changeScene('Wild');
         }
     },

@@ -38,6 +38,7 @@ export default {
         },
         handleBack() {
             this.$parent.message = "You left the chest behind."
+            this.$parent.messageBox = [];
             if (this.$parent.location == 'Wild') {
                 this.$parent.changeScene('Wild');
             } else if (this.$parent.location == 'Dungeon') {
