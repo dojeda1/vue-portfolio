@@ -44,8 +44,8 @@
             </p>
         </div>
         <div class="stat">
-            <h5>Special Moves</h5>
-            <template v-for="(move, index) in $parent.player.specials"
+            <h5>Abilities</h5>
+            <template v-for="(move, index) in $parent.player.abilities"
             :key="index">
                 <p v-if="move.active">{{ move.name }} - {{move.cost}}mp</p>
             </template>
@@ -65,14 +65,14 @@
             <p>Dungeons Completed: {{$parent.player.totalDungeons}}</p>
         </div>
         <div class="title">
-            <h5>Completion: {{completionNum}}%</h5>
+            <h5 :class="{'text-blue': completionNum >= 100}">Completion: {{completionNum}}%</h5>
         </div>
         <div class="region" v-for="(region, index) in $parent.regions"
             :key="index">
                 <h5 v-if="region.discovered">{{ region.name }}</h5>
                 <h5 v-else>???</h5>
-                <p>End Bosses Defeated: {{region.endBossKills}}/1</p>
-                <p>Dungeon Bosses Killed: {{region.bossKills}}/{{$parent.bosses[index].length}}</p>
+                <p :class="{'text-blue': region.endBossKills >= 1}">End Bosses Defeated: {{region.endBossKills}}/1</p>
+                <p :class="{'text-blue': region.bossKills >= $parent.bosses[index].length}">Dungeon Bosses Killed: {{region.bossKills}}/{{$parent.bosses[index].length}}</p>
         </div>
     </div>
     <p>

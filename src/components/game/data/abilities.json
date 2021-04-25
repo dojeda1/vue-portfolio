@@ -1,0 +1,53 @@
+[
+    {
+        "name": "Axe Strike",
+        "sprite": "/images/game/strike.png",
+        "cost": 6,
+        "active": false
+    },
+    {
+        "name": "Berserk",
+        "cost": 8,
+        "active": false
+    },
+    {
+        "name": "Fireball",
+        "sprite": "/images/game/fireball.png",
+        "cost": 8,
+        "active": false
+    },
+    {
+        "name": "Heal",
+        "cost": 10,
+        "active": false
+    },
+    {
+        "name": "Poison Dagger",
+        "sprite": "/images/game/strike.png",
+        "cost": 6,
+        "active": false
+    },
+    {
+        "name": "Steal",
+        "cost": 10,
+        "active": false
+    },
+    {
+        "name": "Poison Fang",
+        "sprite": "/images/game/bite.png",
+        "cost": 6,
+        "active": false
+    },
+    {
+        "name": "Bite",
+        "sprite": "/images/game/bite.png",
+        "cost": 6,
+        "active": false
+    },
+    {
+        "name": "Evil Eye",
+        "sprite": "/images/game/bite.png",
+        "cost": 10,
+        "active": false
+    }
+]

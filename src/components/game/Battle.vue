@@ -4,26 +4,26 @@
         <p>
             <button class="btn-blue" @click="handleAttack" :class="{ 'disabled' : !playerTurn}">Attack</button>
         </p>
-        <!-- <template v-if="$parent.player.special1.active">
+        <!-- <template v-if="$parent.player.ability1.active">
             <p>
-                <button class="btn-blue" @click="handleSpecial($parent.player.special1)"
-                :class="{ 'disabled' : !playerTurn || $parent.player.special1.cost > $parent.player.mp}">
-                {{$parent.player.special1.name}} - {{$parent.player.special1.cost}} mp</button>
+                <button class="btn-blue" @click="handleAbility($parent.player.ability1)"
+                :class="{ 'disabled' : !playerTurn || $parent.player.ability1.cost > $parent.player.mp}">
+                {{$parent.player.ability1.name}} - {{$parent.player.ability1.cost}} mp</button>
             </p>
         </template>
-        <template v-if="$parent.player.special2.active">
+        <template v-if="$parent.player.ability2.active">
             <p>
-                <button class="btn-blue" @click="handleSpecial($parent.player.special2)"
-                :class="{ 'disabled' : !playerTurn || $parent.player.special2.cost > $parent.player.mp}">
-                {{$parent.player.special2.name}} - {{$parent.player.special1.cost}} mp</button>
+                <button class="btn-blue" @click="handleAbility($parent.player.ability2)"
+                :class="{ 'disabled' : !playerTurn || $parent.player.ability2.cost > $parent.player.mp}">
+                {{$parent.player.ability2.name}} - {{$parent.player.ability1.cost}} mp</button>
             </p>
         </template> -->
-        <template v-for="(special, index) in $parent.player.specials" :key="index">
-            <template v-if="special.active">
+        <template v-for="(ability, index) in $parent.player.abilities" :key="index">
+            <template v-if="ability.active">
                 <p>
-                    <button class="btn-blue" @click="handleSpecial(special)"
-                    :class="{ 'disabled' : !playerTurn || special.cost > $parent.player.mp}">
-                    {{special.name}} - {{special.cost}} mp</button>
+                    <button class="btn-blue" @click="handleAbility(ability)"
+                    :class="{ 'disabled' : !playerTurn || ability.cost > $parent.player.mp}">
+                    {{ability.name}} - {{ability.cost}} mp</button>
                 </p>
             </template>
         </template>
@@ -92,21 +92,11 @@ export default {
         handleNext() {
             console.log('movingUP:',this.$parent.movingForward)
             if (this.$parent.movingForward == true) {
-                console.log('Move On')
-                this.$parent.movingForward = false;
-                this.$parent.player.animation = 'walk'
-                this.playerTurn = false
-                const $this = this;
-                setTimeout(function() {
-                    $this.$parent.messageBox = [];
-                    $this.task = 'wild'
-                    $this.$parent.region++
-                    $this.$parent.regions[$this.$parent.region].discovered = true;
-                    $this.$parent.message = 'You moved on to the ' + $this.$parent.regions[$this.$parent.region].name
-                    $this.$parent.player.animation = 'idle'
-                    $this.playerTurn = true
-                    $this.$parent.changeScene('Wild');
-                },1200)
+                if (this.$parent.region == 1 && !this.$parent.regions[2].discovered) {
+                    this.$parent.adventurerEncounter();
+                } else {
+                    this.$parent.moveForward();
+                }
             } else {
                 console.log('Stay')
                 this.$parent.messageBox = [];
@@ -160,15 +150,15 @@ export default {
         },
         enemyTurn(player, enemy) {
             this.deathCheck();
-            var specialAxeStrike = this.$parent.findSpecial(enemy.specials,"Axe Strike");
-            var specialBerserk = this.$parent.findSpecial(enemy.specials,"Berserk");
-            var specialFireball = this.$parent.findSpecial(enemy.specials,"Fireball");
-            var specialHeal = this.$parent.findSpecial(enemy.specials,"Heal");
-            var specialDaggerSlash = this.$parent.findSpecial(enemy.specials,"Dagger Slash");
-            var specialSteal = this.$parent.findSpecial(enemy.specials,"Steal");
-            var specialBite = this.$parent.findSpecial(enemy.specials,"Bite");
-            var specialPoisonFang = this.$parent.findSpecial(enemy.specials,"Poison Fang");
-            var specialEvilEye = this.$parent.findSpecial(enemy.specials,"Evil Eye");
+            var abilityAxeStrike = this.$parent.findAbility(enemy.abilities,"Axe Strike");
+            var abilityBerserk = this.$parent.findAbility(enemy.abilities,"Berserk");
+            var abilityFireball = this.$parent.findAbility(enemy.abilities,"Fireball");
+            var abilityHeal = this.$parent.findAbility(enemy.abilities,"Heal");
+            var abilityPoisonDagger = this.$parent.findAbility(enemy.abilities,"Poison Dagger");
+            var abilitySteal = this.$parent.findAbility(enemy.abilities,"Steal");
+            var abilityBite = this.$parent.findAbility(enemy.abilities,"Bite");
+            var abilityPoisonFang = this.$parent.findAbility(enemy.abilities,"Poison Fang");
+            var abilityEvilEye = this.$parent.findAbility(enemy.abilities,"Evil Eye");
             var item;
 
             if (!player.isDead && !enemy.isDead) {
@@ -179,35 +169,35 @@ export default {
                 } else if (this.$parent.randNum(1,5) == 1 && enemy.mp < enemy.mpMax/2 && this.$parent.findItem(enemy.inventory,"Mana Potion")) {
                     item = this.$parent.findItem(enemy.inventory,"Mana Potion");
                     this.$parent.activateItem(enemy,player,item)
-                } else if (this.$parent.randNum(1,2) == 1 && specialEvilEye && enemy.mp >= specialEvilEye.cost && enemy.hp <= enemy.hpMax/3) {
-                    this.special(enemy, player, specialEvilEye);
-                } else if (this.$parent.randNum(1,3) == 1 && specialHeal && enemy.mp >= specialHeal.cost && enemy.hp <= enemy.hpMax/4) {
-                    this.special(enemy, player, specialHeal);
-                } else if (this.$parent.randNum(1,6) == 1 && specialBerserk && enemy.mp >= specialBerserk.cost && enemy.status['Berserk'] <= 0) {
-                    this.special(enemy, player, specialBerserk);
-                } else if (this.$parent.randNum(1,3) == 1 && specialSteal && enemy.mp >= specialSteal.cost && player.inventory.length > 0) {
-                    this.special(enemy, player, specialSteal);
-                } else if (this.$parent.randNum(1,3) == 1 && specialAxeStrike && enemy.mp >= specialAxeStrike.cost) {
-                    this.special(enemy, player, specialAxeStrike);
-                } else if (this.$parent.randNum(1,3) == 1 && specialFireball && enemy.mp >= specialFireball.cost) {
-                    this.special(enemy, player, specialFireball);
-                } else if (this.$parent.randNum(1,3) == 1 && specialDaggerSlash && enemy.mp >= specialDaggerSlash.cost) {
-                    this.special(enemy, player, specialDaggerSlash);
-                } else if (this.$parent.randNum(1,3) == 1 && specialBite && enemy.mp >= specialBite.cost) {
-                    this.special(enemy, player, specialBite);
-                } else if (this.$parent.randNum(1,3) == 1 && specialPoisonFang && enemy.mp >= specialPoisonFang.cost) {
-                    this.special(enemy, player, specialPoisonFang);
+                } else if (this.$parent.randNum(1,2) == 1 && abilityEvilEye && enemy.mp >= abilityEvilEye.cost && enemy.hp <= enemy.hpMax/3) {
+                    this.ability(enemy, player, abilityEvilEye);
+                } else if (this.$parent.randNum(1,3) == 1 && abilityHeal && enemy.mp >= abilityHeal.cost && enemy.hp <= enemy.hpMax/4) {
+                    this.ability(enemy, player, abilityHeal);
+                } else if (this.$parent.randNum(1,6) == 1 && abilityBerserk && enemy.mp >= abilityBerserk.cost && enemy.status['Berserk'] <= 0) {
+                    this.ability(enemy, player, abilityBerserk);
+                } else if (this.$parent.randNum(1,3) == 1 && abilitySteal && enemy.mp >= abilitySteal.cost && player.inventory.length > 0) {
+                    this.ability(enemy, player, abilitySteal);
+                } else if (this.$parent.randNum(1,3) == 1 && abilityAxeStrike && enemy.mp >= abilityAxeStrike.cost) {
+                    this.ability(enemy, player, abilityAxeStrike);
+                } else if (this.$parent.randNum(1,3) == 1 && abilityFireball && enemy.mp >= abilityFireball.cost) {
+                    this.ability(enemy, player, abilityFireball);
+                } else if (this.$parent.randNum(1,3) == 1 && abilityPoisonDagger && enemy.mp >= abilityPoisonDagger.cost) {
+                    this.ability(enemy, player, abilityPoisonDagger);
+                } else if (this.$parent.randNum(1,3) == 1 && abilityBite && enemy.mp >= abilityBite.cost) {
+                    this.ability(enemy, player, abilityBite);
+                } else if (this.$parent.randNum(1,3) == 1 && abilityPoisonFang && enemy.mp >= abilityPoisonFang.cost) {
+                    this.ability(enemy, player, abilityPoisonFang);
                 } else {
                     this.attack(enemy, player);
                 }
                 this.deathCheck();
             }
         },
-        handleSpecial($special) {
-            const cost = $special.cost
-            const name = $special.name;
+        handleAbility($ability) {
+            const cost = $ability.cost
+            const name = $ability.name;
             const $this = this;
-            console.log("Special: " + name + " " + cost);
+            console.log("Ability: " + name + " " + cost);
             if (name === "Heal" && this.$parent.player.hp >= this.$parent.player.hpMax) {
                 this.$parent.message = "You are already at full health."
             } else if (name === "Steal" && !this.$parent.currentEnemy.inventory.length) {
@@ -219,7 +209,7 @@ export default {
                 const player = this.$parent.player;
                 const enemy = this.$parent.currentEnemy;
                 this.$parent.messageBox = [];
-                this.special(player, enemy, $special);
+                this.ability(player, enemy, $ability);
                 setTimeout(function() {
                     $this.enemyTurn(player, enemy);
                 }, 1200);
@@ -300,9 +290,9 @@ export default {
             // this.atkText(attacker, attackMessage);
             // attacker.berserkCheck();
         },
-        special(attacker, defender, $special) {
-            const cost = $special.cost
-            const name = $special.name;
+        ability(attacker, defender, $ability) {
+            const cost = $ability.cost
+            const name = $ability.name;
             const $this = this;
             let attackMessage;
             let statusMessage;
@@ -343,7 +333,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                         attackMessage = attacker.name + "'s Axe missed...";
                     } else if (criticalCheck >= luckCheck) {
@@ -360,7 +350,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
@@ -370,9 +360,9 @@ export default {
                         statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
-                            statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
+                            statusCheck == 1 ? defender.status['Bleed'] = 4 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     }
                     defender.hp -= damage;
@@ -408,7 +398,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     } else if (criticalCheck >= luckCheck) {
                         defense = Math.floor(defense / 4);
@@ -425,7 +415,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Burn'] = 3 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     } else {
                         damage = attacker.will + Math.ceil(attacker.will * 0.5) + berserkNum;
@@ -435,9 +425,9 @@ export default {
                         statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Burned. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
-                            statusCheck == 1 ? defender.status['Burn'] = 3 : null;
+                            statusCheck == 1 ? defender.status['Burn'] = 4 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     }
                     defender.hp -= damage;
@@ -459,10 +449,10 @@ export default {
                     console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
                     if (criticalCheck >= luckCheck) {
                         damage = Math.ceil(attacker.hpMax * 0.75);
-                        attackMessage = attacker.name + " recovered " + damage + " HP.";
+                        attackMessage = attacker.name + " cast Heal. Recovered " + damage + " HP.";
                     } else {
                         damage = attacker.hpMax;
-                        attackMessage = "Wow! " + attacker.name + " recovered max HP.";
+                        attackMessage = "Wow! " + attacker.name + " cast Heal. Recovered max HP.";
                     }
                     this.$parent.note(attacker,'+' + damage)
                     attacker.hp += damage;
@@ -474,7 +464,7 @@ export default {
                     console.log(attackMessage);
                     break;
 
-                case "Dagger Slash":
+                case "Poison Dagger":
                     attacker.animation = 'attack'
                     console.log("rand/CritCheck: " + criticalCheck + "/" + luckCheck);
                     console.log("rand/MissCheck: " + missCheck + "/" + speedCheck);
@@ -491,7 +481,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     } else if (criticalCheck >= luckCheck) {
                         defense = Math.floor(defense / 4);
@@ -502,23 +492,23 @@ export default {
                         }
                         attackMessage = attacker.name + "'s Dagger did " + damage + " damage.";
                         statusCheck = this.$parent.randNum(1,5);
-                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Poisoned. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
-                            statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
+                            statusCheck == 1 ? defender.status['Poison'] = 3 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
                         attackMessage = "Critical hit! " + attacker.name + "'s Dagger did " + damage + " damage.";
                         statusCheck = this.$parent.randNum(1,3);
-                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Poisoned. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
-                            statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
+                            statusCheck == 1 ? defender.status['Poison'] = 4 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     }
                     defender.hp -= damage;
@@ -584,7 +574,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                         attackMessage = attacker.name + "'s Bite missed...";
                     } else if (criticalCheck >= luckCheck) {
@@ -595,25 +585,25 @@ export default {
                             damage = 1;
                         }
                         attackMessage = attacker.name + "'s Bite did " + damage + " damage.";
-                        // statusCheck = this.$parent.randNum(1,5);
-                        // statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
+                        statusCheck = this.$parent.randNum(1,5);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
-                            // statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
+                            statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
                         console.log('S:',attacker.strength,'X:',Math.ceil(attacker.strength * 0.5),'B:',berserkNum,"=",damage)
                         attackMessage = "Critical hit! " + attacker.name + "'s Bite did " + damage + " damage.";
-                        // statusCheck = this.$parent.randNum(1,3);
-                        // statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
+                        statusCheck = this.$parent.randNum(1,3);
+                        statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Bleeding. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
-                            // statusCheck == 1 ? defender.status['Bleed'] = 3 : null;
+                            statusCheck == 1 ? defender.status['Bleed'] = 4 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     }
                     defender.hp -= damage;
@@ -642,7 +632,7 @@ export default {
                         setTimeout(function() {
                             defender.animation = 'dodge'
                             $this.$parent.note(defender,'miss')
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     } else if (criticalCheck >= luckCheck) {
                         defense = Math.floor(defense / 4);
@@ -658,7 +648,7 @@ export default {
                             defender.animation = 'damage'
                             statusCheck == 1 ? defender.status['Poison'] = 3 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     } else {
                         damage = attacker.strength + Math.ceil(attacker.strength * 0.5) + berserkNum;
@@ -667,9 +657,9 @@ export default {
                         statusCheck == 1 ? statusMessage = "- " + defender.name + " is now Poisoned. -" : null;
                         setTimeout(function() {
                             defender.animation = 'damage'
-                            statusCheck == 1 ? defender.status['Poison'] = 3 : null;
+                            statusCheck == 1 ? defender.status['Poison'] = 4 : null;
                             $this.$parent.note(defender,-damage)
-                            $this.$parent.specialNote(attacker,$special)
+                            $this.$parent.abilityNote(attacker,$ability)
                         },300);
                     }
                     defender.hp -= damage;
@@ -692,7 +682,7 @@ export default {
                     setTimeout(function() {
                         defender.animation = 'damage'
                         $this.$parent.note(defender,-damage)
-                        $this.$parent.specialNote(attacker,$special)
+                        $this.$parent.abilityNote(attacker,$ability)
                     },300);
                     this.$parent.messageBox.push(attackMessage);
                     statusMessage ? this.$parent.messageBox.push(statusMessage) : null;
@@ -813,12 +803,12 @@ export default {
 
                 let text = this.$parent.messageBox;
                 text.push("You are now lv. " + player.level + "!");
-                if (player.level == 2) {
-                    player.specials[0].active = true;
-                    text.push("You learned " + player.specials[0].name + "!!!");
-                } else if (player.level == 3) {
-                    player.specials[1].active = true;
-                    text.push("You learned " + player.specials[1].name + "!!!");
+                if (player.level == 2 && !player.abilities[0].active) {
+                    player.abilities[0].active = true;
+                    text.push("You learned " + player.abilities[0].name + "!!!");
+                } else if (player.level == 3 && !player.abilities[1].active) {
+                    player.abilities[1].active = true;
+                    text.push("You learned " + player.abilities[1].name + "!!!");
                 }
                 this.levelUpCheck(player)
             }
@@ -888,22 +878,22 @@ export default {
             if (enemy.type == 'boss' || enemy.type == 'endBoss' || enemy.type == 'finalBoss') {
                 if (enemy.name == 'Bob') {
                     //Old Hat
-                    const item = this.$parent.items[6][0];
+                    const item = this.$parent.items[5][0];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Goblong') {
                     //Defense Elixir
-                    const item = this.$parent.items[5][3];
+                    const item = this.$parent.items[6][3];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Brutus') {
                     //Strength Elixir
-                    const item = this.$parent.items[5][2];
+                    const item = this.$parent.items[6][2];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Xerus') {
                     //Defense Elixir
-                    const item = this.$parent.items[5][3];
+                    const item = this.$parent.items[6][3];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Celene') {
@@ -917,32 +907,32 @@ export default {
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Rigor') {
                     //Speed Elixir
-                    const item = this.$parent.items[5][5];
+                    const item = this.$parent.items[6][5];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Lilith') {
                     //Will Elixir
-                    const item = this.$parent.items[5][4];
+                    const item = this.$parent.items[6][4];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Valdora') {
                     //Luck Elixir
-                    const item = this.$parent.items[5][6];
+                    const item = this.$parent.items[6][6];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Grue') {
                     //Health Elixir
-                    const item = this.$parent.items[5][0];
+                    const item = this.$parent.items[6][0];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Arealus') {
                     //Mana Elixir
-                    const item = this.$parent.items[5][1];
+                    const item = this.$parent.items[6][1];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Asteroth') {
                     //Head of Asteroth
-                    const item = this.$parent.items[7][0];
+                    const item = this.$parent.items[8][0];
                     this.$parent.addItem(player.inventory, item);
                     text.push("You obtained the " + item.name + ".");
                 }

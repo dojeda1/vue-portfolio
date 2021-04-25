@@ -5,9 +5,9 @@
     "type": "player",
     "sprite": "",
     "itemSprite": "",
-    "specialSprite": "",
+    "abilitySprite": "",
     "note": "",
-    "specials": [],
+    "abilities": [],
     "status": {
         "Berserk": 0,
         "Bleed": 0,

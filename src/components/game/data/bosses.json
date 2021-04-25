@@ -6,7 +6,7 @@
             "type": "boss",
             "sprite": "/images/game/bob.png",
             "itemSprite": "",
-            "specialSprite": "",
+            "abilitySprite": "",
             "hpMax": 40,
             "mpMax": 12,
             "strength": 9,
@@ -16,13 +16,8 @@
             "luck": 6,
             "xp": 40,
             "inventory": [],
-            "specials": [
-                {
-                    "name": "Dagger Slash",
-                    "sprite": "/images/game/strike.png",
-                    "cost": 6,
-                    "active": false
-                }
+            "abilities": [
+                "Poison Dagger"
             ],
             "status": {
                 "Berserk": 0,
@@ -38,7 +33,7 @@
             "type": "boss",
             "sprite": "/images/game/goblong.png",
             "itemSprite": "",
-            "specialSprite": "",
+            "abilitySprite": "",
             "hpMax": 50,
             "mpMax": 18,
             "strength": 15,
@@ -48,18 +43,9 @@
             "luck": 8,
             "xp": 50,
             "inventory": [],
-            "specials": [
-                {
-                    "name": "Axe Strike",
-                    "sprite": "/images/game/strike.png",
-                    "cost": 6,
-                    "active": false
-                },
-                {
-                    "name": "Steal",
-                    "cost": 5,
-                    "active": false
-                }
+            "abilities": [
+                "Axe Strike",
+                "Steal"
             ],
             "status": {
                 "Berserk": 0,
@@ -77,7 +63,7 @@
             "type": "boss",
             "sprite": "/images/game/brutus.png",
             "itemSprite": "",
-            "specialSprite": "",
+            "abilitySprite": "",
             "hpMax": 60,
             "mpMax": 12,
             "strength": 15,
@@ -87,18 +73,9 @@
             "luck": 6,
             "xp": 75,
             "inventory": [],
-            "specials": [
-                {
-                    "name": "Axe Strike",
-                    "sprite": "/images/game/strike.png",
-                    "cost": 6,
-                    "active": false
-                },
-                {
-                    "name": "Berserk",
-                    "cost": 8,
-                    "active": false
-                }
+            "abilities": [
+                "Axe Strike",
+                "Berserk"
             ],
             "status": {
                 "Berserk": 0,
@@ -114,7 +91,7 @@
             "type": "boss",
             "sprite": "/images/game/xerus.png",
             "itemSprite": "",
-            "specialSprite": "",
+            "abilitySprite": "",
             "hpMax": 65,
             "mpMax": 12,
             "strength": 15,
@@ -124,13 +101,8 @@
             "luck": 5,
             "xp": 75,
             "inventory": [],
-            "specials": [
-                {
-                    "name": "Poison Fang",
-                    "sprite": "/images/game/bite.png",
-                    "cost": 6,
-                    "active": false
-                }
+            "abilities": [
+                "Poison Fang"
             ],
             "status": {
                 "Berserk": 0,
@@ -146,7 +118,7 @@
             "type": "boss",
             "sprite": "/images/game/celene.png",
             "itemSprite": "",
-            "specialSprite": "",
+            "abilitySprite": "",
             "hpMax": 70,
             "mpMax": 20,
             "strength": 20,
@@ -156,12 +128,8 @@
             "luck": 6,
             "xp": 100,
             "inventory": [],
-            "specials": [
-                {
-                    "name": "Heal",
-                    "cost": 10,
-                    "active": false
-                }
+            "abilities": [
+                "Heal"
             ],
             "status": {
                 "Berserk": 0,
@@ -179,7 +147,7 @@
             "type": "boss",
             "sprite": "/images/game/rigor.png",
             "itemSprite": "",
-            "specialSprite": "",
+            "abilitySprite": "",
             "hpMax": 85,
             "mpMax": 12,
             "strength": 25,
@@ -189,13 +157,8 @@
             "luck": 5,
             "xp": 100,
             "inventory": [],
-            "specials": [
-                {
-                    "name": "Bite",
-                    "sprite": "/images/game/bite.png",
-                    "cost": 6,
-                    "active": false
-                }
+            "abilities": [
+                "Bite"
             ],
             "status": {
                 "Berserk": 0,
@@ -211,7 +174,7 @@
             "type": "boss",
             "sprite": "/images/game/lilith.png",
             "itemSprite": "",
-            "specialSprite": "",
+            "abilitySprite": "",
             "hpMax": 90,
             "mpMax": 24,
             "strength": 25,
@@ -221,19 +184,9 @@
             "luck": 8,
             "xp": 100,
             "inventory": [],
-            "specials": [
-                {
-                    "name": "Fireball",
-                    "sprite": "/images/game/fireball.png",
-                    "cost": 6,
-                    "active": false
-                },
-                {
-                    "name": "Poison Fang",
-                    "sprite": "/images/game/bite.png",
-                    "cost": 6,
-                    "active": false
-                }
+            "abilities": [
+                "Fireball",
+                "Poison Fang"
             ],
             "status": {
                 "Berserk": 0,
@@ -249,7 +202,7 @@
             "type": "boss",
             "sprite": "/images/game/valdora.png",
             "itemSprite": "",
-            "specialSprite": "",
+            "abilitySprite": "",
             "hpMax": 100,
             "mpMax": 24,
             "strength": 30,
@@ -259,13 +212,9 @@
             "luck": 8,
             "xp": 100,
             "inventory": [],
-            "specials": [
-                {
-                    "name": "Fireball",
-                    "sprite": "/images/game/fireball.png",
-                    "cost": 6,
-                    "active": false
-                }
+            "abilities": [
+                "Fireball",
+                "Bite"
             ],
             "status": {
                 "Berserk": 0,

@@ -116,7 +116,7 @@
         {
             "name": "Venom Scroll",
             "sprite": "/images/game/scroll.png",
-            "order": 21,
+            "order": 22,
             "qty": 1,
             "buy": 40,
             "sell": 20,
@@ -125,7 +125,7 @@
         {
             "name": "Blood Scroll",
             "sprite": "/images/game/scroll.png",
-            "order": 21,
+            "order": 23,
             "qty": 1,
             "buy": 40,
             "sell": 20,
@@ -134,7 +134,7 @@
         {
             "name": "Death Scroll",
             "sprite": "/images/game/scroll.png",
-            "order": 21,
+            "order": 24,
             "qty": 1,
             "buy": 150,
             "sell": 75,
@@ -143,7 +143,7 @@
         {
             "name": "Fairy",
             "sprite": "/images/game/fairy.png",
-            "order": 22,
+            "order": 25,
             "qty": 1,
             "buy": 150,
             "sell": 75,
@@ -153,9 +153,29 @@
     ],
     [
         {
+            "name": "Old Hat",
+            "sprite": "/images/game/hat.png",
+            "order": 31,
+            "qty": 1,
+            "buy": 100,
+            "sell": 80,
+            "info": "An old, but stylish hat. Should be sold."
+        },
+        {
+            "name": "Rare Gem",
+            "sprite": "/images/game/gem.png",
+            "order": 32,
+            "qty": 1,
+            "buy": 120,
+            "sell": 100,
+            "info": "A bright and beautiful gem. Should be sold."
+        }
+    ],
+    [
+        {
             "name": "Health Elixir",
             "sprite": "/images/game/elixir.png",
-            "order": 30,
+            "order": 40,
             "qty": 1,
             "buy": 250,
             "sell": 150,
@@ -165,7 +185,7 @@
         {
             "name": "Mana Elixir",
             "sprite": "/images/game/elixir.png",
-            "order": 31,
+            "order": 41,
             "qty": 1,
             "buy": 250,
             "sell": 150,
@@ -175,7 +195,7 @@
         {
             "name": "Strength Elixir",
             "sprite": "/images/game/elixir.png",
-            "order": 32,
+            "order": 42,
             "qty": 1,
             "buy": 250,
             "sell": 150,
@@ -185,7 +205,7 @@
         {
             "name": "Defense Elixir",
             "sprite": "/images/game/elixir.png",
-            "order": 33,
+            "order": 43,
             "qty": 1,
             "buy": 250,
             "sell": 150,
@@ -195,7 +215,7 @@
         {
             "name": "Will Elixir",
             "sprite": "/images/game/elixir.png",
-            "order": 34,
+            "order": 44,
             "qty": 1,
             "buy": 250,
             "sell": 150,
@@ -205,7 +225,7 @@
         {
             "name": "Speed Elixir",
             "sprite": "/images/game/elixir.png",
-            "order": 35,
+            "order": 45,
             "qty": 1,
             "buy": 250,
             "sell": 150,
@@ -215,7 +235,7 @@
         {
             "name": "Luck Elixir",
             "sprite": "/images/game/elixir.png",
-            "order": 36,
+            "order": 46,
             "qty": 1,
             "buy": 250,
             "sell": 150,
@@ -225,22 +245,64 @@
     ],
     [
         {
-            "name": "Old Hat",
-            "sprite": "/images/game/hat.png",
-            "order": 41,
+            "name": "Axe Strike Tome",
+            "sprite": "/images/game/tome.png",
+            "order": 51,
             "qty": 1,
-            "buy": 100,
-            "sell": 80,
-            "info": "An old, but stylish hat. Should be sold."
+            "buy": 250,
+            "sell": 150,
+            "ability": "Axe Strike",
+            "info": "Learn the Axe Strike ability."
         },
         {
-            "name": "Rare Gem",
-            "sprite": "/images/game/gem.png",
-            "order": 42,
+            "name": "Fireball Tome",
+            "sprite": "/images/game/tome.png",
+            "order": 52,
             "qty": 1,
-            "buy": 120,
-            "sell": 100,
-            "info": "A bright and beautiful gem. Should be sold."
+            "buy": 250,
+            "sell": 150,
+            "ability": "Fireball",
+            "info": "Learn the Fireball ability."
+        },
+        {
+            "name": "Poison Dagger Tome",
+            "sprite": "/images/game/tome.png",
+            "order": 53,
+            "qty": 1,
+            "buy": 250,
+            "sell": 150,
+            "ability": "Poison Dagger",
+            "info": "Learn the Poison Dagger ability."
+        },
+        {
+            "name": "Berserk Tome",
+            "sprite": "/images/game/tome.png",
+            "order": 54,
+            "qty": 1,
+            "buy": 250,
+            "sell": 150,
+            "ability": "Berserk",
+            "info": "Learn the Berserk ability."
+        },
+        {
+            "name": "Heal Tome",
+            "sprite": "/images/game/tome.png",
+            "order": 55,
+            "qty": 1,
+            "buy": 250,
+            "sell": 150,
+            "ability": "Heal",
+            "info": "Learn the Heal ability."
+        },
+        {
+            "name": "Steal Tome",
+            "sprite": "/images/game/tome.png",
+            "order": 56,
+            "qty": 1,
+            "buy": 250,
+            "sell": 150,
+            "ability": "Steal",
+            "info": "Learn the Steal ability."
         }
     ],
     [
@@ -255,6 +317,5 @@
             "goal": 5,
             "info": "Bring any enemy to the brink of death. Recharges after 5 kills."
         }
-
     ]
 ]

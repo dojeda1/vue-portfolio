@@ -132,17 +132,8 @@ export default {
                     will = 0
                     speed = 0
                     luck = 0
-                    player.specials.push({
-                        name: "Axe Strike",
-                        sprite: '/images/game/strike.png',
-                        cost: 6,
-                        active: false
-                    })
-                    player.specials.push({
-                        name: "Berserk",
-                        cost: 8,
-                        active: false,
-                    })
+                    this.$parent.addAbility(player.abilities,'Axe Strike',false)
+                    this.$parent.addAbility(player.abilities,'Berserk',false)
                     break;
                 case "Mage":
                     hpMax = 2
@@ -152,17 +143,8 @@ export default {
                     will = 7
                     speed = 0
                     luck = 1
-                    player.specials.push({
-                        name: "Fireball",
-                        sprite: '/images/game/fireball.png',
-                        cost: 6,
-                        active: false,
-                    })
-                    player.specials.push({
-                        name: "Heal",
-                        cost: 10,
-                        active: false,
-                    })
+                    this.$parent.addAbility(player.abilities,'Fireball',false)
+                    this.$parent.addAbility(player.abilities,'Heal',false)
                     break;
                 case "Rogue":
                     hpMax = 2
@@ -172,17 +154,8 @@ export default {
                     will = 1
                     speed = 2
                     luck = 2
-                    player.specials.push({
-                        name: "Dagger Slash",
-                        sprite: '/images/game/strike.png',
-                        cost: 6,
-                        active: false,
-                    })
-                    player.specials.push({
-                        name: "Steal",
-                        cost: 5,
-                        active: false
-                    })
+                    this.$parent.addAbility(player.abilities,'Poison Dagger',false)
+                    this.$parent.addAbility(player.abilities,'Steal',false)
                     break;
                 default: console.log("error");
             }
@@ -222,54 +195,61 @@ export default {
             // this.$parent.addItem(player.inventory,this.$parent.items[4][3]);
             // this.$parent.addItem(player.inventory,this.$parent.items[4][4]);
             // this.$parent.addItem(player.inventory,this.$parent.items[4][5]);
-            //Elixirs
+            //Valuables
             // this.$parent.addItem(player.inventory,this.$parent.items[5][0]);
             // this.$parent.addItem(player.inventory,this.$parent.items[5][1]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[5][2]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[5][3]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[5][4]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[5][5]);
-            // this.$parent.addItem(player.inventory,this.$parent.items[5][6]);
-            //Valuables
+            //Elixirs
             // this.$parent.addItem(player.inventory,this.$parent.items[6][0]);
             // this.$parent.addItem(player.inventory,this.$parent.items[6][1]);
-            //Unique
+            // this.$parent.addItem(player.inventory,this.$parent.items[6][2]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[6][3]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[6][4]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[6][5]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[6][6]);
+            //Tomes
             // this.$parent.addItem(player.inventory,this.$parent.items[7][0]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[7][1]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[7][2]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[7][3]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[7][4]);
+            // this.$parent.addItem(player.inventory,this.$parent.items[7][5]);
+            //Unique
+            // this.$parent.addItem(player.inventory,this.$parent.items[8][0]);
             //Add Stats
-            // player.xp+=1000
-            // player.specials.push({
+            player.xp+=2000
+            // player.abilities.push({
             //     name: "Evil Eye",
             //     sprite: '/images/game/evil-eye.png',
             //     cost: 1,
             //     active: true
             // })
-            // player.specials.push({
+            // player.abilities.push({
             //     name: "Steal",
             //     cost: 1,
             //     active: true
             // })
-            // player.specials.push({
+            // player.abilities.push({
             //     name: "Axe Strike",
             //     sprite: '/images/game/strike.png',
             //     cost: 1,
             //     active: true
             // })
-            // player.specials.push({
+            // player.abilities.push({
             //     name: "Bite",
             //     sprite: '/images/game/bite.png',
             //     cost: 1,
             //     active: true
             // })
-            // player.specials.push({
+            // player.abilities.push({
             //     name: "Fireball",
             //     sprite: '/images/game/fireball.png',
             //     cost: 1,
             //     active: true
             // })
-            player.status['Berserk'] = 5;
-            player.status['Burn'] = 5;
-            player.status['Poison'] = 5;
-            player.status['Bleed'] = 5;
+            // player.status['Berserk'] = 5;
+            // player.status['Burn'] = 5;
+            // player.status['Poison'] = 5;
+            // player.status['Bleed'] = 5;
 
             player.animation = 'idle';
 
@@ -327,7 +307,6 @@ export default {
     },
     created: function() {
         this.$parent.resetPlayer();
-        this.$parent.resetBosses();
         this.$parent.resetRegion();
         this.$parent.message = 'Hello Adventurer, what is your name?';
         this.$parent.location = 'Character Creation';

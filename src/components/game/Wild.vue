@@ -97,6 +97,7 @@ export default {
             setTimeout(function() {
                 $this.$parent.player.animation = 'idle';
                 $this.playerTurn = true;
+                console.log('EX check:',exploreCheck)
                 if (exploreCheck <= 2) {
                     $this.$parent.chestEncounter();
                 } else if (exploreCheck <= 4) {

@@ -106,6 +106,13 @@ export default {
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }
             if (this.$parent.randNum(1, 4) == 1) {
+                console.log('Add Items 5')
+                const itemNum = this.$parent.randNum(0, this.$parent.items[5].length)
+                const item = this.$parent.items[5][itemNum];
+                this.$parent.addItem(player.inventory, item);
+                text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
+            }
+            if (this.$parent.randNum(1, 50) == 1) {
                 console.log('Add Items 6')
                 const itemNum = this.$parent.randNum(0, this.$parent.items[6].length)
                 const item = this.$parent.items[6][itemNum];
@@ -113,9 +120,9 @@ export default {
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }
             if (this.$parent.randNum(1, 50) == 1) {
-                console.log('Add Items 5')
-                const itemNum = this.$parent.randNum(0, this.$parent.items[5].length)
-                const item = this.$parent.items[5][itemNum];
+                console.log('Add Items 7')
+                const itemNum = this.$parent.randNum(0, this.$parent.items[7].length)
+                const item = this.$parent.items[7][itemNum];
                 this.$parent.addItem(player.inventory, item);
                 text.push("You got " + this.$parent.anA(item.name) + " " + item.name + ".");
             }

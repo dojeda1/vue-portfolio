@@ -98,8 +98,11 @@ export default {
         },
         handleFightBoss() {
             const regionIndex = this.$parent.region;
-            let bossArray = this.$parent.bosses[regionIndex];
-            if (bossArray.length) {
+            console.log('RI:',regionIndex)
+            console.log('Bosses:',this.$parent.bosses)
+            // let bossArray = this.$parent.bosses[regionIndex];
+
+            if (this.$parent.regions[regionIndex].bossKills < this.$parent.bosses[regionIndex].length) {
                 this.bossEncounter();
             } else {
                 this.$parent.viciousEncounter();
@@ -127,7 +130,7 @@ export default {
             }
             // let monNum = this.$parent.randNum(0, rangeNum);
             console.log(rangeNum)
-            let monNum = this.$parent.regions[this.$parent.region].bossKills;
+            let monNum = this.$parent.regions[regionIndex].bossKills;
             this.$parent.currentEnemy = JSON.parse(JSON.stringify(bossArray[monNum]));
             const enemy = this.$parent.currentEnemy;
             const message = alternateMessage || "You encountered " + enemy.name + ", " + enemy.title + ".";
@@ -138,11 +141,12 @@ export default {
             enemy.animation = 'idle';
             enemy.isDead = false
 
+            this.$parent.addEnemyAbilities(enemy);
             this.$parent.addEnemyItems(enemy);
 
             // console.log(this.state.currentEnemy);
             this.$parent.changeScene('Battle')
-            this.enterEvent();
+            this.$parent.enterEvent();
 
             console.log('Enemy:',this.$parent.currentEnemy);
         }

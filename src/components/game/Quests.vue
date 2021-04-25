@@ -155,6 +155,7 @@ export default {
             }
             this.$parent.message = "You earned " + quest.amount + " " + quest.reward + "."
             this.$parent.removeQuest(player.quests, index);
+            this.$parent.fetchQuestCheck('');
         },
         handleAbandon(index) {
             this.$parent.removeQuest(this.$parent.player.quests, index);

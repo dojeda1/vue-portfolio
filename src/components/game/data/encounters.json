@@ -11,7 +11,7 @@
         "type": "common",
         "sprite": "/images/game/mimic.png",
         "itemSprite": "",
-        "specialSprite": "",
+        "abilitySprite": "",
         "hpMax": 20,
         "mpMax": 10,
         "strength": 2,
@@ -21,13 +21,7 @@
         "luck": 2,
         "xp": 5,
         "inventory": [],
-        "specials": [
-            {
-                "name": "Steal",
-                "cost": 5,
-                "active": false
-            }
-        ],
+        "abilities": ["Steal"],
         "status": {
             "Berserk": 0,
             "Bleed": 0,
@@ -60,5 +54,10 @@
         "name": "Traveling Merchant",
         "type": "common",
         "sprite": "/images/game/merchant.png"
+    },
+    {
+        "name": "Old Adventurer",
+        "type": "common",
+        "sprite": "/images/game/adventurer.png"
     }
 ]

@@ -27,6 +27,7 @@
             <Battle v-if="scene == 'Battle'"/>
             <ChestEncounter v-if="scene == 'ChestEncounter'"/>
             <DungeonEncounter v-if="scene == 'DungeonEncounter'"/>
+            <AdventurerEncounter v-if="scene == 'AdventurerEncounter'"/>
         </template>
         <template v-else>
             <Save v-if="$parent.menu == 'Save'"/>
@@ -57,6 +58,7 @@ import Castle from './Castle.vue'
 import Battle from './Battle.vue'
 import ChestEncounter from './ChestEncounter.vue'
 import DungeonEncounter from './DungeonEncounter.vue'
+import AdventurerEncounter from './AdventurerEncounter.vue'
 
 //JSON Files
 import playerDefault from './data/playerDefault.json';
@@ -68,6 +70,7 @@ import encounters from "./data/encounters.json";
 import monsters from "./data/monsters.json";
 import bosses from "./data/bosses.json";
 import endBosses from "./data/endBosses.json";
+import abilities from "./data/abilities.json";
 import items from "./data/items.json";
 
 import quests from "./data/quests.json";
@@ -91,7 +94,8 @@ export default {
         Castle,
         Battle,
         ChestEncounter,
-        DungeonEncounter
+        DungeonEncounter,
+        AdventurerEncounter
     },
     data() {
         return {
@@ -113,6 +117,7 @@ export default {
             meadCount: 0,
             // playerDefault: playerDefault,
             encounters: encounters,
+            abilities: abilities,
             items: items,
             monsters: monsters,
             bosses: bosses,
@@ -125,11 +130,6 @@ export default {
         },
         resetPlayer() {
             this.player = JSON.parse(JSON.stringify(playerDefault));
-        },
-        resetBosses() {
-            this.player = JSON.parse(JSON.stringify(playerDefault));
-            this.bosses = JSON.parse(JSON.stringify(bosses));
-            this.endBosses = JSON.parse(JSON.stringify(endBosses));
         },
         resetMerchant() {
             let randItem;
@@ -156,20 +156,57 @@ export default {
                 randItem = this.randNum(0, items[3].length);
                 this.addItem(merchant, items[3][randItem]);
             }
+            for (let i = 0; i < this.randNum(1, 2); i++) {
+                console.log('Add Items 4')
+                randItem = this.randNum(0, items[4].length);
+                this.addItem(merchant, items[4][randItem]);
+            }
+            if (this.regions[this.region].kills > 15
+            && this.regions[this.region].bossKills < bosses[this.region].length
+            && !this.findItem(this.player.inventory,'Map')
+            && this.randNum(1, 3) == 1) {
+                this.addItem(merchant, items[4][0]);
+            }
             if (this.currentEncounter.name == "Traveling Merchant") {
-                for (let i = 0; i < this.randNum(1, 3); i++) {
-                    console.log('Add Items 4')
-                    randItem = this.randNum(0, items[4].length);
-                    this.addItem(merchant, items[4][randItem]);
+                if (this.randNum(1, 40) == 1) {
+                    console.log('Add Items 6')
+                    const itemNum = this.randNum(0, items[6].length)
+                    const item = items[6][itemNum];
+                    this.addItem(merchant, item);
                 }
-            } else {
-                for (let i = 0; i < this.randNum(0, 1); i++) {
-                    console.log('Add Items 4')
-                    randItem = this.randNum(0, items[4].length);
-                    this.addItem(merchant, items[4][randItem]);
+                if (this.randNum(1, 40) == 1) {
+                    console.log('Add Items 7')
+                    const itemNum = this.randNum(0, items[7].length)
+                    const item = items[7][itemNum];
+                    this.addItem(merchant, item);
                 }
             }
             console.log('Merchant',this.merchant)
+        },
+        resetAdventurer() {
+            this.merchant = [];
+            if (this.player.class == 'Warrior') {
+                // this.addItem(this.merchant, items[7][0])
+                this.addItem(this.merchant, items[7][1])
+                this.addItem(this.merchant, items[7][2])
+                // this.addItem(this.merchant, items[7][3])
+                this.addItem(this.merchant, items[7][4])
+                this.addItem(this.merchant, items[7][5])
+            } else if (this.player.class == 'Mage') {
+                this.addItem(this.merchant, items[7][0])
+                // this.addItem(this.merchant, items[7][1])
+                this.addItem(this.merchant, items[7][2])
+                this.addItem(this.merchant, items[7][3])
+                // this.addItem(this.merchant, items[7][4])
+                this.addItem(this.merchant, items[7][5])
+            } else if (this.player.class == 'Rogue') {
+                this.addItem(this.merchant, items[7][0])
+                this.addItem(this.merchant, items[7][1])
+                // this.addItem(this.merchant, items[7][2])
+                this.addItem(this.merchant, items[7][3])
+                this.addItem(this.merchant, items[7][4])
+                // this.addItem(this.merchant, items[7][5])
+            }
         },
         resetQuestBoard() {
             let randQuest;
@@ -187,17 +224,18 @@ export default {
         },
         loadGame() {
             console.log('Game Loaded')
-            this.message = 'Your game has been Loaded.';
+            this.message = 'Your game has been Loaded.'
             this.messageBox = [];
             this.player = JSON.parse(localStorage.getItem("player"));
             this.regions = JSON.parse(localStorage.getItem("regions"));
             this.region = JSON.parse(localStorage.getItem("region"));
-            this.bosses = JSON.parse(localStorage.getItem("bosses"));
             this.scene = 'Town'
             this.location = 'Town'
             this.resetMerchant()
             this.resetQuestBoard()
             console.log('P1:',this.player)
+            console.log('R:',this.region)
+            console.log('Rs:',this.regions)
         },
         enterEvent() {
             this.newEvent = true;
@@ -223,24 +261,46 @@ export default {
                 return anA;
             }
         },
-        hasSpecial(arr,name) {
-            let hasSpecial = false;
-            arr.forEach(function(special) {
-                if (special.name == name) {
-                    hasSpecial = true;
-                }
-            })
-            return hasSpecial;
+        moveForward() {
+            console.log('Move On')
+            this.movingForward = false;
+            this.player.animation = 'walk'
+            this.playerTurn = false
+            const $this = this;
+            setTimeout(function() {
+                $this.messageBox = [];
+                $this.region++
+                $this.regions[$this.region].discovered = true;
+                $this.message = 'You moved on to the ' + $this.regions[$this.region].name
+                $this.player.animation = 'idle'
+                $this.playerTurn = true
+                $this.changeScene('Wild');
+            },1200)
         },
-        returnSpecial(arr,name) {
-            var $special;
-            arr.forEach(function(special) {
-                console.log('check...')
-                if (special.name == name) {
-                    $special = special
+        findAbility(moveList, abilityName){
+            let foundAbility = false;
+            moveList.forEach(ability => {
+                if (abilityName === ability.name) {
+                    foundAbility = ability;
                 }
             })
-            return $special
+            return foundAbility
+        },
+        addAbility(toArr,name,active) {
+            console.log(toArr,name,active)
+            let newAbility;
+            if (this.findAbility(toArr,name)) {
+                console.log('had')
+                newAbility = this.findAbility(toArr,name);
+                newAbility.active = active;
+            } else {
+                console.log('not had')
+                newAbility = JSON.parse(JSON.stringify(this.findAbility(abilities,name)));
+                newAbility.active = active;
+                toArr.push(newAbility);
+            }
+            console.log('New Ab:',newAbility);
+            console.log('New P:',this.player);
         },
         findItem(inventory, itemName){
             let foundItem = false;
@@ -250,15 +310,6 @@ export default {
                 }
             })
             return foundItem
-        },
-        findSpecial(moveList, specialName){
-            let foundSpecial = false;
-            moveList.forEach(special => {
-                if (specialName === special.name) {
-                    foundSpecial = special;
-                }
-            })
-            return foundSpecial
         },
         addItem(array, item) {
             const newItem = JSON.parse(JSON.stringify(item));
@@ -340,6 +391,8 @@ export default {
                 setTimeout(function() {
                     $this.player.animation = 'idle';
                 }, 600)
+            } else if (item.name.includes('Tome') && this.findAbility(this.player.abilities,item.ability).active) {
+                this.message = "You've already learned " + item.ability + '.'
             } else if (item.name == 'Fairy' &&  this.player.hp > 0) {
                 this.message = 'Fairy can only be used if dead.'
             } else if (item.name == 'Head of Asteroth' && item.charge > 0) {
@@ -388,11 +441,11 @@ export default {
                 character.itemSprite = ''
             },1000);
         },
-        specialNote(character,special) {
-            console.log('Special Sprite')
-            character.specialSprite = special.sprite;
+        abilityNote(character,ability) {
+            console.log('Ability Sprite')
+            character.abilitySprite = ability.sprite;
             setTimeout(function() {
-                character.specialSprite = ''
+                character.abilitySprite = ''
             },150);
         },
         activateItem(user, opponent, item) {
@@ -421,6 +474,11 @@ export default {
                 this.removeItem(user.inventory, itemName);
                 this.messageBox.push(user.name + ' recovered ' + amount + ' MP.')
                 this.note(user,'+' + amount)
+            } else if (item.name.includes('Tome')) {
+                this.addAbility(user.abilities,item.ability,true);
+                this.removeItem(user.inventory, itemName);
+                this.messageBox.push(user.name + ' learned ' + item.ability + '!!!')
+                // this.note(user,'+' + amount)
             } else if (item.name == 'Bandage') {
                 user.status['Bleed'] = 0;
                 this.removeItem(user.inventory, itemName);
@@ -462,7 +520,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'damage'
                         $this.note(opponent,-damage)
-                        $this.specialNote(user,move)
+                        $this.abilityNote(user,move)
                     },300);
                     this.messageBox.push('Death Scroll only did ' + damage + ' damage')
                 } else if (opponent.type === 'boss' || opponent.type === 'endBoss') {
@@ -473,7 +531,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'damage'
                         $this.note(opponent,-damage)
-                        $this.specialNote(user,move)
+                        $this.abilityNote(user,move)
                     },300);
                     this.messageBox.push('Death Scroll only did ' + damage + ' damage')
                 } else {
@@ -484,7 +542,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'damage'
                         $this.note(opponent,-damage)
-                        $this.specialNote(user,move)
+                        $this.abilityNote(user,move)
                     },300);
                     this.messageBox.push(user.name + ' read from the Death Scroll.')
                 }
@@ -505,7 +563,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'dodge'
                         $this.note(opponent,'miss')
-                        $this.specialNote(user,move)
+                        $this.abilityNote(user,move)
                     },300);
                     this.messageBox.push(user.name + "'s Fire Scroll missed...");
                 } else {
@@ -514,9 +572,9 @@ export default {
                     this.removeItem(user.inventory, itemName);
                     setTimeout(function() {
                         opponent.animation = 'damage'
-                        opponent.status['Burn'] = 3;
+                        opponent.status['Burn'] = 4;
                         $this.note(opponent,-damage)
-                        $this.specialNote(user,move)
+                        $this.abilityNote(user,move)
                     },300);
                     this.messageBox.push('Flame Scroll did ' + damage + ' damage')
                     this.messageBox.push("- " + opponent.name + " is now Burned. -");
@@ -538,7 +596,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'dodge'
                         $this.note(opponent,'miss')
-                        $this.specialNote(user,move)
+                        $this.abilityNote(user,move)
                     },300);
                     this.messageBox.push(user.name + "'s Venom Scroll missed...");
                 } else {
@@ -547,9 +605,9 @@ export default {
                     this.removeItem(user.inventory, itemName);
                     setTimeout(function() {
                         opponent.animation = 'damage'
-                        opponent.status['Poison'] = 3;
+                        opponent.status['Poison'] = 4;
                         $this.note(opponent,-damage)
-                        $this.specialNote(user,move)
+                        $this.abilityNote(user,move)
                     },300);
                     this.messageBox.push('Venom Scroll did ' + damage + ' damage')
                     this.messageBox.push("- " + opponent.name + " is now Poisoned. -");
@@ -571,7 +629,7 @@ export default {
                     setTimeout(function() {
                         opponent.animation = 'dodge'
                         $this.note(opponent,'miss')
-                        $this.specialNote(user,move)
+                        $this.abilityNote(user,move)
                     },300);
                     this.messageBox.push(user.name + "'s Blood Scroll missed...");
                 } else {
@@ -580,9 +638,9 @@ export default {
                     this.removeItem(user.inventory, itemName);
                     setTimeout(function() {
                         opponent.animation = 'damage'
-                        opponent.status['Bleed'] = 3;
+                        opponent.status['Bleed'] = 4;
                         $this.note(opponent,-damage)
-                        $this.specialNote(user,move)
+                        $this.abilityNote(user,move)
                     },300);
                     this.messageBox.push('Blood Scroll did ' + damage + ' damage')
                     this.messageBox.push("- " + opponent.name + " is now Bleeding. -");
@@ -601,7 +659,7 @@ export default {
                 setTimeout(function() {
                     opponent.animation = 'damage'
                     $this.note(opponent,-damage);
-                    $this.specialNote(user,move)
+                    $this.abilityNote(user,move)
                 },300);
                 this.messageBox.push('The eyes of Asteroth bring ' + opponent.name + ' to the brink of death.')
             } else if (item.name == 'Health Elixir') {
@@ -804,6 +862,7 @@ export default {
             enemy.isDead = false
             enemy.ambushing = ambushed
 
+            this.addEnemyAbilities(enemy);
             this.addEnemyItems(enemy);
 
             this.changeScene('Battle')
@@ -858,6 +917,7 @@ export default {
             enemy.isDead = false
             enemy.ambushing = ambushed
 
+            this.addEnemyAbilities(enemy);
             this.addEnemyItems(enemy);
 
             this.changeScene('Battle')
@@ -882,6 +942,7 @@ export default {
             enemy.animation = 'idle';
             enemy.isDead = false
 
+            this.addEnemyAbilities(enemy);
             this.addEnemyItems(enemy);
 
             // console.log(this.state.currentEnemy);
@@ -921,11 +982,23 @@ export default {
             || enemy.type == "boss"
             || enemy.type == "endBoss") {
                 for (let i = 0; i < this.randNum(0, 1); i++) {
-                    console.log('Add Items 6')
-                    randItem = this.randNum(0, items[6].length);
-                    this.addItem(enemy.inventory, items[6][randItem]);
+                    console.log('Add Items 5')
+                    randItem = this.randNum(0, items[5].length);
+                    this.addItem(enemy.inventory, items[5][randItem]);
                 }
             }
+        },
+        addEnemyAbilities(enemy) {
+            console.log('enemy',enemy)
+            let moveList = enemy.abilities;
+            console.log('abilities',moveList)
+            let abilities = [];
+            const $this = this;
+            moveList.forEach(function(ability) {
+                console.log('AB:',ability)
+                $this.addAbility(abilities,ability,true);
+            });
+            enemy.abilities = abilities
         },
         chestEncounter() {
             this.currentEncounter = JSON.parse(JSON.stringify(encounters[0]));
@@ -939,6 +1012,16 @@ export default {
             this.message = "You came across a Traveling Merchant!"
             this.currentEncounter.animation = 'idle'
             this.changeScene('Shop');
+            this.enterEvent();
+        },
+        adventurerEncounter() {
+            this.currentEncounter = JSON.parse(JSON.stringify(this.encounters[7]));
+            this.resetAdventurer();
+            this.message = "An Old Adventurer offers you some wisdom."
+            this.messageBox = [];
+            this.infoText = 'Select an item'
+            this.currentEncounter.animation = 'idle'
+            this.changeScene('AdventurerEncounter');
             this.enterEvent();
         },
     },

@@ -8,9 +8,9 @@
                 <img class="item-sprite"
                 :class="{ 'item-rise': $parent.player.itemSprite != ''}"
                 :src="$parent.player.itemSprite" alt="Item Sprite">
-                <img class="special-sprite"
-                :class="{ 'special-right': $parent.player.specialSprite != ''}"
-                :src="$parent.player.specialSprite" alt="Special Sprite">
+                <img class="ability-sprite"
+                :class="{ 'ability-right': $parent.player.abilitySprite != ''}"
+                :src="$parent.player.abilitySprite" alt="Ability Sprite">
                 <img class="game-sprite"
                 :class="{ 'idle': $parent.player.animation == 'idle',
                 'use-item': $parent.player.animation == 'use item' ,
@@ -61,9 +61,9 @@
                     <img class="item-sprite"
                     :class="{ 'item-rise': $parent.currentEnemy.itemSprite != ''}"
                     :src="$parent.currentEnemy.itemSprite" alt="Item Sprite">
-                    <img class="special-sprite"
-                    :class="{ 'special-left': $parent.currentEnemy.specialSprite != ''}"
-                    :src="$parent.currentEnemy.specialSprite" alt="Special Sprite">
+                    <img class="ability-sprite"
+                    :class="{ 'ability-left': $parent.currentEnemy.abilitySprite != ''}"
+                    :src="$parent.currentEnemy.abilitySprite" alt="Ability Sprite">
                     <img class="game-sprite"
                     :class="{ 'idle': $parent.currentEnemy.animation == 'idle',
                     'use-item': $parent.currentEnemy.animation == 'use item' ,
@@ -106,7 +106,8 @@
             || $parent.scene == 'Shop'
             || $parent.scene == 'Tavern'
             || $parent.scene == 'WordGuess'
-            || $parent.scene == 'DungeonEncounter'">
+            || $parent.scene == 'DungeonEncounter'
+            || $parent.scene == 'AdventurerEncounter'">
                 <div class="sprite-container" :class="{'enter-left': $parent.newEvent}">
                     <span class="note"
                     :class="{ 'item-rise': $parent.currentEncounter.note != ''}"

@@ -56,20 +56,7 @@ export default {
             // localStorage.setItem("bosses", JSON.stringify(this.$parent.bosses));
         },
         handleLoad() {
-            console.log('Game Loaded')
-            this.$parent.message = 'Your game has been Loaded.'
-            this.$parent.player = JSON.parse(localStorage.getItem("player"));
-            this.$parent.regions = JSON.parse(localStorage.getItem("regions"));
-            this.$parent.region = JSON.parse(localStorage.getItem("region"));
-            // this.$parent.bosses = JSON.parse(localStorage.getItem("bosses"));
-            this.$parent.scene = 'Town'
-            this.$parent.location = 'Town'
-            this.$parent.resetMerchant()
-            this.$parent.resetQuestBoard()
-            console.log('P1:',this.$parent.player)
-            console.log('R:',this.$parent.region)
-            console.log('Rs:',this.$parent.regions)
-            // console.log('B:',this.$parent.bosses)
+            this.parent.loadGame();
         },
         handleBack() {
             this.$parent.$parent.menu = false;

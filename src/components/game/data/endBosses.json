@@ -5,7 +5,7 @@
         "type": "endBoss",
         "sprite": "/images/game/grue.png",
         "itemSprite": "",
-        "specialSprite": "",
+        "abilitySprite": "",
         "hpMax": 45,
         "mpMax": 12,
         "strength": 12,
@@ -15,13 +15,8 @@
         "luck": 10,
         "xp": 45,
         "inventory": [],
-        "specials": [
-            {
-                "name": "Bite",
-                "sprite": "/images/game/bite.png",
-                "cost": 6,
-                "active": false
-            }
+        "abilities": [
+            "Bite"
         ],
         "status": {
             "Berserk": 0,
@@ -38,7 +33,7 @@
         "type": "endBoss",
         "sprite": "/images/game/arealus.png",
         "itemSprite": "",
-        "specialSprite": "",
+        "abilitySprite": "",
         "hpMax": 70,
         "mpMax": 20,
         "strength": 18,
@@ -48,18 +43,9 @@
         "luck": 8,
         "xp": 75,
         "inventory": [],
-        "specials": [
-            {
-                "name": "Heal",
-                "cost": 10,
-                "active": false
-            },
-            {
-                "name": "Bite",
-                "sprite": "/images/game/bite.png",
-                "cost": 6,
-                "active": false
-            }
+        "abilities": [
+            "Heal",
+            "Bite"
         ],
         "status": {
             "Berserk": 0,
@@ -76,7 +62,7 @@
         "type": "finalBoss",
         "sprite": "/images/game/asteroth.png",
         "itemSprite": "",
-        "specialSprite": "",
+        "abilitySprite": "",
         "hpMax": 200,
         "mpMax": 24,
         "strength": 40,
@@ -86,25 +72,10 @@
         "luck": 15,
         "xp": 200,
         "inventory": [],
-        "specials": [
-            {
-                "name": "Axe Strike",
-                "sprite": "/images/game/strike.png",
-                "cost": 6,
-                "active": false
-            },
-            {
-                "name": "Evil Eye",
-                "sprite": "/images/game/evil-eye.png",
-                "cost": 10,
-                "active": false
-            },
-            {
-                "name": "Berserk",
-                "cost": 8,
-                "active": false
-            }
-        ],
+        "abilities": [
+            "Axe Strike",
+            "Evil Eye",
+            "Berserk"],
         "status": {
             "Berserk": 0,
             "Bleed": 0,
