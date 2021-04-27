@@ -238,7 +238,7 @@ export default {
             this.location = 'Town'
             this.resetMerchant()
             this.resetQuestBoard()
-            this.$parent.$parent.gameStarted = true;
+            this.$parent.gameStarted = true;
             console.log('P1:',this.player)
             console.log('R:',this.region)
             console.log('Rs:',this.regions)
