@@ -117,7 +117,7 @@ export default {
                 this.$parent.monsterEncounter(true)
             } else {
                 this.$parent.message = "You traveled to town."
-                var $this = this
+                const $this = this
                 $this.playerTurn = false
                 $this.$parent.player.animation = 'walk'
                 this.$parent.resetMerchant();

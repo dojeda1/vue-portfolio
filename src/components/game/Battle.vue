@@ -59,7 +59,9 @@
     <template v-else-if="task == 'end'">
         <p>
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleEnd">End</button>
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLoad">Load Game</button>
+            <button class="btn-inv"
+            :class="{ 'disabled' : !playerTurn || !$parent.getProfileById($parent.player.id)}"
+            @click="handleContinue($parent.player.id)">Continue</button>
         </p>
     </template>
 </template>
@@ -151,16 +153,16 @@ export default {
         },
         enemyTurn(player, enemy) {
             this.deathCheck();
-            var abilityAxeStrike = this.$parent.findAbility(enemy.abilities,"Axe Strike");
-            var abilityBerserk = this.$parent.findAbility(enemy.abilities,"Berserk");
-            var abilityFireball = this.$parent.findAbility(enemy.abilities,"Fireball");
-            var abilityHeal = this.$parent.findAbility(enemy.abilities,"Heal");
-            var abilityPoisonDagger = this.$parent.findAbility(enemy.abilities,"Poison Dagger");
-            var abilitySteal = this.$parent.findAbility(enemy.abilities,"Steal");
-            var abilityBite = this.$parent.findAbility(enemy.abilities,"Bite");
-            var abilityPoisonFang = this.$parent.findAbility(enemy.abilities,"Poison Fang");
-            var abilityEvilEye = this.$parent.findAbility(enemy.abilities,"Evil Eye");
-            var item;
+            const abilityAxeStrike = this.$parent.findAbility(enemy.abilities,"Axe Strike");
+            const abilityBerserk = this.$parent.findAbility(enemy.abilities,"Berserk");
+            const abilityFireball = this.$parent.findAbility(enemy.abilities,"Fireball");
+            const abilityHeal = this.$parent.findAbility(enemy.abilities,"Heal");
+            const abilityPoisonDagger = this.$parent.findAbility(enemy.abilities,"Poison Dagger");
+            const abilitySteal = this.$parent.findAbility(enemy.abilities,"Steal");
+            const abilityBite = this.$parent.findAbility(enemy.abilities,"Bite");
+            const abilityPoisonFang = this.$parent.findAbility(enemy.abilities,"Poison Fang");
+            const abilityEvilEye = this.$parent.findAbility(enemy.abilities,"Evil Eye");
+            let item;
 
             if (!player.isDead && !enemy.isDead) {
                 //Enemy Logic
@@ -726,7 +728,7 @@ export default {
                 let text = this.$parent.messageBox;
                 text.push(enemy.name + " killed you.");
                 if (this.$parent.findItem(player.inventory,'Fairy')) {
-                    var fairy = this.$parent.findItem(player.inventory,'Fairy');
+                    const fairy = this.$parent.findItem(player.inventory,'Fairy');
                     setTimeout(function() {
                         $this.$parent.activateItem(player,enemy,fairy);
                         $this.playerTurn = true;
@@ -742,12 +744,13 @@ export default {
                         $this.$parent.message = 'Game Over.';
                         $this.task = 'end';
                         $this.playerTurn = true;
+                        $this.$parent.getProfiles();
                     },1200)
                 }
             } else if (enemy.isDead) {
                 player.totalKills++;
                 this.$parent.regions[this.$parent.region].kills++
-                var head = this.$parent.findItem(player.inventory,'Head of Asteroth');
+                const head = this.$parent.findItem(player.inventory,'Head of Asteroth');
                 if (head && head.charge > 0) {
                     head.charge--;
                 }
@@ -779,8 +782,9 @@ export default {
         handleEnd() {
             this.$parent.changeScene('TitleScreen');
         },
-        handleLoad() {
-            this.$parent.loadGame();
+        handleContinue(id) {
+            var profile = this.$parent.getProfileById(id);
+            this.$parent.loadGame(profile);
         },
         gainXp(xpNum, player) {
             player.xp += xpNum;

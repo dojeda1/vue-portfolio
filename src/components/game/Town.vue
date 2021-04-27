@@ -67,7 +67,7 @@ export default {
         handleLeaveTown() {
             this.$parent.message = "You left town."
             this.$parent.messageBox = [];
-            var $this = this
+            const $this = this
             $this.playerTurn = false
             $this.$parent.player.animation = 'walk'
             setTimeout(function() {
@@ -96,7 +96,7 @@ export default {
                 this.$parent.message = 'You feel well rested.'
                 player.animation = 'buffer'
                 this.playerTurn = false
-                var $this = this
+                const $this = this
                 setTimeout(function() {
                     player.animation = 'idle'
                     $this.playerTurn = true

@@ -99,6 +99,7 @@ export default {
     },
     data() {
         return {
+            profiles: [],
             message: "",
             messageBox: [],
             infoText: "",
@@ -130,6 +131,7 @@ export default {
         },
         resetPlayer() {
             this.player = JSON.parse(JSON.stringify(playerDefault));
+            this.player.id = this.randNum(0,1000000);
         },
         resetMerchant() {
             let randItem;
@@ -222,13 +224,16 @@ export default {
             this.regions = JSON.parse(JSON.stringify(regions))
             this.region = 0;
         },
-        loadGame() {
+        loadGame(profile) {
             console.log('Game Loaded')
             this.message = 'Your game has been Loaded.'
             this.messageBox = [];
-            this.player = JSON.parse(localStorage.getItem("player"));
-            this.regions = JSON.parse(localStorage.getItem("regions"));
-            this.region = JSON.parse(localStorage.getItem("region"));
+            // this.player = JSON.parse(localStorage.getItem("player"));
+            // this.regions = JSON.parse(localStorage.getItem("regions"));
+            // this.region = JSON.parse(localStorage.getItem("region"));
+            this.player = JSON.parse(JSON.stringify(profile.player));
+            this.regions = JSON.parse(JSON.stringify(profile.regions));
+            this.region = JSON.parse(JSON.stringify(profile.region));
             this.scene = 'Town'
             this.location = 'Town'
             this.resetMerchant()
@@ -236,6 +241,66 @@ export default {
             console.log('P1:',this.player)
             console.log('R:',this.region)
             console.log('Rs:',this.regions)
+        },
+        getProfiles() {
+            console.log('Get Profiles')
+            let profiles = JSON.parse(localStorage.getItem("profiles"));
+            console.log('Profiles:',profiles)
+            if (profiles === null) {
+                console.log('Start New')
+                this.profiles = [];
+            } else {
+                console.log('Start Old')
+                this.profiles = profiles;
+            }
+        },
+        saveGame() {
+            console.log('Attempt save')
+            if (this.getProfileById(this.player.id)) {
+                let pro = this.getProfileById(this.player.id)
+                console.log('PRO:',pro)
+                pro.player = JSON.parse(JSON.stringify(this.player)),
+                pro.regions = JSON.parse(JSON.stringify(this.regions)),
+                pro.region = JSON.parse(JSON.stringify(this.region))
+            } else {
+                let pro = {
+                    id: this.player.id,
+                    player: JSON.parse(JSON.stringify(this.player)),
+                    regions: JSON.parse(JSON.stringify(this.regions)),
+                    region: JSON.parse(JSON.stringify(this.region))
+                }
+                console.log('New PRO:',pro)
+                this.profiles.push(pro);
+            }
+            localStorage.setItem("profiles", JSON.stringify(this.profiles));
+            console.log('Game Saved')
+            this.message = 'Your game has been Saved.'
+        },
+        getProfileById(id) {
+            let profile = false;
+            this.profiles.forEach(function(pro) {
+                if (pro.id == id) {
+                    profile = pro;
+                }
+            })
+            return profile;
+        },
+        checkCompletion(profile) {
+            console.log('PRO:',profile)
+            let completion = Math.floor(
+            ((profile.regions[0].endBossKills + 
+            profile.regions[0].bossKills + 
+            profile.regions[1].endBossKills + 
+            profile.regions[1].bossKills + 
+            profile.regions[2].endBossKills + 
+            profile.regions[2].bossKills)
+            /
+            (endBosses.length +
+            bosses[0].length +
+            bosses[1].length +
+            bosses[2].length))
+            * 100)
+            return completion
         },
         enterEvent() {
             this.newEvent = true;
@@ -251,8 +316,8 @@ export default {
             return Math.floor(Math.random() * y) + x;
         },
         anA(word) {
-            var first = word.charAt(0);
-            var anA = "";
+            let first = word.charAt(0);
+            let anA = "";
             if (first == "A" || first == "E" || first == "I" || first == "O" || first == "U") {
                 anA = "an";
                 return anA;
@@ -363,7 +428,7 @@ export default {
             this.fetchQuestCheck(itemName);
         },
         transferItem(fromArr, toArr, item) {
-            var transferItem = JSON.parse(JSON.stringify(item));
+            const transferItem = JSON.parse(JSON.stringify(item));
             this.addItem(toArr, transferItem);
             this.removeItem(fromArr, transferItem.name);
             console.log('fromArr:',fromArr)
@@ -396,7 +461,7 @@ export default {
             } else if (item.name == 'Fairy' &&  this.player.hp > 0) {
                 this.message = 'Fairy can only be used if dead.'
             } else if (item.name == 'Head of Asteroth' && item.charge > 0) {
-                var kill = item.charge != 1 ? 'kills' : 'kill';
+                const kill = item.charge != 1 ? 'kills' : 'kill';
                 this.message = 'Head of Asteroth needs ' + item.charge + ' more ' + kill + ' to recharge.'
             } else if (item.name == 'Head of Asteroth' && this.scene != 'Battle') {
                 this.message = 'Head of Asteroth can only be used in battle.'
@@ -784,8 +849,8 @@ export default {
         },
         statusCheck(user) {
             console.log('Status Check...')
-            var totalDamage = 0;
-            var damage;
+            let totalDamage = 0;
+            let damage;
             if (user.status['Bleed'] > 0) {
                 damage = 5
                 totalDamage+= damage;
@@ -1027,6 +1092,7 @@ export default {
     },
     created: function() {
         this.$parent.menu = false;
+        this.getProfiles()
     }
 }
 </script>

@@ -47,7 +47,7 @@ export default {
             console.log('Log:',msg);
         },
         rotate(ind) {
-            var $this = this;
+            const $this = this;
             if (!this.isRotated[ind]) {
                 this.isRotated[ind] = true;
                 setTimeout(function() {

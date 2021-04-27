@@ -154,7 +154,7 @@ export default {
             console.log('Log:',msg);
         },
         statusList(character) {
-            var list = [];
+            let list = [];
             for (const effect in character.status) {
                 if (character.status[effect] > 0) {
                     // list.push(`${effect}: ${character.status[effect]}`)

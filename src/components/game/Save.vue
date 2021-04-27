@@ -17,21 +17,54 @@
         'text-gray': $parent.player.hp <= 0}">
         {{ $parent.player.gold }}g</span>
     </p>
-    <div class="message-box">
-        <h5>{{ $parent.message }}</h5>
-        <p v-for="(msg, index) in $parent.messageBox" :key="index">
-            {{ msg }}
+    <template v-if="task == 'save'">
+        <div class="message-box">
+            <h5>{{ $parent.message }}</h5>
+            <p v-for="(msg, index) in $parent.messageBox" :key="index">
+                {{ msg }}
+            </p>
+        </div>
+        <p v-if="$parent.location == 'Town'">Save your Progress</p>
+        <p v-else>Visit Town to Save</p>
+        <p>
+            <button :class="{ 'disabled' : !playerTurn || $parent.location != 'Town'}" @click="handleSave">Save Game</button>
+            <button :class="{ 'disabled' : !playerTurn }" @click="handleLoad">Load Game</button>
         </p>
-    </div>
-    <p v-if="$parent.location == 'Town'">Save your Progress</p>
-    <p v-else>Visit Town to Save</p>
-    <p>
-        <button :class="{ 'disabled' : !playerTurn || $parent.location != 'Town'}" @click="handleSave">Save Game</button>
-        <button :class="{ 'disabled' : !playerTurn }" @click="handleLoad">Load Game</button>
-    </p>
-    <p>
-        <button class="btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
-    </p>
+        <p>
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleExit"><i class="material-icons left">arrow_back</i>Back</button>
+        </p>
+    </template>
+    <template v-if="task == 'profiles'">
+        <h5>Select a Character</h5>
+        <div class="profiles">
+            <div class="profile" v-for="(profile,index) in $parent.profiles"
+            :key="index">
+                <div>
+                    <p>
+                        <img class="profile-sprite" :src="profile.player.sprite" :alt="profile.player.name">
+                        {{profile.player.name}},
+                        Lv. {{profile.player.level}} &middot;
+                        {{profile.player.race}} &middot;
+                        {{profile.player.class}}
+                    </p>
+                    <p>
+                        HP: {{profile.player.hp}}/{{profile.player.hpMax}} &middot;
+                        MP: {{profile.player.mp}}/{{profile.player.mpMax}} &middot;
+                        XP: {{profile.player.xp}}/{{profile.player.nextLevel}} &middot;
+                        {{profile.player.gold}}g
+                    </p>
+                    <p>Completion: {{$parent.checkCompletion(profile)}}%</p>
+                </div>
+                <div>
+                <button class="btn-inv" @click="handleDelete(index)"><i class="material-icons right">delete</i>Delete</button>
+                <button @click="handleSelectProfile(profile.id)">Continue</button>
+                </div>
+            </div>
+        </div>
+        <p>
+            <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+        </p>
+    </template>
 </template>
 
 <script>
@@ -39,6 +72,7 @@ export default {
     name: 'Save',
     data() {
         return {
+            task: 'save',
             player: {},
             playerTurn: true
         }
@@ -48,19 +82,26 @@ export default {
             console.log('Log:',msg);
         },
         handleSave() {
-            console.log('Game Saved')
-            this.$parent.message = 'Your game has been Saved.'
-            localStorage.setItem("player", JSON.stringify(this.$parent.player));
-            localStorage.setItem("regions", JSON.stringify(this.$parent.regions));
-            localStorage.setItem("region", JSON.stringify(this.$parent.region));
-            // localStorage.setItem("bosses", JSON.stringify(this.$parent.bosses));
+            this.$parent.saveGame();
         },
         handleLoad() {
-            this.parent.loadGame();
+            this.task = 'profiles'
+        },
+        handleDelete(ind) {
+            this.$parent.profiles.splice(ind, 1);
+            localStorage.setItem("profiles", JSON.stringify(this.$parent.profiles));
+            console.log('Profile Deleted')
+        },
+        handleSelectProfile(id) {
+            let profile = this.$parent.getProfileById(id);
+            this.$parent.loadGame(profile);
         },
         handleBack() {
-            this.$parent.$parent.menu = false;
+            this.task = 'save'
         },
+        handleExit() {
+            this.$parent.$parent.menu = false;
+        }
     }
 }
 </script>

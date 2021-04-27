@@ -85,7 +85,7 @@ export default {
         },
         handleGuess(guess) {
             console.log('Guess:',guess);
-            var isCorrect = false
+            let isCorrect = false
             this.currentWord.forEach(function(ltr) {
                 if (guess == ltr.letter.toUpperCase()) {
                     ltr.guessed = true;
@@ -149,7 +149,7 @@ export default {
             }
         },
         checkWin() {
-            var passedCheck = true;
+            let passedCheck = true;
             this.currentWord.forEach(function(ltr) {
                 if (!ltr.guessed) {
                     passedCheck = false;
@@ -203,8 +203,8 @@ export default {
             }
             const wordStr = words[this.$parent.randNum(0,words.length)];
             const wordObj = [];
-            for (var i = 0; i < wordStr.length; i++) {
-                var isSymbol = !wordStr[i].match(/[a-z]/i);
+            for (let i = 0; i < wordStr.length; i++) {
+                const isSymbol = !wordStr[i].match(/[a-z]/i);
                 wordObj.push({
                     letter: wordStr[i],
                     guessed: isSymbol
