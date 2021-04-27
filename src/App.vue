@@ -40,7 +40,8 @@ export default {
       code: '< / >',
       playingGame: false,
       questComplete: false,
-      menu: false
+      menu: false,
+      gameStarted: false,
     }
   },
   methods: {
@@ -49,6 +50,9 @@ export default {
     },
     handleGameToggled() {
       this.playingGame = !this.playingGame;
+      if (!this.playingGame) {
+        this.gameStarted = false;
+      }
       console.log(this.playingGame)
     }
   }

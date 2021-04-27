@@ -12,9 +12,9 @@
         <div class="nav-link text-gray" @click="gameToggled">{{code}}</div>
       </template>
       <template v-else>
-        <div class="nav-link" :class="{'selected' : $parent.menu == 'Save'}" @click="saveToggled">Save</div>
-        <div class="nav-link" :class="{'selected' : $parent.menu == 'Quests', 'notification': $parent.questComplete}" @click="questsToggled">Quests</div>
-        <div class="nav-link" :class="{'selected' : $parent.menu == 'Stats'}" @click="statsToggled">Stats</div>
+        <div class="nav-link" :class="{'disabled' : !$parent.gameStarted, 'selected' : $parent.menu == 'Save'}" @click="saveToggled">Save</div>
+        <div class="nav-link" :class="{'disabled' : !$parent.gameStarted, 'selected' : $parent.menu == 'Quests', 'notification': $parent.questComplete}" @click="questsToggled">Quests</div>
+        <div class="nav-link" :class="{'disabled' : !$parent.gameStarted, 'selected' : $parent.menu == 'Stats'}" @click="statsToggled">Stats</div>
         <div class="nav-link text-gray" :class="{'selected' : $parent.menu == 'Quit'}" @click="quitToggled">{{code}}</div>
       </template>
     </div>
@@ -94,6 +94,11 @@ export default {
       padding: 15px 5px;
       text-decoration: none;
       cursor: pointer;
+  }
+  .nav-link.disabled {
+      color: #454545;
+      /* background-color: gray; */
+      pointer-events: none;
   }
 
   #nav .nav-link:hover {

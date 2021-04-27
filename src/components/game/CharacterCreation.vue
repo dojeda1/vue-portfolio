@@ -303,6 +303,7 @@ export default {
             }
         },
         setUpGame() {
+            this.$parent.$parent.gameStarted = true;
             this.$parent.changeScene('Wild');
             this.$parent.message = 'Your adventure begins...';
             this.$parent.messageBox = [];
