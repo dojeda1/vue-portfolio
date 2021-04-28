@@ -795,6 +795,7 @@ export default {
         levelUpCheck(player) {
             if (player.xp >= player.nextLevel) {
                 player.level++;
+                player.lastLevel = player.nextLevel;
                 player.nextLevel += player.level * 50;
                 player.strength += 2;
                 player.defense += 1;

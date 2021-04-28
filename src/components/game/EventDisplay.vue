@@ -25,7 +25,7 @@
                 :alt="$parent.player.name">
             </div>
             <div class="display-text text-blue" :class="{'text-gray': $parent.player.hp <= 0}">
-                <p>
+                <!-- <p>
                     {{ $parent.player.name }} &middot; 
                     <span 
                     :class="{'text-gold': $parent.player.hp < $parent.player.hpMax/2,
@@ -45,7 +45,38 @@
                     'text-red': $parent.player.gold < 10,
                     'text-gray': $parent.player.hp <= 0}">
                     {{ $parent.player.gold }}g</span>
+                </p> -->
+                <p>
+                    {{ $parent.player.name }} &middot; 
+                    <span 
+                    :class="{'text-gold': $parent.player.gold < 20,
+                    'text-red': $parent.player.gold < 10,
+                    'text-gray': $parent.player.hp <= 0}">
+                    {{ $parent.player.gold }}g</span>
                 </p>
+                <div class="bars">
+                    <div class="bar">
+                        <div class="inner-bar bg-red"
+                        :class="{'bg-gray' : $parent.player.hp <= 0}"
+                        :style="{'width': hpBar($parent.player)}">
+                        </div>
+                        <!-- <div class="bar-text">{{ $parent.player.hp }}</div> -->
+                    </div>
+                    <div class="bar">
+                        <div class="inner-bar bg-blue"
+                        :class="{'bg-gray' : $parent.player.hp <= 0}"
+                        :style="{'width': mpBar($parent.player)}">
+                        </div>
+                        <!-- <div class="bar-text">{{ $parent.player.mp }}</div> -->
+                    </div>
+                    <div class="bar">
+                        <div class="inner-bar bg-green"
+                        :class="{'bg-gray' : $parent.player.hp <= 0}"
+                        :style="{'width': xpBar($parent.player)}">
+                        </div>
+                        <!-- <div class="bar-text">{{ $parent.player.xp }}</div> -->
+                    </div>
+                </div>
                 <p class="text-gold"
                 :class="{'text-gray': $parent.player.hp <= 0}">
                     {{statusList($parent.player)}}
@@ -83,18 +114,22 @@
                 'text-purple': $parent.currentEnemy.type == 'finalBoss',
                 'text-gray': $parent.currentEnemy.hp <= 0}">
                     <p>
-                        {{ $parent.currentEnemy.name }} &middot; 
-                        <span 
-                        :class="{'text-gold': $parent.currentEnemy.hp < $parent.currentEnemy.hpMax/2,
-                        'text-red': $parent.currentEnemy.hp < $parent.currentEnemy.hpMax/4,
-                        'text-gray': $parent.currentEnemy.hp <= 0}">
-                        HP: {{ $parent.currentEnemy.hp }}/{{ $parent.currentEnemy.hpMax }}</span> &middot;  
-                        <span 
-                        :class="{'text-gold': $parent.currentEnemy.mp < $parent.currentEnemy.mpMax/2,
-                        'text-red': $parent.currentEnemy.mp < $parent.currentEnemy.mpMax/4,
-                        'text-gray': $parent.currentEnemy.hp <= 0}">
-                        MP: {{ $parent.currentEnemy.mp }}/{{ $parent.currentEnemy.mpMax }}</span>
+                        {{ $parent.currentEnemy.name }}
                     </p>
+                    <div class="bars">
+                        <div class="bar">
+                            <div class="inner-bar bg-red"
+                            :class="{'bg-gray' : $parent.currentEnemy.hp <= 0}"
+                            :style="{'width': hpBar($parent.currentEnemy)}">
+                            </div>
+                        </div>
+                        <div class="bar" v-if="$parent.currentEnemy.mpMax > 0">
+                            <div class="inner-bar bg-blue"
+                            :class="{'bg-gray' : $parent.currentEnemy.hp <= 0}"
+                            :style="{'width': mpBar($parent.currentEnemy)}">
+                            </div>
+                        </div>
+                    </div>
                     <p class="text-gold"
                     :class="{'text-gray': $parent.currentEnemy.hp <= 0}">
                         {{statusList($parent.currentEnemy)}}
@@ -162,6 +197,34 @@ export default {
                 }
             }
             return list.join(', ')
+        },
+        hpBar(character) {
+            var width = (character.hp/character.hpMax)*100;
+            if (width > 100) {
+                width = 100
+            } else if(width < 0) {
+                width = 0
+            }
+            return width + '%'
+        },
+        mpBar(character) {
+            var width = (character.mp/character.mpMax)*100;
+            if (width > 100) {
+                width = 100
+            } else if(width < 0) {
+                width = 0
+            }
+            return width + '%'
+        },
+        xpBar(character) {
+            var width = ((character.xp - character.lastLevel)/
+            (character.nextLevel - character.lastLevel))*100;
+            if (width > 100) {
+                width = 100
+            } else if(width < 0) {
+                width = 0
+            }
+            return width + '%'
         }
     },
     created: function() {
@@ -173,5 +236,30 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
+    .bars {
+        max-width: 128px;
+        width: 100%;
+        margin: auto;
+    }
+    .bar {
+        position: relative;
+        width: 100%;
+        min-height: 2px;
+        margin: 5px 0;
+        background-color: #454545;
+    }
+    .bar .bar-text {
+        position: relative;
+        color:white;
+        font-size: 10px;
+        line-height: 1;
+        padding-top: 1px;
+    }
+    .bar .inner-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        transition: width .5s;
+    }
 </style>

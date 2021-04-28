@@ -38,20 +38,32 @@ p {
     /* background-color: pink; */
 }
 
-.dom-green-1 {
+.bg-white {
+    background-color: white;
+}
+
+.bg-green {
     background-color: #8dc63f;
 }
 
-.dom-green-1-dark {
-    background-color: #5d832b;
+.bg-jade {
+    background-color: #2bb673;
 }
 
-.dom-green-2 {
-    background-color: #2bb673
+.bg-blue {
+    background-color: #27aae1;
 }
-
-.dom-blue {
-    background-color: #27aae1
+.bg-purple {
+    background-color: #ab08d4;
+}
+.bg-gold {
+    background-color: gold;
+}
+.bg-red {
+    background-color: #F44336;
+}
+.bg-gray {
+    background-color: gray;
 }
 
 .text-white {

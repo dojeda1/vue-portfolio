@@ -1,6 +1,7 @@
 <template>
     <template v-if="$parent.$parent.gameStarted">
         <p>
+            <img class="profile-sprite" :src="$parent.player.sprite" :alt="$parent.player.name">
             {{ $parent.player.name }} &middot; 
             <span 
             :class="{'text-gold': $parent.player.hp < $parent.player.hpMax/2,

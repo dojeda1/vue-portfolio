@@ -25,6 +25,7 @@
     "mp": 4,
     "level": 1,
     "xp": 0,
+    "lastLevel": 0,
     "nextLevel": 50,
     "inventory": [],
     "quests": [],
