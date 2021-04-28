@@ -13,7 +13,7 @@
                     <p v-if="quest.reward =='gold'">Reward: {{quest.amount}}g</p>
                     <p v-else>Reward: {{quest.reward}} &times; {{quest.amount}}</p>
                 </div>
-                <div>
+                <div class="section-buttons">
                     <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
                 </div>
                 <!-- <p>
@@ -72,7 +72,7 @@
                 <!-- <p>
                     <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
                 </p> -->
-                <div>
+                <div class="section-buttons">
                     <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleAbandon(index)">Abandon<i class="material-icons right">delete</i></button>
                     <button  v-if="$parent.location == 'Town'" class="btn-blue"
                     :class="{ 'disabled' : !playerTurn || quest.count < quest.goal || quest.region != $parent.regions[$parent.region].name}"

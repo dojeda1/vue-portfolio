@@ -2,7 +2,7 @@
 <div id="game">
     <div class="container">
         <div class="game-header">
-            <h1>Fantasy RPG</h1>
+            <h1 class="game-title">Fantasy RPG</h1>
             <p>
                 <img class="location-sprite"
                 :src="regions[region].sprite">
@@ -1191,6 +1191,9 @@ export default {
             top: 60px;
 
             /* animation: slide-in-top 3s; */
+        }
+        .game-title {
+            display: none;
         }
     }
 </style>

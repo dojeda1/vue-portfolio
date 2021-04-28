@@ -27,9 +27,9 @@
                     </p>
                     <p>Completion: {{$parent.checkCompletion(profile)}}%</p>
                 </div>
-                <div>
-                <button class="btn-inv" @click="handleDelete(index)"><i class="material-icons right">delete</i>Delete</button>
-                <button @click="handleSelectProfile(profile.id)">Continue</button>
+                <div class="section-buttons">
+                    <button class="btn-inv" @click="handleDelete(index)"><i class="material-icons right">delete</i>Delete</button>
+                    <button @click="handleSelectProfile(profile.id)">Continue</button>
                 </div>
             </div>
         </div>
