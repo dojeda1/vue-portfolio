@@ -22,7 +22,7 @@
                 </p> -->
             </div>
         </div>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Leave</button>
         </p>
     </template>
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>

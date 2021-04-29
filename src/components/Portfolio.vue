@@ -24,12 +24,14 @@
             <div class="col-8 s_col-12">
                 <h5>{{ currentProject.title }}</h5>
                 <img class="portfolio-devices" :src="currentProject.mockup" alt="Mockup">
+                <div class="dual-buttons">
                 <a target="_blank" :href="currentProject.visit">
                     <button>Visit<i className="material-icons">public</i></button>
                 </a>
                 <a target="_blank" :href="currentProject.code">
                     <button>Code<i className="material-icons">code</i></button>
                 </a>
+                </div>
             </div>
             <div class="col-4 s_col-12">
                 <h6 class=" text-green">- About the Project -</h6>
@@ -247,5 +249,49 @@ export default {
     }
     .paint-pic-container.active {
         color: #8dc63f;
+    }
+    @media only screen and (max-width: 600px) {
+        .dual-buttons {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            grid-gap: 10px;
+        }
+        .dual-buttons a{
+            text-decoration: none;
+        }
+        .dual-buttons button {
+            width: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .quad-buttons {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-gap: 10px;
+        }
+        .quad-buttons a{
+            text-decoration: none;
+        }
+        .quad-buttons button {
+            width: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .six-buttons {
+            display: grid;
+            grid-template-columns: repeat(6,1fr);
+            grid-gap: 10px;
+        }
+        .six-buttons a{
+            text-decoration: none;
+        }
+        .six-buttons button {
+            width: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
     }
 </style>

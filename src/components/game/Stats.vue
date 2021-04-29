@@ -76,7 +76,7 @@
                 <p :class="{'text-blue': region.bossKills >= $parent.bosses[index].length}">Dungeon Bosses Killed: {{region.bossKills}}/{{$parent.bosses[index].length}}</p>
         </div>
     </div>
-    <p>
+    <p class="dual-buttons">
         <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
     </p>
 </template>

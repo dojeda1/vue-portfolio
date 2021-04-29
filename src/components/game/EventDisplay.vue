@@ -168,12 +168,6 @@
             </template>
         </div>
     </div>
-    <div class="message-box">
-        <h5>{{ $parent.message }}</h5>
-        <p v-for="(msg, index) in $parent.messageBox" :key="index">
-            {{ msg }}
-        </p>
-    </div>
 </template>
 
 <script>

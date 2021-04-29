@@ -152,6 +152,7 @@ export default {
     .tool-logo {
         /* width: 50px; */
         width: 25%;
+        height: 100%;
         padding: 10px;
         transition: all 1s ease-in-out;
     }

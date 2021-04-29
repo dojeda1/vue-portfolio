@@ -1,19 +1,17 @@
 <template>
     <template v-if="task == 'shop'">
         <p>What Next?</p>
-        <p>
+        <p class='full-buttons'>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleBuy">Buy</button>
-        </p>
-        <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleSell">Sell</button>
         </p>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Leave</button>
         </p>
     </template>
     <template v-else-if="task == 'buy'">
         <p>{{$parent.infoText}}</p>
-        <div class="items" @mouseleave="$parent.infoText = 'Select an item to buy'">
+        <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an item to buy'">
             <button class="btn-blue"
             v-for="(item, index) in $parent.merchant"
             :key="index"
@@ -22,14 +20,14 @@
                 @click="handleBuyItem(item,index)">{{ item.name }} ({{item.buy}}g)
                 <template v-if="item.qty > 1"> &times; {{item.qty}}</template>
                 </button>
-        </div>
-        <p>
+        </p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
     <template v-else-if="task == 'sell'">
         <p>{{$parent.infoText}}</p>
-        <div class="items" @mouseleave="$parent.infoText = 'Select an item to sell'">
+        <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an item to sell'">
             <button class="btn-blue"
             v-for="(item, index) in $parent.player.inventory"
             :key="index"
@@ -38,8 +36,8 @@
                 @click="handleSellItem(item,index)">{{ item.name }} ({{item.sell}}g)
                 <template v-if="item.qty > 1"> &times; {{item.qty}}</template>
                 </button>
-        </div>
-        <p>
+        </p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>

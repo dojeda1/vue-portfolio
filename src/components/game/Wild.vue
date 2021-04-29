@@ -1,16 +1,12 @@
 <template>
     <template v-if="task == 'wild'">
         <p>Where to next?</p>
-        <p>
+        <p class="full-buttons">
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleExplore">Explore</button>
-        </p>
-        <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleTown">Go to Town</button>
-        </p>
-        <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
         </p>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv"
             @click="handleMoveBack"
             v-if="$parent.regions[$parent.region - 1]"
@@ -41,7 +37,7 @@
     </template>
     <template v-else-if="task == 'use item'">
         <p>{{$parent.infoText}}</p>
-        <div class="items" @mouseleave="$parent.infoText = 'Select an Item'">
+        <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an Item'">
             <button class="btn-blue"
             v-for="(item, index) in $parent.player.inventory"
             :key="index"
@@ -51,27 +47,23 @@
                 <template v-if="item.charge > 0"> ({{item.goal - item.charge}}/{{item.goal}})</template>
                 <template v-if="item.qty > 1"> &times; {{item.qty}}</template>
                 </button>
-        </div>
-        <p>
+        </p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
     <template v-else-if="task == 'next level'">
         <p>Continue forward?</p>
-        <p>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesForward">Yes</button>
-        </p>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoForward"><i class="material-icons left">arrow_back</i>No</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesForward">Yes</button>
         </p>
     </template>
     <template v-else-if="task == 'castle'">
         <p>Dare to enter?</p>
-        <p>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesCastle">Enter</button>
-        </p>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoCaslte"><i class="material-icons left">arrow_back</i>Leave</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesCastle">Enter</button>
         </p>
     </template>
 </template>

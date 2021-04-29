@@ -8,7 +8,7 @@
             <h5 class="text-blue">Send Me a Message</h5>
         </div>
         <div class="grid">
-            <div class="col-8 s_col-12">
+            <div class="col-8 s_col-12 dual-buttons">
                 <a target="_blank" href="mailto:dominicojeda.coding@gmail.com">
                     <button class="btn-blue">Email<i className="material-icons">send</i></button>
                 </a>

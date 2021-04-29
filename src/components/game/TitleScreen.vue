@@ -1,7 +1,7 @@
 <template>
     <template v-if="task == 'title'">
         <h5>Choose an Option</h5>
-        <p>
+        <p class="dual-buttons">
             <button @click="changeScene('CharacterCreation')">New Game</button>
             <button :class="{'disabled' : !$parent.profiles.length}" @click="handleLoad">Load Game</button>
         </p>
@@ -28,12 +28,12 @@
                     <p>Completion: {{$parent.checkCompletion(profile)}}%</p>
                 </div>
                 <div class="section-buttons">
-                    <button class="btn-inv" @click="handleDelete(index)"><i class="material-icons right">delete</i>Delete</button>
+                    <button class="btn-inv" @click="handleDelete(index)">Delete<i class="material-icons right">delete</i></button>
                     <button @click="handleSelectProfile(profile.id)">Continue</button>
                 </div>
             </div>
         </div>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>

@@ -12,22 +12,34 @@
             </p>
         </div>
         <template v-if="$parent.menu == false">
-            <TitleScreen v-if="scene == 'TitleScreen'"/>
-            <CharacterCreation v-if="scene == 'CharacterCreation'"/>
-            <EventDisplay v-if="scene != 'TitleScreen'
-            && scene != 'CharacterCreation'"/>
-            <Wild v-if="scene == 'Wild'"/>
-            <Town v-if="scene == 'Town'"/>
-            <Shop v-if="scene == 'Shop'"/>
-            <Tavern v-if="scene == 'Tavern'"/>
-            <WordGuess v-if="scene == 'WordGuess'"/>
-            <Quests v-if="scene == 'Quests'"/>
-            <Dungeon v-if="scene == 'Dungeon'"/>
-            <Castle v-if="scene == 'Castle'"/>
-            <Battle v-if="scene == 'Battle'"/>
-            <ChestEncounter v-if="scene == 'ChestEncounter'"/>
-            <DungeonEncounter v-if="scene == 'DungeonEncounter'"/>
-            <AdventurerEncounter v-if="scene == 'AdventurerEncounter'"/>
+            <div class="screen-top">
+                <TitleScreen v-if="scene == 'TitleScreen'"/>
+                <CharacterCreation v-if="scene == 'CharacterCreation'"/>
+                <EventDisplay v-if="scene != 'TitleScreen'
+                && scene != 'CharacterCreation'"/>
+            </div>
+            <div class="screen-bottom">
+                <div class="message-box"
+                v-if="scene != 'TitleScreen'
+                && scene != 'CharacterCreation'">
+                    <h5>{{ message }}</h5>
+                    <p v-for="(msg, index) in messageBox" :key="index">
+                        {{ msg }}
+                    </p>
+                </div>
+                <Wild v-if="scene == 'Wild'"/>
+                <Town v-if="scene == 'Town'"/>
+                <Shop v-if="scene == 'Shop'"/>
+                <Tavern v-if="scene == 'Tavern'"/>
+                <WordGuess v-if="scene == 'WordGuess'"/>
+                <Quests v-if="scene == 'Quests'"/>
+                <Dungeon v-if="scene == 'Dungeon'"/>
+                <Castle v-if="scene == 'Castle'"/>
+                <Battle v-if="scene == 'Battle'"/>
+                <ChestEncounter v-if="scene == 'ChestEncounter'"/>
+                <DungeonEncounter v-if="scene == 'DungeonEncounter'"/>
+                <AdventurerEncounter v-if="scene == 'AdventurerEncounter'"/>
+            </div>
         </template>
         <template v-else>
             <Save v-if="$parent.menu == 'Save'"/>
@@ -35,7 +47,7 @@
             <Stats v-if="$parent.menu == 'Stats'"/>
             <Quit v-if="$parent.menu == 'Quit'"/>
         </template>
-        <p class="text-gray">SCENE: {{scene}}</p>
+        <!-- <p class="text-gray">SCENE: {{scene}}</p> -->
     </div>
 </div>
 </template>
@@ -1193,6 +1205,25 @@ export default {
             /* animation: slide-in-top 3s; */
         }
         .game-title {
+            display: none;
+        }
+        #game .container {
+            display: grid;
+            grid-template-rows: max-content max-content 1fr;
+            height: calc(100% - 60px);
+            width: 100%;
+            padding: 15px;
+            position: fixed;
+            top: 60px;
+            left: 0;
+        }
+        .screen-bottom {
+            overflow-y: scroll;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            padding: 2px;
+        }
+        .screen-bottom::-webkit-scrollbar {
             display: none;
         }
     }

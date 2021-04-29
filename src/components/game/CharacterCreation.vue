@@ -8,25 +8,17 @@
     </template>
     <template v-if="task == 'race'">
         <h5>What is your race?</h5>
-        <p>
+        <p class="full-buttons">
             <button @click="editRace('Human')">Human</button>
-        </p>
-        <p>
             <button @click="editRace('Elf')">Elf</button>
-        </p>
-        <p>
             <button @click="editRace('Dwarf')">Dwarf</button>
         </p>
     </template>
     <template v-if="task == 'class'">
         <h5>What is your class?</h5>
-        <p>
+        <p class="full-buttons">
             <button @click="editClass('Warrior')">Warrior</button>
-        </p>
-        <p>
             <button @click="editClass('Mage')">Mage</button>
-        </p>
-        <p>
             <button @click="editClass('Rogue')">Rogue</button>
         </p>
     </template>
@@ -320,5 +312,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
+    @media only screen and (max-width: 600px) {
+        form {
+            display: flex;
+        }
+        form input {
+            flex-grow: 4;
+        }
+        form button {
+            margin: 0;
+        }
+        .full-buttons {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: 1fr;
+        }
+        .full-buttons button {
+            margin: 0;
+        }
+    }
 </style>

@@ -1,28 +1,20 @@
 <template>
     <template v-if="task == 'town'">
         <p>Where to next?</p>
-        <p>
+        <p class="full-buttons">
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleInn">Stay at Inn</button>
-        </p>
-        <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleShop">Visit Shop</button>
-        </p>
-        <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleTavern">Visit Tavern</button>
-        </p>
-        <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleQuestBoard">View Quest Board</button>
-        </p>
-        <p>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
         </p>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeaveTown"><i class="material-icons left">arrow_back</i>Leave Town</button>
         </p>
     </template>
     <template v-else-if="task == 'use item'">
         <p>{{$parent.infoText}}</p>
-        <div class="items" @mouseleave="$parent.infoText = 'Select an Item'">
+        <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an Item'">
             <button class="btn-blue"
             v-for="(item, index) in $parent.player.inventory"
             :key="index"
@@ -32,18 +24,16 @@
                 <template v-if="item.charge > 0"> ({{item.goal - item.charge}}/{{item.goal}})</template>
                 <template v-if="item.qty > 1"> &times; {{item.qty}}</template>
                 </button>
-        </div>
-        <p>
+        </p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
     <template v-else-if="task == 'inn'">
         <p>Pay for the room?</p>
-        <p>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesInn">Yes</button>
-        </p>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoInn"><i class="material-icons left">arrow_back</i>No</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesInn">Yes</button>
         </p>
     </template>
 </template>

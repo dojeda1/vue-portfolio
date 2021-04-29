@@ -1,16 +1,16 @@
 <template>
     <template v-if="task == 'bet'">
         <p>How much do you want to bet?</p>
-        <p>
+        <p class="quad-buttons">
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(-10)">-10</button>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(-5)">-5</button>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(5)">+5</button>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(10)">+10</button>
         </p>
-        <p>
+        <p class="full-buttons">
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleBet">Bet ({{this.gold}}g)</button>
         </p>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
@@ -28,7 +28,7 @@
         </div>
         <p></p>
         <p>Guess the word.</p>
-        <p>
+        <p class="six-buttons">
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('A')}" @click="handleGuess('A')">A</button>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('B')}" @click="handleGuess('B')">B</button>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('C')}" @click="handleGuess('C')">C</button>
@@ -56,7 +56,7 @@
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('Y')}" @click="handleGuess('Y')">Y</button>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('Z')}" @click="handleGuess('Z')">Z</button>
         </p>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleGiveUp"><i class="material-icons left">arrow_back</i>Give Up</button>
         </p>
     </template>
