@@ -12,8 +12,8 @@
             </p>
         </div>
         <template v-if="$parent.menu == false">
+            <TitleScreen v-if="scene == 'TitleScreen'"/>
             <div class="screen-top">
-                <TitleScreen v-if="scene == 'TitleScreen'"/>
                 <CharacterCreation v-if="scene == 'CharacterCreation'"/>
                 <EventDisplay v-if="scene != 'TitleScreen'
                 && scene != 'CharacterCreation'"/>

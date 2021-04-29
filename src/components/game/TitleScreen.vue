@@ -1,42 +1,45 @@
 <template>
-    <template v-if="task == 'title'">
-        <h5>Choose an Option</h5>
-        <p class="dual-buttons">
-            <button @click="changeScene('CharacterCreation')">New Game</button>
-            <button :class="{'disabled' : !$parent.profiles.length}" @click="handleLoad">Load Game</button>
-        </p>
-    </template>
-    <template v-if="task == 'profiles'">
-        <h5>Select a Character</h5>
-        <div class="profiles">
-            <div class="profile" v-for="(profile,index) in $parent.profiles"
-            :key="index">
-                <div>
-                    <p>
-                        <img class="profile-sprite" :src="profile.player.sprite" :alt="profile.player.name">
-                        {{profile.player.name}},
-                        Lv. {{profile.player.level}} &middot;
-                        {{profile.player.race}} &middot;
-                        {{profile.player.class}}
-                    </p>
-                    <p>
-                        HP: {{profile.player.hp}}/{{profile.player.hpMax}} &middot;
-                        MP: {{profile.player.mp}}/{{profile.player.mpMax}} &middot;
-                        XP: {{profile.player.xp}}/{{profile.player.nextLevel}} &middot;
-                        {{profile.player.gold}}g
-                    </p>
-                    <p>Completion: {{$parent.checkCompletion(profile)}}%</p>
-                </div>
-                <div class="section-buttons">
-                    <button class="btn-inv" @click="handleDelete(index)">Delete<i class="material-icons right">delete</i></button>
-                    <button @click="handleSelectProfile(profile.id)">Continue</button>
+    <div class="screen-top"></div>
+    <div class="screen-bottom">
+        <template v-if="task == 'title'">
+            <h5>Choose an Option</h5>
+            <p class="dual-buttons">
+                <button @click="changeScene('CharacterCreation')">New Game</button>
+                <button :class="{'disabled' : !$parent.profiles.length}" @click="handleLoad">Load Game</button>
+            </p>
+        </template>
+        <template v-if="task == 'profiles'">
+            <h5>Select a Character</h5>
+            <div class="profiles">
+                <div class="profile" v-for="(profile,index) in $parent.profiles"
+                :key="index">
+                    <div>
+                        <p>
+                            <img class="profile-sprite" :src="profile.player.sprite" :alt="profile.player.name">
+                            {{profile.player.name}},
+                            Lv. {{profile.player.level}} &middot;
+                            {{profile.player.race}} &middot;
+                            {{profile.player.class}}
+                        </p>
+                        <p>
+                            HP: {{profile.player.hp}}/{{profile.player.hpMax}} &middot;
+                            MP: {{profile.player.mp}}/{{profile.player.mpMax}} &middot;
+                            XP: {{profile.player.xp}}/{{profile.player.nextLevel}} &middot;
+                            {{profile.player.gold}}g
+                        </p>
+                        <p>Completion: {{$parent.checkCompletion(profile)}}%</p>
+                    </div>
+                    <div class="section-buttons">
+                        <button class="btn-inv" @click="handleDelete(index)">Delete<i class="material-icons right">delete</i></button>
+                        <button @click="handleSelectProfile(profile.id)">Continue</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <p class="dual-buttons">
-            <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
-        </p>
-    </template>
+            <p class="dual-buttons">
+                <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            </p>
+        </template>
+    </div>
 </template>
 
 <script>
