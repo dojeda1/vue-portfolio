@@ -5,7 +5,7 @@
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleInn">Stay at Inn</button>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleShop">Visit Shop</button>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleTavern">Visit Tavern</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleQuestBoard">View Quest Board</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleQuestBoard">Quest Board</button>
             <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
         </p>
         <p class="dual-buttons">
