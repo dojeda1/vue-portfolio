@@ -156,7 +156,7 @@ export default {
                     this.$parent.activateItem(enemy,player,item)
                 } else if (this.$parent.randNum(1,2) == 1 && abilityEvilEye && enemy.mp >= abilityEvilEye.cost && enemy.hp <= enemy.hpMax/3) {
                     this.ability(enemy, player, abilityEvilEye);
-                } else if (this.$parent.randNum(1,3) == 1 && abilityHeal && enemy.mp >= abilityHeal.cost && enemy.hp <= enemy.hpMax/4) {
+                } else if (this.$parent.randNum(1,2) == 1 && abilityHeal && enemy.mp >= abilityHeal.cost && enemy.hp <= enemy.hpMax/3) {
                     this.ability(enemy, player, abilityHeal);
                 } else if (this.$parent.randNum(1,6) == 1 && abilityBerserk && enemy.mp >= abilityBerserk.cost && enemy.status['Berserk'] <= 0) {
                     this.ability(enemy, player, abilityBerserk);

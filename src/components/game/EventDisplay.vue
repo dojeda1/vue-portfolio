@@ -148,8 +148,8 @@
                     :class="{ 'item-rise': $parent.currentEncounter.note != ''}"
                     >{{$parent.currentEncounter.note}}</span>
                     <img class="item-sprite"
-                    :class="{ 'item-rise': $parent.currentEncounter.animation == 'use item'}"
-                    :src="$parent.currentEncounter.itemSprite" :alt="$parent.currentEncounter.itemName">
+                    :class="{ 'item-rise': $parent.currentEncounter.itemSprite != ''}"
+                    :src="$parent.currentEncounter.itemSprite" alt="Item Sprite">
                     <img class="game-sprite"
                     :class="{ 'idle': $parent.currentEncounter.animation == 'idle',
                     'walk': $parent.currentEncounter.animation == 'walk' ,

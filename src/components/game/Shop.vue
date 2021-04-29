@@ -80,6 +80,9 @@ export default {
                 player.gold -= price;
                 this.$parent.transferItem(shop, player.inventory, shop[index])
                 this.$parent.message = "You bought " + this.$parent.anA(item.name) + " " + item.name + " for " + price + "g."
+                this.$parent.note(player,-price)
+                this.$parent.note(this.$parent.currentEncounter,'+' + price);
+                this.$parent.itemNote(player,item);
                 if (!shop.length) {
                     this.$parent.infoText = "Merchant has no more items."
                 }
@@ -94,6 +97,9 @@ export default {
             player.gold += price;
             this.$parent.transferItem(player.inventory, shop, player.inventory[index])
             this.$parent.message = "You sold " + this.$parent.anA(item.name) + " " + item.name + " for " + price + "g."
+            this.$parent.note(player,'+' + price)
+            this.$parent.note(this.$parent.currentEncounter,-price);
+            this.$parent.itemNote(this.$parent.currentEncounter,item);
             if (!player.inventory.length) {
                 this.$parent.infoText = "Inventory empty"
             }

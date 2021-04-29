@@ -3,6 +3,8 @@
         "name": "Chest",
         "type": "common",
         "sprite": "/images/game/chest.png",
+        "itemSprite": "",
+        "note": "",
         "inventory": [],
         "gold": 10
     },
@@ -11,6 +13,7 @@
         "type": "common",
         "sprite": "/images/game/mimic.png",
         "itemSprite": "",
+        "note": "",
         "abilitySprite": "",
         "hpMax": 20,
         "mpMax": 10,
@@ -33,31 +36,42 @@
     {
         "name": "Dungeon",
         "type": "common",
-        "sprite": "/images/game/dungeon.png"
+        "sprite": "/images/game/dungeon.png",
+        "itemSprite": "",
+        "note": ""
     },
     {
         "name": "Quest Board",
         "type": "common",
-        "sprite": "/images/game/quest-board.png"
+        "sprite": "/images/game/quest-board.png",
+        "itemSprite": "",
+        "note": ""
     },
     {
         "name": "Shop",
         "type": "common",
-        "sprite": "/images/game/shop.png"
+        "sprite": "/images/game/shop.png",
+        "itemSprite": "",
+        "note": ""
     },
     {
         "name": "Tavern",
         "type": "common",
-        "sprite": "/images/game/tavern.png"
+        "sprite": "/images/game/tavern.png",
+        "note": ""
     },
     {
         "name": "Traveling Merchant",
         "type": "common",
-        "sprite": "/images/game/merchant.png"
+        "sprite": "/images/game/merchant.png",
+        "itemSprite": "",
+        "note": ""
     },
     {
         "name": "Old Adventurer",
         "type": "common",
-        "sprite": "/images/game/adventurer.png"
+        "sprite": "/images/game/adventurer.png",
+        "itemSprite": "",
+        "note": ""
     }
 ]

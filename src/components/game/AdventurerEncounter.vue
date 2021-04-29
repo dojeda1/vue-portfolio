@@ -37,6 +37,7 @@ export default {
             this.$parent.transferItem(adventurer, player.inventory, adventurer[index])
             this.$parent.message = "You chose the " + item.name + "."
             this.$parent.messageBox.push("The Adventurer bids you farewell.")
+            this.$parent.itemNote(player,item);
             this.task = 'end'
         },
         handleNext() {
