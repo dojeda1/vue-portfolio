@@ -1,15 +1,13 @@
 <template>
     <template v-if="task == 'chest'">
         <p>What next?</p>
-        <p>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleOpenChest">Open Chest</button>
-        </p>
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Leave</button>
+            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleOpenChest">Open Chest</button>
         </p>
     </template>
     <template v-else-if="task == 'end'">
-        <p>
+        <p class="dual-buttons">
             <button class="btn-inv" @click="handleEnd">End</button>
         </p>
     </template>

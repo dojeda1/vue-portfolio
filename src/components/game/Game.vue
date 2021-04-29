@@ -1212,7 +1212,7 @@ export default {
             grid-template-rows: max-content max-content 1fr;
             height: calc(100% - 60px);
             width: 100%;
-            padding: 15px;
+            padding: 0 15px 15px;
             position: fixed;
             top: 60px;
             left: 0;

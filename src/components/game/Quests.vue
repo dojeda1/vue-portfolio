@@ -27,7 +27,7 @@
         </p>
     </template>
     <template v-else-if="$parent.$parent.menu = 'Quests'">
-        <p>
+        <p class="screen-top">
             <img class="profile-sprite" :src="$parent.player.sprite" :alt="$parent.player.name">
             {{ $parent.player.name }} &middot; 
             <span 
@@ -46,43 +46,44 @@
             'text-gray': $parent.player.hp <= 0}">
             {{ $parent.player.gold }}g</span>
         </p>
-        <div class="message-box">
-            <h5>{{ $parent.message }}</h5>
-            <p v-for="(msg, index) in $parent.messageBox" :key="index">
-                {{ msg }}
-            </p>
-        </div>
-
-        <p v-if="$parent.player.quests.length == 0">You have no Quests.</p>
-        <p v-else-if="$parent.location == 'Town'">Your Quests</p>
-        <p v-else>Visit Town to Redeem</p>
-        <div v-if="$parent.player.quests.length > 0" class="quest-board">
-            <div class="quest"
-            v-for="(quest, index) in $parent.player.quests"
-            :key="index"
-            :class="{ 'disabled' : !playerTurn}">
-                <div>
-                    <h5>{{quest.name}}</h5>
-                    <p>{{quest.info}}</p>
-                    <p :class="{'text-red': quest.region != $parent.regions[$parent.region].name}">Region: {{quest.region}}</p>
-                    <p v-if="quest.reward =='gold'">Reward: {{quest.amount}}g</p>
-                    <p v-else>Reward: {{quest.reward}} &times; {{quest.amount}}</p>
-                    <p :class="{'text-blue': quest.count >= quest.goal}">Progress: {{quest.count}}/{{quest.goal}}</p>
-                </div>
-                <!-- <p>
-                    <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
-                </p> -->
-                <div class="section-buttons">
-                    <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleAbandon(index)">Abandon<i class="material-icons right">delete</i></button>
-                    <button  v-if="$parent.location == 'Town'" class="btn-blue"
-                    :class="{ 'disabled' : !playerTurn || quest.count < quest.goal || quest.region != $parent.regions[$parent.region].name}"
-                    @click="handleRedeem(quest,index)">Redeem<i class="material-icons right">check</i></button>
+        <div class="screen-bottom">
+            <div class="message-box">
+                <h5>{{ $parent.message }}</h5>
+                <p v-for="(msg, index) in $parent.messageBox" :key="index">
+                    {{ msg }}
+                </p>
+            </div>
+            <p v-if="$parent.player.quests.length == 0">You have no Quests.</p>
+            <p v-else-if="$parent.location == 'Town'">Your Quests</p>
+            <p v-else>Visit Town to Redeem</p>
+            <div v-if="$parent.player.quests.length > 0" class="quest-board">
+                <div class="quest"
+                v-for="(quest, index) in $parent.player.quests"
+                :key="index"
+                :class="{ 'disabled' : !playerTurn}">
+                    <div>
+                        <h5>{{quest.name}}</h5>
+                        <p>{{quest.info}}</p>
+                        <p :class="{'text-red': quest.region != $parent.regions[$parent.region].name}">Region: {{quest.region}}</p>
+                        <p v-if="quest.reward =='gold'">Reward: {{quest.amount}}g</p>
+                        <p v-else>Reward: {{quest.reward}} &times; {{quest.amount}}</p>
+                        <p :class="{'text-blue': quest.count >= quest.goal}">Progress: {{quest.count}}/{{quest.goal}}</p>
+                    </div>
+                    <!-- <p>
+                        <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
+                    </p> -->
+                    <div class="section-buttons">
+                        <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleAbandon(index)">Abandon<i class="material-icons right">delete</i></button>
+                        <button  v-if="$parent.location == 'Town'" class="btn-blue"
+                        :class="{ 'disabled' : !playerTurn || quest.count < quest.goal || quest.region != $parent.regions[$parent.region].name}"
+                        @click="handleRedeem(quest,index)">Redeem<i class="material-icons right">check</i></button>
+                    </div>
                 </div>
             </div>
+            <p class="dual-buttons">
+                <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            </p>
         </div>
-        <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
-        </p>
     </template>
 </template>
 

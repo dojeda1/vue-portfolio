@@ -1,6 +1,6 @@
 <template>
     <template v-if="$parent.$parent.gameStarted">
-        <p>
+        <p class="screen-top">
             <img class="profile-sprite" :src="$parent.player.sprite" :alt="$parent.player.name">
             {{ $parent.player.name }} &middot; 
             <span 
@@ -19,20 +19,20 @@
             'text-gray': $parent.player.hp <= 0}">
             {{ $parent.player.gold }}g</span>
         </p>
+    </template>
+    <div class="screen-bottom">
         <div class="message-box">
             <h5>{{ $parent.message }}</h5>
             <p v-for="(msg, index) in $parent.messageBox" :key="index">
                 {{ msg }}
             </p>
         </div>
-    </template>
-    <p>Are you sure you want to quit? Any unsaved progress will be lost.</p>
-    <p>
-        <button :class="{ 'disabled' : !playerTurn }" @click="$parent.$parent.handleGameToggled">Quit</button>
-    </p>
-    <p>
-        <button class="btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
-    </p>
+        <p>Are you sure you want to quit? Any unsaved progress will be lost.</p>
+        <p class="dual-buttons">
+            <button class="btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            <button :class="{ 'disabled' : !playerTurn }" @click="$parent.$parent.handleGameToggled">Quit</button>
+        </p>
+    </div>
 </template>
 
 <script>

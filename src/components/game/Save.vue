@@ -1,5 +1,5 @@
 <template>
-    <p>
+    <p class="screen-top">
         <img class="profile-sprite" :src="$parent.player.sprite" :alt="$parent.player.name">
         {{ $parent.player.name }} &middot; 
         <span 
@@ -18,54 +18,56 @@
         'text-gray': $parent.player.hp <= 0}">
         {{ $parent.player.gold }}g</span>
     </p>
-    <template v-if="task == 'save'">
-        <div class="message-box">
-            <h5>{{ $parent.message }}</h5>
-            <p v-for="(msg, index) in $parent.messageBox" :key="index">
-                {{ msg }}
+    <div class="screen-bottom">
+        <template v-if="task == 'save'">
+            <div class="message-box">
+                <h5>{{ $parent.message }}</h5>
+                <p v-for="(msg, index) in $parent.messageBox" :key="index">
+                    {{ msg }}
+                </p>
+            </div>
+            <p v-if="$parent.location == 'Town'">Save your Progress</p>
+            <p v-else>Visit Town to Save</p>
+            <p class="dual-buttons">
+                <button :class="{ 'disabled' : !playerTurn || $parent.location != 'Town'}" @click="handleSave">Save Game</button>
+                <button :class="{ 'disabled' : !playerTurn }" @click="handleLoad">Load Game</button>
             </p>
-        </div>
-        <p v-if="$parent.location == 'Town'">Save your Progress</p>
-        <p v-else>Visit Town to Save</p>
-        <p class="dual-buttons">
-            <button :class="{ 'disabled' : !playerTurn || $parent.location != 'Town'}" @click="handleSave">Save Game</button>
-            <button :class="{ 'disabled' : !playerTurn }" @click="handleLoad">Load Game</button>
-        </p>
-        <p class='dual-buttons'>
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleExit"><i class="material-icons left">arrow_back</i>Back</button>
-        </p>
-    </template>
-    <template v-if="task == 'profiles'">
-        <h5>Select a Character</h5>
-        <div class="profiles">
-            <div class="profile" v-for="(profile,index) in $parent.profiles"
-            :key="index">
-                <div>
-                    <p>
-                        <img class="profile-sprite" :src="profile.player.sprite" :alt="profile.player.name">
-                        {{profile.player.name}},
-                        Lv. {{profile.player.level}} &middot;
-                        {{profile.player.race}} &middot;
-                        {{profile.player.class}}
-                    </p>
-                    <p>
-                        HP: {{profile.player.hp}}/{{profile.player.hpMax}} &middot;
-                        MP: {{profile.player.mp}}/{{profile.player.mpMax}} &middot;
-                        XP: {{profile.player.xp}}/{{profile.player.nextLevel}} &middot;
-                        {{profile.player.gold}}g
-                    </p>
-                    <p>Completion: {{$parent.checkCompletion(profile)}}%</p>
-                </div>
-                <div class="section-buttons">
-                    <button class="btn-inv" @click="handleDelete(index)">Delete<i class="material-icons right">delete</i></button>
-                    <button @click="handleSelectProfile(profile.id)">Continue</button>
+            <p class='dual-buttons'>
+                <button class="btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleExit"><i class="material-icons left">arrow_back</i>Back</button>
+            </p>
+        </template>
+        <template v-if="task == 'profiles'">
+            <h5>Select a Character</h5>
+            <div class="profiles">
+                <div class="profile" v-for="(profile,index) in $parent.profiles"
+                :key="index">
+                    <div>
+                        <p>
+                            <img class="profile-sprite" :src="profile.player.sprite" :alt="profile.player.name">
+                            {{profile.player.name}},
+                            Lv. {{profile.player.level}} &middot;
+                            {{profile.player.race}} &middot;
+                            {{profile.player.class}}
+                        </p>
+                        <p>
+                            HP: {{profile.player.hp}}/{{profile.player.hpMax}} &middot;
+                            MP: {{profile.player.mp}}/{{profile.player.mpMax}} &middot;
+                            XP: {{profile.player.xp}}/{{profile.player.nextLevel}} &middot;
+                            {{profile.player.gold}}g
+                        </p>
+                        <p>Completion: {{$parent.checkCompletion(profile)}}%</p>
+                    </div>
+                    <div class="section-buttons">
+                        <button class="btn-inv" @click="handleDelete(index)">Delete<i class="material-icons right">delete</i></button>
+                        <button @click="handleSelectProfile(profile.id)">Continue</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <p class='dual-buttons'>
-            <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
-        </p>
-    </template>
+            <p class='dual-buttons'>
+                <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            </p>
+        </template>
+    </div>
 </template>
 
 <script>
