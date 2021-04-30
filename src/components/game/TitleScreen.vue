@@ -4,8 +4,8 @@
         <template v-if="task == 'title'">
             <h5>Choose an Option</h5>
             <p class="dual-buttons">
-                <button @click="changeScene('CharacterCreation')">New Game</button>
-                <button :class="{'disabled' : !$parent.profiles.length}" @click="handleLoad">Load Game</button>
+                <button class="btn" @click="changeScene('CharacterCreation')">New Game</button>
+                <button class="btn" :class="{'disabled' : !$parent.profiles.length}" @click="handleLoad">Load Game</button>
             </p>
         </template>
         <template v-if="task == 'profiles'">
@@ -30,13 +30,13 @@
                         <p>Completion: {{$parent.checkCompletion(profile)}}%</p>
                     </div>
                     <div class="section-buttons">
-                        <button class="btn-inv" @click="handleDelete(index)">Delete<i class="material-icons right">delete</i></button>
-                        <button @click="handleSelectProfile(profile.id)">Continue</button>
+                        <button class="btn btn-inv" @click="handleDelete(index)">Delete<i class="material-icons right">delete</i></button>
+                        <button class="btn" @click="handleSelectProfile(profile.id)">Continue</button>
                     </div>
                 </div>
             </div>
             <p class="dual-buttons">
-                <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+                <button class="btn btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
             </p>
         </template>
     </div>

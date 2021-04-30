@@ -1,8 +1,8 @@
 <template>
     <p>Dare to enter?</p>
     <p class="dual-buttons">
-        <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Leave</button>
-        <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleEnter">Enter</button>
+        <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Leave</button>
+        <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleEnter">Enter</button>
     </p>
 </template>
 

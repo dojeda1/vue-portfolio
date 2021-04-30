@@ -10,12 +10,12 @@
         <div class="grid">
             <div class="col-8 s_col-12 dual-buttons">
                 <a target="_blank" href="mailto:dominicojeda.coding@gmail.com">
-                    <button class="btn-blue">Email<i className="material-icons">send</i></button>
+                    <button class="btn btn-blue">Email<i className="material-icons right">send</i></button>
                 </a>
             </div>
             <div class="col-4 s_col-12">
                 <h6 class="text-blue">- Contact Info -</h6>
-                <p>dominicojeda.coding@gmail.com</p>
+                <p class="email">dominicojeda.coding@gmail.com</p>
                 <p>
                     <a href="https://www.linkedin.com/in/dominic-ojeda/" target="_blank"
                         class="contact-link">Linkedin</a>
@@ -80,5 +80,8 @@ export default {
     }
     .contact-link:hover {
         color: #27aae1;
+    }
+    .email {
+            word-wrap: break-word;
     }
 </style>

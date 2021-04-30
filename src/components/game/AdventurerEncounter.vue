@@ -2,7 +2,7 @@
     <template v-if="task == 'select'">
         <p>{{$parent.infoText}}</p>
         <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an item'">
-            <button class="btn-blue"
+            <button class="btn btn-blue"
             v-for="(item, index) in $parent.merchant"
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
@@ -13,7 +13,7 @@
     </template>
     <template v-else-if="task == 'end'">
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNext">Next</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNext">Next</button>
         </p>
     </template>
 </template>

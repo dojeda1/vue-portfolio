@@ -2,17 +2,17 @@
     <template v-if="task == 'shop'">
         <p>What Next?</p>
         <p class='full-buttons'>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleBuy">Buy</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleSell">Sell</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleBuy">Buy</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleSell">Sell</button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Leave</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Leave</button>
         </p>
     </template>
     <template v-else-if="task == 'buy'">
         <p>{{$parent.infoText}}</p>
         <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an item to buy'">
-            <button class="btn-blue"
+            <button class="btn btn-blue"
             v-for="(item, index) in $parent.merchant"
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
@@ -22,13 +22,13 @@
                 </button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
     <template v-else-if="task == 'sell'">
         <p>{{$parent.infoText}}</p>
         <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an item to sell'">
-            <button class="btn-blue"
+            <button class="btn btn-blue"
             v-for="(item, index) in $parent.player.inventory"
             :key="index"
                 :class="{ 'disabled' : !playerTurn || item.name == 'Head of Asteroth'}"
@@ -38,7 +38,7 @@
                 </button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
 </template>

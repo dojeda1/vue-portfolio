@@ -2,18 +2,18 @@
     <template v-if="task == 'tavern'">
         <p>What Next?</p>
         <p class="full-buttons">
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleMead">Buy a Mead</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handlePlayGame">Play a Game</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleMead">Buy a Mead</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handlePlayGame">Play a Game</button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Leave</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Leave</button>
         </p>
     </template>
     <template v-else-if="task == 'mead'">
         <p>Purchase mead?</p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoMead"><i class="material-icons left">arrow_back</i>No</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesMead">Yes</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoMead"><i class="material-icons left">arrow_back</i>No</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesMead">Yes</button>
         </p>
     </template>
 </template>

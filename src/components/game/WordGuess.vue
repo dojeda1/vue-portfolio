@@ -2,16 +2,16 @@
     <template v-if="task == 'bet'">
         <p>How much do you want to bet?</p>
         <p class="quad-buttons">
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(-10)">-10</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(-5)">-5</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(5)">+5</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(10)">+10</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(-10)">-10</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(-5)">-5</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(5)">+5</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleChangeGold(10)">+10</button>
         </p>
         <p class="full-buttons">
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleBet">Bet ({{this.gold}}g)</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleBet">Bet ({{this.gold}}g)</button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Back</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
     <template v-else-if="task == 'play'">
@@ -29,35 +29,35 @@
         <p></p>
         <p>Guess the word.</p>
         <p class="six-buttons">
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('A')}" @click="handleGuess('A')">A</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('B')}" @click="handleGuess('B')">B</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('C')}" @click="handleGuess('C')">C</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('D')}" @click="handleGuess('D')">D</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('E')}" @click="handleGuess('E')">E</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('F')}" @click="handleGuess('F')">F</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('G')}" @click="handleGuess('G')">G</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('H')}" @click="handleGuess('H')">H</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('I')}" @click="handleGuess('I')">I</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('J')}" @click="handleGuess('J')">J</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('K')}" @click="handleGuess('K')">K</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('L')}" @click="handleGuess('L')">L</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('M')}" @click="handleGuess('M')">M</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('N')}" @click="handleGuess('N')">N</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('O')}" @click="handleGuess('O')">O</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('P')}" @click="handleGuess('P')">P</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('Q')}" @click="handleGuess('Q')">Q</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('R')}" @click="handleGuess('R')">R</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('S')}" @click="handleGuess('S')">S</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('T')}" @click="handleGuess('T')">T</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('U')}" @click="handleGuess('U')">U</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('V')}" @click="handleGuess('V')">V</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('W')}" @click="handleGuess('W')">W</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('X')}" @click="handleGuess('X')">X</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('Y')}" @click="handleGuess('Y')">Y</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('Z')}" @click="handleGuess('Z')">Z</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('A')}" @click="handleGuess('A')">A</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('B')}" @click="handleGuess('B')">B</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('C')}" @click="handleGuess('C')">C</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('D')}" @click="handleGuess('D')">D</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('E')}" @click="handleGuess('E')">E</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('F')}" @click="handleGuess('F')">F</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('G')}" @click="handleGuess('G')">G</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('H')}" @click="handleGuess('H')">H</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('I')}" @click="handleGuess('I')">I</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('J')}" @click="handleGuess('J')">J</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('K')}" @click="handleGuess('K')">K</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('L')}" @click="handleGuess('L')">L</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('M')}" @click="handleGuess('M')">M</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('N')}" @click="handleGuess('N')">N</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('O')}" @click="handleGuess('O')">O</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('P')}" @click="handleGuess('P')">P</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('Q')}" @click="handleGuess('Q')">Q</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('R')}" @click="handleGuess('R')">R</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('S')}" @click="handleGuess('S')">S</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('T')}" @click="handleGuess('T')">T</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('U')}" @click="handleGuess('U')">U</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('V')}" @click="handleGuess('V')">V</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('W')}" @click="handleGuess('W')">W</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('X')}" @click="handleGuess('X')">X</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('Y')}" @click="handleGuess('Y')">Y</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn || checkButton('Z')}" @click="handleGuess('Z')">Z</button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleGiveUp"><i class="material-icons left">arrow_back</i>Give Up</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleGiveUp"><i class="material-icons left">arrow_back</i>Give Up</button>
         </p>
     </template>
 </template>

@@ -173,13 +173,7 @@ p {
     grid-row: span 2;
 }
 
-.left {
-    float: left;
-    margin-left: 0;
-    margin-right: 10px;
-}
-
-button {
+.btn {
     box-sizing: border-box;
     font-family: 'Montserrat Alternates', sans-serif;
     font-weight: 700;
@@ -197,7 +191,7 @@ button {
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
 }
 
-button:hover {
+.btn:hover {
     background-color: #212121;
     color: #8dc63f;
     /* border: 2px solid #8dc63f; */
@@ -205,51 +199,55 @@ button:hover {
     ;
 }
 
-button.btn-green {
+.btn.btn-green {
     background-color: #8dc63f;
 }
-button.btn-green:hover {
+.btn.btn-green:hover {
     color: #8dc63f;
     background-color: #212121;
     box-shadow: 0 0 0 2px #8dc63f, 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
 }
-button.btn-blue {
+.btn.btn-blue {
     background-color: #27aae1;
 }
-button.btn-blue:hover {
+.btn.btn-blue:hover {
     color: #27aae1;
     background-color: #212121;
     box-shadow: 0 0 0 2px #27aae1, 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
 }
 
-button.btn-jade {
+.btn.btn-jade {
     background-color: #2bb673;
 }
-button.btn-jade:hover {
+.btn.btn-jade:hover {
     color: #2bb673;
     background-color: #212121;
     box-shadow: 0 0 0 2px #2bb673, 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
 }
 
-.btn-inv {
+.btn.btn-inv {
     color: white;
     background-color: #212121;
     box-shadow: 0 0 0 2px white, 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
 }
-.btn-inv:hover {
+.btn.btn-inv:hover {
     color: #212121;
     background-color: white;
     box-shadow: none;
 }
 
-button.disabled {
+.btn.disabled {
     background-color: gray;
     pointer-events: none;
     color: #212121;
     box-shadow: none;
 }
 
-button i {
+.btn i.left {
+    float: left;
+    margin-right: 10px;
+}
+.btn i.right {
     margin-left: 10px;
     float: right;
 }
@@ -384,7 +382,7 @@ button i {
     margin-left: -5px;
     margin-right: -5px; */
 }
-.select-buttons button {
+.select-buttons .btn {
     margin: 0;
 }
 
@@ -663,5 +661,59 @@ button i {
     }
     .s_col-12 {
         grid-column: span 12;
+    }
+    /* Button Widths */
+    .full-buttons {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: 1fr;
+    }
+    .full-buttons a{
+        text-decoration: none;
+    }
+    .full-buttons .btn {
+        margin: 0;
+    }
+    .dual-buttons {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-gap: 10px;
+    }
+    .dual-buttons a{
+        text-decoration: none;
+    }
+    .dual-buttons .btn {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .quad-buttons {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-gap: 10px;
+    }
+    .quad-buttons a{
+        text-decoration: none;
+    }
+    .quad-buttons .btn {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .six-buttons {
+        display: grid;
+        grid-template-columns: repeat(6,1fr);
+        grid-gap: 10px;
+    }
+    .six-buttons a{
+        text-decoration: none;
+    }
+    .six-buttons .btn {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
     }
 }
