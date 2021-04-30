@@ -29,8 +29,8 @@
         </div>
         <p>Are you sure you want to quit? Any unsaved progress will be lost.</p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
-            <button :class="{ 'disabled' : !playerTurn }" @click="$parent.$parent.handleGameToggled">Quit</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            <button class="btn" :class="{ 'disabled' : !playerTurn }" @click="$parent.$parent.handleGameToggled">Quit</button>
         </p>
     </div>
 </template>

@@ -2,24 +2,24 @@
     <template v-if="task == 'battle'">
         <p>What next?</p>
         <p class="full-buttons">
-            <button class="btn-blue" @click="handleAttack" :class="{ 'disabled' : !playerTurn}">Attack</button>
+            <button class="btn btn-blue" @click="handleAttack" :class="{ 'disabled' : !playerTurn}">Attack</button>
         <template v-for="(ability, index) in $parent.player.abilities" :key="index">
             <template v-if="ability.active">
-                <button class="btn-blue" @click="handleAbility(ability)"
+                <button class="btn btn-blue" @click="handleAbility(ability)"
                 :class="{ 'disabled' : !playerTurn || ability.cost > $parent.player.mp}">
                 {{ability.name}} - {{ability.cost}} mp</button>
             </template>
         </template>
-            <button class="btn-blue" @click="handleUseItem" :class="{ 'disabled' : !playerTurn}">Use Item</button>
+            <button class="btn btn-blue" @click="handleUseItem" :class="{ 'disabled' : !playerTurn}">Use Item</button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" @click="handleRun" :class="{ 'disabled' : !playerTurn}"><i className="material-icons left">arrow_back</i>Run</button>
+            <button class="btn btn-inv" @click="handleRun" :class="{ 'disabled' : !playerTurn}"><i className="material-icons left">arrow_back</i>Run</button>
         </p>
     </template>
     <template v-else-if="task == 'use item'">
         <p>{{$parent.infoText}}</p>
         <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an Item'">
-            <button class="btn-blue"
+            <button class="btn btn-blue"
             v-for="(item, index) in $parent.player.inventory"
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
@@ -30,18 +30,18 @@
                 </button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            <button class="btn btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
     <template v-else-if="task == 'next'">
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNext">Next</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNext">Next</button>
         </p>
     </template>
     <template v-else-if="task == 'end'">
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleEnd">End</button>
-            <button class="btn-inv"
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleEnd">End</button>
+            <button class="btn btn-inv"
             :class="{ 'disabled' : !playerTurn || !$parent.getProfileById($parent.player.id)}"
             @click="handleContinue($parent.player.id)">Continue</button>
         </p>

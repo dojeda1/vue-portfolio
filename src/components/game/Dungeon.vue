@@ -6,19 +6,19 @@
         <p>Where to next?</p>
         <p class="full-buttons">
             <button v-if="$parent.dungeonCount >= this.$parent.regions[this.$parent.region].dungeonGoal"
-            class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleFightBoss">Fight Boss</button>
+            class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleFightBoss">Fight Boss</button>
             <button v-else
-            class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleExplore">Venture Deeper</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
+            class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleExplore">Venture Deeper</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleExit"><i className="material-icons left">arrow_back</i>Exit</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleExit"><i className="material-icons left">arrow_back</i>Exit</button>
         </p>
     </template>
     <template v-else-if="task == 'use item'">
         <p>{{$parent.infoText}}</p>
         <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an Item'">
-            <button class="btn-blue"
+            <button class="btn btn-blue"
             v-for="(item, index) in $parent.player.inventory"
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
@@ -29,7 +29,7 @@
                 </button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
 </template>

@@ -10,7 +10,7 @@
         <div class="grid">
             <div class="col-8 s_col-12 dual-buttons">
                 <a target="_blank" href="mailto:dominicojeda.coding@gmail.com">
-                    <button class="btn-blue">Email<i className="material-icons">send</i></button>
+                    <button class="btn btn-blue">Email<i className="material-icons">send</i></button>
                 </a>
             </div>
             <div class="col-4 s_col-12">

@@ -2,20 +2,20 @@
     <template v-if="task == 'town'">
         <p>Where to next?</p>
         <p class="full-buttons">
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleInn">Stay at Inn</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleShop">Visit Shop</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleTavern">Visit Tavern</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleQuestBoard">Quest Board</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleInn">Stay at Inn</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleShop">Visit Shop</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleTavern">Visit Tavern</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleQuestBoard">Quest Board</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleUseItem">Use Item</button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeaveTown"><i class="material-icons left">arrow_back</i>Leave Town</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeaveTown"><i class="material-icons left">arrow_back</i>Leave Town</button>
         </p>
     </template>
     <template v-else-if="task == 'use item'">
         <p>{{$parent.infoText}}</p>
         <p class="items full-buttons" @mouseleave="$parent.infoText = 'Select an Item'">
-            <button class="btn-blue"
+            <button class="btn btn-blue"
             v-for="(item, index) in $parent.player.inventory"
             :key="index"
                 :class="{ 'disabled' : !playerTurn}"
@@ -26,14 +26,14 @@
                 </button>
         </p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
         </p>
     </template>
     <template v-else-if="task == 'inn'">
         <p>Pay for the room?</p>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoInn"><i class="material-icons left">arrow_back</i>No</button>
-            <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesInn">Yes</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleNoInn"><i class="material-icons left">arrow_back</i>No</button>
+            <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleYesInn">Yes</button>
         </p>
     </template>
 </template>

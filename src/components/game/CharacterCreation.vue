@@ -3,23 +3,23 @@
         <h5>{{$parent.message}}</h5>
         <form>
             <input class="text-white" :class="{'text-red': name.length > 16}" type="text" v-model="name" placeholder="Killgore">
-            <button @click="editName" v-on:submit.prevent="editName(event)">Enter</button>
+            <button class="btn" @click="editName" v-on:submit.prevent="editName(event)">Enter</button>
         </form>
     </template>
     <template v-if="task == 'race'">
         <h5>What is your race?</h5>
         <p class="full-buttons">
-            <button @click="editRace('Human')">Human</button>
-            <button @click="editRace('Elf')">Elf</button>
-            <button @click="editRace('Dwarf')">Dwarf</button>
+            <button class="btn" @click="editRace('Human')">Human</button>
+            <button class="btn" @click="editRace('Elf')">Elf</button>
+            <button class="btn" @click="editRace('Dwarf')">Dwarf</button>
         </p>
     </template>
     <template v-if="task == 'class'">
         <h5>What is your class?</h5>
         <p class="full-buttons">
-            <button @click="editClass('Warrior')">Warrior</button>
-            <button @click="editClass('Mage')">Mage</button>
-            <button @click="editClass('Rogue')">Rogue</button>
+            <button class="btn" @click="editClass('Warrior')">Warrior</button>
+            <button class="btn" @click="editClass('Mage')">Mage</button>
+            <button class="btn" @click="editClass('Rogue')">Rogue</button>
         </p>
     </template>
 </template>
@@ -319,15 +319,7 @@ export default {
         form input {
             flex-grow: 4;
         }
-        form button {
-            margin: 0;
-        }
-        .full-buttons {
-            display: grid;
-            grid-gap: 10px;
-            grid-template-columns: 1fr;
-        }
-        .full-buttons button {
+        form .btn {
             margin: 0;
         }
     }

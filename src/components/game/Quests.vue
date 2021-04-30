@@ -14,16 +14,16 @@
                     <p v-else>Reward: {{quest.reward}} &times; {{quest.amount}}</p>
                 </div>
                 <div class="section-buttons">
-                    <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
+                    <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
                 </div>
                 <!-- <p>
-                    <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleLeave">Abandon<i class="material-icons right">delete</i></button>
-                    <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleLeave">Redeem<i class="material-icons right">check</i></button>
+                    <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleLeave">Abandon<i class="material-icons right">delete</i></button>
+                    <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleLeave">Redeem<i class="material-icons right">check</i></button>
                 </p> -->
             </div>
         </div>
         <p class="dual-buttons">
-            <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Leave</button>
+            <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleLeave"><i class="material-icons left">arrow_back</i>Leave</button>
         </p>
     </template>
     <template v-else-if="$parent.$parent.menu = 'Quests'">
@@ -70,18 +70,18 @@
                         <p :class="{'text-blue': quest.count >= quest.goal}">Progress: {{quest.count}}/{{quest.goal}}</p>
                     </div>
                     <!-- <p>
-                        <button class="btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
+                        <button class="btn btn-blue" :class="{ 'disabled' : !playerTurn}" @click="handleAccept(index)">Accept<i class="material-icons right">check</i></button>
                     </p> -->
                     <div class="section-buttons">
-                        <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleAbandon(index)">Abandon<i class="material-icons right">delete</i></button>
-                        <button  v-if="$parent.location == 'Town'" class="btn-blue"
+                        <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleAbandon(index)">Abandon<i class="material-icons right">delete</i></button>
+                        <button  v-if="$parent.location == 'Town'" class="btn btn-blue"
                         :class="{ 'disabled' : !playerTurn || quest.count < quest.goal || quest.region != $parent.regions[$parent.region].name}"
                         @click="handleRedeem(quest,index)">Redeem<i class="material-icons right">check</i></button>
                     </div>
                 </div>
             </div>
             <p class="dual-buttons">
-                <button class="btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+                <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn}" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
             </p>
         </div>
     </template>

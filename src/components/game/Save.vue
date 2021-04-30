@@ -29,11 +29,11 @@
             <p v-if="$parent.location == 'Town'">Save your Progress</p>
             <p v-else>Visit Town to Save</p>
             <p class="dual-buttons">
-                <button :class="{ 'disabled' : !playerTurn || $parent.location != 'Town'}" @click="handleSave">Save Game</button>
-                <button :class="{ 'disabled' : !playerTurn }" @click="handleLoad">Load Game</button>
+                <button class="btn" :class="{ 'disabled' : !playerTurn || $parent.location != 'Town'}" @click="handleSave">Save Game</button>
+                <button class="btn" :class="{ 'disabled' : !playerTurn }" @click="handleLoad">Load Game</button>
             </p>
             <p class='dual-buttons'>
-                <button class="btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleExit"><i class="material-icons left">arrow_back</i>Back</button>
+                <button class="btn btn-inv" :class="{ 'disabled' : !playerTurn }" @click="handleExit"><i class="material-icons left">arrow_back</i>Back</button>
             </p>
         </template>
         <template v-if="task == 'profiles'">
@@ -58,13 +58,13 @@
                         <p>Completion: {{$parent.checkCompletion(profile)}}%</p>
                     </div>
                     <div class="section-buttons">
-                        <button class="btn-inv" @click="handleDelete(index)">Delete<i class="material-icons right">delete</i></button>
-                        <button @click="handleSelectProfile(profile.id)">Continue</button>
+                        <button class="btn btn-inv" @click="handleDelete(index)">Delete<i class="material-icons right">delete</i></button>
+                        <button class="btn" @click="handleSelectProfile(profile.id)">Continue</button>
                     </div>
                 </div>
             </div>
             <p class='dual-buttons'>
-                <button class="btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
+                <button class="btn btn-inv" @click="handleBack"><i class="material-icons left">arrow_back</i>Back</button>
             </p>
         </template>
     </div>
