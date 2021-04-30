@@ -41,23 +41,24 @@
             </div>
             <div class="col-4 s_col-12">
                 <img class="preview-img" alt="Screenshot 1"
-                :class="{'zoomed': isZoomed[0]}"
                 :src="currentProject.img1"
-                @click="zoomImage(0)">
+                @click="zoomImage(currentProject.img1)">
             </div>
             <div class="col-8 row-2 s_col-12">
                 <img class="preview-img" alt="Screenshot 2"
-                :class="{'zoomed': isZoomed[1]}"
                 :src="currentProject.img2"
-                @click="zoomImage(1)">
+                @click="zoomImage(currentProject.img2)">
             </div>
             <div class="col-4 s_col-12">
                 <img class="preview-img" alt="Screenshot 3"
-                :class="{'zoomed': isZoomed[2]}"
                 :src="currentProject.img3"
-                @click="zoomImage(2)">
+                @click="zoomImage(currentProject.img3)">
             </div>
         </div>
+    </div>
+    <div v-if="imageModal != ''" class="image-modal"
+    @click="zoomImage('')">
+        <img :src="imageModal" alt="zoomed image">
     </div>
 </div>
 </template>
@@ -68,11 +69,7 @@ export default {
     data() {
         return {
         currentProject: {},
-        isZoomed: [
-            false,
-            false,
-            false
-        ],
+        imageModal: '',
         projects: [
             {
                 title: "Meal Planner",
@@ -192,9 +189,9 @@ export default {
             this.projects.forEach(project => project.isActive = false)
             this.projects[ind].isActive = true;
         },
-        zoomImage(ind) {
+        zoomImage(src) {
             console.log('hey');
-            this.isZoomed[ind] = !this.isZoomed[ind];
+            this.imageModal = src;
         }
     },
     created: function() {
@@ -206,25 +203,35 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
     .preview-img {
+        height: 100%;
         width: 100%;
         transition: all .2s ease-in-out;
         box-shadow: 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 30%);
         cursor: zoom-in;
+        object-fit: cover;
     }
     .preview-img:hover {
         opacity: .8;
     }
-    .preview-img.zoomed {
+    .image-modal {
+        cursor: zoom-out;
+        backdrop-filter: blur(.5rem);
         position: fixed;
+        z-index: 2;
         top: 0;
         left: 0;
-        cursor: zoom-out;
+        background-color: rgba(33, 33, 33, 0.75);
+        height: 100%;
+        width: 100%;
+        padding: 10px;
     }
-    .preview-img.zoomed:hover {
-        opacity: 1;
+    .image-modal img{
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
     }
     .portfolio-devices {
-    width: 100%;
+        width: 100%;
     }
     .paint-pics {
         display: flex;
