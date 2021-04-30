@@ -7,8 +7,13 @@
         <div class="section-header">
             <h5 class=" text-green">Select a Project</h5>
         </div>
+            <!-- @ready="logEvents('ready', $event)"
+            @previous="logEvents('previous', $event)"
+            @next="logEvents('next', $event)"
+            @before-slide="logEvents('before-slide', $event)" -->
         <div class="paint-pics">
             <vueper-slides class="no-shadow"
+            @slide="logEvents('slide', $event)"
             :touchable="false"
             :infinite="true"
             :visible-slides="5"
@@ -220,6 +225,11 @@ export default {
     methods: {
         log(msg) {
             console.log('Log:',msg);
+        },
+        logEvents (eventName, params) {
+            console.log(eventName, params)
+            console.log('Index:',params.currentSlide.index)
+            this.swapProject(params.currentSlide.index)
         },
         swapProject(ind) {
             console.log(ind)
