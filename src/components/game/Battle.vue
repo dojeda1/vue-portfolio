@@ -868,21 +868,25 @@ export default {
                     //Old Hat
                     const item = this.$parent.items[5][0];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Goblong') {
                     //Defense Elixir
                     const item = this.$parent.items[6][3];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Brutus') {
                     //Strength Elixir
                     const item = this.$parent.items[6][2];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Xerus') {
                     //Defense Elixir
                     const item = this.$parent.items[6][3];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Celene') {
                     //Death Scroll
@@ -891,37 +895,48 @@ export default {
                     const item2 = this.$parent.items[4][5];
                     this.$parent.addItem(player.inventory, item);
                     this.$parent.addItem(player.inventory, item2);
-                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item2.name + ".");
+                    this.$parent.itemNote(player,item);
+                    const $this = this;
+                    setTimeout(function() {
+                        $this.$parent.itemNote(player,item2);
+                    },1200)
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
+                    text.push("You obtained " + this.$parent.anA(item.name) + " " + item2.name + ".");
                 } else if (enemy.name == 'Rigor') {
                     //Speed Elixir
                     const item = this.$parent.items[6][5];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Lilith') {
                     //Will Elixir
                     const item = this.$parent.items[6][4];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Valdora') {
                     //Luck Elixir
                     const item = this.$parent.items[6][6];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Grue') {
                     //Health Elixir
                     const item = this.$parent.items[6][0];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Arealus') {
                     //Mana Elixir
                     const item = this.$parent.items[6][1];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained " + this.$parent.anA(item.name) + " " + item.name + ".");
                 } else if (enemy.name == 'Asteroth') {
                     //Head of Asteroth
                     const item = this.$parent.items[8][0];
                     this.$parent.addItem(player.inventory, item);
+                    this.$parent.itemNote(player,item);
                     text.push("You obtained the " + item.name + ".");
                 }
             }
