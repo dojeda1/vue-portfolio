@@ -29,7 +29,7 @@
     },
     {
         "name": "Steal",
-        "cost": 10,
+        "cost": 8,
         "active": false
     },
     {
