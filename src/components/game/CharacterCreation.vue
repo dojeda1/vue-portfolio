@@ -208,7 +208,7 @@ export default {
             //Unique
             // this.$parent.addItem(player.inventory,this.$parent.items[8][0]);
             //Add Stats
-            player.xp+=2000
+            // player.xp+=2000
             // player.status['Burn'] = 4;
             // player.status['Bleed'] = 4;
             // player.status['Poison'] = 4;
