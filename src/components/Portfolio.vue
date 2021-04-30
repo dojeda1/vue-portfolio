@@ -13,8 +13,20 @@
             :infinite="true"
             :visible-slides="5"
             :gap="3"
-            :dragging-distance="200"
-            :breakpoints="{ 1000: { visibleSlides: 3 } }">
+            :slide-ratio="1 / 5"
+            :dragging-distance="20"
+            :breakpoints="{
+                1000: {
+                    visibleSlides: 3,
+                    slideRatio: 1 / 3
+                },
+                600: {
+                    visibleSlides: 1,
+                    slideRatio: 1,
+                    touchable: true,
+                    arrows: false,
+                } 
+            }">
                 <vueper-slide v-for="(slide, index) in projects" :key="index"
                 class="paint-pic-container"
                 :class="{ 'active': slide.isActive}"
@@ -34,10 +46,10 @@
                 <img class="portfolio-devices" :src="currentProject.mockup" alt="Mockup">
                 <div class="dual-buttons">
                 <a target="_blank" :href="currentProject.visit">
-                    <button class="btn">Visit<i className="material-icons">public</i></button>
+                    <button class="btn">Visit<i className="material-icons right">public</i></button>
                 </a>
                 <a target="_blank" :href="currentProject.code">
-                    <button class="btn">Code<i className="material-icons">code</i></button>
+                    <button class="btn">Code<i className="material-icons right">code</i></button>
                 </a>
                 </div>
             </div>
@@ -266,18 +278,14 @@ export default {
     .portfolio-devices {
         width: 100%;
     }
-    /* .paint-pics {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    } */
+    .paint-pics {
+        padding: 0 40px;
+        width: 100%;
+        overflow: hidden;
+    }
     .paint-pic-container {
-        /* width: 200px; */
-        /* width: 25%; */
-        /* text-align: center; */
-        /* padding: 10px; */
         cursor: pointer;
+        padding: 10px;
     }
     .paint-pic {
         width: 100%;
