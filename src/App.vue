@@ -49,11 +49,38 @@ export default {
         console.log('Log:',msg);
     },
     handleGameToggled() {
-      this.playingGame = !this.playingGame;
+      if (this.playingGame) {
+        this.playingGame = false;
+        history.replaceState(null,null,window.location.pathname)
+      } else {
+        this.playingGame = true;
+        history.replaceState('game','','?game=true')
+      }
+      console.log(this.playingGame)
       if (!this.playingGame) {
         this.gameStarted = false;
       }
       console.log(this.playingGame)
+    }
+  },
+  created: function() {
+    let url = window.location.href.split('?');
+    if (url.length == 2)
+    {
+      let vars = url[1].split('&');
+      let getVars = {};
+      let tmp = '';
+      const $this = this;
+      vars.forEach(function(v){
+        tmp = v.split('=');
+        if(tmp.length == 2) {
+          getVars[tmp[0]] = tmp[1];
+          if (tmp[0] == 'game' && tmp[1] == 'true') {
+            console.log("sup yo")
+            $this.handleGameToggled();
+          }
+        }
+      });
     }
   }
 }
