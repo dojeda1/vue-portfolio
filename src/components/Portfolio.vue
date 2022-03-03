@@ -13,6 +13,7 @@
             @before-slide="logEvents('before-slide', $event)" -->
         <div class="paint-pics">
             <vueper-slides class="no-shadow"
+            ref="projectVueperSlides"
             @slide="logEvents('slide', $event)"
             :touchable="false"
             :infinite="true"
@@ -35,7 +36,7 @@
                 <vueper-slide v-for="(slide, index) in projects" :key="index"
                 class="paint-pic-container"
                 :class="{ 'active': slide.isActive}"
-                @click="swapProject(index)"
+                @click="$refs.projectVueperSlides.goToSlide(index)"
                 :content="createSlide(slide)"
                 >
                 

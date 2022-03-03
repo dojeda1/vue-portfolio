@@ -86,7 +86,7 @@ export default {
       width: 100px;
       height: 100%;
       text-align: center;
-      z-index: 3;
+      z-index: 4;
   }
   .nav-link {
       color: white;

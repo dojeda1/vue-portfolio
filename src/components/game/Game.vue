@@ -1123,7 +1123,7 @@ export default {
         background-position: center; 
         position: fixed;
         top: 0;
-        z-index: 2;
+        z-index: 3;
         overflow: auto;
 
         animation-timing-function: ease;
