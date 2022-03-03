@@ -117,7 +117,7 @@ export default {
             projects: [
                 {
                     title: "Meal Planner",
-                    mockup: "/images/meal-planner/meal-planner-mockup.png",
+                    mockup: "/images/meal-planner/meal-planner-mock.png",
                     paint: "/images/meal-planner/meal-planner-paint.png",
                     img1: "/images/meal-planner/meal-planner-search.jpg",
                     img2: "/images/meal-planner/meal-planner-fav.jpg",
@@ -130,7 +130,7 @@ export default {
                 },
                 {
                     title: "Wizard Words",
-                    mockup: "/images/wizard-words/wizard-words-mockup.png",
+                    mockup: "/images/wizard-words/wizard-words-mock.png",
                     paint: "/images/wizard-words/wizard-words-paint.png",
                     img1: "/images/wizard-words/wizard-words-guess.jpg",
                     img2: "/images/wizard-words/wizard-words-lose.jpg",
@@ -143,7 +143,7 @@ export default {
                 },
                 {
                     title: "Sci-fi RPG",
-                    mockup: "/images/scifi-rpg/scifi-rpg-mockup.png",
+                    mockup: "/images/scifi-rpg/scifi-rpg-mock.png",
                     paint: "/images/scifi-rpg/scifi-rpg-paint.png",
                     img1: "/images/scifi-rpg/scifi-rpg-lose.jpg",
                     img2: "/images/scifi-rpg/scifi-rpg-win.jpg",
@@ -156,7 +156,7 @@ export default {
                 },
                 {
                     title: "Trial of Socrates",
-                    mockup: "/images/socrates/socrates-mockup.png",
+                    mockup: "/images/socrates/socrates-mock.png",
                     paint: "/images/socrates/socrates-paint.png",
                     img1: "/images/socrates/socrates-prompt.jpg",
                     img2: "/images/socrates/socrates-results.jpg",
@@ -169,7 +169,7 @@ export default {
                 },
                 {
                     title: "Trivia Game",
-                    mockup: "/images/trivia-game/trivia-mockup.png",
+                    mockup: "/images/trivia-game/trivia-mock.png",
                     paint: "/images/trivia-game/trivia-paint.png",
                     img1: "/images/trivia-game/trivia-results.jpg",
                     img2: "/images/trivia-game/trivia-start.jpg",
@@ -182,7 +182,7 @@ export default {
                 },
                 {
                     title: "Fur Butlr",
-                    mockup: "/images/fur-butlr/fur-butlr-mockup.png",
+                    mockup: "/images/fur-butlr/fur-butlr-mock.png",
                     paint: "/images/fur-butlr/fur-butlr-paint.png",
                     img1: "/images/fur-butlr/fur-butlr-results.jpg",
                     img2: "/images/fur-butlr/fur-butlr-update.jpg",
@@ -195,7 +195,7 @@ export default {
                 },
                 {
                     title: "Bug Memory",
-                    mockup: "/images/bug-memory/bug-memory-mockup.png",
+                    mockup: "/images/bug-memory/bug-memory-mock.png",
                     paint: "/images/bug-memory/bug-memory-paint.png",
                     img1: "/images/bug-memory/bug-memory-win.jpg",
                     img2: "/images/bug-memory/bug-memory-lose.jpg",
@@ -208,7 +208,7 @@ export default {
                 },
                 {
                     title: "Book Finder",
-                    mockup: "/images/book-finder/book-finder-mockup.png",
+                    mockup: "/images/book-finder/book-finder-mock.png",
                     paint: "/images/book-finder/book-finder-paint.png",
                     img1: "/images/book-finder/book-finder-home.jpg",
                     img2: "/images/book-finder/book-finder-results.jpg",
@@ -287,6 +287,7 @@ export default {
     }
     .portfolio-devices {
         width: 100%;
+        margin-bottom: 1rem;
     }
     .paint-pics {
         padding: 0 40px;
