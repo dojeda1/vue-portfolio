@@ -12,7 +12,7 @@
             <img class="footer-icon" src="/images/web-portfolio/resume-logo.png" alt="Resume Logo" />
         </a>
     </div>
-    <p class="text-blue">Copyright © 2021 - Dominic Ojeda</p>
+    <p class="text-blue">Copyright © 2022 - Dominic Ojeda</p>
 </div>
 </template>
 
