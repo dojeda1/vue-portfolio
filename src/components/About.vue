@@ -18,42 +18,56 @@
                     <h5 class=" text-jade">My Tool Belt</h5>
                 </div>
                 <div class="tool-logos">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/html-logo.png" alt="HTML Logo"
-                        :class="{'rotate': isRotated[0]}"
-                        @click="rotate(0)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/css-logo.png" alt="CSS Logo"
-                        :class="{'rotate': isRotated[1]}"
-                        @click="rotate(1)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/js-logo.png" alt="JS Logo"
-                        :class="{'rotate': isRotated[2]}"
-                        @click="rotate(2)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/jquery-logo.png" alt="jQuery Logo"
-                        :class="{'rotate': isRotated[3]}"
-                        @click="rotate(3)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/react-logo.png" alt="React Logo"
-                        :class="{'rotate': isRotated[4]}"
-                        @click="rotate(4)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/node-logo.png" alt="Node Logo"
-                        :class="{'rotate': isRotated[5]}"
-                        @click="rotate(5)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/mongodb-logo.png" alt="MongoDB Logo"
-                        :class="{'rotate': isRotated[6]}"
-                        @click="rotate(6)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/mysql-logo.png" alt="mySQL Logo"
-                        :class="{'rotate': isRotated[7]}"
-                        @click="rotate(7)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/bootstrap-logo.png" alt="Bootstrap Logo"
-                        :class="{'rotate': isRotated[8]}"
-                        @click="rotate(8)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/materialize-logo.png" alt="Materialize Logo"
-                        :class="{'rotate': isRotated[9]}"
-                        @click="rotate(9)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/ps-logo.png" alt="Photoshop Logo"
-                        :class="{'rotate': isRotated[10]}"
-                        @click="rotate(10)">
-                    <img class="tool-logo" src="/images/web-portfolio/tool-logos/illustrator-logo.png" alt="Illustrator Logo"
-                        :class="{'rotate': isRotated[11]}"
-                        @click="rotate(11)">
+                        <!-- Majority of logo obtained from https://devicon.dev/ -->
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain-wordmark.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[0]}"
+                            @click="rotate(0)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[1]}"
+                            @click="rotate(1)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[2]}"
+                            @click="rotate(2)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[3]}"
+                            @click="rotate(3)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original-wordmark.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[4]}"
+                            @click="rotate(4)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[5]}"
+                            @click="rotate(5)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-plain-wordmark.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[6]}"
+                            @click="rotate(6)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain-wordmark.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[7]}"
+                            @click="rotate(7)"/>
+                        <img src="https://cdn.shopify.com/assets/images/logos/shopify-bag.png"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[8]}"
+                            @click="rotate(8)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[9]}"
+                            @click="rotate(9)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[10]}"
+                            @click="rotate(10)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg"
+                            class="tool-logo"
+                            :class="{'rotate': isRotated[11]}"
+                            @click="rotate(11)"/>
+
                 </div>
             </div>
         </div>
