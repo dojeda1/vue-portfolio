@@ -20,50 +20,62 @@
                 <div class="tool-logos">
                         <!-- Majority of logo obtained from https://devicon.dev/ -->
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain-wordmark.svg"
+                            alt="HTML5"
                             class="tool-logo"
                             :class="{'rotate': isRotated[0]}"
                             @click="rotate(0)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain-wordmark.svg"
+                            alt="CSS"
                             class="tool-logo"
                             :class="{'rotate': isRotated[1]}"
                             @click="rotate(1)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg"
+                            alt="JavaScript"
                             class="tool-logo"
                             :class="{'rotate': isRotated[2]}"
                             @click="rotate(2)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
+                            alt="NodeJS"
                             class="tool-logo"
                             :class="{'rotate': isRotated[3]}"
                             @click="rotate(3)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original-wordmark.svg"
+                            alt="VueJS"
                             class="tool-logo"
                             :class="{'rotate': isRotated[4]}"
                             @click="rotate(4)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg"
+                            alt="React"
                             class="tool-logo"
                             :class="{'rotate': isRotated[5]}"
                             @click="rotate(5)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-plain-wordmark.svg"
+                            alt="MongoDB"
                             class="tool-logo"
                             :class="{'rotate': isRotated[6]}"
                             @click="rotate(6)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-plain-wordmark.svg"
+                            alt="MySQL"
                             class="tool-logo"
                             :class="{'rotate': isRotated[7]}"
                             @click="rotate(7)"/>
                         <img src="https://cdn.shopify.com/assets/images/logos/shopify-bag.png"
+                            alt="Shopify"
                             class="tool-logo"
                             :class="{'rotate': isRotated[8]}"
                             @click="rotate(8)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg"
+                            alt="Amazon Web Services"
                             class="tool-logo"
                             :class="{'rotate': isRotated[9]}"
                             @click="rotate(9)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg"
+                            alt="Photoshop"
                             class="tool-logo"
                             :class="{'rotate': isRotated[10]}"
                             @click="rotate(10)"/>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg"
+                            alt="Illustrator"
                             class="tool-logo"
                             :class="{'rotate': isRotated[11]}"
                             @click="rotate(11)"/>
@@ -164,7 +176,6 @@ export default {
         align-content: center;
     }
     .tool-logo {
-        /* width: 50px; */
         width: 25%;
         height: 100%;
         padding: 10px;

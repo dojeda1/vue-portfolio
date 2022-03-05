@@ -1118,7 +1118,7 @@ export default {
         width: calc(100% - 100px);
         height: 100%;
         background-color: #212121;
-        background-image: url("/images/web-portfolio/game/map.jpg");
+        background-image: url("/images/game/world-map.jpg");
         background-size: cover;
         background-position: center; 
         position: fixed;
