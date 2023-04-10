@@ -123,7 +123,7 @@ export default {
                     img1: "/images/meal-planner/meal-planner-preview-1.jpg",
                     img2: "/images/meal-planner/meal-planner-preview-2.jpg",
                     img3: "/images/meal-planner/meal-planner-preview-3.jpg",
-                    visit: "https://vue-meal-planner.herokuapp.com/",
+                    visit: "https://vue-meal-planner-dojeda1.vercel.app/",
                     code: "https://github.com/dojeda1/vue-meal-planner",
                     sum: "Using the Spoonacular API, Meal Planner allows you to look up recipes with optional dietary restrictions and save them to your favorites. You can view recipe cards to see a meal's ingredients and instructions. From the Calendar page, you can choose any recipe from your favorites, add it to a meal period on your weekly calendar, and save the plan for later. Both the favorites and the weekly meal plan are stored using Firebase's Cloud Firestore database.",
                     list: ["HTML", "CSS", "JavaScript", "Vue.js", "Materialize", "Firebase", "Spoonacular API", "Heal Thru Words API"],
