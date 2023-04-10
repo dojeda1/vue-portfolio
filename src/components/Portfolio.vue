@@ -63,7 +63,7 @@
                 <h6 class=" text-green">- About the Project -</h6>
                 <p>{{ currentProject.sum }}</p>
                 <h6 class=" text-green">- Made Using -</h6>
-                <p>{{ currentProject.list.join(', ') }}</p>
+                <p>{{ currentProject.list.join(' &#8226; ') }}</p>
             </div>
             <div class="col-4 s_col-12">
                 <img class="preview-img" alt="Screenshot 1"
