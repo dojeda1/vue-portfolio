@@ -214,7 +214,7 @@ export default {
                     img1: "/images/book-finder/book-finder-preview-1.jpg",
                     img2: "/images/book-finder/book-finder-preview-2.jpg",
                     img3: "/images/book-finder/book-finder-preview-3.jpg",
-                    visit: "https://google-books-mern.herokuapp.com/",
+                    visit: "https://book-search-dojeda1.vercel.app/",
                     code: "https://github.com/dojeda1/book-search",
                     sum: "Search through a large database of books with the help of the Google Books API. User inputs the title of a book and results are displayed below. They can then visit the google URL, save the book in a MongoDB database for later, or delete it from saved books.",
                     list: ["HTML", "CSS", "JavaScript", "React.js", "MongoDB", "Mongoose", "Google Books API"],
