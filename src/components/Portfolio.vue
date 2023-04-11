@@ -181,19 +181,19 @@ export default {
                     list: ["HTML", "CSS", "JavaScript", "jQuery", "Bootstrap"],
                     isActive: false
                 },
-                {
-                    title: "Fur Butlr",
-                    mockup: "/images/fur-butlr/fur-butlr-mock.png",
-                    paint: "/images/fur-butlr/fur-butlr-paint.png",
-                    img1: "/images/fur-butlr/fur-butlr-preview-1.jpg",
-                    img2: "/images/fur-butlr/fur-butlr-preview-2.jpg",
-                    img3: "/images/fur-butlr/fur-butlr-preview-3.jpg",
-                    visit: "https://fur-butlr-app.herokuapp.com/",
-                    code: "https://github.com/ApexPanda/FurButler",
-                    sum: "A place where pet owners can meet each other and search for pet services like walkers, groomers or sitters. Fur Butlr lets you create a profile, login in, edit your page, and show off your pets.",
-                    list: ["HTML", "CSS", "JavaScript", "jQuery", "Materialize", "MySQL", "Node.js", "Sequelize"],
-                    isActive: false
-                },
+                // {
+                //     title: "Fur Butlr",
+                //     mockup: "/images/fur-butlr/fur-butlr-mock.png",
+                //     paint: "/images/fur-butlr/fur-butlr-paint.png",
+                //     img1: "/images/fur-butlr/fur-butlr-preview-1.jpg",
+                //     img2: "/images/fur-butlr/fur-butlr-preview-2.jpg",
+                //     img3: "/images/fur-butlr/fur-butlr-preview-3.jpg",
+                //     visit: "https://fur-butlr-app.herokuapp.com/",
+                //     code: "https://github.com/ApexPanda/FurButler",
+                //     sum: "A place where pet owners can meet each other and search for pet services like walkers, groomers or sitters. Fur Butlr lets you create a profile, login in, edit your page, and show off your pets.",
+                //     list: ["HTML", "CSS", "JavaScript", "jQuery", "Materialize", "MySQL", "Node.js", "Sequelize"],
+                //     isActive: false
+                // },
                 {
                     title: "Bug Memory",
                     mockup: "/images/bug-memory/bug-memory-mock.png",
@@ -206,20 +206,20 @@ export default {
                     sum: "Test your memory by selecting every bug card without choosing the same one twice. Each time one is chosen, the game will shuffle the cards and display them in a random order using REACT. If you select the same bug twice, you lose!",
                     list: ["HTML", "CSS", "JavaScript", "Bootstrap", "React.js", "Node.js"],
                     isActive: false
-                },
-                {
-                    title: "Book Finder",
-                    mockup: "/images/book-finder/book-finder-mock.png",
-                    paint: "/images/book-finder/book-finder-paint.png",
-                    img1: "/images/book-finder/book-finder-preview-1.jpg",
-                    img2: "/images/book-finder/book-finder-preview-2.jpg",
-                    img3: "/images/book-finder/book-finder-preview-3.jpg",
-                    visit: "https://book-search-dojeda1.vercel.app/",
-                    code: "https://github.com/dojeda1/book-search",
-                    sum: "Search through a large database of books with the help of the Google Books API. User inputs the title of a book and results are displayed below. They can then visit the google URL, save the book in a MongoDB database for later, or delete it from saved books.",
-                    list: ["HTML", "CSS", "JavaScript", "React.js", "MongoDB", "Mongoose", "Google Books API"],
-                    isActive: false
                 }
+                // {
+                //     title: "Book Finder",
+                //     mockup: "/images/book-finder/book-finder-mock.png",
+                //     paint: "/images/book-finder/book-finder-paint.png",
+                //     img1: "/images/book-finder/book-finder-preview-1.jpg",
+                //     img2: "/images/book-finder/book-finder-preview-2.jpg",
+                //     img3: "/images/book-finder/book-finder-preview-3.jpg",
+                //     visit: "https://book-search-dojeda1.vercel.app/",
+                //     code: "https://github.com/dojeda1/book-search",
+                //     sum: "Search through a large database of books with the help of the Google Books API. User inputs the title of a book and results are displayed below. They can then visit the google URL, save the book in a MongoDB database for later, or delete it from saved books.",
+                //     list: ["HTML", "CSS", "JavaScript", "React.js", "MongoDB", "Mongoose", "Google Books API"],
+                //     isActive: false
+                // }
             ]
         }
     },
