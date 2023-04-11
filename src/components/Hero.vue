@@ -10,7 +10,7 @@
             <a href="https://github.com/dojeda1" target="blank">
                 <img class="hero-icon" src="/images/web-portfolio/github-logo.png" alt="GitHub Logo" />
             </a>
-            <a href="/files/dro_resume.pdf" target="blank">
+            <a href="/files/dominic-ojeda_resume.pdf" target="blank">
                 <img class="hero-icon" src="/images/web-portfolio/resume-logo.png" alt="Resume Logo" />
             </a>
         </div>

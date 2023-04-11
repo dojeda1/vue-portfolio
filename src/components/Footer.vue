@@ -8,11 +8,11 @@
         <a href="https://github.com/dojeda1" target="blank">
             <img class="footer-icon" src="/images/web-portfolio/github-logo.png" alt="GitHub Logo" />
         </a>
-        <a href="/files/dro_resume.pdf" target="blank">
+        <a href="/files/dominic-ojeda_resume.pdf" target="blank">
             <img class="footer-icon" src="/images/web-portfolio/resume-logo.png" alt="Resume Logo" />
         </a>
     </div>
-    <p class="text-blue">Copyright © 2022 - Dominic Ojeda</p>
+    <p class="text-blue">Copyright © 2023 - Dominic Ojeda</p>
 </div>
 </template>
 
