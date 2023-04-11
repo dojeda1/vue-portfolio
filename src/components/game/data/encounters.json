@@ -58,6 +58,7 @@
         "name": "Tavern",
         "type": "common",
         "sprite": "/images/game/tavern.png",
+        "itemSprite": "",
         "note": ""
     },
     {
