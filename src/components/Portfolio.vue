@@ -130,6 +130,19 @@ export default {
                     isActive: true
                 },
                 {
+                    title: "Bug Memory",
+                    mockup: "/images/bug-memory/bug-memory-mock.png",
+                    paint: "/images/bug-memory/bug-memory-paint.png",
+                    img1: "/images/bug-memory/bug-memory-preview-1.jpg",
+                    img2: "/images/bug-memory/bug-memory-preview-2.jpg",
+                    img3: "/images/bug-memory/bug-memory-preview-3.jpg",
+                    visit: "https://bug-memory.vercel.app/",
+                    code: "https://github.com/dojeda1/memory-game",
+                    sum: "Test your memory by selecting every bug card without choosing the same one twice. Each time one is chosen, the game will shuffle the cards and display them in a random order using REACT. If you select the same bug twice, you lose!",
+                    list: ["HTML", "CSS", "JavaScript", "Bootstrap", "React.js", "Node.js"],
+                    isActive: false
+                },
+                {
                     title: "Wizard Words",
                     mockup: "/images/wizard-words/wizard-words-mock.png",
                     paint: "/images/wizard-words/wizard-words-paint.png",
@@ -194,19 +207,6 @@ export default {
                 //     list: ["HTML", "CSS", "JavaScript", "jQuery", "Materialize", "MySQL", "Node.js", "Sequelize"],
                 //     isActive: false
                 // },
-                {
-                    title: "Bug Memory",
-                    mockup: "/images/bug-memory/bug-memory-mock.png",
-                    paint: "/images/bug-memory/bug-memory-paint.png",
-                    img1: "/images/bug-memory/bug-memory-preview-1.jpg",
-                    img2: "/images/bug-memory/bug-memory-preview-2.jpg",
-                    img3: "/images/bug-memory/bug-memory-preview-3.jpg",
-                    visit: "https://bug-memory.vercel.app/",
-                    code: "https://github.com/dojeda1/memory-game",
-                    sum: "Test your memory by selecting every bug card without choosing the same one twice. Each time one is chosen, the game will shuffle the cards and display them in a random order using REACT. If you select the same bug twice, you lose!",
-                    list: ["HTML", "CSS", "JavaScript", "Bootstrap", "React.js", "Node.js"],
-                    isActive: false
-                }
                 // {
                 //     title: "Book Finder",
                 //     mockup: "/images/book-finder/book-finder-mock.png",

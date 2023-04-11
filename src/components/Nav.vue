@@ -8,7 +8,7 @@
         <a href="#portfolio" class="nav-link">Portfolio</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#contact" class="nav-link">Contact</a>
-        <a href="/files/dro_resume.pdf" target="blank" class="nav-link">Resume</a>
+        <a href="/files/dominic-ojeda_resume.pdf" target="blank" class="nav-link">Resume</a>
         <div class="nav-link text-gray" @click="gameToggled">{{code}}</div>
       </template>
       <template v-else>
